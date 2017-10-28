@@ -4,10 +4,12 @@
 
 <body>
 
-
+<<<<<<< HEAD
   <h1>Merge Conflict</h1>
   <h1>What up</h1>
-
+=======
+  <h1>Forcing merge conflict</h1>
+>>>>>>> 334c6093d51c79e5b401b853bcb9bf73656874c3
 
   {{> hello}}
   {{> info}}
