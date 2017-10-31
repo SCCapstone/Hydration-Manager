@@ -1,0 +1,47 @@
+<head>
+    <title>Hydration Manager</title>
+</head>
+
+<body>
+
+<h1>Hydration Manager</h1>
+
+<p>Background Image</p><br>
+<p>Logo</p><br>
+
+User.emailAddress Entry:<br>
+<input type="email"><br>
+User.password Entry:<br>
+<input type="password"><br><br><br>
+
+{{> login}} <br><br>
+{{> register}} <br><br>
+{{> forgot}} <br><br>
+
+<p name="tagline">A University of South Carolina Capstone Project</p>
+
+</body>
+
+<template name="login">
+    <button>Login</button>
+</template>
+
+<template name="register">
+    <button>Register</button>
+</template>
+
+<template name="forgot">
+    <button>Forgot Password</button>
+</template>
+
+
+
+<template name="leavingthisforreference">
+    <h2>Learn Meteor!</h2>
+    <ul>
+        <li><a href="https://www.meteor.com/try" target="_blank">Do the Tutorial</a></li>
+        <li><a href="http://guide.meteor.com" target="_blank">Follow the Guide</a></li>
+        <li><a href="https://docs.meteor.com" target="_blank">Read the Docs</a></li>
+        <li><a href="https://forums.meteor.com" target="_blank">Discussions</a></li>
+    </ul>
+</template>
