@@ -6,16 +6,37 @@
 
   <h1>Hydration Manager</h1>
 
-  //{{> hello}}
-  //{{> info}}
+  <p>Background Image</p><br>
+  <p>Logo</p><br>
+
+  User.emailAddress Entry:<br>
+  <input type="email"><br>
+  User.password Entry:<br>
+  <input type="password"><br><br><br>
+
+  {{> login}} <br><br>
+  {{> register}} <br><br>
+  {{> forgot}} <br><br>
+
+  <p name="tagline">A University of South Carolina Capstone Project</p>
+
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="login">
+  <button>Login</button>
 </template>
 
-<template name="info">
+<template name="register">
+    <button>Register</button>
+</template>
+
+<template name="forgot">
+    <button>Forgot Password</button>
+</template>
+
+
+
+<template name="leavingthisforreference">
   <h2>Learn Meteor!</h2>
   <ul>
     <li><a href="https://www.meteor.com/try" target="_blank">Do the Tutorial</a></li>
