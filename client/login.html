@@ -1,26 +1,82 @@
 <head>
     <title>Hydration Manager</title>
+
+    <!-- Utilizing PURECSS.IO for styling help-->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <style>
+        body {
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+        }
+        .input {
+            margin: 0 auto;
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>Hydration Manager</h1>
+  <h1>Hydration Manager</h1>
 
-<p>Background Image</p><!--Background img link -->
-<p>Logo</p><br><!--img link -->
+  <!--Background img link -->
+  <!--img link (we may need to get school permission to use this?-->
+  <!-- This image refuses to work. May need to find a png -->
+    <img src="South_Carolina_Gamecocks_logo.svg" alt="Gamecock Logo">
+  <!--
+  I pulled some example code from a previous project of mine that utilized Angular.js
+  I am leaving this code down below until I can figure out how to implement w/ react
+  -afraznein
+  -->
 
-<!--User.emailAddress Entry:-->
-<input type="email" placeholder="Email"><br>
-<!--User.password Entry:-->
-<input type="password" placeholder="Password"><br><br>
+  <br><br>
+  <form class="pure-form pure-form-aligned">
+      <fieldset>
+          <div class="pure-control-group">
+              <input id="emailAddress" type="email" placeholder="Email">
+          </div>
+          <div class="pure-control-group">
+              <input id="password" type="password" placeholder="Password">
+          </div>
+          <br><br>
+          <div>
+          <button class="pure-button pure-button-primary">Login</button><br><br>
+          <button class="pure-button pure-button-primary">Register</button><br><br>
+          <button class="pure-button">Forgot Password</button>
+          </div>
+      </fieldset>
+  </form>
 
-{{> login}} <br><br>
-{{> register}} <br><br>
-{{> forgot}} <br><br>
+
+  <!--
+       <img style="width: 100px; height: 100px; margin: auto;" src="img/local_image_name_here.png">
+       <div class="list list-inset">
+       <label class="item item-input">
+       <input type="text" placeholder="Email" ng-model="user.username">
+       </label>
+       <label class="item item-input">
+       <input type="password" placeholder="Password" ng-model="user.password">
+       </label>
+       </div>
+
+       <button class="button button-full button-positive" ng-click="login(user)"> Login </button>
+       <button class="button button-full button-positive" ng-click="register()"> Register </button>
+    -->
+  <!--
+  {{> login}} <br><br>
+  {{> register}} <br><br>
+  {{> forgot}} <br><br>
+  -->
 
 <sub name="tagline">A University of South Carolina Capstone Project</sub>
 
 </body>
+
+
 
 <template name="login">
     <button>Login</button>
@@ -33,8 +89,6 @@
 <template name="forgot">
     <button>Forgot Password</button>
 </template>
-
-
 
 <template name="leavingthisforreference">
     <h2>Learn Meteor!</h2>
