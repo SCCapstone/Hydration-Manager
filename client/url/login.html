@@ -4,28 +4,45 @@
 
     <!-- Utilizing PURECSS.IO for styling help-->
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 
 
     <style>
         body {
             text-align: center;
+            background-image: url("../img/background.jpg");
+            <!--background-color: #73000a;-->
             }
         h1 {
             text-align: center;
         }
-        .background-image{
+        .background{
             position: absolute;
             width:100%;
             height:100%;
-            background-image: url(img/background.jpg);
         }
+        .pure-form{
+            margin: 0 auto;
+        }
+
+        .pure-form-aligned{
+            margin: 0 auto;
+        }
+        .pure-control-group{
+            width: 50%;
+            margin: 0 auto;
+        }
+        .content{
+            margin: 0 auto;
+        }
+
     </style>
 </head>
 
 <body>
 
-  <div class="background-image">
+  <div class="background">
+
   <div class="content">
 
   <h1>Hydration Manager</h1>
@@ -35,7 +52,7 @@
 
   <!--img link (we may need to get school permission to use this?-->
   <!-- This image refuses to work. May need to find a png -->
-    <img src="img/South_Carolina_Gamecocks_logo.svg" alt="Gamecock Logo">
+    <img src="../img/South_Carolina_Gamecocks_logo.svg" alt="Gamecock Logo">
   <!--
   I pulled some example code from a previous project of mine that utilized Angular.js
   I am leaving this code down below until I can figure out how to implement w/ react
