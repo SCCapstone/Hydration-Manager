@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Form from 'muicss/lib/react/form';
 import Input from 'muicss/lib/react/input';
 import Button from 'muicss/lib/react/button';
+import Container from 'muicss/lib/react/container';
 
 {/* CSS : https://www.muicss.com/docs/v1/react/introduction */}
 
@@ -31,24 +32,25 @@ class Header extends React.Component {
 {/* I put the entire thing in a container so it doesn't streach the entire screen*/}
 
 class Content extends React.Component {
-    render(){
-        return(
-            <div className = "mui--text-center" >
+    render() {
+        return (
+            <div className="mui--text-center">
                 <Container>
-                    <Form className = "mui--text-left" >
-                        <Input label = "Email Address" type = "email" floatingLabel = {true} required = {true} />
-                        <Input label = "Password" type = "password" floatingLabel = {true} required = {true} />
+                    <Form className="mui--text-left">
+                        <Input label="Email Address" type="email" floatingLabel={true} required={true}/>
+                        <Input label="Password" type="password" floatingLabel={true} required={true}/>
                     </Form>
                     <br/>
-                    <Button variant = "raised">Login</Button>
-                    <Button variant = "raised">Register</Button>
+                    <Button variant="raised">Login</Button>
+                    <Button variant="raised">Register</Button>
                     <br/>
-                    <Button variant = "raised">Forgot Password</Button>
+                    <Button variant="raised">Forgot Password</Button>
                     <br/>
-                    <sub name = "tagline">A University of South Carolina Capstone Project</sub>
+                    <sub name="tagline">A University of South Carolina Capstone Project</sub>
                 </Container>
             </div>
         )
     }
+}
 
 
