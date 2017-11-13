@@ -6,7 +6,12 @@ import Home from '../../ui/pages/Home.jsx';
 import Dashboard from '../../ui/pages/Dashboard.jsx';
 import { LoginLayout } from '../../ui/layouts/login_layout';
 
+FlowRouter.notfound = {
+    action: mount(LoginLayout, {
+        content: <h1>404: Not Found</h1>
+    })
 
+}
 
 FlowRouter.route('/', {
     name: 'login',
