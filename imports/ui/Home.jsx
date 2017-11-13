@@ -10,14 +10,14 @@ export default class Home extends React.Component {
     render() {
         return (
             <div>
-                <header/>
-                <login/>
+                <Header/>
+                <Login/>
             </div>
         )
     }
 }
 
-class header extends React.Component {
+class Header extends React.Component {
     render(){
         return(
             <div className = "mui--text-center">
@@ -31,7 +31,7 @@ class header extends React.Component {
 {/* TODO: If only can figure out how to apply css to the Form and the Inputs so that it doesnt strech the entire screen */}
 {/* I put the entire thing in a container so it doesn't streach the entire screen*/}
 
-class login extends React.Component {
+class Login extends React.Component {
     render() {
         return (
             <div className="mui--text-center">
@@ -53,7 +53,8 @@ class login extends React.Component {
     }
 }
 
-class registration extends React.Component {
+/*
+class Registration extends React.Component {
     render() {
         return (
             <div className="mui--text-center">
@@ -64,7 +65,7 @@ class registration extends React.Component {
     }
 }
 
-class forgotpassword extends React.Component {
+class Forgotpassword extends React.Component {
     render() {
         return (
             <div className="mui--text-center">
@@ -75,7 +76,7 @@ class forgotpassword extends React.Component {
     }
 }
 
-class main extends React.Component {
+class Main extends React.Component {
     render() {
         return (
             <div className="mui--text-center">
@@ -86,7 +87,7 @@ class main extends React.Component {
     }
 }
 
-class dataentry extends React.Component {
+class Dataentry extends React.Component {
     render() {
         return (
             <div className="mui--text-center">
@@ -97,7 +98,7 @@ class dataentry extends React.Component {
     }
 }
 
-class masterreport extends React.Component {
+class Masterreport extends React.Component {
     render() {
         return (
             <div className="mui--text-center">
@@ -108,7 +109,7 @@ class masterreport extends React.Component {
     }
 }
 
-class alerts extends React.Component {
+class Alerts extends React.Component {
     render() {
         return (
             <div className="mui--text-center">
@@ -119,7 +120,7 @@ class alerts extends React.Component {
     }
 }
 
-class athletereport extends React.Component {
+class Athletereport extends React.Component {
     render() {
         return (
             <div className="mui--text-center">
@@ -130,7 +131,7 @@ class athletereport extends React.Component {
     }
 }
 
-class teammanagement extends React.Component {
+class Teammanagement extends React.Component {
     render() {
         return (
             <div className="mui--text-center">
@@ -141,7 +142,7 @@ class teammanagement extends React.Component {
     }
 }
 
-class userpermissions extends React.Component {
+class Userpermissions extends React.Component {
     render() {
         return (
             <div className="mui--text-center">
@@ -151,3 +152,4 @@ class userpermissions extends React.Component {
         )
     }
 }
+*/
