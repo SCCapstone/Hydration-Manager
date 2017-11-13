@@ -9,6 +9,7 @@
     "meteor-node-stubs": "~0.2.4",
     "muicss": "^0.9.28",
     "react": "^16.1.0",
-    "react-dom": "^16.1.0"
+    "react-dom": "^16.1.0",
+    "react-mounter": "^1.2.0"
   }
 }
