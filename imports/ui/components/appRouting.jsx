@@ -8,14 +8,16 @@ import Logout from './logout.jsx';
 
 /* Routing for the main application */
 
-export const AppRouting = () => (
+export const AppRouting = ( {match} ) => (
     <main>
         <Switch>
-            <Route exact path='/' component={Home}/>
-            <Route path='/weightEntry' component={WeightEntry}/>
-            <Route path='/masterReport' component={MasterReport}/>
-            <Route path='/alerts' component={Alerts}/>
-            <Route path='/logout' component={Logout}/>
+            <Route exact path='/app' component={Home}/>
+            <Route path='/app/weightEntry' component={WeightEntry}/>
+            <Route path='/app/masterReport' component={MasterReport}/>
+            <Route path='/app/alerts' component={Alerts}/>
+            <Route path='/app/logout' component={Logout}/>
         </Switch>
     </main>
 )
+
+

@@ -21,7 +21,7 @@ class Header extends React.Component {
     render(){
         return(
             <div className = "mui--text-center">
-                <h1>Hydration Mangager</h1>
+                <h1>Hydration Manager</h1>
                 <br/>
             </div>
         )
@@ -36,7 +36,7 @@ class LoginForm extends React.Component {
     render() {
         return (
             <div className = "mui--text-center">
-                <h1>Hydration Mangager</h1>
+                <h1>Hydration Manager</h1>
                 <br/>
                 <Container>
                     <Form className = "mui--text-left" >
