@@ -5,7 +5,9 @@ import Container from 'muicss/lib/react/container';
 import Col from 'muicss/lib/react/col';
 import { Header } from './header.jsx';
 import { Navigation } from './navigation.jsx';
-import { Main } from './main.jsx';
+import { AppRouting } from './appRouting.jsx';
+
+/* Contains the main application */
 
 export const App = () => (
     <div>
@@ -13,7 +15,7 @@ export const App = () => (
         <Container fluid = {true}>
             <Navigation />
             <Col sm = "10">
-                <Main />
+                <AppRouting />
             </Col>
         </Container>
     </div>

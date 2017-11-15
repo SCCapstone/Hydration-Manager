@@ -6,7 +6,9 @@ import MasterReport from './masterReport.jsx';
 import Alerts from './alerts.jsx';
 import Logout from './logout.jsx';
 
-export const Main = () => (
+/* Routing for the main application */
+
+export const AppRouting = () => (
     <main>
         <Switch>
             <Route exact path='/' component={Home}/>

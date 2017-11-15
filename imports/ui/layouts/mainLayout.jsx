@@ -5,7 +5,7 @@ import { App } from '../components/app.jsx';
 * security buffer, either directing to login or to the application
 * based on whether the user is logged in.
 * */
-export const Index = () => (
+export const MainLayout = () => (
     <div>
         <App />
     </div>

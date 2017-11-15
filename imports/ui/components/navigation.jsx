@@ -5,6 +5,8 @@ import Container from 'muicss/lib/react/container';
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 
+/* Side navigation bar for the application */
+
 export const Navigation = () => (
     <Col sm = "2">
         <ul className="nav nav-pills nav-stacked">

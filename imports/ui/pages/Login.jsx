@@ -91,7 +91,7 @@ class Forgotpassword extends React.Component {
     }
 }
 
-class Main extends React.Component {
+class AppRouting extends React.Component {
     render() {
         return (
             <div className="mui--text-center">
