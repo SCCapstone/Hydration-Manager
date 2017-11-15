@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { render } from 'react-dom';
-import Home from '../imports/ui/pages/Home.jsx';
+import Home from '../imports/ui/pages/Login.jsx';
 import '/imports/startup/client'
 
 /*

@@ -6,12 +6,12 @@ import Container from 'muicss/lib/react/container';
 
 {/* CSS : https://www.muicss.com/docs/v1/react/introduction */}
 
-export default class Home extends React.Component {
+export default class Login extends React.Component {
     render() {
         return (
             <div>
                 <Header/>
-                <Login/>
+                <LoginForm/>
             </div>
         )
     }
@@ -31,7 +31,7 @@ class Header extends React.Component {
 {/* TODO: If only can figure out how to apply css to the Form and the Inputs so that it doesnt strech the entire screen */}
 {/* I put the entire thing in a container so it doesn't streach the entire screen*/}
 
-class Login extends React.Component {
+class LoginForm extends React.Component {
     render() {
         return (
             <div className="mui--text-center">
