@@ -1,6 +1,7 @@
 import React from 'react';
 import { App } from '../components/app.jsx';
 import Login from '../pages/Login.jsx';
+import Registration from '../pages/Registration.jsx';
 import {
     Route,
     Link,
@@ -20,5 +21,6 @@ export const MainLayout = () => (
     <div>
         <Route path = "/app" component={App}/>
         <Route path = "/login" component={Login}/>
+        <Route path = "/registration" component={Registration}/>
     </div>
 )
