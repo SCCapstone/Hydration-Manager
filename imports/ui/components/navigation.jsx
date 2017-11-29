@@ -1,7 +1,6 @@
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import Col from 'muicss/lib/react/col';
-import Button from 'muicss/lib/react/button';
 
 /* Side navigation bar for the application */
 
