@@ -5,6 +5,7 @@ import WeightEntry from './weightEntry.jsx';
 import MasterReport from './masterReport.jsx';
 import Alerts from './alerts.jsx';
 import Logout from './logout.jsx';
+import YourTeams from './yourTeams.jsx';
 
 /* Routing for the main application */
 
@@ -14,6 +15,7 @@ export const AppRouting = ( {match} ) => (
             <Route exact path='/app' component={Home}/>
             <Route path='/app/weightEntry' component={WeightEntry}/>
             <Route path='/app/masterReport' component={MasterReport}/>
+            <Route path='/app/yourTeams' component={YourTeams}/>
             <Route path='/app/alerts' component={Alerts}/>
             <Route path='/app/logout' component={Logout}/>
         </Switch>

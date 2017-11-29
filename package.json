@@ -8,10 +8,10 @@
     "babel-runtime": "^6.26.0",
     "history": "^4.7.2",
     "meteor-node-stubs": "~0.2.4",
-    "muicss": "^0.9.28",
-    "react": "^16.1.0",
+    "muicss": "^0.9.30",
+    "react": "^16.1.1",
     "react-bootstrap": "^0.31.5",
-    "react-dom": "^16.1.0",
+    "react-dom": "^16.1.1",
     "react-mounter": "^1.2.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2"
