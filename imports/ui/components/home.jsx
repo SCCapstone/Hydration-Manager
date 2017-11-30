@@ -20,6 +20,7 @@ export default class Home extends TrackerReact(React.Component) {
 
         this.refs.team.value = ""; /*Resets text box*/
     }
+
     render() {
 /*        let tm = this.teams();
         console.log(this.teams());*/
