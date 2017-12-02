@@ -5,6 +5,8 @@ import Button from 'muicss/lib/react/button';
 import Container from 'muicss/lib/react/container';
 import { Registration } from './Registration.jsx';
 
+import {CurrentUser} from '../../api/users.jsx'
+
 
 {/* CSS : https://www.muicss.com/docs/v1/react/introduction */}
 
@@ -16,32 +18,68 @@ export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.routeToRegistration = this.routeToRegistration.bind(this);
+        this.routeToApp = this.routeToApp.bind(this);
     }
     routeToRegistration () {
        window.location ='/registration';
     }
+    routeToApp () {
+        window.location ='/app';
+    }
+
+    verifyUser(event) {
+      event.preventDefault();
+      {/*var emailAddr = this.refs.emailAddress.value;*/}
+
+      console.log(this.email.controlEl.value)
+      console.log(this.pswd.controlEl.value)
+
+      var emailAddr = this.email.controlEl.value;
+      var pswd = this.pswd.controlEl.value;
+
+      {/* var isUser = SiteUser.findOne({"email": emailAddr, "password": pswd}); */}
+
+      Meteor.call('verifyUser_MM', emailAddr,pswd, (err,data)=> {
+        CurrentUser = data;
+        console.log(CurrentUser);
+        if(data) {
+          this.routeToApp();
+          this.email.controlEl.value = "";
+          this.pswd.controlEl.value = "";
+        } else {
+          Bert.defaults = {hideDelay: 6500}
+          Bert.alert('Invalid Email And/Or Password','warning', 'fixed-top', 'fa-warning');
+        }
+      });
+
+    }
+
     render() {
         return (
             <div className = "mui--text-center">
                 <h1>Hydration Manager</h1>
                 <br/>
                 <Container>
-                    <Form className = "mui--text-left" >
-                        <Input label = "Email Address" type = "email" floatingLabel = {true} required = {true} />
-                        <Input label = "Password" type = "password" floatingLabel = {true} required = {true} />
+                    <Form className = "mui--text-left" onSubmit={this.verifyUser.bind(this)} >
+
+                      <Input ref={el => {this.email = el;}} label = "Email Address" type = "email" floatingLabel = {true} required = {true} />
+                      <Input ref={el => {this.pswd = el;}} label = "Password" type = "password" floatingLabel = {true} required = {true} />
+                      <div>
+                        <Button variant="raised" >Login</Button>
+                      </div>
                     </Form>
-                    <br/>
-                    <Button variant = "raised" >Login</Button>
-                    {/*<Button variant = "raised"><Link to ='/registration'>Register</Link></Button>*/}
-                    {/*The above acomplishes the same thing as a onClick, may have to go back to it for protected links - Justin*/}
-                    <Button variant = "raised" onClick={this.routeToRegistration}>Register</Button>
-                    <br/>
-                    <Button variant = "raised">Forgot Password</Button>
-                    <br/>
-                    <sub name = "tagline">A University of South Carolina Capstone Project</sub>
+
+
                 </Container>
+
+                <br/>
+                <Button variant = "raised" onClick={this.routeToRegistration}>Register</Button>
+                <br/>
+                <Button variant = "raised">Forgot Password</Button>
+                <br/>
+                <sub name = "tagline">A University of South Carolina Capstone Project</sub>
+
             </div>
         )
     }
 }
-

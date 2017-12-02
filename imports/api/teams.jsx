@@ -1,11 +1,1 @@
-Teams = new Mongo.Collection('teams');
-
-if(Meteor.isClient){
-
-}
-
-if(Meteor.isServer){
-    Meteor.startup(function () {
-
-    });
-}
+export const Teams = new Mongo.Collection('teams');

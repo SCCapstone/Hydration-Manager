@@ -1,11 +1,11 @@
-Users = new Mongo.Collection('users');
 
-if(Meteor.isClient){
+export const SiteUser = new Mongo.Collection('siteuser');
 
-}
+{/* NOTE: where attemping to use the newly created database,
+    add the following import statement:
 
-if(Meteor.isServer){
-    Meteor.startup(function () {
+    import {SiteUser} from '../../api/users.jsx'
 
-    });
-}
+    |--> using correct directory hierarchy (instead of above), then
+         can reference 'SiteUser' e.g. SiteUser.insert({})          -- Jacob
+*/}
