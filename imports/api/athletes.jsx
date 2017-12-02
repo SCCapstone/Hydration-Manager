@@ -1,11 +1,2 @@
-Athletes = new Mongo.Collection('athletes');
-
-if(Meteor.isClient){
-
-}
-
-if(Meteor.isServer){
-    Meteor.startup(function () {
-
-    });
-}
+import { Mongo } from 'meteor/mongo';
+export const Athletes = new Mongo.Collection('athletes');

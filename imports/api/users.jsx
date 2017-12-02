@@ -1,11 +1,3 @@
-Users = new Mongo.Collection('users');
+import { Mongo } from 'meteor/mongo';
 
-if(Meteor.isClient){
-
-}
-
-if(Meteor.isServer){
-    Meteor.startup(function () {
-
-    });
-}
+export const Users = new Mongo.Collection('users');
