@@ -6,41 +6,28 @@ import { Modal } from 'react-bootstrap';
 import { ListGroup } from 'react-bootstrap';
 import { ListGroupItem } from 'react-bootstrap';
 
-$(document).ready(function() {
-    var date = new Date();
-
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-
-    if (month < 10) month = "0" + month;
-    if (day < 10) day = "0" + day;
-
-    var today = year + "-" + month + "-" + day;
-    $("#theDate").attr("value", today);
-});
-
 export default class WeightEntry extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             selectedOption: 'PreWeight',
-            selectedDate: new Date()
+            selectedDate: '12-08-2017'
         }
         };
 
     handleOptionChange(changeEvent) {
-        this.setState({
-            selectedOption: changeEvent.target.value
+        this.state = ({
+            selectedOption: changeEvent.value
         });
+        console.log('You have selected:', this.state.selectedOption);
     }
     handleDateChange(changeEvent) {
-        this.setState({
+        this.state = ({
             selectedDate: changeEvent.target.value
         });
+        console.log('The date you selected is:', this.state.selectedDate);
     }
     handleFormSubmit(formSubmitEvent) {
-        formSubmitEvent.preventDefault();
         console.log('The date you selected is:', this.state.selectedDate);
         console.log('You have selected:', this.state.selectedOption);
     }
@@ -48,22 +35,30 @@ export default class WeightEntry extends React.Component {
     render() {
         return (
             <div className="mui--align-center">
-            <span className = "mui--align--center">
+                <span className="mui--pull-left"><h3>Weight Entry</h3></span>
+                <div className="mui--clearfix"></div>
                 <form>
-                <input type="date" value="selectedDate" id="theDate" onChange={this.handleDateChange}/>
-                <div className="radio">
-                    <label>
-                        <input type="radio" value="PreWeight" checked={this.state.selectedOption === 'PreWeight'} onChange={this.handleOptionChange}/>
-                        PreWeight
-                    </label>
-                    <label>
-                        <input type="radio" value="option2" checked={this.state.selectedOption === 'PostWeight'} onChange={this.handleOptionChange}/>
-                        PostWeight
-                    </label>
-                </div>
-                    <Button variant="raised" onClick={this.handleFormSubmit}>Submit</Button>
+                    <div className="mui--text-center">
+                        <br/><br/>
+                        <input type="date" value="selectedDate" onChange={this.handleDateChange}/>
+                        <br/><br/>
+                        <div className="radio">
+                            <label>
+                                <input type="radio" value="PreWeight" defaultChecked={this.state.selectedOption === "PreWeight"} onChange={this.handleOptionChange}/>
+                                PreWeight
+                            </label>
+                            <label>
+
+                            </label>
+                            <label>
+                                <input type="radio" value="PostWeight" checked={this.state.selectedOption === "PostWeight"} onChange={this.handleOptionChange}/>
+                                PostWeight
+                            </label>
+                        </div>
+                        <br/><br/>
+                            <Button variant="raised" onClick={this.handleFormSubmit}>Submit</Button>
+                    </div>
                 </form>
-            </span>
             </div>
             )
     }
