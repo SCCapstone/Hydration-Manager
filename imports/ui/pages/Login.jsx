@@ -5,8 +5,6 @@ import Button from 'muicss/lib/react/button';
 import Container from 'muicss/lib/react/container';
 import { Registration } from './Registration.jsx';
 
-import {CurrentUser} from '../../api/users.jsx'
-
 
 {/* CSS : https://www.muicss.com/docs/v1/react/introduction */}
 
@@ -29,7 +27,6 @@ export default class Login extends React.Component {
 
     verifyUser(event) {
       event.preventDefault();
-      {/*var emailAddr = this.refs.emailAddress.value;*/}
 
       console.log(this.email.controlEl.value)
       console.log(this.pswd.controlEl.value)
@@ -40,8 +37,7 @@ export default class Login extends React.Component {
       {/* var isUser = SiteUser.findOne({"email": emailAddr, "password": pswd}); */}
 
       Meteor.call('verifyUser_MM', emailAddr,pswd, (err,data)=> {
-        CurrentUser = data;
-        console.log(CurrentUser);
+
         if(data) {
           this.routeToApp();
           this.email.controlEl.value = "";

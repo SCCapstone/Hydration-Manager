@@ -7,10 +7,12 @@ import { ListGroup } from 'react-bootstrap';
 import { ListGroupItem } from 'react-bootstrap';
 
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
-import {Teams} from '../../api/teams.jsx'
-import TeamSingle from './teamsingle.jsx'
+import {Teams} from '../../api/teams.jsx';
+import TeamSingle from './teamsingle.jsx';
 
-import {SiteUser} from '../../api/users.jsx'
+import {SiteUser} from '../../api/users.jsx';
+import {CurrentUser} from '../../api/users.jsx';
+
 
 export default class YourTeams extends TrackerReact(React.Component) {
     constructor(props) {
@@ -37,10 +39,10 @@ export default class YourTeams extends TrackerReact(React.Component) {
       var teamName = this.team.controlEl.value;
       var teamSeason = this.season.controlEl.value;
 
-      var curUser = SiteUser.findOne({"currentUser": "true"});
-      var id = curUser._id;
-
       if (teamName != "") {
+        var curUser = CurrentUser.findOne();
+        var id = curUser.userID;
+
         Meteor.call('addNewTeam', teamName,teamSeason,id, ()=> {
           Bert.defaults = {hideDelay: 4500}
           Bert.alert('Team Created','success', 'fixed-top', 'fa-check');
@@ -53,12 +55,16 @@ export default class YourTeams extends TrackerReact(React.Component) {
     }
 
     teams() {
-        return Teams.find().fetch();
+        var curUser = CurrentUser.findOne();
+        console.log(curUser);
+        var id = curUser.userID;
+        return Teams.find({user:id}).fetch();
+
     }
 
     render () {
-        let tm = this.teams();
-        
+        let tm = this.teams;
+
         return (
             <div>
                 <br/>
