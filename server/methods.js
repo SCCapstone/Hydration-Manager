@@ -1,6 +1,8 @@
 import {SiteUser} from '../imports/api/users.jsx'
 import {Teams} from '../imports/api/teams.jsx'
 
+import {CurrentUser} from '../imports/api/users.jsx'
+
 Meteor.methods({
 
   addNewSiteUser(email, password) {
@@ -15,8 +17,12 @@ Meteor.methods({
   verifyUser_MM(emailAddr,pswd) {
     var isUser = SiteUser.findOne({"email": emailAddr, "password": pswd});
 
-    {/* reset all users currentUser field to false
-        -- findAndModify()                          */}
+    {/* delete all current users, then add new current logged-in user */}
+    CurrentUser.remove({});
+    CurrentUser.insert({
+      userID: isUser._id,
+      createdAt: new Date()
+    });
 
     {/* set this users as the current user */}
     SiteUser.update(isUser._id, {
@@ -40,9 +46,9 @@ Meteor.methods({
   },
 
   getCurrentUser() {
-    var curUser = SiteUser.findOne({"currentUser": "true"});
-    {/* console.log(curUser._id); */}
-    return curUser._id;
+    var curUser = CurrentUser.findOne();
+    var id = curUser.userID;
+    return id;
   }
 
 });

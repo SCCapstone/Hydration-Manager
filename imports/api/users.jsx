@@ -9,3 +9,5 @@ export const SiteUser = new Mongo.Collection('siteuser');
     |--> using correct directory hierarchy (instead of above), then
          can reference 'SiteUser' e.g. SiteUser.insert({})          -- Jacob
 */}
+
+export const CurrentUser = new Mongo.Collection('currentUser');
