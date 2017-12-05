@@ -31,26 +31,26 @@ export default class MasterReport extends React.Component {
                 <br/>
                 <div>
                     <span className = "mui--pull-left"><h3>Master Report</h3></span>
-                    <span className = "mui--pull-right"><Button onClick={this.open} color="primary" variant="raised">Create a Player</Button></span>
+                    <span className = "mui--pull-right"><Button onClick={this.open} color="primary" variant="raised">Create an Athlete</Button></span>
                     <div className="mui--clearfix"></div>
                 </div>
                 <div>
                     <Modal show={this.state.showModal} onhide={this.close}>
                         <Modal.Header>
-                            <Modal.Title>Player Entry Form</Modal.Title>
+                            <Modal.Title>Athlete Entry Form</Modal.Title>
                         </Modal.Header>
 
                         <Modal.Body>
                             <Form className = "mui--text-left" >
-                                <Input label = "Player Name" floatingLabel = {true} required = {true} />
-                                <Input label = "Baseline weight" floatingLabel = {true} required = {true} />
+                                <Input label = "Athlete Name" floatingLabel = {true} required = {true} />
+                                <Input label = "Baseline Weight" floatingLabel = {true} required = {true} />
                                 <Input label = "Height" floatingLabel = {true} required = {true} />
                             </Form>
                         </Modal.Body>
                         {/*TODO: Add the team's data to the database*/}
                         <Modal.Footer>
                             <Button onClick={this.close} variant="raised"> Close </Button>
-                            <Button onClick={this.close} variant="raised" color="primary"> Create Player </Button>
+                            <Button onClick={this.close} variant="raised" color="primary"> Create Athlete </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
