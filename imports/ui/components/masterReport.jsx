@@ -32,7 +32,7 @@ export default class MasterReport extends React.Component {
                 <div>
                     <span className = "mui--pull-left"><h3>Master Report</h3></span>
                     <span className = "mui--pull-right"><Button onClick={this.open} color="primary" variant="raised">Create an Athlete</Button></span>
-                    <div className="mui--clearfix"></div>
+                    <div className="mui--clearfix">{/*Null comment*/}</div>
                 </div>
                 <div>
                     <Modal show={this.state.showModal} onhide={this.close}>
@@ -65,7 +65,7 @@ export default class MasterReport extends React.Component {
                             <th>#</th>
                             <th>Last Name, First Name</th>
                             <th>Hydration Level</th>
-                            <th></th>
+                            <th>{/*Null comment*/}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -73,19 +73,19 @@ export default class MasterReport extends React.Component {
                             <td>1</td>
                             <td>Smith, John</td>
                             <td>Test</td>
-                            <td></td>
+                            <td>{/*Null comment*/}</td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>Smith, John</td>
                             <td>Test</td>
-                            <td></td>
+                            <td>{/*Null comment*/}</td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>Smith, John</td>
                             <td>Test</td>
-                            <td></td>
+                            <td>{/*Null comment*/}</td>
                         </tr>
                         </tbody>
                     </Table>
