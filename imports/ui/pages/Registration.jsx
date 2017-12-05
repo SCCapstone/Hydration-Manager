@@ -10,7 +10,6 @@ export default class Registration extends React.Component {
     constructor(props) {
         super(props);
         this.routeToLogin = this.routeToLogin.bind(this);
-        this.routeToApp = this.routeToRegistration.bind(this);
     }
 
     routeToLogin () {
