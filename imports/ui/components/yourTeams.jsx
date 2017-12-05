@@ -4,7 +4,6 @@ import Input from 'muicss/lib/react/input';
 import Button from 'muicss/lib/react/button';
 import { Modal } from 'react-bootstrap';
 import { ListGroup } from 'react-bootstrap';
-import { ListGroupItem } from 'react-bootstrap';
 
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import {Teams} from '../../api/teams.jsx';
@@ -17,12 +16,12 @@ import {CurrentUser} from '../../api/users.jsx';
 export default class YourTeams extends TrackerReact(React.Component) {
     constructor(props) {
         super(props);
-        this.routeToReport = this.routeToReport.bind(this);
         this.state = {
             showModal: false
         };
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
+        this.routeToReport = this.routeToReport.bind(this);
     }
     routeToReport () {
         window.location ='/app/masterReport';
@@ -81,34 +80,24 @@ export default class YourTeams extends TrackerReact(React.Component) {
                         <Modal.Header>
                             <Modal.Title>Team Entry Form</Modal.Title>
                         </Modal.Header>
-
+                        {/*TODO: Check that team is a string, and team is a number */}
+                        <Form className = "mui--text-left" onSubmit={this.addTeam.bind(this)}>
                         <Modal.Body>
-                            <Form className = "mui--text-left" onSubmit={this.addTeam.bind(this)}>
                                 <Input ref={el => {this.team = el;}} label = "Team Name" floatingLabel = {true} required = {true} />
                                 <Input ref={el => {this.season = el;}} label = "Season" floatingLabel = {true} required = {true} />
-                                <Button onClick={this.close} variant="raised"> Close </Button>
                                 <Button variant="raised" color="primary"> Create Team </Button>
-                            </Form>
                         </Modal.Body>
-                        {/*TODO: Add the team's data to the database*/}
+                        </Form>
                         <Modal.Footer>
+                            <Button onClick={this.close} variant="raised"> Close </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
                 <br/>
                 <div className="mui--divider-top">
                     <br/>
-                    {/*TODO: Conditional Rendering of this list*/}
-                    <ListGroup>
-
-                        <ul className="teams">
-                            {this.teams().map((team)=>{
-                                return <TeamSingle key={team._id} team={team} />
-                            })}
-                        </ul>
-
-                        <ListGroupItem onClick = {this.routeToReport}>Example Team</ListGroupItem>
-                        <ListGroupItem onClick = {this.routeToReport}>Example Team</ListGroupItem>
+                    <ListGroup className="teams">
+                        {this.teams().map((team)=>{return <TeamSingle key={team._id} team={team} />})}
                     </ListGroup>
                 </div>
 

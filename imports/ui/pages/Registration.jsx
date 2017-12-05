@@ -6,22 +6,16 @@ import Container from 'muicss/lib/react/container';
 
 {/* import {SiteUser} from '../../api/users.jsx' */}
 
-
-{/*TODO: Add the information to the Database - Justin */}
-
 export default class Registration extends React.Component {
     constructor(props) {
         super(props);
-        this.routeToApp = this.routeToApp.bind(this);
+        this.routeToLogin = this.routeToLogin.bind(this);
         this.routeToApp = this.routeToRegistration.bind(this);
     }
-    routeToRegistration () {
-       window.location ='/registration';
-    }
-    routeToApp () {
-        window.location ='/app';
-    }
 
+    routeToLogin () {
+        window.location ='/login';
+    }
     addSiteUser(event) {
       event.preventDefault();
 
@@ -35,7 +29,7 @@ export default class Registration extends React.Component {
         Meteor.call('addNewSiteUser', emailAddr,pswd, ()=> {
             Bert.defaults = {hideDelay: 4500}
             Bert.alert('Account Created','success', 'fixed-top', 'fa-check');
-            this.routeToRegistration();
+            this.routeToLogin();
         });
       } else {
         Bert.defaults = {hideDelay: 6500}
@@ -44,7 +38,6 @@ export default class Registration extends React.Component {
         this.pswd.controlEl.value = "";
         this.con_pswd.controlEl.value = ""
       }
-
     }
 
     render() {
@@ -57,15 +50,9 @@ export default class Registration extends React.Component {
                         <Input ref={el => {this.email = el;}} label = "Email Address" type = "email" floatingLabel = {true} required = {true} />
                         <Input ref={el => {this.pswd = el;}} label = "Password" type = "password" floatingLabel = {true} required = {true} />
                         <Input ref={el => {this.con_pswd = el;}} label = "Confirm Password" type = "password" floatingLabel = {true} required = {true} />
-                        <Button variant="raised" >Create Account</Button>
+                        <Button variant="raised">Create Account</Button>
                     </Form>
                     <br/>
-                {/*
-                    <div className = "mui--text-right">
-                        <Button variant = "raised" onClick={this.routeToApp}>Create Account</Button>
-                    </div>
-                */}
-
                 </Container>
             </div>
         )
