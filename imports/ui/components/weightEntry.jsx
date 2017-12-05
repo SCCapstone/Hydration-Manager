@@ -47,9 +47,7 @@ export default class WeightEntry extends React.Component {
                                 <input type="radio" value="PreWeight" checked={this.state.selectedOption === 'PreWeight'} onChange={this.handleOptionChange.bind(this)}/>
                                 PreWeight
                             </label>
-                            <label>
-
-                            </label>
+                            <label>{/* Just using this to create space for radio buttons */}</label>
                             <label>
                                 <input type="radio" value="PostWeight" checked={this.state.selectedOption === 'PostWeight'} onChange={this.handleOptionChange.bind(this)}/>
                                 PostWeight
