@@ -1,10 +1,13 @@
 import React from 'react';
 import Button from 'muicss/lib/react/button';
 import Dropdown from 'muicss/lib/react/dropdown';
-
 import {Teams} from '../../api/teams.jsx';
 import {CurrentUser} from '../../api/users.jsx';
 import DropdownOfTeams from './dropdownOfTeams.jsx';
+import { Table } from 'react-bootstrap';
+
+import {Athletes} from '../../api/athletes.jsx';
+import AthleteEntryList from './athlete_entry_list.jsx';
 
 export default class WeightEntry extends React.Component {
     constructor(props) {
@@ -37,7 +40,9 @@ export default class WeightEntry extends React.Component {
         var id = curUser.userID;
         return Teams.find({user:id}).fetch();
     };
-
+    athletes() {
+        return Athletes.find().fetch();
+    };
     render() {
         return (
             <div className="mui--align-center">
@@ -74,6 +79,19 @@ export default class WeightEntry extends React.Component {
                         </div>
                         <br/>
                         {/*TODO: add the grid similar to the master report's. Checkout: https://react-bootstrap.github.io/components.html#forms to help with taking in input*/}
+                    <br/>
+                    {/*TODO: Able to click on athlete to go athlete report screen*/}
+                    <Table striped bordered condensed hover className="teams">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Weight Entry</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {this.athletes().map((athlete)=>{return <AthleteEntryList key={athlete._id} athlete={athlete} />})}
+                        </tbody>
+                    </Table>
                         <div className = "mui--pull-right">
                             <Button variant="raised" onClick={this.handleFormSubmit}>Submit</Button>
                         </div>
