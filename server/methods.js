@@ -69,7 +69,7 @@ Meteor.methods({
       if (option === 'PreWeight') {
         Athletes.update(
         { _id: id },
-        { $push: {weightData: {date: date, preWeight: weight, postWeight: ''} }})
+        { $push: {weightData: {date: date, preWeight: weight} }})
       }
       else{
         Athletes.update(

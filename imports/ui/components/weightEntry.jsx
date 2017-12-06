@@ -14,11 +14,9 @@ export default class WeightEntry extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedOption: 'PreWeight',
+            selectedOption: '',
             selectedDate: '2017-12-08'
         };
-        console.log('The DEFAULT date is:', this.state.selectedDate);
-        console.log('You DEFAULT radio option is:', this.state.selectedOption);
 
         this.handleOptionChange = this.handleOptionChange.bind(this);
         this.handleDateChange =  this.handleDateChange.bind(this);
@@ -26,7 +24,8 @@ export default class WeightEntry extends React.Component {
 
     handleOptionChange = (e) => {
         this.setState({selectedOption: e.target.value});
-        console.log('You have selected:', e.target.value);
+        console.log('The target is:', e.target.value);
+        console.log('The selectedOption state is now:', this.state.selectedOption);
     };
     handleDateChange = (e) => {
         this.setState({selectedDate: e.target.value});
