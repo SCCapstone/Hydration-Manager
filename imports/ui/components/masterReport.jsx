@@ -90,19 +90,19 @@ export default class MasterReport extends TrackerReact(React.Component) {
                 <div className="mui--divider-top">
                     <br/>
                     {/*TODO: Able to click on athlete to go athlete report screen*/}
-
                     <Table striped bordered condensed hover className="teams">
                       <thead>
                       <tr>
                           <th>Name</th>
                           <th>Base Weight</th>
                           <th>Height</th>
+                          <th>Current Hydration</th>
                           <th>Remove</th>
                       </tr>
                       </thead>
-                        {this.athletes().map((athlete)=>{
-                            return <AthleteSingle key={athlete._id} athlete={athlete} />
-                        })}
+                        <tbody>
+                            {this.athletes().map((athlete)=>{return <AthleteSingle key={athlete._id} athlete={athlete} />})}
+                        </tbody>
                     </Table>
                 </div>
             </div>

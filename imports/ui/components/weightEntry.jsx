@@ -55,9 +55,8 @@ export default class WeightEntry extends React.Component {
                 <br/>
                 <form className="mui--divider-top">
                     <br/>
-                    <div>
                         <div className = "mui--pull-left">
-                            <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange.bind(this)}/>
+                            <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange}/>
                         </div>
                         <div className="mui--align-top">
                             <div className="radio" >
@@ -83,7 +82,6 @@ export default class WeightEntry extends React.Component {
                         <div className = "mui--pull-right">
                             <Button variant="raised" onClick={this.handleFormSubmit}>Submit</Button>
                         </div>
-                    </div>
                 </form>
             </div>
         )

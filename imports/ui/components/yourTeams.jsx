@@ -74,7 +74,7 @@ export default class YourTeams extends TrackerReact(React.Component) {
                         <Modal.Header>
                             <Modal.Title>Team Entry Form</Modal.Title>
                         </Modal.Header>
-                        {/*TODO: Check that team is a string, and team is a number */}
+                        {/*TODO: Check that team is a string, and season is a number */}
                         <Modal.Body>
                             <Form className = "mui--text-left">
                                 <Input ref={el => {this.team = el;}} label = "Team Name" floatingLabel = {true} required = {true} />
