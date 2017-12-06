@@ -3,6 +3,8 @@ import {Teams} from '../imports/api/teams.jsx'
 
 import {CurrentUser} from '../imports/api/users.jsx'
 
+import {Athletes} from '../imports/api/athletes.jsx'
+
 Meteor.methods({
 
   addNewSiteUser(email, password) {
@@ -49,6 +51,19 @@ Meteor.methods({
     var curUser = CurrentUser.findOne();
     var id = curUser.userID;
     return id;
+  },
+
+  addNewPlayer(name, weight, height) {
+    Athletes.insert({
+      name: name,
+      baseWeight: weight,
+      height: height,
+      createdAt: new Date(),
+    });
+  },
+
+  deleteAthlete(id) {
+    Athletes.remove(id);
   }
 
 });
