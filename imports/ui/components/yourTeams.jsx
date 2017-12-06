@@ -7,9 +7,7 @@ import { ListGroup } from 'react-bootstrap';
 
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import {Teams} from '../../api/teams.jsx';
-import TeamSingle from './teamsingle.jsx';
-
-import {SiteUser} from '../../api/users.jsx';
+import ListOfTeams from './listOfTeams.jsx';
 import {CurrentUser} from '../../api/users.jsx';
 
 
@@ -58,7 +56,6 @@ export default class YourTeams extends TrackerReact(React.Component) {
         console.log(curUser);
         var id = curUser.userID;
         return Teams.find({user:id}).fetch();
-
     }
 
     render () {
@@ -73,31 +70,29 @@ export default class YourTeams extends TrackerReact(React.Component) {
                     <div className="mui--clearfix"></div>
                 </div>
                 <div>
-                  <span>Select Team For Details</span>
-                </div>
-                <div>
                     <Modal show={this.state.showModal} onHide={this.close} >
                         <Modal.Header>
                             <Modal.Title>Team Entry Form</Modal.Title>
                         </Modal.Header>
                         {/*TODO: Check that team is a string, and team is a number */}
+                        {/*TODO: The Close button also creates a team */}
                         <Form className = "mui--text-left" onSubmit={this.addTeam.bind(this)}>
-                        <Modal.Body>
-                                <Input ref={el => {this.team = el;}} label = "Team Name" floatingLabel = {true} required = {true} />
-                                <Input ref={el => {this.season = el;}} label = "Season" floatingLabel = {true} required = {true} />
+                            <Modal.Body>
+                                    <Input ref={el => {this.team = el;}} label = "Team Name" floatingLabel = {true} required = {true} />
+                                    <Input ref={el => {this.season = el;}} label = "Season" floatingLabel = {true} required = {true} />
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button onClick={this.close} variant="raised"> Close </Button>
                                 <Button variant="raised" color="primary"> Create Team </Button>
-                        </Modal.Body>
+                            </Modal.Footer>
                         </Form>
-                        <Modal.Footer>
-                            <Button onClick={this.close} variant="raised"> Close </Button>
-                        </Modal.Footer>
                     </Modal>
                 </div>
                 <br/>
                 <div className="mui--divider-top">
                     <br/>
                     <ListGroup className="teams">
-                        {this.teams().map((team)=>{return <TeamSingle key={team._id} team={team} />})}
+                        {this.teams().map((team)=>{return <ListOfTeams key={team._id} team={team} />})}
                     </ListGroup>
                 </div>
 

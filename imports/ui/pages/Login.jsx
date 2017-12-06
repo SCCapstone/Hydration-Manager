@@ -58,7 +58,6 @@ export default class Login extends React.Component {
                 <br/>
                 <Container>
                     <Form className = "mui--text-left" onSubmit={this.verifyUser.bind(this)} >
-
                       <Input ref={el => {this.email = el;}} label = "Email Address" type = "email" floatingLabel = {true} required = {true} />
                       <Input ref={el => {this.pswd = el;}} label = "Password" type = "password" floatingLabel = {true} required = {true} />
                       <div className="mui--text-center">
