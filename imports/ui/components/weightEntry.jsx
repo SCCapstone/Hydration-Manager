@@ -45,8 +45,8 @@ export default class WeightEntry extends React.Component {
     };
     render() {
         return (
-            <div className="mui--align-center">
-                <br/>
+            <div className="mui--align-center"><br/>
+
                 <div>
                     <span className = "mui--pull-left"><h3>Weight Entry</h3></span>
                     <span className = "mui--pull-right">
@@ -56,30 +56,29 @@ export default class WeightEntry extends React.Component {
                         </Dropdown>
                     </span>
                     <div className = "mui--clearfix">{/*Null comment*/}</div>
-                </div>
-                <br/>
+                </div><br/>
+
                 <form className="mui--divider-top">
                     <br/>
-                        <div className ="mui--pull-left" height = '200%'>
-                            <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange.bind(this)}/>
-                        </div>
-                        <div className="mui--align-top">
-                            <div className="radio" >
-                                <label>{/*TODO: this is not how you do this, but Im also lazy */}</label>
-                                <label>
-                                    <input type="radio" value="PreWeight" checked={this.state.selectedOption === 'PreWeight'} onChange={this.handleOptionChange.bind(this)}/>
-                                    PreWeight
-                                </label>
-                                <label>{/*TODO: this is not how you do this, but Im also lazy */}</label>
-                                <label>
-                                    <input type="radio" value="PostWeight" checked={this.state.selectedOption === 'PostWeight'} onChange={this.handleOptionChange.bind(this)}/>
-                                    PostWeight
-                                </label>
-                            </div>
-                        </div>
-                        <br/>
-                        {/*TODO: add the grid similar to the master report's. Checkout: https://react-bootstrap.github.io/components.html#forms to help with taking in input*/}
-                    <br/>
+                    <div className="mui--text-center">
+                        <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange.bind(this)}/>
+                    </div><br/>
+
+                    <div className="mui--text-center">
+                        <label>
+                            <input type="radio" value="PreWeight" checked={this.state.selectedOption === 'PreWeight'} onChange={this.handleOptionChange.bind(this)}/>
+                            PreWeight
+                        </label>
+                        <label>{/*Null Comment to add some spaaaace*/}</label>
+                        <span class="mui--divider-left">&nbsp;&nbsp;&nbsp;
+                            <label>
+                                <input type="radio" value="PostWeight" checked={this.state.selectedOption === 'PostWeight'} onChange={this.handleOptionChange.bind(this)}/>
+                                PostWeight
+                            </label>
+                        </span>
+                    </div>
+                    <div className = "mui--clearfix">{/*Null comment*/}</div><br/><br/><br/>
+
                     {/*TODO: Able to click on athlete to go athlete report screen*/}
                     <Table striped bordered condensed hover className="teams">
                         <thead>
