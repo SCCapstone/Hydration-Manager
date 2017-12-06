@@ -26,10 +26,8 @@ export default class AthleteEntryList extends Component {
             this.setState({PostWeight: e.target.value});
             this.setState({weight: e.target.value});
         }
-        console.log('You have selected:', this.props.selOp);
-        console.log('The weight stored is:', e.target.value);
 
-        Meteor.call('addWeight', this.props.athlete.id, this.props.dat, this.props.selOp, this.state.weight, (err, data)=> {
+        Meteor.call('addWeight', this.props.athlete.id, this.props.dat, this.props.selOp, this.state.weight, ()=> {
             Bert.defaults = {hideDelay: 4500}
             Bert.alert('Weight Added','success', 'fixed-top', 'fa-check');
         });

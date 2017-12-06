@@ -56,23 +56,28 @@ Meteor.methods({
   addNewPlayer(name, weight, height) {
     Athletes.insert({
       name: name,
-      baseWeight: weight,
-      height: height,
-      createdAt: new Date(),
-      weight: {date: preWeight, postWeight}
+        height: height,
+        baseWeight: weight,
+        createdAt: new Date(),
+        weightData: {date: '', preWeight: '', postWeight: ''}
     });
   },
 
   addWeight(id, date, option, weight) {
       if (option === 'PreWeight') {
       Athletes.update(id, {
-      $addToSet: { weight: {date: date, preWeight: weight} } })
+      $push: { weightData: {date:date, preWeight:weight}}
+      },{multi: true})
+
       }
 
       else{
       Athletes.update(id, {
-      $addToSet: { weight: {date: date, postWeight: weight} } })
+      $set: { weightData: {date: date, postWeight: weight} }
+      },{multi: true})
       }
+      console.log('We added', option);
+      console.log('Weight Entry:', weight);
   },
 
   deleteAthlete(id) {
