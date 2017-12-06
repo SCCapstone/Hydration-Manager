@@ -20,6 +20,7 @@ export default class YourTeams extends TrackerReact(React.Component) {
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
         this.routeToReport = this.routeToReport.bind(this);
+        this.addTeam = this.addTeam.bind(this);
     }
     routeToReport () {
         window.location ='/app/masterReport';
@@ -31,7 +32,7 @@ export default class YourTeams extends TrackerReact(React.Component) {
         this.setState({ showModal: false });
     }
 
-    addTeam(event) {
+    addTeam() {
       event.preventDefault();
       var teamName = this.team.controlEl.value;
       var teamSeason = this.season.controlEl.value;
@@ -60,7 +61,6 @@ export default class YourTeams extends TrackerReact(React.Component) {
 
     render () {
         let tm = this.teams;
-
         return (
             <div>
                 <br/>
@@ -75,17 +75,16 @@ export default class YourTeams extends TrackerReact(React.Component) {
                             <Modal.Title>Team Entry Form</Modal.Title>
                         </Modal.Header>
                         {/*TODO: Check that team is a string, and team is a number */}
-                        {/*TODO: The Close button also creates a team */}
-                        <Form className = "mui--text-left" onSubmit={this.addTeam.bind(this)}>
-                            <Modal.Body>
-                                    <Input ref={el => {this.team = el;}} label = "Team Name" floatingLabel = {true} required = {true} />
-                                    <Input ref={el => {this.season = el;}} label = "Season" floatingLabel = {true} required = {true} />
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button onClick={this.close} variant="raised"> Close </Button>
-                                <Button variant="raised" color="primary"> Create Team </Button>
-                            </Modal.Footer>
-                        </Form>
+                        <Modal.Body>
+                            <Form className = "mui--text-left">
+                                <Input ref={el => {this.team = el;}} label = "Team Name" floatingLabel = {true} required = {true} />
+                                <Input ref={el => {this.season = el;}} label = "Season" floatingLabel = {true} required = {true} />
+                            </Form>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={this.close} variant="raised"> Close </Button>
+                            <Button onClick={this.addTeam} variant="raised" color="primary"> Create Team </Button>
+                        </Modal.Footer>
                     </Modal>
                 </div>
                 <br/>
@@ -95,7 +94,6 @@ export default class YourTeams extends TrackerReact(React.Component) {
                         {this.teams().map((team)=>{return <ListOfTeams key={team._id} team={team} />})}
                     </ListGroup>
                 </div>
-
             </div>
         )
     }

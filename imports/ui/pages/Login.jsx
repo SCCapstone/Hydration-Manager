@@ -17,6 +17,7 @@ export default class Login extends React.Component {
         super(props);
         this.routeToRegistration = this.routeToRegistration.bind(this);
         this.routeToApp = this.routeToApp.bind(this);
+        this.verifyUser = this.verifyUser.bind(this);
     }
 
     routeToRegistration () {
@@ -27,7 +28,7 @@ export default class Login extends React.Component {
         window.location ='/app';
     }
 
-    verifyUser(event) {
+    verifyUser() {
       event.preventDefault();
 
       console.log(this.email.controlEl.value)
@@ -57,19 +58,17 @@ export default class Login extends React.Component {
                 <h1>Hydration Manager</h1>
                 <br/>
                 <Container>
-                    <Form className = "mui--text-left" onSubmit={this.verifyUser.bind(this)} >
+                    <Form className = "mui--text-left">
                       <Input ref={el => {this.email = el;}} label = "Email Address" type = "email" floatingLabel = {true} required = {true} />
                       <Input ref={el => {this.pswd = el;}} label = "Password" type = "password" floatingLabel = {true} required = {true} />
-                      <div className="mui--text-center">
-                        <Button variant="raised" >Login</Button>
-                      </div>
                     </Form>
-                </Container>
-                <br/>
+                <Button onClick = {this.verifyUser} variant = "raised" >Login</Button>
                 <Button variant = "raised" onClick={this.routeToRegistration}>Register</Button>
                 <br/>
+                    {/*TODO: Make forgot password do something */}
                 <Button variant = "raised">Forgot Password</Button>
                 <br/>
+                </Container>
                 <sub name = "tagline">A University of South Carolina Capstone Project</sub>
             </div>
         )
