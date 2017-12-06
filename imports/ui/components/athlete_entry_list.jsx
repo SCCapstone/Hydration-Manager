@@ -26,6 +26,7 @@ export default class AthleteEntryList extends Component {
             this.setState({PostWeight: e.target.value});
             this.setState({weight: e.target.value});
         }
+
         console.log('You have selected:', this.props.selOp);
         console.log('The weight stored is:', e.target.value);
         console.log('The athlete you selected is', this.props.athlete.name);
