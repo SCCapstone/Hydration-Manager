@@ -20,6 +20,7 @@ export default class MasterReport extends TrackerReact(React.Component) {
         };
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
+        this.addPlayer = this.addPlayer.bind(this);
     }
     routeToReport () {
         window.location ='/app/athleteReport';
@@ -71,7 +72,7 @@ export default class MasterReport extends TrackerReact(React.Component) {
                         <Modal.Header>
                             <Modal.Title>Athlete Entry Form</Modal.Title>
                         </Modal.Header>
-
+                        {/*TODO: Check that name is a string, baseweight is a number, and height is a number */}
                         <Modal.Body>
                             <Form className = "mui--text-left" >
                                 <Input ref={el => {this.name = el;}} label = "Player Name" floatingLabel = {true} required = {true} />
@@ -79,17 +80,15 @@ export default class MasterReport extends TrackerReact(React.Component) {
                                 <Input ref={el => {this.height = el;}} label = "Height" floatingLabel = {true} required = {true} />
                             </Form>
                         </Modal.Body>
-                        {/*TODO: Add the team's data to the database*/}
                         <Modal.Footer>
                             <Button onClick={this.close} variant="raised"> Close </Button>
-                            <Button onClick={this.addPlayer.bind(this)} variant="raised" color="primary"> Create Player </Button>
+                            <Button onClick={this.addPlayer} variant="raised" color="primary"> Create Athlete </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
                 <br/>
                 <div className="mui--divider-top">
                     <br/>
-                    {/*TODO: Conditional Rendering of this Table*/}
                     {/*TODO: Able to click on athlete to go athlete report screen*/}
 
                     <Table striped bordered condensed hover className="teams">

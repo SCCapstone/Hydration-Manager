@@ -10,11 +10,13 @@ export default class Registration extends React.Component {
     constructor(props) {
         super(props);
         this.routeToLogin = this.routeToLogin.bind(this);
+        this.addSiteUser = this.addSiteUser.bind(this);
     }
 
     routeToLogin () {
         window.location ='/login';
     }
+
     addSiteUser(event) {
       event.preventDefault();
 
@@ -45,7 +47,7 @@ export default class Registration extends React.Component {
                 <Container className = "mui--text-left">
                     <h1>Registration</h1>
                     <br/>
-                    <Form className= "new-siteuser" onSubmit={this.addSiteUser.bind(this)}>
+                    <Form className= "new-siteuser" onSubmit={this.addSiteUser}>
                         <Input ref={el => {this.email = el;}} label = "Email Address" type = "email" floatingLabel = {true} required = {true} />
                         <Input ref={el => {this.pswd = el;}} label = "Password" type = "password" floatingLabel = {true} required = {true} />
                         <Input ref={el => {this.con_pswd = el;}} label = "Confirm Password" type = "password" floatingLabel = {true} required = {true} />
