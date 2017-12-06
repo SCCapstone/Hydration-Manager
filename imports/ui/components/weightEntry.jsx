@@ -24,19 +24,19 @@ export default class WeightEntry extends React.Component {
         this.setState({selectedOption: e.target.value});
         console.log('You have selected:', e.target.value);
 
-    }
+    };
     handleDateChange = (e) => {
         this.setState({selectedDate: e.target.value});
         console.log('The date you selected is:', e.target.value);
 
-    }
+    };
 
     teams() {
         var curUser = CurrentUser.findOne();
         console.log(curUser);
         var id = curUser.userID;
         return Teams.find({user:id}).fetch();
-    }
+    };
 
     render() {
         return (
@@ -50,27 +50,22 @@ export default class WeightEntry extends React.Component {
                             {this.teams().map((team)=>{return <DropdownOfTeams key={team._id} team={team} />})}
                         </Dropdown>
                     </span>
-                    <div className = "mui--clearfix"></div>
+                    <div className = "mui--clearfix">{/*Null comment*/}</div>
                 </div>
                 <br/>
                 <form className="mui--divider-top">
                     <br/>
-                        <div className = "mui--pull-left">
-                            <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange}/>
+                        <div className ="mui--pull-left" height = '200%'>
+                            <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange.bind(this)}/>
                         </div>
                         <div className="mui--align-top">
                             <div className="radio" >
-                                {/*TODO: this is not how you do this, but Im also lazy */}
-                                <label>
-
-                                </label>
+                                <label>{/*TODO: this is not how you do this, but Im also lazy */}</label>
                                 <label>
                                     <input type="radio" value="PreWeight" checked={this.state.selectedOption === 'PreWeight'} onChange={this.handleOptionChange.bind(this)}/>
                                     PreWeight
                                 </label>
-                                <label>
-
-                                </label>
+                                <label>{/*TODO: this is not how you do this, but Im also lazy */}</label>
                                 <label>
                                     <input type="radio" value="PostWeight" checked={this.state.selectedOption === 'PostWeight'} onChange={this.handleOptionChange.bind(this)}/>
                                     PostWeight

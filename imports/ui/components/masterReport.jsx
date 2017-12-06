@@ -32,29 +32,29 @@ export default class MasterReport extends TrackerReact(React.Component) {
         this.setState({ showModal: false });
     }
     addPlayer() {
-      event.preventDefault();
-      var pName = this.name.controlEl.value;
-      var pWeight = this.baseWeight.controlEl.value;
-      var pHeight = this.height.controlEl.value;
+        event.preventDefault();
+        var pName = this.name.controlEl.value;
+        var pWeight = this.baseWeight.controlEl.value;
+        var pHeight = this.height.controlEl.value;
 
-      console.log(pName);
-      console.log(pWeight);
-      console.log(pHeight);
+        console.log(pName);
+        console.log(pWeight);
+        console.log(pHeight);
 
-      Meteor.call('addNewPlayer', pName,pWeight,pHeight, (err, data)=> {
-        Bert.defaults = {hideDelay: 4500}
-        Bert.alert('Player Created','success', 'fixed-top', 'fa-check');
+        Meteor.call('addNewPlayer', pName,pWeight,pHeight, (err, data)=> {
+            Bert.defaults = {hideDelay: 4500}
+            Bert.alert('Player Created','success', 'fixed-top', 'fa-check');
 
-        this.name.controlEl.value = "";
-        this.baseWeight.controlEl.value = "";
-        this.height.controlEl.value = "";
+            this.name.controlEl.value = "";
+            this.baseWeight.controlEl.value = "";
+            this.height.controlEl.value = "";
+            this.close();
+        })
+
         this.close();
-      })
-
-      this.close();
     }
     athletes() {
-      return Athletes.find().fetch();
+        return Athletes.find().fetch();
     }
 
     render() {
