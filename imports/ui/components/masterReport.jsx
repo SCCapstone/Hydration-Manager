@@ -63,13 +63,13 @@ export default class MasterReport extends TrackerReact(React.Component) {
                 <br/>
                 <div>
                     <span className = "mui--pull-left"><h3>Master Report</h3></span>
-                    <span className = "mui--pull-right"><Button onClick={this.open} color="primary" variant="raised">Create a Player</Button></span>
+                    <span className = "mui--pull-right"><Button onClick={this.open} color="primary" variant="raised">Create an Athlete</Button></span>
                     <div className="mui--clearfix"></div>
                 </div>
                 <div>
                     <Modal show={this.state.showModal} onHide={this.close} >
                         <Modal.Header>
-                            <Modal.Title>Player Entry Form</Modal.Title>
+                            <Modal.Title>Athlete Entry Form</Modal.Title>
                         </Modal.Header>
 
                         <Modal.Body>

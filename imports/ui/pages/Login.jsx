@@ -18,9 +18,11 @@ export default class Login extends React.Component {
         this.routeToRegistration = this.routeToRegistration.bind(this);
         this.routeToApp = this.routeToApp.bind(this);
     }
+
     routeToRegistration () {
        window.location ='/registration';
     }
+
     routeToApp () {
         window.location ='/app';
     }
@@ -47,7 +49,6 @@ export default class Login extends React.Component {
           Bert.alert('Invalid Email And/Or Password','warning', 'fixed-top', 'fa-warning');
         }
       });
-
     }
 
     render() {
@@ -57,24 +58,19 @@ export default class Login extends React.Component {
                 <br/>
                 <Container>
                     <Form className = "mui--text-left" onSubmit={this.verifyUser.bind(this)} >
-
                       <Input ref={el => {this.email = el;}} label = "Email Address" type = "email" floatingLabel = {true} required = {true} />
                       <Input ref={el => {this.pswd = el;}} label = "Password" type = "password" floatingLabel = {true} required = {true} />
-                      <div>
+                      <div className="mui--text-center">
                         <Button variant="raised" >Login</Button>
                       </div>
                     </Form>
-
-
                 </Container>
-
                 <br/>
                 <Button variant = "raised" onClick={this.routeToRegistration}>Register</Button>
                 <br/>
                 <Button variant = "raised">Forgot Password</Button>
                 <br/>
                 <sub name = "tagline">A University of South Carolina Capstone Project</sub>
-
             </div>
         )
     }
