@@ -59,21 +59,21 @@ Meteor.methods({
         height: height,
         baseWeight: weight,
         createdAt: new Date(),
-        weightData: {date: '', preWeight: '', postWeight: ''}
+        weightData: []
     });
   },
 
   addWeight(id, date, option, weight) {
       if (option === 'PreWeight') {
-      Athletes.update(id, {
+      Athletes.update({_id: id}, {
       $push: { weightData: {date:date, preWeight:weight}}
       },{multi: true})
 
       }
 
       else{
-      Athletes.update(id, {
-      $set: { weightData: {date: date, postWeight: weight} }
+      Athletes.update({_id: id, weightData: {date: date}}, {
+      $addToSet: { weightData: {postWeight: weight} }
       },{multi: true})
       }
       console.log('We added', option);
