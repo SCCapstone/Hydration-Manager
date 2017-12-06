@@ -5,8 +5,13 @@ import Button from 'muicss/lib/react/button';
 import { Modal } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
 
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
-export default class MasterReport extends React.Component {
+import {Athletes} from '../../api/athletes.jsx';
+import AthleteSingle from './athletesingle.jsx';
+
+
+export default class MasterReport extends TrackerReact(React.Component) {
     constructor(props) {
         super(props);
         this.routeToReport = this.routeToReport.bind(this);
@@ -25,32 +30,59 @@ export default class MasterReport extends React.Component {
     close() {
         this.setState({ showModal: false });
     }
+    addPlayer() {
+      event.preventDefault();
+      var pName = this.name.controlEl.value;
+      var pWeight = this.baseWeight.controlEl.value;
+      var pHeight = this.height.controlEl.value;
+
+      console.log(pName);
+      console.log(pWeight);
+      console.log(pHeight);
+
+      Meteor.call('addNewPlayer', pName,pWeight,pHeight, (err, data)=> {
+        Bert.defaults = {hideDelay: 4500}
+        Bert.alert('Player Created','success', 'fixed-top', 'fa-check');
+
+        this.name.controlEl.value = "";
+        this.baseWeight.controlEl.value = "";
+        this.height.controlEl.value = "";
+        this.close();
+      })
+
+      this.close();
+    }
+    athletes() {
+      return Athletes.find().fetch();
+    }
+
     render() {
+        athletes = this.athletes;
         return (
             <div>
                 <br/>
                 <div>
                     <span className = "mui--pull-left"><h3>Master Report</h3></span>
                     <span className = "mui--pull-right"><Button onClick={this.open} color="primary" variant="raised">Create an Athlete</Button></span>
-                    <div className="mui--clearfix">{/*Null comment*/}</div>
+                    <div className="mui--clearfix"></div>
                 </div>
                 <div>
-                    <Modal show={this.state.showModal} onhide={this.close}>
+                    <Modal show={this.state.showModal} onHide={this.close} >
                         <Modal.Header>
                             <Modal.Title>Athlete Entry Form</Modal.Title>
                         </Modal.Header>
 
                         <Modal.Body>
                             <Form className = "mui--text-left" >
-                                <Input label = "Athlete Name" floatingLabel = {true} required = {true} />
-                                <Input label = "Baseline Weight" floatingLabel = {true} required = {true} />
-                                <Input label = "Height" floatingLabel = {true} required = {true} />
+                                <Input ref={el => {this.name = el;}} label = "Player Name" floatingLabel = {true} required = {true} />
+                                <Input ref={el => {this.baseWeight = el;}} label = "Baseline weight" floatingLabel = {true} required = {true} />
+                                <Input ref={el => {this.height = el;}} label = "Height" floatingLabel = {true} required = {true} />
                             </Form>
                         </Modal.Body>
                         {/*TODO: Add the team's data to the database*/}
                         <Modal.Footer>
                             <Button onClick={this.close} variant="raised"> Close </Button>
-                            <Button onClick={this.close} variant="raised" color="primary"> Create Athlete </Button>
+                            <Button onClick={this.addPlayer.bind(this)} variant="raised" color="primary"> Create Player </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
@@ -59,35 +91,19 @@ export default class MasterReport extends React.Component {
                     <br/>
                     {/*TODO: Conditional Rendering of this Table*/}
                     {/*TODO: Able to click on athlete to go athlete report screen*/}
-                    <Table striped bordered condensed hover>
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Last Name, First Name</th>
-                            <th>Hydration Level</th>
-                            <th>{/*Null comment*/}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Smith, John</td>
-                            <td>Test</td>
-                            <td>{/*Null comment*/}</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Smith, John</td>
-                            <td>Test</td>
-                            <td>{/*Null comment*/}</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Smith, John</td>
-                            <td>Test</td>
-                            <td>{/*Null comment*/}</td>
-                        </tr>
-                        </tbody>
+
+                    <Table striped bordered condensed hover className="teams">
+                      <thead>
+                      <tr>
+                          <th>Name</th>
+                          <th>Base Weight</th>
+                          <th>Height</th>
+                          <th>Remove</th>
+                      </tr>
+                      </thead>
+                        {this.athletes().map((athlete)=>{
+                            return <AthleteSingle key={athlete._id} athlete={athlete} />
+                        })}
                     </Table>
                 </div>
             </div>
