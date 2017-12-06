@@ -5,7 +5,7 @@ import {Teams} from '../../api/teams.jsx';
 import {CurrentUser} from '../../api/users.jsx';
 import DropdownOfTeams from './dropdownOfTeams.jsx';
 import { Table } from 'react-bootstrap';
-
+import {debounce} from 'throttle-debounce';
 
 import {Athletes} from '../../api/athletes.jsx';
 import AthleteEntryList from './athlete_entry_list.jsx';
@@ -14,23 +14,25 @@ export default class WeightEntry extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedOption: '',
+            selectedOption: 'Default',
             selectedDate: '2017-12-08'
         };
-
         this.handleOptionChange = this.handleOptionChange.bind(this);
         this.handleDateChange =  this.handleDateChange.bind(this);
+        this.handleDebounce = debounce(500, this.handleDebounce);
     };
 
+    handleDebounce = (e) => {
+        console.log('The selected option is:',this.state.selectedOption);
+    }
     handleOptionChange = (e) => {
         this.setState({selectedOption: e.target.value});
-        console.log('The target is:', e.target.value);
-        console.log('The selectedOption state is now:', this.state.selectedOption);
+        this.handleDebounce;
     };
     handleDateChange = (e) => {
+        e.preventDefault();
         this.setState({selectedDate: e.target.value});
         console.log('The date you selected is:', e.target.value);
-
     };
 
     teams() {

@@ -64,23 +64,18 @@ Meteor.methods({
     });
   },
 
-  addWeight(id, date, option, weight) {
-
-      if (option === 'PreWeight') {
+  addPreWeight(id, date, weight) {
         Athletes.update(
         { _id: id },
         { $push: {weightData: {date: date, preWeight: weight} }})
-      }
-      else{
-        Athletes.update(
-        { _id: id, weightData: {date: date}},
-        { $set: { postWeight: weight} }
-        )
-      }
-      console.log('We added', option);
-      console.log('Weight Entry:', weight);
+      console.log('PreWeight Entry:', weight);
   },
-
+  addPostWeight(id, date, weight) {
+      Athletes.update(
+          { _id: id },
+          { $push: {weightData: {date: date, postWeight: weight} }})
+      console.log('PostWeight Entry:', weight);
+  },
   deleteAthlete(id) {
     Athletes.remove(id);
   }
