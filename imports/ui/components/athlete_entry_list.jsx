@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import { Button } from 'react-bootstrap';
-import { Form } from 'react-bootstrap';
-import { FormGroup } from 'react-bootstrap';
-import { FormControl } from 'react-bootstrap';
 import Input from 'muicss/lib/react/input';
+import {debounce} from 'throttle-debounce';
 
 export default class AthleteEntryList extends Component {
     constructor(props) {
@@ -14,27 +12,32 @@ export default class AthleteEntryList extends Component {
             PostWeight: ' ',
             weight: ' '
         };
+        this.handleDebounce = debounce(500, this.handleDebounce);
         this.handleWeightChange = this.handleWeightChange.bind(this);
     }
-    handleWeightChange = (e) => {
-        e.preventDefault();
-        if(this.props.selOp === 'PreWeight') {
+
+    handleDebounce = (e) => {
+        e.persist();
+        if (this.props.selOp === 'PreWeight') {
             this.setState({PreWeight: e.target.value});
-            this.setState({weight: e.target.value});
         }
         else {
             this.setState({PostWeight: e.target.value});
             this.setState({weight: e.target.value});
         }
-
         console.log('You have selected:', this.props.selOp);
         console.log('The weight stored is:', e.target.value);
         console.log('The athlete you selected is', this.props.athlete.name);
-
-        Meteor.call('addWeight', this.props.athlete._id, this.props.dat, this.props.selOp, this.state.weight, (err, data)=> {
+        Meteor.call('addWeight', this.props.athlete._id, this.props.dat, this.props.selOp, this.state.weight, (err, data) => {
             Bert.defaults = {hideDelay: 4500}
-            Bert.alert('Weight Added','success', 'fixed-top', 'fa-check');
-        });
+            Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
+        })
+    }
+
+    handleWeightChange = (e) => {
+        e.persist();
+        this.setState({weight: e.target.value});
+        this.handleDebounce(e);
     }
     render() {
         return (
