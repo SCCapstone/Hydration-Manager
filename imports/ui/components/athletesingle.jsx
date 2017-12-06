@@ -1,14 +1,10 @@
 import React, {Component} from 'react'
+import { Button } from 'react-bootstrap';
 
 export default class AthleteSingle extends Component {
     constructor(props) {
         super(props);
-        this.routeToWE = this.routeToWE.bind(this);
         this.deleteAthlete = this.deleteAthlete.bind(this)
-    }
-
-    routeToWE () {
-        window.location ='/app/weightEntry';
     }
 
     deleteAthlete() {
