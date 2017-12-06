@@ -6,6 +6,7 @@ import {CurrentUser} from '../../api/users.jsx';
 import DropdownOfTeams from './dropdownOfTeams.jsx';
 import { Table } from 'react-bootstrap';
 
+
 import {Athletes} from '../../api/athletes.jsx';
 import AthleteEntryList from './athlete_entry_list.jsx';
 
@@ -26,7 +27,6 @@ export default class WeightEntry extends React.Component {
     handleOptionChange = (e) => {
         this.setState({selectedOption: e.target.value});
         console.log('You have selected:', e.target.value);
-
     };
     handleDateChange = (e) => {
         this.setState({selectedDate: e.target.value});
@@ -88,7 +88,7 @@ export default class WeightEntry extends React.Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {this.athletes().map((athlete)=>{return <AthleteEntryList key={athlete._id} athlete={athlete} />})}
+                        {this.athletes().map((athlete)=>{return <AthleteEntryList key={athlete._id} athlete={athlete} selOp={this.state.selectedOption} dat={this.state.selectedDate}/>})}
                         </tbody>
                     </Table>
                         <div className = "mui--pull-right">
