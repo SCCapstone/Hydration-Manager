@@ -4,7 +4,7 @@ import { ListGroup } from 'react-bootstrap';
 import { ListGroupItem } from 'react-bootstrap';
 
 
-export default class TeamSingle extends Component {
+export default class ListOfTeams extends Component {
 
 constructor(props) {
     super(props);
@@ -19,7 +19,6 @@ deleteTeam() {
 
   render() {
     return (
-
         <ListGroup>
             {/*TODO: make the list strech across to the delete button */}
             <span className = "mui--pull-left">
