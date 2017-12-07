@@ -4,6 +4,9 @@ import { Button } from 'react-bootstrap';
 export default class AthleteSingle extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            str: ' '
+        };
         this.routeToWE = this.routeToWE.bind(this);
         this.deleteAthlete = this.deleteAthlete.bind(this)
     }
@@ -15,7 +18,6 @@ export default class AthleteSingle extends Component {
     deleteAthlete() {
       Meteor.call('deleteAthlete',this.props.athlete._id);
     }
-
     render() {
         return (
             <tr>
