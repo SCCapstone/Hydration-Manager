@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { Button } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
-
 import ListWeight from './list_of_weight.jsx';
 import {Athletes} from '../../api/athletes.jsx';
 
