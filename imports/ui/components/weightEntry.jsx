@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from 'muicss/lib/react/button';
 import Dropdown from 'muicss/lib/react/dropdown';
 import {Teams} from '../../api/teams.jsx';
 import {CurrentUser} from '../../api/users.jsx';
@@ -22,12 +21,13 @@ export default class WeightEntry extends React.Component {
         this.handleDebounce = debounce(500, this.handleDebounce);
     };
 
-    handleDebounce = (e) => {
+    handleDebounce = () => {
         console.log('The selected option is:',this.state.selectedOption);
-    }
+    };
+
     handleOptionChange = (e) => {
         this.setState({selectedOption: e.target.value});
-        this.handleDebounce;
+        this.handleDebounce();
     };
     handleDateChange = (e) => {
         e.preventDefault();
@@ -62,16 +62,16 @@ export default class WeightEntry extends React.Component {
                 <form className="mui--divider-top">
                     <br/>
                     <div className="mui--text-center">
-                        <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange.bind(this)}/>
+                        <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange}/>
                     </div><br/>
 
                     <div className="mui--text-center">
                         <label>
-                            <input type="radio" value="PreWeight" checked={this.state.selectedOption === 'PreWeight'} onChange={this.handleOptionChange.bind(this)}/>
+                            <input type="radio" value="PreWeight" checked={this.state.selectedOption === 'PreWeight'} onChange={this.handleOptionChange}/>
                             PreWeight
                         </label>
                         <label>{/*Null Comment to add some spaaaace*/}</label>
-                        <span class="mui--divider-left">&nbsp;&nbsp;&nbsp;
+                        <span>&nbsp;&nbsp;&nbsp;
                             <label>
                                 <input type="radio" value="PostWeight" checked={this.state.selectedOption === 'PostWeight'} onChange={this.handleOptionChange.bind(this)}/>
                                 PostWeight
@@ -92,9 +92,6 @@ export default class WeightEntry extends React.Component {
                         {this.athletes().map((athlete)=>{return <AthleteEntryList key={athlete._id} athlete={athlete} selOp={this.state.selectedOption} dat={this.state.selectedDate}/>})}
                         </tbody>
                     </Table>
-                        <div className = "mui--pull-right">
-                            <Button variant="raised" onClick={this.handleFormSubmit}>Submit</Button>
-                        </div>
                 </form>
             </div>
         )
