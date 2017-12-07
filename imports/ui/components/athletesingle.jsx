@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import { Button } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
+
+import ListWeight from './list_of_weight.jsx';
+import {Athletes} from '../../api/athletes.jsx';
 
 export default class AthleteSingle extends Component {
     constructor(props) {
@@ -18,7 +22,12 @@ export default class AthleteSingle extends Component {
     deleteAthlete() {
       Meteor.call('deleteAthlete',this.props.athlete._id);
     }
+
+    athletes() {
+        return Athletes.find().fetch();
+    }
     render() {
+        athletes = this.athletes;
         return (
             <tr>
                 <td>{this.props.athlete.name}</td>
