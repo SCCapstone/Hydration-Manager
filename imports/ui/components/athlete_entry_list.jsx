@@ -9,7 +9,7 @@ export default class AthleteEntryList extends Component {
             date: ' ',
             weight: ' '
         };
-        this.handleDebounce = debounce(500, this.handleDebounce);
+        this.handleDebounce = debounce(1000, this.handleDebounce);
         this.handleWeightChange = this.handleWeightChange.bind(this);
     }
 
