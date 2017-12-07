@@ -30,17 +30,12 @@ export default class AthleteSingle extends Component {
                 {/*TODO: The way this is stuctured, data MUST be entered sequentially*/}
                 <td>
                     {this.props.athlete.preWeightData.map((e,i)=>
-                        <p>{e.date}</p>
-                    )}
-                </td>
-                <td>
-                    {this.props.athlete.preWeightData.map((e,i)=>
-                        <p>{e.weight}</p>
+                        <p>{e.date}: {e.weight}</p>
                     )}
                 </td>
                 <td>
                     {this.props.athlete.postWeightData.map((e,i)=>
-                        <p>{e.weight}</p>
+                        <p>{e.date}: {e.weight}</p>
                     )}
                 </td>
                 <td>
