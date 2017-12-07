@@ -4,8 +4,8 @@ import Input from 'muicss/lib/react/input';
 import Button from 'muicss/lib/react/button';
 import { Modal } from 'react-bootstrap';
 import { ListGroup } from 'react-bootstrap';
-
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
+
 import {Teams} from '../../api/teams.jsx';
 import ListOfTeams from './listOfTeams.jsx';
 import {CurrentUser} from '../../api/users.jsx';
@@ -34,15 +34,15 @@ export default class YourTeams extends TrackerReact(React.Component) {
 
     addTeam() {
       event.preventDefault();
-      var teamName = this.team.controlEl.value;
-      var teamSeason = this.season.controlEl.value;
+      const teamName = this.team.controlEl.value;
+      const teamSeason = this.season.controlEl.value;
 
       if (teamName != "") {
-        var curUser = CurrentUser.findOne();
-        var id = curUser.userID;
+        const curUser = CurrentUser.findOne();
+        const id = curUser.userID;
 
         Meteor.call('addNewTeam', teamName,teamSeason,id, ()=> {
-          Bert.defaults = {hideDelay: 4500}
+          Bert.defaults = {hideDelay: 4500};
           Bert.alert('Team Created','success', 'fixed-top', 'fa-check');
 
           this.team.controlEl.value = "";
@@ -53,21 +53,20 @@ export default class YourTeams extends TrackerReact(React.Component) {
     }
 
     teams() {
-        var curUser = CurrentUser.findOne();
+        const curUser = CurrentUser.findOne();
         console.log(curUser);
-        var id = curUser.userID;
+        const id = curUser.userID;
         return Teams.find({user:id}).fetch();
     }
 
     render () {
-        let tm = this.teams;
         return (
             <div>
                 <br/>
                 <div>
                     <span className = "mui--pull-left"><h3>Your Team's</h3></span>
                     <span className = "mui--pull-right"><Button onClick={this.open} color="primary" variant="raised">Create a Team</Button></span>
-                    <div className="mui--clearfix"></div>
+                    <div className="mui--clearfix">{/*Null comment*/}</div>
                 </div>
                 <div>
                     <Modal show={this.state.showModal} onHide={this.close} >

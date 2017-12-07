@@ -4,7 +4,6 @@ import Input from 'muicss/lib/react/input';
 import Button from 'muicss/lib/react/button';
 import { Modal } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
-
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 import {Athletes} from '../../api/athletes.jsx';
@@ -33,23 +32,23 @@ export default class MasterReport extends TrackerReact(React.Component) {
     }
     addPlayer() {
         event.preventDefault();
-        var pName = this.name.controlEl.value;
-        var pWeight = this.baseWeight.controlEl.value;
-        var pHeight = this.height.controlEl.value;
+        const pName = this.name.controlEl.value;
+        const pWeight = this.baseWeight.controlEl.value;
+        const pHeight = this.height.controlEl.value;
 
         console.log(pName);
         console.log(pWeight);
         console.log(pHeight);
 
-        Meteor.call('addNewPlayer', pName,pWeight,pHeight, (err, data)=> {
-            Bert.defaults = {hideDelay: 4500}
+        Meteor.call('addNewPlayer', pName,pWeight,pHeight, ()=> {
+            Bert.defaults = {hideDelay: 4500};
             Bert.alert('Player Created','success', 'fixed-top', 'fa-check');
 
             this.name.controlEl.value = "";
             this.baseWeight.controlEl.value = "";
             this.height.controlEl.value = "";
             this.close();
-        })
+        });
 
         this.close();
     }
@@ -65,7 +64,7 @@ export default class MasterReport extends TrackerReact(React.Component) {
                 <div>
                     <span className = "mui--pull-left"><h3>Master Report</h3></span>
                     <span className = "mui--pull-right"><Button onClick={this.open} color="primary" variant="raised">Create an Athlete</Button></span>
-                    <div className="mui--clearfix"></div>
+                    <div className="mui--clearfix">{/*Null comment*/}</div>
                 </div>
                 <div>
                     <Modal show={this.state.showModal} onHide={this.close} >
