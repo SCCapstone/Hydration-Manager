@@ -68,13 +68,11 @@ Meteor.methods({
         Athletes.update(
         { _id: id },
         { $push: {preWeightData: {date: date, weight: weight} }});
-      console.log('PreWeight Entry:', weight);
   },
   addPostWeight(id, date, weight) {
       Athletes.update(
           { _id: id },
           { $push: {postWeightData: {date: date, weight: weight} }});
-      console.log('PostWeight Entry:', weight);
   },
   deleteAthlete(id) {
     Athletes.remove(id);
