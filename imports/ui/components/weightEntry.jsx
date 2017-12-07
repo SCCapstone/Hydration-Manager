@@ -19,7 +19,7 @@ export default class WeightEntry extends React.Component {
         };
         this.handleOptionChange = this.handleOptionChange.bind(this);
         this.handleDateChange =  this.handleDateChange.bind(this);
-        this.handleDebounce = debounce(500, this.handleDebounce);
+        this.handleDebounce = debounce(1000, this.handleDebounce);
     };
 
     handleDebounce = (e) => {
