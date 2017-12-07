@@ -22,7 +22,7 @@ export default class AthleteSingle extends Component {
                 <td>{this.props.athlete.name}</td>
                 <td>{this.props.athlete.baseWeight}</td>
                 <td>{this.props.athlete.height}</td>
-                <td>math</td>
+                <td>{JSON.stringify(this.props.athlete.weightData)}</td>
                 <td>
                     <Button bsStyle="danger" onClick={this.deleteAthlete} bsSize="small" className = "mui--pull-right">
                         &times;
