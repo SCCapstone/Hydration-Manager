@@ -95,7 +95,8 @@ export default class MasterReport extends TrackerReact(React.Component) {
                           <th>Name</th>
                           <th>Base Weight</th>
                           <th>Height</th>
-                          <th>Weight Data</th>
+                          <th>PreWeight Data</th>
+                          <th>PostWeight Data</th>
                           <th>Remove</th>
                       </tr>
                       </thead>
