@@ -6,8 +6,8 @@ export default class AthleteEntryList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            date: ' ',
-            weight: ' '
+            date: '',
+            weight: ''
         };
         this.handleDebounce = debounce(1000, this.handleDebounce);
         this.handleWeightChange = this.handleWeightChange.bind(this);
@@ -31,10 +31,9 @@ export default class AthleteEntryList extends Component {
             })
         }
         else {
-            console.log('Nope');
+            alert('Please ensure you have selected Pre or Post Weight');
         }
     };
-
     handleWeightChange = (e) => {
         e.persist();
         this.setState({weight: e.target.value});
@@ -44,9 +43,11 @@ export default class AthleteEntryList extends Component {
         return (
             <tr>
                 <td>{this.props.athlete.name}</td>
-                <td><form>
-                    <Input id='weight' value={this.state.weight} onChange={this.handleWeightChange}/>
-                </form></td>
+                <td>
+                    <form>
+                        <Input id='weight' value={this.state.weight} onChange={this.handleWeightChange}/>
+                    </form>
+                </td>
             </tr>
         )
     }

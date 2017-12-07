@@ -66,10 +66,12 @@ export default class WeightEntry extends React.Component {
                     </div><br/>
 
                     <div className="mui--text-center">
+                        {/*TODO: Look into changing these radio buttons to a toggle*/}
                         <label>
                             <input type="radio" value="PreWeight" checked={this.state.selectedOption === 'PreWeight'} onChange={this.handleOptionChange}/>
                             PreWeight
                         </label>
+                        {/*TODO: Fix this label hack*/}
                         <label>{/*Null Comment to add some spaaaace*/}</label>
                         <span>&nbsp;&nbsp;&nbsp;
                             <label>
