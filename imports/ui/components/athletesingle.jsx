@@ -41,7 +41,7 @@ export default class AthleteSingle extends Component {
 
                 <td>
                     {this.props.athlete.preWeightData.map((e,i)=>
-                        <p>{e.date} PostWeight:{e.weight}</p>
+                        <p>{e.date} PreWeight:{e.weight}</p>
                     )}
                 </td>
                 <td>
