@@ -18,12 +18,6 @@ export default class AthleteSingle extends Component {
         window.location ='/app/weightEntry';
     }
 
-    parseJSON (weightData) {
-        Object.keys(weightData).map(function(key){
-          return (<td>Key: {key}, Value: {weightData[key]}</td>)
-        })
-    }
-
     deleteAthlete() {
       Meteor.call('deleteAthlete',this.props.athlete._id);
     }
@@ -49,7 +43,6 @@ export default class AthleteSingle extends Component {
                         <p>{e.date} PostWeight:{e.weight}</p>
                     )}
                 </td>
-                {/*{this.parseJSON(this.props.athlete.weightData)}*/}
                 <td>
                     <Button bsStyle="danger" onClick={this.deleteAthlete} bsSize="small" className = "mui--pull-right">
                         &times;
