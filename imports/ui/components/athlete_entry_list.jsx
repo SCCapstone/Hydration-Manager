@@ -9,6 +9,7 @@ export default class AthleteEntryList extends Component {
             date: '',
             weight: ''
         };
+        {/*TODO: add onKeyPress enter key(13 */}
         this.handleDebounce = debounce(1000, this.handleDebounce);
         this.handleWeightChange = this.handleWeightChange.bind(this);
     }
@@ -30,7 +31,7 @@ export default class AthleteEntryList extends Component {
                 Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
             })
         }
-        else {
+        if (this.props.selOp === 'Default') {
             alert('Please ensure you have selected Pre or Post Weight');
         }
     };
