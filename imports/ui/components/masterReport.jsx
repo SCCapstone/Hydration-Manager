@@ -74,9 +74,9 @@ export default class MasterReport extends TrackerReact(React.Component) {
                         {/*TODO: Check that name is a string, baseweight is a number, and height is a number */}
                         <Modal.Body>
                             <Form className = "mui--text-left" >
-                                <Input ref={el => {this.name = el;}} label = "Player Name" floatingLabel = {true} required = {true} />
-                                <Input ref={el => {this.baseWeight = el;}} label = "Baseline weight" floatingLabel = {true} required = {true} />
-                                <Input ref={el => {this.height = el;}} label = "Height" floatingLabel = {true} required = {true} />
+                                <Input name="name" ref={el => {this.name = el;}} label = "Player Name" floatingLabel = {true} required = {true} />
+                                <Input name="baseWeight" ref={el => {this.baseWeight = el;}} label = "Baseline weight" floatingLabel = {true} required = {true} />
+                                <Input name="height" ref={el => {this.height = el;}} label = "Height" floatingLabel = {true} required = {true} />
                             </Form>
                         </Modal.Body>
                         <Modal.Footer>

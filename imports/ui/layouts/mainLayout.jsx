@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom'
 
 /* The idea here is that this mainLayout will be used as a
-* security buffer, either directing to login or to the application
+* security buffer, either directing to login.js or to the application
 * based on whether the user is logged in.
 *
 * Not sure exactly how it would work, but the way I'm thinking

@@ -59,10 +59,10 @@ export default class Login extends React.Component {
                 <br/>
                 <Container>
                     <Form className = "mui--text-left">
-                      <Input ref={el => {this.email = el;}} label = "Email Address" type = "email" floatingLabel = {true} required = {true} />
-                      <Input ref={el => {this.pswd = el;}} label = "Password" type = "password" floatingLabel = {true} required = {true} />
+                      <Input className= "email" ref={el => {this.email = el;}} label = "Email Address" type = "email" floatingLabel = {true} required = {true} />
+                      <Input className = "password" ref={el => {this.pswd = el;}} label = "Password" type = "password" floatingLabel = {true} required = {true} />
                     </Form>
-                <Button onClick = {this.verifyUser} variant = "raised" >Login</Button>
+                <Button className= "Login" onClick = {this.verifyUser} variant = "raised" >Login</Button>
                 <Button variant = "raised" onClick={this.routeToRegistration}>Register</Button>
                 <br/>
                     {/*TODO: Make forgot password do something */}

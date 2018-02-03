@@ -14,7 +14,7 @@ export default class Registration extends React.Component {
     }
 
     routeToLogin () {
-        window.location ='/login';
+        window.location ='/login.js';
     }
 
     addSiteUser(event) {
@@ -48,9 +48,9 @@ export default class Registration extends React.Component {
                     <h1>Registration</h1>
                     <br/>
                     <Form className= "new-siteuser" onSubmit={this.addSiteUser}>
-                        <Input ref={el => {this.email = el;}} label = "Email Address" type = "email" floatingLabel = {true} required = {true} />
-                        <Input ref={el => {this.pswd = el;}} label = "Password" type = "password" floatingLabel = {true} required = {true} />
-                        <Input ref={el => {this.con_pswd = el;}} label = "Confirm Password" type = "password" floatingLabel = {true} required = {true} />
+                        <Input name = "email" ref={el => {this.email = el;}} label = "Email Address" type = "email" floatingLabel = {true} required = {true} />
+                        <Input name= "password" ref={el => {this.pswd = el;}} label = "Password" type = "password" floatingLabel = {true} required = {true} />
+                        <Input name = "confirmpassword" ref={el => {this.con_pswd = el;}} label = "Confirm Password" type = "password" floatingLabel = {true} required = {true} />
                         <Button variant="raised">Create Account</Button>
                     </Form>
                     <br/>
