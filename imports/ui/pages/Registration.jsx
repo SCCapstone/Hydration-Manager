@@ -14,7 +14,7 @@ export default class Registration extends React.Component {
     }
 
     routeToLogin () {
-        window.location ='/login.js';
+        window.location ='/login';
     }
 
     addSiteUser(event) {

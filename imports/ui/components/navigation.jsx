@@ -8,7 +8,7 @@ export const Navigation = () => (
     <Col sm = "2">
         <ul className="nav nav-pills nav-stacked">
             <li><NavLink to = '/app'>Home</NavLink></li>
-            <li className="weightEntry"><NavLink to = '/app/weightEntry'>Weight Entry</NavLink></li>
+            <li><NavLink to = '/app/weightEntry'>Weight Entry</NavLink></li>
             <li><NavLink to = '/app/masterReport'>Master Report</NavLink></li>
             <li><NavLink to = '/app/yourTeams'>Your Teams</NavLink></li>
             <li><NavLink to = '/app/alerts'>Alerts</NavLink></li>
