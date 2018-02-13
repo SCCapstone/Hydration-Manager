@@ -1,7 +1,9 @@
 import React from 'react';
-import Form from 'muicss/lib/react/form';
-import Input from 'muicss/lib/react/input';
-import Button from 'muicss/lib/react/button';
+
+
+import {FormControl} from 'react-bootstrap';
+import {FormGroup} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
@@ -62,9 +64,9 @@ export default class MasterReport extends TrackerReact(React.Component) {
             <div>
                 <br/>
                 <div>
-                    <span className = "mui--pull-left"><h3>Master Report</h3></span>
-                    <span className = "mui--pull-right"><Button onClick={this.open} color="primary" variant="raised">Create an Athlete</Button></span>
-                    <div className="mui--clearfix">{/*Null comment*/}</div>
+                    <span><h3>Master Report</h3></span>
+                    <span><Button onClick={this.open} bsStyle="primary">Create an Athlete</Button></span>
+                    <div>{/*Null comment*/}</div>
                 </div>
                 <div>
                     <Modal show={this.state.showModal} onHide={this.close} >
@@ -73,20 +75,29 @@ export default class MasterReport extends TrackerReact(React.Component) {
                         </Modal.Header>
                         {/*TODO: Check that name is a string, baseweight is a number, and height is a number */}
                         <Modal.Body>
-                            <Form className = "mui--text-left" >
-                                <Input name="name" ref={el => {this.name = el;}} label = "Player Name" floatingLabel = {true} required = {true} />
-                                <Input name="baseWeight" ref={el => {this.baseWeight = el;}} label = "Baseline weight" floatingLabel = {true} required = {true} />
-                                <Input name="height" ref={el => {this.height = el;}} label = "Height" floatingLabel = {true} required = {true} />
-                            </Form>
+                        <form>
+                            <FormGroup>
+                                <FormControl placeholder='name' type='text' value={this.name}/>
+                                <FormControl placeholder='baseWeight' type='text' value={this.baseWeight}/>
+                                <FormControl placeholder='height' type='text' value={this.height}/>
+                            </FormGroup>
+                        </form>
+                            /*
+                            <form>
+                                <input name="name" ref={el => {this.name = el;}} label = "Player Name" floatingLabel = {true} required = {true} />
+                                <input name="baseWeight" ref={el => {this.baseWeight = el;}} label = "Baseline weight" floatingLabel = {true} required = {true} />
+                                <input name="height" ref={el => {this.height = el;}} label = "Height" floatingLabel = {true} required = {true} />
+                            </form>
+                            */
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button onClick={this.close} variant="raised"> Close </Button>
-                            <Button onClick={this.addPlayer} variant="raised" color="primary"> Create Athlete </Button>
+                            <Button onClick={this.close} bsStyle="danger"> Close </Button>
+                            <Button onClick={this.addPlayer} bsStyle="success"> Create Athlete </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
                 <br/>
-                <div className="mui--divider-top">
+                <div>
                     <br/>
                     {/*TODO: Able to click on athlete to go athlete report screen*/}
                     <Table striped bordered condensed hover className="teams">

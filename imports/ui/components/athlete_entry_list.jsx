@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Input from 'muicss/lib/react/input';
 import {debounce} from 'throttle-debounce';
 
 export default class AthleteEntryList extends Component {
@@ -46,7 +45,7 @@ export default class AthleteEntryList extends Component {
                 <td>{this.props.athlete.name}</td>
                 <td>
                     <form>
-                        <Input id='weight' value={this.state.weight} onChange={this.handleWeightChange}/>
+                        <input id='weight' value={this.state.weight} onChange={this.handleWeightChange}/>
                     </form>
                 </td>
             </tr>

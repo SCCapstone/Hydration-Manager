@@ -39,7 +39,7 @@ export default class AthleteSingle extends Component {
                     )}
                 </td>
                 <td>
-                    <Button bsStyle="danger" onClick={this.deleteAthlete} bsSize="small" className = "mui--pull-right">
+                    <Button bsStyle="danger" onClick={this.deleteAthlete} bsSize="small">
                         &times;
                     </Button>
                 </td>

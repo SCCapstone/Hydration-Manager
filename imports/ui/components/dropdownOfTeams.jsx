@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import DropdownItem from 'muicss/lib/react/dropdown-item';
+import React, {Component} from 'react';
+import {MenuItem} from 'react-bootstrap';
 
 export default class DropdownOfTeams extends Component {
 
@@ -9,9 +9,7 @@ constructor(props) {
   render() {
     return (
         <div>
-            <DropdownItem>
-                {this.props.team.name} {this.props.team.season}
-            </DropdownItem>
+            <MenuItem>{this.props.team.name} {this.props.team.season}</MenuItem>
         </div>
     )
   }

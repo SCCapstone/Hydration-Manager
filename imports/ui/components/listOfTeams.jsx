@@ -1,8 +1,7 @@
-import Button from 'muicss/lib/react/button';
 import React, {Component} from 'react'
 import { ListGroup } from 'react-bootstrap';
 import { ListGroupItem } from 'react-bootstrap';
-
+import { Button } from 'react-bootstrap';
 
 export default class ListOfTeams extends Component {
 
@@ -21,17 +20,17 @@ deleteTeam() {
     return (
         <ListGroup>
             {/*TODO: make the list strech across to the delete button */}
-            <span className = "mui--pull-left">
+            <span className = "pull-left">
                 <ListGroupItem onClick={this.routeToReport}>
                   {this.props.team.name} {this.props.team.season}
                 </ListGroupItem>
             </span>
-            <span className = "mui--pull-right">
-                <Button className="btn-cancel" variant="raised" color="danger" onClick={this.deleteTeam.bind(this)}>
+            <span className = "pull-right">
+                <Button bsStyle="danger" onClick={this.deleteTeam.bind(this)}>
                     &times;
                 </Button>
             </span>
-            <div className="mui--clearfix"></div>
+            <div>{/*Null comment*/}</div>
         </ListGroup>
     )
   }

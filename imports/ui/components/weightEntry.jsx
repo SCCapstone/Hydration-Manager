@@ -1,8 +1,10 @@
 import React from 'react';
-import Dropdown from 'muicss/lib/react/dropdown';
+
+import {DropdownButton} from 'react-bootstrap';
+
+import DropdownOfTeams from './dropdownOfTeams.jsx';
 import {Teams} from '../../api/teams.jsx';
 import {CurrentUser} from '../../api/users.jsx';
-import DropdownOfTeams from './dropdownOfTeams.jsx';
 import { Table } from 'react-bootstrap';
 import {debounce} from 'throttle-debounce';
 
@@ -36,9 +38,9 @@ export default class WeightEntry extends React.Component {
     };
 
     teams() {
-        var curUser = CurrentUser.findOne();
+        const curUser = CurrentUser.findOne();
         console.log(curUser);
-        var id = curUser.userID;
+        const id = curUser.userID;
         return Teams.find({user:id}).fetch();
     };
     athletes() {
@@ -46,26 +48,24 @@ export default class WeightEntry extends React.Component {
     };
     render() {
         return (
-            <div className="mui--align-center"><br/>
-
+            <div><br/>
                 <div>
-                    <span className = "mui--pull-left"><h3>Weight Entry</h3></span>
-                    <span className = "mui--pull-right">
-                        {/*TODO: the dropdown looks weird, not sure why */}
-                        <Dropdown color="primary" label="Select a Team">
-                            {this.teams().map((team)=>{return <DropdownOfTeams key={team._id} team={team} />})}
-                        </Dropdown>
+                    <span><h3>Weight Entry</h3></span>
+                    <span>
+                        <DropdownButton id={'Team Select'} title={'Team Select'} noCaret>
+                           {this.teams().map((team)=>{return <DropdownOfTeams key={team._id} team={team} />})}
+                        </DropdownButton>
                     </span>
-                    <div className = "mui--clearfix">{/*Null comment*/}</div>
+                    <div>{/*Null comment*/}</div>
                 </div><br/>
 
-                <form className="mui--divider-top">
+                <form>
                     <br/>
-                    <div className="mui--text-center">
+                    <div>
                         <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange}/>
                     </div><br/>
 
-                    <div className="mui--text-center">
+                    <div>
                         {/*TODO: Look into changing these radio buttons to a toggle*/}
                         <label>
                             <input type="radio" value="PreWeight" checked={this.state.selectedOption === 'PreWeight'} onChange={this.handleOptionChange}/>
@@ -80,7 +80,7 @@ export default class WeightEntry extends React.Component {
                             </label>
                         </span>
                     </div>
-                    <div className = "mui--clearfix">{/*Null comment*/}</div><br/><br/><br/>
+                    <div>{/*Null comment*/}</div><br/><br/><br/>
 
                     {/*TODO: Able to click on athlete to go athlete report screen*/}
                     <Table striped bordered condensed hover className="teams">
