@@ -2,7 +2,7 @@ import React from 'react';
 
 import {DropdownButton} from 'react-bootstrap';
 
-import DropdownOfTeams from './dropdownOfTeams.jsx';
+import WeightDropdownOfTeams from './weightDropdownOfTeams.jsx';
 import {Teams} from '../../api/teams.jsx';
 import {CurrentUser} from '../../api/users.jsx';
 import { Table } from 'react-bootstrap';
@@ -46,6 +46,17 @@ export default class WeightEntry extends React.Component {
     athletes() {
         return Athletes.find().fetch();
     };
+
+    displayCurrentTeam() {
+        if(this.props.match.params.teamId) {
+            teamId = this.props.match.params.teamId;
+            currentTeam = Teams.findOne({"_id": teamId});
+            return currentTeam.name + " " + currentTeam.season;
+        }
+        else{
+            return "";
+        }
+    }
     render() {
         return (
             <div><br/>
@@ -53,9 +64,10 @@ export default class WeightEntry extends React.Component {
                     <span><h3>Weight Entry</h3></span>
                     <span>
                         <DropdownButton id={'Team Select'} title={'Team Select'} noCaret>
-                           {this.teams().map((team)=>{return <DropdownOfTeams key={team._id} team={team} />})}
+                           {this.teams().map((team)=>{return <WeightDropdownOfTeams key={team._id} team={team} />})}
                         </DropdownButton>
                     </span>
+                    <h1>{this.displayCurrentTeam()}</h1>
                     <div>{/*Null comment*/}</div>
                 </div><br/>
 

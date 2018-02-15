@@ -7,7 +7,12 @@ import {Button} from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import MasterDropdownOfTeams from './masterDropdownOfTeams.jsx';
+import {DropdownButton} from 'react-bootstrap';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 
+import {CurrentUser} from '../../api/users.jsx';
+import {Teams} from '../../api/teams.jsx';
 import {Athletes} from '../../api/athletes.jsx';
 import AthleteSingle from './athletesingle.jsx';
 
@@ -57,6 +62,23 @@ export default class MasterReport extends TrackerReact(React.Component) {
     athletes() {
         return Athletes.find().fetch();
     }
+    teams() {
+        const curUser = CurrentUser.findOne();
+        console.log(curUser);
+        const id = curUser.userID;
+        return Teams.find({user:id}).fetch();
+    };
+
+    displayCurrentTeam() {
+        if(this.props.match.params.teamId) {
+            teamId = this.props.match.params.teamId;
+            currentTeam = Teams.findOne({"_id": teamId});
+            return currentTeam.name + " " + currentTeam.season;
+        }
+        else{
+            return "";
+        }
+    }
 
     render() {
         athletes = this.athletes;
@@ -65,6 +87,12 @@ export default class MasterReport extends TrackerReact(React.Component) {
                 <br/>
                 <div>
                     <span><h3>Master Report</h3></span>
+                    <span>
+                        <DropdownButton id={'Team Select'} title={'Team Select'} noCaret>
+                            {this.teams().map((team)=>{return <MasterDropdownOfTeams key={team._id} team={team} />})}
+                        </DropdownButton>
+                    </span>
+                    <h1> {this.displayCurrentTeam()} </h1>
                     <span><Button onClick={this.open} bsStyle="primary">Create an Athlete</Button></span>
                     <div>{/*Null comment*/}</div>
                 </div>
