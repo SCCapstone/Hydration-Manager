@@ -7,7 +7,7 @@ export const Header = () => (
                 <div className = "col-xs-12">
                     <h1 className="text-center header-text">Hydration Manager</h1>
                 </div>
-                <button className="col-xs-offset-11 glyphicon glyphicon-cog">{/*Null comment*/}</button>
+                <button className="col-xs-offset-10 glyphicon glyphicon-cog">{/*Null comment*/}</button>
             </div>
         </div>
     </div>

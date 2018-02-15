@@ -18,8 +18,8 @@ export default class YourTeams extends TrackerReact(React.Component) {
         super(props);
         this.state = {
             showModal: false,
-            value1: '',
-            value2: '',
+            teamName: '',
+            teamSeason: '',
         };
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
@@ -41,8 +41,8 @@ export default class YourTeams extends TrackerReact(React.Component) {
 
     addTeam() {
         event.preventDefault();
-        const teamName = this.team;
-        const teamSeason = this.season;
+        const teamName = this.state.teamName;
+        const teamSeason = this.state.teamSeason;
 
         if (teamName != "") {
             const curUser = CurrentUser.findOne();
@@ -73,11 +73,17 @@ export default class YourTeams extends TrackerReact(React.Component) {
         addTeam();
     }
  */
-    handleTeam(e){
-        this.team = e.value;
+    handleTeam = (e) => {
+        e.persist();
+        this.setState({
+            teamName: e.target.value
+        });
     }
-    handleSeason(e){
-        this.season = e.value;
+    handleSeason = (e) => {
+        e.persist();
+        this.setState({
+            teamSeason : e.target.value
+        });
     }
 /*
     FieldGroup({id, label, help, ...props}) {
@@ -115,8 +121,8 @@ export default class YourTeams extends TrackerReact(React.Component) {
                         <Modal.Body>
                             <form>
                                 <FormGroup>
-                                    <FormControl placeholder='Team Name' label='Team Name' type='text' value={this.target} onChange={this.handleTeam}/>
-                                    <FormControl placeholder='Season' label='Season' type='text' value={this.target} onChange={this.handleSeason}/>
+                                    <FormControl placeholder='Team Name' label='Team Name' type='text' onChange={this.handleTeam}/>
+                                    <FormControl placeholder='Season' label='Season' type='text' onChange={this.handleSeason}/>
                                 </FormGroup>
                             </form>
                         </Modal.Body>
