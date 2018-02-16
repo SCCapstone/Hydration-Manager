@@ -9,7 +9,7 @@ import { Table } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import MasterDropdownOfTeams from './masterDropdownOfTeams.jsx';
 import {DropdownButton} from 'react-bootstrap';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+//import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 
 import {CurrentUser} from '../../api/users.jsx';
 import {Teams} from '../../api/teams.jsx';
@@ -22,13 +22,16 @@ export default class MasterReport extends TrackerReact(React.Component) {
         super(props);
         this.routeToReport = this.routeToReport.bind(this);
         this.state = {
-            showModal: false
+            showModal: false,
+            name: '',
+            weight: '',
+            height: ''
         };
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
         this.addPlayer = this.addPlayer.bind(this);
     }
-    routeToReport () {
+    static routeToReport () {
         window.location ='/app/athleteReport';
     }
     open() {
@@ -39,9 +42,9 @@ export default class MasterReport extends TrackerReact(React.Component) {
     }
     addPlayer() {
         event.preventDefault();
-        const pName = this.name.controlEl.value;
-        const pWeight = this.baseWeight.controlEl.value;
-        const pHeight = this.height.controlEl.value;
+        const pName = this.state.name;
+        const pWeight = this.state.weight;
+        const pHeight = this.state.height;
 
         console.log(pName);
         console.log(pWeight);
@@ -51,18 +54,18 @@ export default class MasterReport extends TrackerReact(React.Component) {
             Bert.defaults = {hideDelay: 4500};
             Bert.alert('Player Created','success', 'fixed-top', 'fa-check');
 
-            this.name.controlEl.value = "";
-            this.baseWeight.controlEl.value = "";
-            this.height.controlEl.value = "";
+            this.name = "";
+            this.weight = "";
+            this.height = "";
             this.close();
         });
 
         this.close();
     }
-    athletes() {
+    static athletes() {
         return Athletes.find().fetch();
     }
-    teams() {
+    static teams() {
         const curUser = CurrentUser.findOne();
         console.log(curUser);
         const id = curUser.userID;
@@ -78,7 +81,28 @@ export default class MasterReport extends TrackerReact(React.Component) {
         else{
             return "";
         }
-    }
+    };
+
+    handleName = (e) => {
+        e.persist();
+        this.setState({
+            name : e.target.value
+        });
+    };
+
+    handleHeight = (e) => {
+        e.persist();
+        this.setState({
+            height : e.target.value
+        });
+    };
+
+    handleWeight = (e) => {
+        e.persist();
+        this.setState({
+            weight : e.target.value
+        });
+    };
 
     render() {
         athletes = this.athletes;
@@ -105,18 +129,11 @@ export default class MasterReport extends TrackerReact(React.Component) {
                         <Modal.Body>
                         <form>
                             <FormGroup>
-                                <FormControl placeholder='name' type='text' value={this.name}/>
-                                <FormControl placeholder='baseWeight' type='text' value={this.baseWeight}/>
-                                <FormControl placeholder='height' type='text' value={this.height}/>
+                                <FormControl placeholder='Player Name' label='Player Name' type='text' onChange={this.handleName}/>
+                                <FormControl placeholder='Baseline Weight' label='Base Weight' type='text' onChange={this.handleWeight}/>
+                                <FormControl placeholder='Height' label='Height' type='text' onChange={this.handleHeight}/>
                             </FormGroup>
                         </form>
-                            /*
-                            <form>
-                                <input name="name" ref={el => {this.name = el;}} label = "Player Name" floatingLabel = {true} required = {true} />
-                                <input name="baseWeight" ref={el => {this.baseWeight = el;}} label = "Baseline weight" floatingLabel = {true} required = {true} />
-                                <input name="height" ref={el => {this.height = el;}} label = "Height" floatingLabel = {true} required = {true} />
-                            </form>
-                            */
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={this.close} bsStyle="danger"> Close </Button>
