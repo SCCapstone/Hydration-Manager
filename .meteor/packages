@@ -17,10 +17,7 @@ es5-shim@4.6.15                # ECMAScript 5 compatibility for older browsers
 ecmascript@0.8.3              # Enable ECMAScript2015+ syntax in app code
 shell-server@0.2.4            # Server-side component of the `meteor shell` command
 
-autopublish@1.0.7             # Publish all data to the clients (for prototyping)
-insecure@1.0.7                # Allow all DB writes from clients (for prototyping)
 accounts-ui@1.1.9
-accounts-password@1.4.0
 twbs:bootstrap
 
 meteortoys:allthings          # Control - M on running site to view Mongo stuff
@@ -28,3 +25,9 @@ ultimatejs:tracker-react      # For getting data from Mongo
 themeteorchef:bert            # For adding Alerts to display to users
 xolvio:backdoor
 meteortesting:mocha
+
+react-meteor-data
+alexwine:bootstrap-4
+accounts-password
+msavin:mongol
+alanning:roles

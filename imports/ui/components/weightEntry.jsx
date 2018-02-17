@@ -3,7 +3,7 @@ import React from 'react';
 import {DropdownButton} from 'react-bootstrap';
 
 import WeightDropdownOfTeams from './weightDropdownOfTeams.jsx';
-import {Teams} from '../../api/teams.jsx';
+import {Teams} from '../../api/TeamsCollection.jsx';
 import {CurrentUser} from '../../api/users.jsx';
 import { Table } from 'react-bootstrap';
 import {debounce} from 'throttle-debounce';

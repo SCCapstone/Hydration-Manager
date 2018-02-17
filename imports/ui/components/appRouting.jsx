@@ -5,7 +5,7 @@ import WeightEntry from './weightEntry.jsx';
 import MasterReport from './masterReport.jsx';
 import Alerts from './alerts.jsx';
 import Logout from './logout.jsx';
-import YourTeams from './yourTeams.jsx';
+import YourTeams from './Teams.jsx';
 
 /* Routing for the main application */
 

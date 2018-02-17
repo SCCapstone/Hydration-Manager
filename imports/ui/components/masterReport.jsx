@@ -12,7 +12,7 @@ import {DropdownButton} from 'react-bootstrap';
 //import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 
 import {CurrentUser} from '../../api/users.jsx';
-import {Teams} from '../../api/teams.jsx';
+import {Teams} from '../../api/TeamsCollection.jsx';
 import {Athletes} from '../../api/athletes.jsx';
 import AthleteSingle from './athletesingle.jsx';
 

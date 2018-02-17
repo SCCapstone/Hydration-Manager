@@ -1,5 +1,5 @@
 import {SiteUser} from '../imports/api/users.jsx'
-import {Teams} from '../imports/api/teams.jsx'
+import {Teams} from '../imports/api/TeamsCollection.jsx'
 
 import {CurrentUser} from '../imports/api/users.jsx'
 
