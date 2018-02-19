@@ -26,7 +26,7 @@
 
     /*Center the inside div */
     width: 600px;
-    height: 400px;
+    height: 375px;
     position: fixed; /*it can be absolute too*/
     left:0; right:0;
     top:-20%; bottom:0;
@@ -54,4 +54,38 @@
 }
 .Login .LoginButtons button{
     margin: 5px;
+}
+
+
+
+/*Registration Page CSS*/
+.RegistrationBackGround{
+    background-color: #414141;
+    height: 100vh;
+}
+
+.Registration{
+    background-color: whitesmoke;
+
+    border: 10px solid whitesmoke;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px 5px rgba(245,245,245,0.2);
+
+    /*Center the inside div */
+    width: 600px;
+    height: 375px;
+    position: fixed; /*it can be absolute too*/
+    left:0; right:0;
+    top:-20%; bottom:0;
+    margin: auto;
+    padding: 15px;
+
+    /*this to solve "the content will not be cut when the window is smaller than the content": */
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+}
+
+.Registration button {
+    float: right;
 }

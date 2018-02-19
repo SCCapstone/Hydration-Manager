@@ -73,16 +73,17 @@ export default class Registration extends React.Component {
 
     render() {
         return(
-            <div>
-                <h1>Registration</h1>
-                <br/>
-                <FormGroup>
-                    <FormControl placeholder='email' label='email' type='text' onChange={this.handleEmail}/>
-                    <FormControl placeholder='password' label='password' type='password' onChange={this.handlePassword}/>
-                    <FormControl placeholder='confirm password' label='passwordConfirm' type='password' onChange={this.handleConfirm}/>
-                </FormGroup>
-                <Button onClick={this.addSiteUser}>Create Account</Button>
-                <br/>
+            <div class = "RegistrationBackGround">
+                <div class = "Registration">
+                    <h1>Registration</h1>
+                    <br/>
+                    <FormGroup>
+                        <FormControl placeholder='Email' label='email' type='text' onChange={this.handleEmail}/><br/>
+                        <FormControl placeholder='Password' label='password' type='password' onChange={this.handlePassword}/><br/>
+                        <FormControl placeholder='Confirm password' label='passwordConfirm' type='password' onChange={this.handleConfirm}/><br/>
+                    </FormGroup>
+                    <Button onClick={this.addSiteUser}>Create Account</Button>
+                </div>
             </div>
         )
     }
