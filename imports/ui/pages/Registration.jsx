@@ -32,7 +32,7 @@ export default class Registration extends React.Component {
 
         console.log(this.state.email);
 
-        if (conf_pswd === pswd) {
+        if (conf_pswd === pswd && pswd != '') {
             {/* addNewSiteUser --> Meteor.method in /server/methods
                                Inserts data into SiteUser collection  -- Jacob  */}
             Meteor.call('addNewSiteUser', emailAddr,pswd, ()=> {
@@ -40,7 +40,11 @@ export default class Registration extends React.Component {
                 Bert.alert('Account Created','success', 'fixed-top', 'fa-check');
                 this.routeToLogin();
             });
-        } else {
+        } else if(emailAddr == '') {
+            Bert.defaults = {hideDelay: 6500};
+            Bert.alert('Email field must contain a valid email','danger', 'fixed-top', 'fa-frown-o');
+            }
+        else{
             Bert.defaults = {hideDelay: 6500};
             Bert.alert('Password Entries Do NOT Match','danger', 'fixed-top', 'fa-frown-o');
             {/* clear pswd entries */}
