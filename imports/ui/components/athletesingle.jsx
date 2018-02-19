@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Button } from 'react-bootstrap';
 import {Athletes} from '../../api/athletes.jsx';
+import { Link } from 'react-router-dom';
 
 export default class AthleteSingle extends Component {
     constructor(props) {
@@ -24,7 +25,9 @@ export default class AthleteSingle extends Component {
         athletes = this.athletes;
         return (
             <tr>
+                <Link to={"/app/athlete/" + this.props.athlete._id}>
                 <td>{this.props.athlete.name}</td>
+                </Link>
                 <td>{this.props.athlete.baseWeight}</td>
                 <td>{this.props.athlete.height}</td>
                 {/*TODO: The way this is stuctured, data MUST be entered sequentially*/}

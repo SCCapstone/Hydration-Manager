@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from './home.jsx';
 import WeightEntry from './weightEntry.jsx';
 import MasterReport from './masterReport.jsx';
+import AthleteReport from './athleteReport';
 import Alerts from './alerts.jsx';
 import Logout from './logout.jsx';
 import YourTeams from './yourTeams.jsx';
@@ -17,6 +18,7 @@ export const AppRouting = ( {match} ) => (
                 <Route path='/app/weightEntry/:teamId' component={WeightEntry}/>
                 <Route exact path='/app/masterReport/' component={MasterReport}/>
                 <Route path='/app/masterReport/:teamId' component={MasterReport}/>
+                <Route path='/app/athlete/:athleteId' component={AthleteReport}/>
                 <Route path='/app/yourTeams' component={YourTeams}/>
                 <Route path='/app/alerts' component={Alerts}/>
                 <Route path='/app/logout' component={Logout}/>

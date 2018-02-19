@@ -25,7 +25,8 @@ export default class MasterReport extends TrackerReact(React.Component) {
             showModal: false,
             name: '',
             weight: '',
-            height: ''
+            height: '',
+            playerTeamId: '',
         };
         this.routeToReport = this.routeToReport.bind(this);
         this.open = this.open.bind(this);
@@ -33,12 +34,14 @@ export default class MasterReport extends TrackerReact(React.Component) {
         this.addPlayer = this.addPlayer.bind(this);
         this.teams = this.teams.bind(this);
         this.athletes = this.athletes.bind(this);
+        this.getCurrentTeam = this.getCurrentTeam.bind(this);
     }
     routeToReport () {
         window.location ='/app/athleteReport';
     }
     open() {
         this.setState({ showModal: true });
+        this.getCurrentTeam();
     }
     close() {
         this.setState({ showModal: false });
@@ -48,12 +51,13 @@ export default class MasterReport extends TrackerReact(React.Component) {
         const pName = this.state.name;
         const pWeight = this.state.weight;
         const pHeight = this.state.height;
+        const pTeamId = this.state.playerTeamId;
 
         console.log(pName);
         console.log(pWeight);
         console.log(pHeight);
 
-        Meteor.call('addNewPlayer', pName,pWeight,pHeight, ()=> {
+        Meteor.call('addNewPlayer', pName,pWeight,pHeight,pTeamId, ()=> {
             Bert.defaults = {hideDelay: 4500};
             Bert.alert('Player Created','success', 'fixed-top', 'fa-check');
 
@@ -107,6 +111,21 @@ export default class MasterReport extends TrackerReact(React.Component) {
         });
     };
 
+    handleTeam = (e) => {
+        e.persist();
+        this.setState({
+            playerTeamId : e.target.value
+        });
+    };
+
+    getCurrentTeam ()
+    {
+        currentTeam = this.props.match.params.teamId;
+        this.setState({
+            playerTeamId : currentTeam
+        });
+    }
+
     render() {
         athletes = this.athletes;
         return (
@@ -130,13 +149,16 @@ export default class MasterReport extends TrackerReact(React.Component) {
                         </Modal.Header>
                         {/*TODO: Check that name is a string, baseweight is a number, and height is a number */}
                         <Modal.Body>
-                        <form>
-                            <FormGroup>
-                                <FormControl placeholder='Player Name' label='Player Name' type='text' onChange={this.handleName}/>
-                                <FormControl placeholder='Baseline Weight' label='Base Weight' type='text' onChange={this.handleWeight}/>
-                                <FormControl placeholder='Height' label='Height' type='text' onChange={this.handleHeight}/>
-                            </FormGroup>
-                        </form>
+                            <form>
+                                <FormGroup>
+                                    <FormControl placeholder='Player Name' label='Player Name' type='text' onChange={this.handleName}/>
+                                    <FormControl placeholder='Baseline Weight' label='Base Weight' type='text' onChange={this.handleWeight}/>
+                                    <FormControl placeholder='Height' label='Height' type='text' onChange={this.handleHeight}/>
+                                    <FormControl defaultValue={this.state.playerTeamId} componentClass="select" label='Team' onChange={this.handleTeam}>
+                                        {this.teams().map((team)=><option value={team._id} key={team._id}>{team.name} {team.season}</option>)}
+                                    </FormControl>
+                                </FormGroup>
+                            </form>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={this.close} bsStyle="danger"> Close </Button>

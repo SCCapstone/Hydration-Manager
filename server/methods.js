@@ -53,11 +53,12 @@ Meteor.methods({
     return id;
   },
 
-  addNewPlayer(name, weight, height) {
+  addNewPlayer(name, weight, height, teamId) {
     Athletes.insert({
       name: name,
       baseWeight: weight,
       height: height,
+      teamId: teamId,
       createdAt: new Date(),
       preWeightData: [],
       postWeightData: []
