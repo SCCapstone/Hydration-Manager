@@ -12,25 +12,20 @@ export default class Navigation extends Component {
         }
     }
     //Code sidebar appearance and disappearance
-    // toggleVisible() {
-    //
-    //     var x = document.getElementById("pageNavigation");
-    //     if (x.class == "hidden-xs" || x.class == "hidden-sm") {
-    //         x.class = "block";
-    //     } else {
-    //         x.class = "hidden";
-    //     }
-    //
-    //   //Code sidebar appearance
-    //
-    // }
+    toggleVisible() {
+
+        var x = document.getElementById("pageNavigation");
+        x.classList.toggle("hidden-sm");
+        x.classList.toggle("hidden-xs");
+
+    }
 
     render() {
         return (
             <div>
-                <button type="button" className="hidden-md hidden-lg hidden-xl btn btn-default
+                <button type="button" className="col-xs-1 hidden-md hidden-lg hidden-xl btn btn-default
             btn-sm glyphicon glyphicon-menu-hamburger" onClick={this.toggleVisible}/>
-                <ul id= "pageNavigation" className= "hidden-sm hidden-xs nav-sidebar col-lg-2 nav nav-pills nav-stacked">
+                <ul id= "pageNavigation" className= "hidden-sm hidden-xs nav-sidebar col-xs-12 col-md-2 nav nav-pills nav-stacked">
                     <li><NavLink to = '/app'>Home</NavLink></li>
                     <li><NavLink to = '/app/weightEntry'>Weight Entry</NavLink></li>
                     <li><NavLink to = '/app/masterReport'>Master Report</NavLink></li>

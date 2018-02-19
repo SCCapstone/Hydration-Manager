@@ -10,7 +10,7 @@ import YourTeams from './yourTeams.jsx';
 /* Routing for the main application */
 
 export const AppRouting = ( {match} ) => (
-    <div className="col-md-10">
+    <div className="col-xs-9">
             <Switch>
                 <Route exact path='/app' component={Home}/>
                 <Route exact path='/app/weightEntry' component={WeightEntry}/>
