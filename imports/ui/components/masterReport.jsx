@@ -20,18 +20,21 @@ import AthleteSingle from './athletesingle.jsx';
 export default class MasterReport extends TrackerReact(React.Component) {
     constructor(props) {
         super(props);
-        this.routeToReport = this.routeToReport.bind(this);
+
         this.state = {
             showModal: false,
             name: '',
             weight: '',
             height: ''
         };
+        this.routeToReport = this.routeToReport.bind(this);
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
         this.addPlayer = this.addPlayer.bind(this);
+        this.teams = this.teams.bind(this);
+        this.athletes = this.athletes.bind(this);
     }
-    static routeToReport () {
+    routeToReport () {
         window.location ='/app/athleteReport';
     }
     open() {
@@ -62,10 +65,10 @@ export default class MasterReport extends TrackerReact(React.Component) {
 
         this.close();
     }
-    static athletes() {
+    athletes() {
         return Athletes.find().fetch();
     }
-    static teams() {
+    teams() {
         const curUser = CurrentUser.findOne();
         console.log(curUser);
         const id = curUser.userID;
