@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {Button} from 'react-bootstrap';
-import {FormGroup} from 'react-bootstrap';
-import {FormControl} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import { FormGroup } from 'react-bootstrap';
+import { FormControl } from 'react-bootstrap';
 import { Registration } from './Registration.jsx';
 
 {/* TODO: If only can figure out how to apply css to the Form and the Inputs so that it doesnt strech the entire screen - Justin*/}
@@ -65,20 +65,24 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <div>
-                <h1>Hydration Manager</h1>
-                <br/>
-                <FormGroup>
-                    <FormControl placeholder='email' label='email' type='email' onChange={this.handleEmail}/>
-                    <FormControl placeholder='password' label='password' type='password' onChange={this.handlePassword}/>
-                </FormGroup>
-                <Button onClick = {this.verifyUser}>Login</Button>
-                <Button onClick={this.routeToRegistration}>Register</Button>
-                <br/>
-                {/*TODO: Make forgot password do something */}
-                <Button>Forgot Password</Button>
-                <br/>
-                <sub>A University of South Carolina Capstone Project</sub>
+            <div class = "LoginBackGround">
+                <div class = "Login">
+                    <h1>Hydration Manager</h1>
+                    <br/>
+                    <FormGroup>
+                        <FormControl placeholder='Email' label='email' type='email' onChange={this.handleEmail}/><br/>
+                        <FormControl placeholder='Password' label='password' type='password' onChange={this.handlePassword}/>
+                    </FormGroup>
+                    <div class = "LoginButtons">
+                        <Button onClick = {this.verifyUser}>Login</Button>
+                        <Button onClick = {this.routeToRegistration}>Register</Button>
+                        <br/>
+                        {/*TODO: Make forgot password do something */}
+                        <Button>Forgot Password</Button>
+                    </div>
+                    <br/>
+                    <p>A University of South Carolina Capstone Project</p>
+                </div>
             </div>
         )
     }

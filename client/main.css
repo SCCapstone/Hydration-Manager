@@ -10,3 +10,48 @@
 .nav-sidebar {
     background-color: lightgray;
 }
+
+
+/*Login Page CSS*/
+.LoginBackGround{
+    background-color: #414141;
+    height: 100vh;
+}
+.Login{
+    background-color: whitesmoke;
+
+    border: 10px solid whitesmoke;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px 5px rgba(245,245,245,0.2);
+
+    /*Center the inside div */
+    width: 600px;
+    height: 400px;
+    position: fixed; /*it can be absolute too*/
+    left:0; right:0;
+    top:-20%; bottom:0;
+    margin: auto;
+    padding: 15px;
+
+    /*this to solve "the content will not be cut when the window is smaller than the content": */
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+}
+.Login h1 {
+    text-align: center;
+}
+.Login p{
+    position: relative;
+    font-size: 75%;
+    line-height: 0;
+    vertical-align: sub;
+    text-align: center;
+}
+.Login .LoginButtons{
+    margin: 0 auto;
+    text-align: center;
+}
+.Login .LoginButtons button{
+    margin: 5px;
+}
