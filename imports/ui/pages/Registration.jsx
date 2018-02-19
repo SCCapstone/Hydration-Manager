@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Form from 'muicss/lib/react/form';
-import Input from 'muicss/lib/react/input';
-import Button from 'muicss/lib/react/button';
-import Container from 'muicss/lib/react/container';
+import {Button} from 'react-bootstrap';
+import {FormGroup} from 'react-bootstrap';
+import {FormControl} from 'react-bootstrap';
 
 {/* import {SiteUser} from '../../api/users.jsx' */}
 
@@ -11,50 +10,79 @@ export default class Registration extends React.Component {
         super(props);
         this.routeToLogin = this.routeToLogin.bind(this);
         this.addSiteUser = this.addSiteUser.bind(this);
+        this.state = {
+            email: '',
+            password: '',
+            passwordConfirm: '',
+        };
     }
 
     routeToLogin () {
         window.location ='/login';
     }
 
-    addSiteUser(event) {
-      event.preventDefault();
+    addSiteUser() {
+        event.preventDefault();
 
-      var emailAddr = this.email.controlEl.value;
-      var pswd = this.pswd.controlEl.value;
-      var conf_pswd = this.con_pswd.controlEl.value;
+        console.log(this.state.email);
 
-      if (conf_pswd === pswd) {
-        {/* addNewSiteUser --> Meteor.method in /server/methods
+        const emailAddr = this.state.email;
+        const pswd = this.state.password;
+        const conf_pswd = this.state.passwordConfirm;
+
+        console.log(this.state.email);
+
+        if (conf_pswd === pswd) {
+            {/* addNewSiteUser --> Meteor.method in /server/methods
                                Inserts data into SiteUser collection  -- Jacob  */}
-        Meteor.call('addNewSiteUser', emailAddr,pswd, ()=> {
-            Bert.defaults = {hideDelay: 4500}
-            Bert.alert('Account Created','success', 'fixed-top', 'fa-check');
-            this.routeToLogin();
-        });
-      } else {
-        Bert.defaults = {hideDelay: 6500}
-        Bert.alert('Password Entries Do NOT Match','danger', 'fixed-top', 'fa-frown-o');
-        {/* clear pswd entries */}
-        this.pswd.controlEl.value = "";
-        this.con_pswd.controlEl.value = ""
-      }
+            Meteor.call('addNewSiteUser', emailAddr,pswd, ()=> {
+                Bert.defaults = {hideDelay: 4500};
+                Bert.alert('Account Created','success', 'fixed-top', 'fa-check');
+                this.routeToLogin();
+            });
+        } else {
+            Bert.defaults = {hideDelay: 6500};
+            Bert.alert('Password Entries Do NOT Match','danger', 'fixed-top', 'fa-frown-o');
+            {/* clear pswd entries */}
+            this.state.password = "";
+            this.state.passwordConfirm = ""
+        }
     }
+
+    handleEmail = (e) => {
+        e.persist();
+        this.setState({
+            email: e.target.value
+        });
+    };
+
+    handlePassword = (e) => {
+        e.persist();
+        this.setState({
+            password: e.target.value
+        });
+    };
+
+    handleConfirm = (e) => {
+        e.persist();
+        this.setState({
+            passwordConfirm: e.target.value
+        });
+    };
+
 
     render() {
         return(
             <div>
-                <Container className = "mui--text-left">
-                    <h1>Registration</h1>
-                    <br/>
-                    <Form className= "new-siteuser" onSubmit={this.addSiteUser}>
-                        <Input name = "email" ref={el => {this.email = el;}} label = "Email Address" type = "email" floatingLabel = {true} required = {true} />
-                        <Input name= "password" ref={el => {this.pswd = el;}} label = "Password" type = "password" floatingLabel = {true} required = {true} />
-                        <Input name = "confirmpassword" ref={el => {this.con_pswd = el;}} label = "Confirm Password" type = "password" floatingLabel = {true} required = {true} />
-                        <Button variant="raised">Create Account</Button>
-                    </Form>
-                    <br/>
-                </Container>
+                <h1>Registration</h1>
+                <br/>
+                <FormGroup>
+                    <FormControl placeholder='email' label='email' type='text' onChange={this.handleEmail}/>
+                    <FormControl placeholder='password' label='password' type='password' onChange={this.handlePassword}/>
+                    <FormControl placeholder='confirm password' label='passwordConfirm' type='password' onChange={this.handleConfirm}/>
+                </FormGroup>
+                <Button onClick={this.addSiteUser}>Create Account</Button>
+                <br/>
             </div>
         )
     }

@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import Form from 'muicss/lib/react/form';
-import Input from 'muicss/lib/react/input';
-import Button from 'muicss/lib/react/button';
-import Container from 'muicss/lib/react/container';
+import {Button} from 'react-bootstrap';
+import {FormGroup} from 'react-bootstrap';
+import {FormControl} from 'react-bootstrap';
 import { Registration } from './Registration.jsx';
-
-
-{/* CSS : https://www.muicss.com/docs/v1/react/introduction */}
-
 
 {/* TODO: If only can figure out how to apply css to the Form and the Inputs so that it doesnt strech the entire screen - Justin*/}
 {/* I put the entire thing in a container so it doesn't streach the entire screen - Justin*/}
@@ -18,10 +13,14 @@ export default class Login extends React.Component {
         this.routeToRegistration = this.routeToRegistration.bind(this);
         this.routeToApp = this.routeToApp.bind(this);
         this.verifyUser = this.verifyUser.bind(this);
+        this.state = {
+            email: '',
+            password: '',
+        };
     }
 
     routeToRegistration () {
-       window.location ='/registration';
+        window.location ='/registration';
     }
 
     routeToApp () {
@@ -29,47 +28,57 @@ export default class Login extends React.Component {
     }
 
     verifyUser() {
-      event.preventDefault();
+        event.preventDefault();
 
-      console.log(this.email.controlEl.value)
-      console.log(this.pswd.controlEl.value)
+        console.log(this.state.email);
+        console.log(this.state.password);
 
-      var emailAddr = this.email.controlEl.value;
-      var pswd = this.pswd.controlEl.value;
+        const emailAddr = this.state.email;
+        const pswd = this.state.password;
 
-      {/* var isUser = SiteUser.findOne({"email": emailAddr, "password": pswd}); */}
+        {/* var isUser = SiteUser.findOne({"email": emailAddr, "password": pswd}); */}
 
-      Meteor.call('verifyUser_MM', emailAddr,pswd, (err,data)=> {
+        Meteor.call('verifyUser_MM', emailAddr,pswd, (err,data)=> {
 
-        if(data) {
-          this.routeToApp();
-          this.email.controlEl.value = "";
-          this.pswd.controlEl.value = "";
-        } else {
-          Bert.defaults = {hideDelay: 6500}
-          Bert.alert('Invalid Email And/Or Password','warning', 'fixed-top', 'fa-warning');
-        }
-      });
-    }
+            if(data) {
+                this.routeToApp();
+            } else {
+                Bert.defaults = {hideDelay: 6500};
+                Bert.alert('Invalid Email And/Or Password','warning', 'fixed-top', 'fa-warning');
+            }
+        });
+    };
+
+    handleEmail = (e) => {
+        e.persist();
+        this.setState({
+            email: e.target.value
+        });
+    };
+
+    handlePassword = (e) => {
+        e.persist();
+        this.setState({
+            password: e.target.value
+        });
+    };
 
     render() {
         return (
-            <div className = "mui--text-center">
+            <div>
                 <h1>Hydration Manager</h1>
                 <br/>
-                <Container>
-                    <Form className = "mui--text-left">
-                      <Input className= "email" ref={el => {this.email = el;}} label = "Email Address" type = "email" floatingLabel = {true} required = {true} />
-                      <Input className = "password" ref={el => {this.pswd = el;}} label = "Password" type = "password" floatingLabel = {true} required = {true} />
-                    </Form>
-                <Button className= "Login" onClick = {this.verifyUser} variant = "raised" >Login</Button>
-                <Button variant = "raised" onClick={this.routeToRegistration}>Register</Button>
+                <FormGroup>
+                    <FormControl placeholder='email' label='email' type='email' onChange={this.handleEmail}/>
+                    <FormControl placeholder='password' label='password' type='password' onChange={this.handlePassword}/>
+                </FormGroup>
+                <Button onClick = {this.verifyUser}>Login</Button>
+                <Button onClick={this.routeToRegistration}>Register</Button>
                 <br/>
-                    {/*TODO: Make forgot password do something */}
-                <Button variant = "raised">Forgot Password</Button>
+                {/*TODO: Make forgot password do something */}
+                <Button>Forgot Password</Button>
                 <br/>
-                </Container>
-                <sub name = "tagline">A University of South Carolina Capstone Project</sub>
+                <sub>A University of South Carolina Capstone Project</sub>
             </div>
         )
     }
