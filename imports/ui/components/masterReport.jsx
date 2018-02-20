@@ -66,7 +66,19 @@ export default class MasterReport extends TrackerReact(React.Component) {
         this.close();
     }
     athletes() {
-        return Athletes.find().fetch();
+
+        currentTeam = "";
+        const curUser = CurrentUser.findOne();
+        const id = curUser.userID;
+        if(this.props.match.params.teamId) {
+            teamId = this.props.match.params.teamId;
+            currentTeam = Teams.findOne({"_id": teamId, user:id});
+            return Athletes.find({teamId: currentTeam._id}).fetch();
+        }
+        else{
+            return null;
+        }
+
     }
     teams() {
         const curUser = CurrentUser.findOne();
@@ -74,6 +86,17 @@ export default class MasterReport extends TrackerReact(React.Component) {
         const id = curUser.userID;
         return Teams.find({user:id}).fetch();
     };
+
+    displayAthletes() {
+        if(this.athletes() != null) {
+            return (this.athletes().map((athlete) => {
+                return <AthleteSingle key={athlete._id} athlete={athlete} />
+            }))
+        }
+        else{
+            return <li>Select a Team</li>
+        }
+    }
 
     displayCurrentTeam() {
         if(this.props.match.params.teamId) {
@@ -147,8 +170,8 @@ export default class MasterReport extends TrackerReact(React.Component) {
                             <form>
                                 <FormGroup>
                                     <FormControl placeholder='Player Name' label='Player Name' type='text' onChange={this.handleName}/>
-                                    <FormControl placeholder='Baseline Weight' label='Base Weight' type='text' onChange={this.handleWeight}/>
-                                    <FormControl placeholder='Height' label='Height' type='text' onChange={this.handleHeight}/>
+                                    <FormControl placeholder='Baseline Weight' label='Base Weight' type='number' onChange={this.handleWeight}/>
+                                    <FormControl placeholder='Height' label='Height' type='number' onChange={this.handleHeight}/>
                                     <FormControl defaultValue={this.state.playerTeamId} componentClass="select" label='Team' onChange={this.handleTeam}>
                                         {this.teams().map((team)=><option value={team._id} key={team._id}>{team.name} {team.season}</option>)}
                                     </FormControl>
@@ -177,7 +200,8 @@ export default class MasterReport extends TrackerReact(React.Component) {
                       </tr>
                       </thead>
                         <tbody>
-                            {this.athletes().map((athlete)=>{return <AthleteSingle key={athlete._id} athlete={athlete} />})}
+                        {this.displayAthletes()}
+                            {/*{this.athletes().map((athlete)=>{return <AthleteSingle key={athlete._id} athlete={athlete} />})}*/}
                         </tbody>
                     </Table>
                 </div>

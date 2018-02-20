@@ -16,7 +16,7 @@ export default class WeightEntry extends React.Component {
         super(props);
         this.state = {
             selectedOption: 'Default',
-            selectedDate: ''
+            selectedDate: '',
         };
         this.handleOptionChange = this.handleOptionChange.bind(this);
         this.handleDateChange =  this.handleDateChange.bind(this);
@@ -44,8 +44,30 @@ export default class WeightEntry extends React.Component {
         return Teams.find({user:id}).fetch();
     };
     athletes() {
-        return Athletes.find().fetch();
+        currentTeam = "";
+        const curUser = CurrentUser.findOne();
+        const id = curUser.userID;
+        if(this.props.match.params.teamId) {
+            teamId = this.props.match.params.teamId;
+            currentTeam = Teams.findOne({"_id": teamId, user:id});
+            return Athletes.find({teamId: currentTeam._id}).fetch();
+        }
+        else{
+            return null;
+        }
     };
+
+    displayAthletes() {
+        if(this.athletes() != null) {
+            return (this.athletes().map((athlete) => {
+                return <AthleteEntryList key={athlete._id} athlete={athlete} selOp={this.state.selectedOption}
+                                         dat={this.state.selectedDate}/>
+            }))
+        }
+        else{
+            return <li>Select a Team</li>
+        }
+        }
 
     displayCurrentTeam() {
         if(this.props.match.params.teamId) {
@@ -103,7 +125,8 @@ export default class WeightEntry extends React.Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {this.athletes().map((athlete)=>{return <AthleteEntryList key={athlete._id} athlete={athlete} selOp={this.state.selectedOption} dat={this.state.selectedDate}/>})}
+                        {this.displayAthletes()}
+                        {/*{this.athletes().map((athlete)=>{return <AthleteEntryList key={athlete._id} athlete={athlete} selOp={this.state.selectedOption} dat={this.state.selectedDate}/>})}*/}
                         </tbody>
                     </Table>
                 </form>

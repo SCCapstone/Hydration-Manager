@@ -18,20 +18,24 @@ export default class AthleteEntryList extends Component {
         console.log('You have selected:', this.props.selOp);
         console.log('The weight stored is:', e.target.value);
         console.log('The athlete you selected is', this.props.athlete.name);
-        if (this.props.selOp === 'PreWeight') {
+        if (this.props.dat === '')
+        {
+            alert('Please ensure you have selected a Date');
+        }
+        else if (this.props.selOp === 'Default') {
+            alert('Please ensure you have selected Pre or Post Weight');
+        }
+        else if (this.props.selOp === 'PreWeight') {
             Meteor.call('addPreWeight', this.props.athlete._id, this.props.dat, this.state.weight, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
             })
         }
-        if (this.props.selOp === 'PostWeight') {
+        else if (this.props.selOp === 'PostWeight') {
             Meteor.call('addPostWeight', this.props.athlete._id, this.props.dat, this.state.weight, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
             })
-        }
-        if (this.props.selOp === 'Default') {
-            alert('Please ensure you have selected Pre or Post Weight');
         }
     };
     handleWeightChange = (e) => {
@@ -45,7 +49,7 @@ export default class AthleteEntryList extends Component {
                 <td>{this.props.athlete.name}</td>
                 <td>
                     <form>
-                        <input id='weight' value={this.state.weight} onChange={this.handleWeightChange}/>
+                        <input id='weight' type="number" value={this.state.weight} onChange={this.handleWeightChange}/>
                     </form>
                 </td>
             </tr>
