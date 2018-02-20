@@ -152,7 +152,7 @@ export default class MasterReport extends TrackerReact(React.Component) {
                 <div>
                     <span><h3>Master Report</h3></span>
                     <span>
-                        <DropdownButton id={'Team Select'} title={'Team Select'} noCaret>
+                        <DropdownButton id={'Team Select'} title={'Team Select'}>
                             {this.teams().map((team)=>{return <MasterDropdownOfTeams key={team._id} team={team} />})}
                         </DropdownButton>
                     </span>
