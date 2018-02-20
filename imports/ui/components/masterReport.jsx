@@ -1,6 +1,4 @@
 import React from 'react';
-
-
 import {FormControl} from 'react-bootstrap';
 import {FormGroup} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
@@ -9,8 +7,6 @@ import { Table } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import MasterDropdownOfTeams from './masterDropdownOfTeams.jsx';
 import {DropdownButton} from 'react-bootstrap';
-//import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-
 import {CurrentUser} from '../../api/users.jsx';
 import {Teams} from '../../api/teams.jsx';
 import {Athletes} from '../../api/athletes.jsx';
