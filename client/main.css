@@ -121,7 +121,7 @@ body{
     background-color: #414141;
 }
 /*Mobile View CSS */
-@media only screen and (min-width: 0px) and (max-width: 500px) {
+@media only screen and (max-width: 830px) {
     /*Adds the Button to toggle the nav in mobile view */
     .nav-sidebar{
         display: flex;
@@ -136,7 +136,7 @@ body{
         color:whitesmoke;
     }
 }
-@media only screen and (min-width: 501px){
+@media only screen and (min-width: 831px){
     .NavClass Button{
         display: none;
     }
