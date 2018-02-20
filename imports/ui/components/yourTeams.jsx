@@ -107,7 +107,6 @@ export default class YourTeams extends TrackerReact(React.Component) {
     render () {
         return (
             <div>
-                <br/>
                 <div>
                     <span><h3>Your Team's</h3></span>
                     <span><Button onClick={this.open} bsStyle="primary">Create a Team</Button></span>

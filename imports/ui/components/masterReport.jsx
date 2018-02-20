@@ -130,7 +130,6 @@ export default class MasterReport extends TrackerReact(React.Component) {
         athletes = this.athletes;
         return (
             <div>
-                <br/>
                 <div>
                     <span><h3>Master Report</h3></span>
                     <span>

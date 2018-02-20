@@ -9,9 +9,10 @@ import { BrowserRouter } from 'react-router-dom';
 export const App = () => (
     <BrowserRouter>
         <div>
-            <Header />
             <Navigation />
-            <AppRouting />
+            <div className = "AppContent">
+                <AppRouting />
+            </div>
         </div>
     </BrowserRouter>
 );

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { NavLink, Link } from 'react-router-dom'
-
+import { Glyphicon } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 /* Side navigation bar for the application */
 
 export default class Navigation extends Component {
@@ -17,21 +18,22 @@ export default class Navigation extends Component {
         var x = document.getElementById("pageNavigation");
         x.classList.toggle("hidden-sm");
         x.classList.toggle("hidden-xs");
-
     }
-
     render() {
+        let style = {
+            float: 'right'
+        };
         return (
-            <div>
-                <button type="button" className="col-xs-1 hidden-md hidden-lg hidden-xl btn btn-default
-            btn-sm glyphicon glyphicon-menu-hamburger" onClick={this.toggleVisible}/>
-                <ul id= "pageNavigation" className= "hidden-sm hidden-xs nav-sidebar col-xs-12 col-md-2 nav nav-pills nav-stacked">
-                    <li><NavLink to = '/app'>Home</NavLink></li>
-                    <li><NavLink to = '/app/weightEntry'>Weight Entry</NavLink></li>
-                    <li><NavLink to = '/app/masterReport'>Master Report</NavLink></li>
-                    <li><NavLink to = '/app/yourTeams'>Your Teams</NavLink></li>
-                    <li><NavLink to = '/app/alerts'>Alerts</NavLink></li>
-                    <li><Link to = '/app/logout'>Logout</Link></li>
+            <div className = "NavClass">
+                <Button type="button" onClick={this.toggleVisible}><Glyphicon glyph="align-justify"/> Menu</Button>
+                <ul id= "pageNavigation" className= "nav-sidebar">
+                    <li><h3>Hydration Manager</h3></li>
+                    <li><NavLink to = '/app' onClick={this.toggleVisible}>Home</NavLink></li>
+                    <li><NavLink to = '/app/weightEntry' onClick={this.toggleVisible}>Weight Entry</NavLink></li>
+                    <li><NavLink to = '/app/masterReport' onClick={this.toggleVisible}>Master Report</NavLink></li>
+                    <li><NavLink to = '/app/yourTeams' onClick={this.toggleVisible}>Your Teams</NavLink></li>
+                    <li><NavLink to = '/app/alerts' onClick={this.toggleVisible}>Alerts</NavLink></li>
+                    <li style={style}><Link to = '/app/logout' onClick={this.toggleVisible}>Logout</Link></li>
                 </ul>
             </div>
         )

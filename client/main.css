@@ -1,16 +1,15 @@
 /* CSS declarations go here */
-.main-header {
-    background-color: black;
-}
 
-.header-text {
-    color: white;
-}
 
-.nav-sidebar {
-    background-color: lightgray;
-}
 
+body{
+
+}
+.AppContent{
+    margin: 0 auto;
+    width: 85%;
+    padding-top: 3.5%;
+}
 
 /*Login Page CSS*/
 .LoginBackGround{
@@ -89,3 +88,58 @@
 .Registration button {
     float: right;
 }
+
+/*Nav Bar's CSS*/
+.nav-sidebar h3 {
+    color: whitesmoke;
+    vertical-align: middle;
+    display: inline;
+    padding: 12px 16px;
+}
+.nav-sidebar {
+    background-color: #414141;
+    position: absolute;
+    line-height: 56px;
+    width: 100%;
+    z-index: 999;
+    list-style-type: none;
+}
+.nav-sidebar li{
+    display: inline;
+}
+.nav-sidebar a{
+    color: whitesmoke;
+    text-align: center;
+    vertical-align: middle;
+    padding: 18px 16px;
+    text-decoration: none;
+}
+.nav-sidebar li a:hover{
+    background-color: #202020;
+}
+.NavClass {
+    background-color: #414141;
+}
+/*Mobile View CSS */
+@media only screen and (min-width: 0px) and (max-width: 500px) {
+    /*Adds the Button to toggle the nav in mobile view */
+    .nav-sidebar{
+        display: flex;
+        flex-direction: column;
+    }
+    .NavClass Button{
+        display: inline;
+        text-align: center;
+        vertical-align: middle;
+        background-color: #414141;
+        border-color: #414141;
+        color:whitesmoke;
+    }
+}
+@media only screen and (min-width: 501px){
+    .NavClass Button{
+        display: none;
+    }
+}
+
+

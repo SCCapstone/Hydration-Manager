@@ -4,8 +4,6 @@ import { FormGroup } from 'react-bootstrap';
 import { FormControl } from 'react-bootstrap';
 import { Registration } from './Registration.jsx';
 
-{/* TODO: If only can figure out how to apply css to the Form and the Inputs so that it doesnt strech the entire screen - Justin*/}
-{/* I put the entire thing in a container so it doesn't streach the entire screen - Justin*/}
 
 export default class Login extends React.Component {
     constructor(props) {

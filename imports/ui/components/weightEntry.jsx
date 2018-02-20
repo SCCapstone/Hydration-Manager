@@ -1,12 +1,12 @@
 import React from 'react';
 
-import {DropdownButton} from 'react-bootstrap';
+import { DropdownButton } from 'react-bootstrap';
 
 import WeightDropdownOfTeams from './weightDropdownOfTeams.jsx';
-import {Teams} from '../../api/teams.jsx';
-import {CurrentUser} from '../../api/users.jsx';
+import { Teams } from '../../api/teams.jsx';
+import { CurrentUser } from '../../api/users.jsx';
 import { Table } from 'react-bootstrap';
-import {debounce} from 'throttle-debounce';
+import { debounce } from 'throttle-debounce';
 
 import {Athletes} from '../../api/athletes.jsx';
 import AthleteEntryList from './athlete_entry_list.jsx';
@@ -59,7 +59,7 @@ export default class WeightEntry extends React.Component {
     }
     render() {
         return (
-            <div><br/>
+            <div>
                 <div>
                     <span><h3>Weight Entry</h3></span>
                     <span>
