@@ -117,7 +117,7 @@ export default class MasterReport extends TrackerReact(React.Component) {
             playerTeamId : e.target.value
         });
     };
-
+    //Gets current team so that the modal window automatically has current team selected
     getCurrentTeam ()
     {
         currentTeam = this.props.match.params.teamId;

@@ -16,7 +16,7 @@ export default class WeightEntry extends React.Component {
         super(props);
         this.state = {
             selectedOption: 'Default',
-            selectedDate: '2017-12-08'
+            selectedDate: ''
         };
         this.handleOptionChange = this.handleOptionChange.bind(this);
         this.handleDateChange =  this.handleDateChange.bind(this);
