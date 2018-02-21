@@ -14,15 +14,20 @@ export default class Navigation extends Component {
     }
     //Code sidebar appearance and disappearance
     toggleVisible() {
-
         var x = document.getElementById("pageNavigation");
-        x.classList.toggle("hidden-sm");
+        x.classList.toggle(".visible-xs-*");
         x.classList.toggle("hidden-xs");
     }
     render() {
         let style = {
             float: 'right'
         };
+        let visble = {
+
+        }
+        let hidden = {
+
+        }
         return (
             <div className = "NavClass">
                 <Button type="button" onClick={this.toggleVisible}><Glyphicon glyph="align-justify"/> Menu</Button>

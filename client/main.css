@@ -1,7 +1,5 @@
 /* CSS declarations go here */
 
-
-
 body{
 
 }
@@ -120,8 +118,14 @@ body{
 .NavClass {
     background-color: #414141;
 }
+
 /*Mobile View CSS */
-@media only screen and (max-width: 830px) {
+@media (max-width: 826px){
+    .hidden-xs {
+        display: none !important;
+    }
+}
+@media only screen and (max-width: 826px) {
     /*Adds the Button to toggle the nav in mobile view */
     .nav-sidebar{
         display: flex;
@@ -133,10 +137,10 @@ body{
         vertical-align: middle;
         background-color: #414141;
         border-color: #414141;
-        color:whitesmoke;
+        color: whitesmoke;
     }
 }
-@media only screen and (min-width: 831px){
+@media only screen and (min-width: 827px){
     .NavClass Button{
         display: none;
     }
