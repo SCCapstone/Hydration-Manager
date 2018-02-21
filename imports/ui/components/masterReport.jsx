@@ -52,21 +52,25 @@ export default class MasterReport extends TrackerReact(React.Component) {
         console.log(pName);
         console.log(pWeight);
         console.log(pHeight);
+        if(pName == '' || pWeight == '' || pHeight == '' || pTeamId == '')
+        {
+            window.alert("Make sure to complete all fields for player creation. If no teams are available, contact an admin to assign you a team.");
+        }
+        else {
+            Meteor.call('addNewPlayer', pName, pWeight, pHeight, pTeamId, () => {
+                Bert.defaults = {hideDelay: 4500};
+                Bert.alert('Player Created', 'success', 'fixed-top', 'fa-check');
 
-        Meteor.call('addNewPlayer', pName,pWeight,pHeight,pTeamId, ()=> {
-            Bert.defaults = {hideDelay: 4500};
-            Bert.alert('Player Created','success', 'fixed-top', 'fa-check');
-
-            this.name = "";
-            this.weight = "";
-            this.height = "";
-            this.close();
-        });
+                this.name = "";
+                this.weight = "";
+                this.height = "";
+                this.close();
+            });
+        }
 
         this.close();
     }
     athletes() {
-
         currentTeam = "";
         const curUser = CurrentUser.findOne();
         const id = curUser.userID;
@@ -139,14 +143,24 @@ export default class MasterReport extends TrackerReact(React.Component) {
     //Gets current team so that the modal window automatically has current team selected
     getCurrentTeam ()
     {
-        currentTeam = this.props.match.params.teamId;
-        this.setState({
-            playerTeamId : currentTeam
-        });
+        if(this.props.match.params.teamId)
+        {
+            currentTeam = this.props.match.params.teamId;
+            this.setState({
+                playerTeamId : currentTeam
+            });
+        }
+        else if(Teams.findOne({user: CurrentUser.findOne().userID}) != undefined)
+        {
+            this.setState({
+                playerTeamId : Teams.findOne({user: CurrentUser.findOne().userID})._id
+            });
+        }
     }
 
     render() {
         athletes = this.athletes;
+
         return (
             <div>
                 <div>
@@ -172,7 +186,7 @@ export default class MasterReport extends TrackerReact(React.Component) {
                                     <FormControl placeholder='Player Name' label='Player Name' type='text' onChange={this.handleName}/>
                                     <FormControl placeholder='Baseline Weight' label='Base Weight' type='number' onChange={this.handleWeight}/>
                                     <FormControl placeholder='Height' label='Height' type='number' onChange={this.handleHeight}/>
-                                    <FormControl defaultValue={this.state.playerTeamId} componentClass="select" label='Team' onChange={this.handleTeam}>
+                                    <FormControl placeholder='Team' value={this.state.playerTeamId} componentClass="select" label='Team' onChange={this.handleTeam}>
                                         {this.teams().map((team)=><option value={team._id} key={team._id}>{team.name} {team.season}</option>)}
                                     </FormControl>
                                 </FormGroup>
