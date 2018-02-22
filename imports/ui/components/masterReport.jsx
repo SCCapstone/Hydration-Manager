@@ -48,6 +48,7 @@ export default class MasterReport extends TrackerReact(React.Component) {
         const pWeight = this.state.weight;
         const pHeight = this.state.height;
         const pTeamId = this.state.playerTeamId;
+        
 
         console.log(pName);
         console.log(pWeight);
@@ -76,7 +77,7 @@ export default class MasterReport extends TrackerReact(React.Component) {
         const id = curUser.userID;
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
-            
+
             currentTeam = Teams.findOne({"_id": teamId, user:id});
             return Athletes.find({teamId: currentTeam._id}).fetch();
         }
