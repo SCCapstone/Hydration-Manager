@@ -76,6 +76,7 @@ export default class MasterReport extends TrackerReact(React.Component) {
         const id = curUser.userID;
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
+            
             currentTeam = Teams.findOne({"_id": teamId, user:id});
             return Athletes.find({teamId: currentTeam._id}).fetch();
         }
