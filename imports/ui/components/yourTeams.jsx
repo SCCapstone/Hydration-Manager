@@ -107,20 +107,20 @@ export default class YourTeams extends TrackerReact(React.Component) {
     render () {
         return (
             <div>
-                <div>
-                    <span><h3>Your Team's</h3></span>
-                    <span><Button onClick={this.open} bsStyle="primary">Create a Team</Button></span>
+                <div className="YourTeamHeader">
+                    <h3>Your Team's</h3>
+                    <Button onClick={this.open} bsStyle="primary">Create a Team</Button>
                 </div>
+                <hr/>
                 <div>
                     <Modal show={this.state.showModal} onHide={this.close} >
                         <Modal.Header>
                             <Modal.Title>Team Entry Form</Modal.Title>
                         </Modal.Header>
-
                         <Modal.Body>
                             <form>
                                 <FormGroup>
-                                    <FormControl placeholder='Team Name' label='Team Name' type='text' onChange={this.handleTeam}/>
+                                    <FormControl placeholder='Team Name' label='Team Name' type='text' onChange={this.handleTeam}/><br/>
                                     <FormControl placeholder='Season' label='Season' type='text' onChange={this.handleSeason}/>
                                 </FormGroup>
                             </form>
@@ -131,9 +131,7 @@ export default class YourTeams extends TrackerReact(React.Component) {
                         </Modal.Footer>
                     </Modal>
                 </div>
-                <br/>
                 <div>
-                    <br/>
                     <ListGroup className="teams">
                         {this.teams().map((team)=>{return <ListOfTeams key={team._id} team={team} />})}
                     </ListGroup>

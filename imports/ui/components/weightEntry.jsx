@@ -83,12 +83,10 @@ export default class WeightEntry extends React.Component {
         return (
             <div>
                 <div>
-                    <span><h3>Weight Entry</h3></span>
-                    <span>
+                    <h3>Weight Entry</h3>
                         <DropdownButton id={'Team Select'} title={'Team Select'}>
                            {this.teams().map((team)=>{return <WeightDropdownOfTeams key={team._id} team={team} />})}
                         </DropdownButton>
-                    </span>
                     <h1>{this.displayCurrentTeam()}</h1>
                     <div>{/*Null comment*/}</div>
                 </div><br/>

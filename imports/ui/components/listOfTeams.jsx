@@ -20,21 +20,16 @@ deleteTeam() {
   render() {
     return (
         <ListGroup>
-            {/*TODO: make the list strech across to the delete button */}
-            <span className = "pull-left">
                 {/*<ListGroupItem onClick={this.routeToReport}>*/}
                 <Link to ={{pathname: "/app/masterReport/" + this.props.team._id}}>
                     <ListGroupItem>
                     {this.props.team.name} {this.props.team.season}
                     </ListGroupItem>
                 </Link>
-            </span>
-            <span className = "pull-right">
                 <Button bsStyle="danger" onClick={this.deleteTeam.bind(this)}>
                     &times;
                 </Button>
-            </span>
-            <div>{/*Null comment*/}</div>
+            <br/>
         </ListGroup>
     )
   }
