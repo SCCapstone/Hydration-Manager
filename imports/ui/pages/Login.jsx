@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { FormGroup } from 'react-bootstrap';
 import { FormControl } from 'react-bootstrap';
 import { Registration } from './Registration.jsx';
+import { User } from '../../api/users.jsx';
 
 
 export default class Login extends React.Component {
@@ -18,12 +19,13 @@ export default class Login extends React.Component {
     }
 
     routeToRegistration () {
-        window.location ='/registration';
+        window.location = '/registration';
     }
 
     routeToApp () {
         window.location ='/app/weightEntry';
     }
+
 
     verifyUser() {
         event.preventDefault();
@@ -34,7 +36,7 @@ export default class Login extends React.Component {
         const emailAddr = this.state.email;
         const pswd = this.state.password;
 
-        {/* var isUser = SiteUser.findOne({"email": emailAddr, "password": pswd}); */}
+        var isUser = User.findOne({"email": emailAddr, "password": pswd});
 
         Meteor.call('verifyUser_MM', emailAddr,pswd, (err,data)=> {
 

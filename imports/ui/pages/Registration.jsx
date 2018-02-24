@@ -3,8 +3,6 @@ import {Button} from 'react-bootstrap';
 import {FormGroup} from 'react-bootstrap';
 import {FormControl} from 'react-bootstrap';
 
-{/* import {SiteUser} from '../../api/users.jsx' */}
-
 export default class Registration extends React.Component {
     constructor(props) {
         super(props);

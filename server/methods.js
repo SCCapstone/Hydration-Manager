@@ -2,8 +2,6 @@ import {User} from '../imports/api/users.jsx'
 import {Teams} from '../imports/api/teams.jsx'
 import {Athletes} from '../imports/api/athletes.jsx'
 
-//import {CurrentUser} from '../imports/api/users.jsx'
-
 Meteor.methods({
 
   addNewUser(email, password) {
@@ -28,7 +26,7 @@ Meteor.methods({
 
     {/* set this users as the current user */}
     User.update(isUser._id, {
-      $set: {currentUser: "true"}
+      $set: {currentUser: true}
     });
 
     return isUser;
@@ -103,6 +101,12 @@ Meteor.methods({
   },
   deleteAthlete(id) {
     Athletes.remove(id);
+  },
+
+  logoutUser(id){
+      User.update({_id: id},{
+          $set: {currentUser: "false"}
+      });
   }
 
 });
