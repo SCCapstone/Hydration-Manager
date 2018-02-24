@@ -1,7 +1,4 @@
-import { Meteor } from 'meteor/meteor';
+// File Structure - per Meteor Guide.  See 'client/main.js' comments
 
-import '../imports/api/users.jsx'
-
-Meteor.startup(() => {
-  // code to run on server at startup
-});
+// Note: 'index.js' is an implied "entry point" file.
+import '../imports/startup/server';

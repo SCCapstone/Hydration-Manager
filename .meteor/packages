@@ -28,3 +28,6 @@ ultimatejs:tracker-react      # For getting data from Mongo
 themeteorchef:bert            # For adding Alerts to display to users
 xolvio:backdoor
 meteortesting:mocha
+react-meteor-data
+alanning:roles
+accounts-base

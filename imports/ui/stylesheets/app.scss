@@ -1,0 +1,11 @@
+// app.scss - used for importing all GLOBAL stylesheets (listed in the
+//             stylesheets directory) into a common file to be loaded onto the
+//             client in '/imports/startup/client/index.js'
+
+// @import - (CSS at-rule) is used to import style rules from other style sheets
+//         - tells the CSS engine to include an external style sheet
+//  - All imported scss (& Sass) files are merged into a single CSS output file
+
+@import './colors';
+@import './forms';
+@import './bootstrap-overrides';
