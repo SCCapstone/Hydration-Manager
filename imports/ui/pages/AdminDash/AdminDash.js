@@ -6,7 +6,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { Table } from 'react-bootstrap';
 import ROLES from '../../../api/Users/roles';
 
-import Loading from '../../components/Loading.jsx';
+//import Loading from '../../components/Loading.jsx';
 
 class AdminDash extends Component {
   constructor(props) {
@@ -14,9 +14,9 @@ class AdminDash extends Component {
   }
 
   componentWillMount() {
-    Roles.userIsInRole(user, [ROLES.ADMIN]),
+    Roles.userIsInRole(user, ["ADMIN"]);
   }
-  // release subscrition
+
   componentWillUnmount() {
     this.props.subscriptions.forEach((s) =>{
       s.stop();
@@ -48,7 +48,7 @@ class AdminDash extends Component {
       return false;
     }
     return (
-      <Loading />
+      <div><p>Loading</p></div>
     );
   }
 

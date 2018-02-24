@@ -8,22 +8,23 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 import getUserName from '../../../modules/get-user-name';
 
-// import Home from '../../components/home.jsx';
-// import WeightEntry from '../../components/weightEntry.jsx';
-// import MasterReport from '../../components/masterReport.jsx';
-// import AthleteReport from '../../components/athleteReport.jsx';
-// import Alerts from '../../components/alerts.jsx';
-// import Logout from '../../components/logout.jsx';
-// import YourTeams from '../../components/yourTeams.jsx';
+import Home from '../../components/home.jsx';
+import WeightEntry from '../../components/weightEntry.jsx';
+import MasterReport from '../../components/masterReport.jsx';
+import AthleteReport from '../../components/athleteReport.jsx';
+import Alerts from '../../components/alerts.jsx';
+import Logout from '../../components/logout.jsx';
+import YourTeams from '../../components/yourTeams.jsx';
 
-import LoginAlt from '../../pages/LoginAlt';
-// import Registration from '../../pages/Registration';
+import LoginAlt from '../../pages/LoginAlt/LoginAlt.js';
+import Registration from '../../pages/Registration/Registration.js';
 // import NotFound from '../../pages/NotFound';
-//import AdminDash from '../../pages/AdminDash';
+//import AdminDash from '../../pages/AdminDash/AdminDash.js';
 
 // import VerifyEmailAlert from '../../components/VerifyEmailAlert';
-// import Navigation from '../../components/Navigation';
-// import Authorized from '../../components/Authorized';
+import Navigation from '../../components/Navigation/Navigation.js';
+import Public from '../../components/Public/Public.js';
+import Authorized from '../../components/Authorized/Authorized.js';
 // import AppFooter from '../../components/AppFooter';
 
 //import './App.scss';
@@ -37,63 +38,64 @@ class App extends React.Component {
   }
 
   render() {
-    const { props } = this;  //const { props, state } = this;
+    const { props } = this;
     return (
+
       <BrowserRouter>
+        {!props.loading ? (
+          <div className="AppClass">
 
-        //Delay b/w server data pushed to client,
-        // avoid inadvertently showing unauthorized components
-        //{!props.loading ? (
-          <div className="App">
+            {props.isAuthorized ?
 
-            // {props.isAuthorized ?
-            //   // // Alert user if email unverified
-            //   // <VerifyEmailAlert
-            //   //   userId={props.userId}
-            //   //   emailVerified={props.emailVerified}
-            //   //   emailAddress={props.emailAddress}
-            //   // />
-            //   <Navigation {...props} />
-            //   : ''}
+              <Navigation {...props} />
+              : ''}
 
-
-            //Grid: wraps each route's component it renders in a <div className="container"></div> element
             <Grid>
               <Switch>
-                // Start Page: Login/LandingPage
-                //<Route exact path="/" component={Login} />
+
+                <Public exact path="/" component={LoginAlt} {...props} />
+                <Public exact path="/login" component={LoginAlt} {...props} />
+                <Public exact path="/registration" component={Registration} {...props} />
+
+                <Authorized exact path="/app" component={Home} {...props} />
+                
+
+                {/*
+
                 <Route exact path="/" component={LoginAlt} />
-                // <Route exact path="/registration" component={Registration} />
+                <Route exact path="/login" component={LoginAlt} />
+                <Route exact path="/registration" component={Registration} />
 
-                // <Authorized exact path="/app" component={Home} {...props} {...state}/>
-                // <Authorized exact path='/app/weightEntry' component={WeightEntry} {...props} />
-                // <Authorized path='/app/weightEntry/:teamId' component={WeightEntry} {...props} />
-                // <Authorized exact path='/app/masterReport/' component={MasterReport} {...props} />
-                // <Authorized path='/app/masterReport/:teamId' component={MasterReport} {...props} />
-                // <Authorized exact path='/app/yourTeams' component={YourTeams} {...props} />
-                // <Authorized exact path='/app/alerts' component={Alerts} {...props} />
+                <Authorized exact path="/app" component={Home} {...props} {...state}/>
+                <Authorized exact path='/app/weightEntry' component={WeightEntry} {...props} />
+                <Authorized path='/app/weightEntry/:teamId' component={WeightEntry} {...props} />
+                <Authorized exact path='/app/masterReport/' component={MasterReport} {...props} />
+                <Authorized path='/app/masterReport/:teamId' component={MasterReport} {...props} />
+                <Authorized exact path='/app/yourTeams' component={YourTeams} {...props} />
+                <Authorized exact path='/app/alerts' component={Alerts} {...props} />
 
-                //Admin routeProps
-                //<Authorized path='/app/admin' component={AdminDash} {...props} {...state}/>
-                //<Authorized path='/app/admin/:userId' component={Alerts} {...props} {...state}/>
+                <Authorized path='/app/admin' component={AdminDash} {...props} {...state}/>
+                <Authorized path='/app/admin/:userId' component={Alerts} {...props} {...state}/>
 
-                // <Public path="/registration" component={Registration} {...props} {...state} />
-                // <Public path="/login" component={Login} {...props} {...state} />
 
-                // <Route path="/logout" render={routeProps => <Logout {...routeProps} />} {...props} {...state} />
-                // <Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
-                // <Route name="recover-password" path="/recover-password" component={RecoverPassword} />
-                // <Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
-                // <Route name="terms" path="/terms" component={Terms} />
-                // <Route name="privacy" path="/privacy" component={Privacy} />
-                //<Route component={NotFound} />
+
+                <Route path="/logout" render={routeProps => <Logout {...routeProps} />} {...props} {...state} />
+                <Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
+                <Route name="recover-password" path="/recover-password" component={RecoverPassword} />
+                <Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
+                <Route name="terms" path="/terms" component={Terms} />
+                <Route name="privacy" path="/privacy" component={Privacy} />
+                <Route component={NotFound} />
+                */}
               </Switch>
             </Grid>
-            //<AppFooter/>
+            {/*<AppFooter/>*/}
           </div>
-        //) : ''}  //end of: {!props.loading ?
+         ) : ''}
       </BrowserRouter>
+
     );
+
   }
 }
 
@@ -109,7 +111,7 @@ App.propTypes = {
   emailVerified: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   isAuthorized: PropTypes.bool.isRequired,
-  userRoles: PropTypes.Array
+  userRoles: PropTypes.array
 };
 
 // Data from the server pushed to main app component
@@ -118,7 +120,7 @@ export default withTracker(() => {
   const user = Meteor.user();
   const userId = Meteor.userId();
   const loading = !Roles.subscription.ready();
-  // &&'s below - > returns furthest left "truthy" value
+  // &&'s below - > returns furthest right "truthy" value
   const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
   const emailAddress = user && user.emails && user.emails[0].address;
 
@@ -129,7 +131,7 @@ export default withTracker(() => {
     name: name || emailAddress,
     userId,
     emailAddress,
-    emailVerified: user && user.emails ? user && user.emails /*&& user.emails[0].verified*/ : true,
-    userRoles: !loading && Roles.getRolesForUser(userId),
+    emailVerified: user && user.emails ? user && user.emails && user.emails[0].verified : true,
+    userRoles: !loading ? Roles.getRolesForUser(userId) : [] , //!loading && Roles.getRolesForUser(userId),
   };
 })(App);

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+import { withRouter } from 'react-router-dom';
 import { Bert } from 'meteor/themeteorchef:bert';
 //import OAuthLoginButtons from '../../components/OAuthLoginButtons/OAuthLoginButtons';
 import TextComp from '../../components/TextComp/TextComp';
@@ -79,7 +80,7 @@ class Registration extends React.Component {
           first: form.firstName.value,
           last: form.lastName.value,
         },
-        roles: [ROLES.ADMIN],             //****** DEFAULT ROLE:  ADMIN *******
+        roles: [ROLES.VIEW],             //****** DEFAULT ROLE:  ADMIN *******
       },
     }, (error) => {
       if (error) {
@@ -100,13 +101,14 @@ class Registration extends React.Component {
             <h4 className="page-header">Registration</h4>
             <Row>
               <Col xs={12}>
-                // <OAuthLoginButtons
-                //   services={['facebook', 'github', 'google']}
-                //   emailMessage={{
-                //     offset: 97,
-                //     text: 'Sign Up with an Email Address',
-                //   }}
-                // />
+                {/*<OAuthLoginButtons
+                  services={['facebook', 'github', 'google']}
+                  emailMessage={{
+                    offset: 97,
+                    text: 'Sign Up with an Email Address',
+                  }}
+                />
+                */}
               </Col>
             </Row>
             <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>

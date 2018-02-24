@@ -5,12 +5,14 @@ import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Bert } from 'meteor/themeteorchef:bert';
 //import OAuthLoginButtons from '../../components/OAuthLoginButtons/OAuthLoginButtons';
-//import GenericFooter from '../../components/GenericFooter/GenericFooter';
+import GenericFooter from '../../components/GenericFooter/GenericFooter';
 
 import $ from 'jquery';
 import 'jquery-validation';
 
-class Login extends React.Component {
+import './LoginAlt.scss';
+
+class LoginAlt extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
@@ -58,17 +60,18 @@ class Login extends React.Component {
         <Row>
           <Col xs={12} sm={6} md={5} lg={4}>
             <h4 className="page-header">Log In</h4>
-            // <Row>
-            //   <Col xs={12}>
-            //     <OAuthLoginButtons
-            //       services={['facebook', 'github', 'google']}
-            //       emailMessage={{
-            //         offset: 100,
-            //         text: 'Log In with an Email Address',
-            //       }}
-            //     />
-            //   </Col>
-            // </Row>
+            <Row>
+              <Col xs={12}>
+                {/*<OAuthLoginButtons
+                  services={['facebook', 'github', 'google']}
+                  emailMessage={{
+                    offset: 100,
+                    text: 'Log In with an Email Address',
+                  }}
+                />
+                */}
+              </Col>
+            </Row>
             <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
               <FormGroup>
                 <ControlLabel>Email Address</ControlLabel>
@@ -81,7 +84,7 @@ class Login extends React.Component {
               <FormGroup>
                 <ControlLabel className="clearfix">
                   <span className="pull-left">Password</span>
-                  //<Link className="pull-right" to="/recover-password">Forgot password?</Link>
+                  <Link className="pull-right" to="/recover-password">Forgot password?</Link>
                 </ControlLabel>
                 <input
                   type="password"
@@ -90,9 +93,9 @@ class Login extends React.Component {
                 />
               </FormGroup>
               <Button type="submit" bsStyle="success">Log In</Button>
-              // <GenericFooter>
-              //   <p>{'Don\'t have an account?'} <Link to="/registration">Sign Up</Link>.</p>
-              // </GenericFooter>
+              <GenericFooter>
+                <p>{'Don\'t have an account?'} <Link to="/registration">Sign Up</Link>.</p>
+              </GenericFooter>
             </form>
           </Col>
         </Row>
@@ -101,4 +104,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default LoginAlt;
