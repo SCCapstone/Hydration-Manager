@@ -22,7 +22,7 @@ export default class Login extends React.Component {
     }
 
     routeToApp () {
-        window.location ='/app';
+        window.location ='/app/weightEntry';
     }
 
     verifyUser() {

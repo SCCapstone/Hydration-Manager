@@ -7,7 +7,7 @@ import { Table } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import MasterDropdownOfTeams from './masterDropdownOfTeams.jsx';
 import {DropdownButton} from 'react-bootstrap';
-import {CurrentUser} from '../../api/users.jsx';
+import {User} from '../../api/users.jsx';
 import {Teams} from '../../api/teams.jsx';
 import {Athletes} from '../../api/athletes.jsx';
 import AthleteSingle from './athletesingle.jsx';
@@ -72,11 +72,11 @@ export default class MasterReport extends TrackerReact(React.Component) {
     }
     athletes() {
         currentTeam = "";
-        const curUser = CurrentUser.findOne();
-        const id = curUser.userID;
+        //const curUser = CurrentUser.findOne();
+        //const id = curUser.userID;
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
-            currentTeam = Teams.findOne({"_id": teamId, user:id});
+            currentTeam = Teams.findOne({"_id": teamId});
             return Athletes.find({teamId: currentTeam._id}).fetch();
         }
         else{
@@ -85,10 +85,11 @@ export default class MasterReport extends TrackerReact(React.Component) {
 
     }
     teams() {
-        const curUser = CurrentUser.findOne();
-        console.log(curUser);
-        const id = curUser.userID;
-        return Teams.find({user:id}).fetch();
+        //const curUser = CurrentUser.findOne();
+        //console.log(curUser);
+        //const id = curUser.userID;
+        //return Teams.find({user:id}).fetch();
+        return Teams.find().fetch();
     };
 
     displayAthletes() {
@@ -150,12 +151,13 @@ export default class MasterReport extends TrackerReact(React.Component) {
                 playerTeamId : currentTeam
             });
         }
-        else if(Teams.findOne({user: CurrentUser.findOne().userID}) != undefined)
+     /*   else if(Teams.findOne({user: User.findOne().userID}) != undefined)
         {
             this.setState({
                 playerTeamId : Teams.findOne({user: CurrentUser.findOne().userID})._id
             });
         }
+    */
     }
 
     render() {

@@ -4,7 +4,7 @@ import { DropdownButton } from 'react-bootstrap';
 
 import WeightDropdownOfTeams from './weightDropdownOfTeams.jsx';
 import { Teams } from '../../api/teams.jsx';
-import { CurrentUser } from '../../api/users.jsx';
+import { User } from '../../api/users.jsx';
 import { Table } from 'react-bootstrap';
 import { debounce } from 'throttle-debounce';
 
@@ -38,18 +38,19 @@ export default class WeightEntry extends React.Component {
     };
 
     teams() {
-        const curUser = CurrentUser.findOne();
-        console.log(curUser);
-        const id = curUser.userID;
-        return Teams.find({user:id}).fetch();
+        //const curUser = CurrentUser.findOne();
+        //console.log(curUser);
+        //const id = curUser.userID;
+        //return Teams.find({user:id}).fetch();
+        return Teams.find().fetch();
     };
     athletes() {
         currentTeam = "";
-        const curUser = CurrentUser.findOne();
-        const id = curUser.userID;
+        //const curUser = CurrentUser.findOne();
+        //const id = curUser.userID;
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
-            currentTeam = Teams.findOne({"_id": teamId, user:id});
+            currentTeam = Teams.findOne({"_id": teamId});
             return Athletes.find({teamId: currentTeam._id}).fetch();
         }
         else{

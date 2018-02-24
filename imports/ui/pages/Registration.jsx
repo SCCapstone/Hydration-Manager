@@ -35,7 +35,7 @@ export default class Registration extends React.Component {
         if (conf_pswd === pswd && pswd != '') {
             {/* addNewSiteUser --> Meteor.method in /server/methods
                                Inserts data into SiteUser collection  -- Jacob  */}
-            Meteor.call('addNewSiteUser', emailAddr,pswd, ()=> {
+            Meteor.call('addNewUser', emailAddr,pswd, ()=> {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Account Created','success', 'fixed-top', 'fa-check');
                 this.routeToLogin();

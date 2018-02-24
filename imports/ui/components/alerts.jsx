@@ -3,7 +3,7 @@ import { Table } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import AlertDropdownOfTeams from './alertDropdownOfTeams.jsx';
 import {DropdownButton} from 'react-bootstrap';
-import {CurrentUser} from '../../api/users.jsx';
+import {User} from '../../api/users.jsx';
 import {Teams} from '../../api/teams.jsx';
 import {Athletes} from '../../api/athletes.jsx';
 import AthleteAlert from './athleteAlert.jsx';
@@ -28,10 +28,11 @@ export default class Alerts extends TrackerReact(React.Component) {
         return Athletes.find().fetch();
         }
         teams() {
-            const curUser = CurrentUser.findOne();
-            console.log(curUser);
-            const id = curUser.userID;
-            return Teams.find({user:id}).fetch();
+            //const curUser = User.findOne("currentUser": "true");
+            //console.log(curUser);
+            //const id = curUser.userID;
+            //return Teams.find({user:id}).fetch();
+            return Teams.find().fetch();
         };
 
         displayCurrentTeam() {

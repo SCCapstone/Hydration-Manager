@@ -10,7 +10,7 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 import {Teams} from '../../api/teams.jsx';
 import ListOfTeams from './listOfTeams.jsx';
-import {CurrentUser} from '../../api/users.jsx';
+import {User} from '../../api/users.jsx';
 
 
 export default class YourTeams extends TrackerReact(React.Component) {
@@ -60,19 +60,13 @@ export default class YourTeams extends TrackerReact(React.Component) {
     }
 
     teams() {
-        const curUser = CurrentUser.findOne();
-        console.log(curUser);
-        const id = curUser.userID;
-        return Teams.find({user: id}).fetch();
+       // const curUser = CurrentUser.findOne();
+       // console.log(curUser);
+       // const id = curUser.userID;
+       // return Teams.find({user: id}).fetch();
+        return Teams.find().fetch();
     }
-/*
-    handleAddTeam(e){
-        //this.setState({value1: e.target.value1});
-        this.team = this.state.value1;
-        this.season = this.state.value2;
-        addTeam();
-    }
- */
+
     handleTeam = (e) => {
         e.persist();
         this.setState({
@@ -140,46 +134,3 @@ export default class YourTeams extends TrackerReact(React.Component) {
         )
     }
 }
-    /*
-    render () {
-        return (
-            <div>
-                <br/>
-                <div>
-                    <span className = "mui--pull-left"><h3>Your Team's</h3></span>
-                    <span className = "mui--pull-right"><Button onClick={this.open} color="primary" variant="raised">Create a Team</Button></span>
-                </div>
-                <div>
-                    <Modal show={this.state.showModal} onHide={this.close} >
-                        <Modal.Header>
-                            <Modal.Title>Team Entry Form</Modal.Title>
-                        </Modal.Header>
-
-                        <Modal.Body>
-                            <form>
-                                <input ref={el => {this.team = el;}} required = {true} />
-                                <input ref={el => {this.season = el;}} required = {true} />
-                            </form>
-                            <form>
-                                <FormControl type='input' value={el => {this.team = el;}}></FormControl>
-                                <FormControl type='input' value={el => {this.season = el;}}></FormControl>
-                            </form>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button onClick={this.close} variant="raised"> Close </Button>
-                            <Button onClick={this.addTeam} variant="raised" color="primary"> Create Team </Button>
-                        </Modal.Footer>
-                    </Modal>
-                </div>
-                <br/>
-                <div className="mui--divider-top">
-                    <br/>
-                    <ListGroup className="teams">
-                        {this.teams().map((team)=>{return <ListOfTeams key={team._id} team={team} />})}
-                    </ListGroup>
-                </div>
-            </div>
-        )
-    }
-}
-*/

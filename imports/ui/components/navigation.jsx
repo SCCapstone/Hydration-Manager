@@ -27,7 +27,6 @@ export default class Navigation extends Component {
                 <Button type="button" onClick={this.toggleVisible}><Glyphicon glyph="align-justify"/> Menu</Button>
                 <ul id= "pageNavigation" className= "nav-sidebar">
                     <li><h3>Hydration Manager</h3></li>
-                    <li><NavLink to = '/app' onClick={this.toggleVisible}>Home</NavLink></li>
                     <li><NavLink to = '/app/weightEntry' onClick={this.toggleVisible}>Weight Entry</NavLink></li>
                     <li><NavLink to = '/app/masterReport' onClick={this.toggleVisible}>Master Report</NavLink></li>
                     <li><NavLink to = '/app/yourTeams' onClick={this.toggleVisible}>Your Teams</NavLink></li>

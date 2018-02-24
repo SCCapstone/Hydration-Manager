@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Home from './home.jsx';
 import WeightEntry from './weightEntry.jsx';
 import MasterReport from './masterReport.jsx';
 import AthleteReport from './athleteReport';
@@ -13,7 +12,6 @@ import YourTeams from './yourTeams.jsx';
 export const AppRouting = ( {match} ) => (
     <div>
             <Switch>
-                <Route exact path='/app' component={Home}/>
                 <Route exact path='/app/weightEntry' component={WeightEntry}/>
                 <Route path='/app/weightEntry/:teamId' component={WeightEntry}/>
                 <Route exact path='/app/masterReport/' component={MasterReport}/>
