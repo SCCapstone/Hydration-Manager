@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import {Athletes} from '../../api/athletes.jsx';
 import {Teams} from '../../api/teams.jsx';
 import { Link } from 'react-router-dom';
+import AthleteReportTable from './athleteReportTable';
 
 export default class AthleteReport extends Component {
     constructor(props) {
@@ -45,6 +46,7 @@ export default class AthleteReport extends Component {
                 <h4>{this.athlete().height}</h4>
                 <h4>{this.athlete().baseWeight}</h4>
                 {/*TODO: Create component for the visualization of data*/}
+                <AthleteReportTable athlete={this.athlete()}/>
             </div>
         )
     }
