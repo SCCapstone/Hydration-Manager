@@ -42,10 +42,9 @@ export default class AthleteReport extends Component {
                 <h3>Athlete Report</h3>
                 {/*TODO: Create component for the basic info*/}
                 <h4>{this.athlete().name}</h4>
-                <h4>{this.team().name} {this.team().season}</h4>
-                <h4>{this.athlete().height}</h4>
-                <h4>{this.athlete().baseWeight}</h4>
-                {/*TODO: Create component for the visualization of data*/}
+                <h5>Team: {this.team().name} {this.team().season}</h5>
+                <h5>Height: {this.athlete().height} in.</h5>
+                <h5>Base Weight: {this.athlete().baseWeight} lbs.</h5>
                 <AthleteReportTable athlete={this.athlete()}/>
             </div>
         )
