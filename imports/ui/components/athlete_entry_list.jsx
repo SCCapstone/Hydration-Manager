@@ -43,13 +43,20 @@ export default class AthleteEntryList extends Component {
         this.setState({weight: e.target.value});
         this.handleDebounce(e);
     };
+
+    onKeyPress(event) {
+        if(event.which === 13 /* Enter */) {
+            event.preventDefault();
+        }
+    }
+
     render() {
         return (
             <tr>
                 <td>{this.props.athlete.name}</td>
                 <td>
                     <form>
-                        <input id='weight' type="number" value={this.state.weight} onChange={this.handleWeightChange}/>
+                        <input id='weight' type="number" value={this.state.weight} onChange={this.handleWeightChange} onKeyPress={this.onKeyPress}/>
                     </form>
                 </td>
             </tr>
