@@ -176,7 +176,6 @@ hr{
 .YourTeamHeader{
     display: inline-block;
     width: 100%;
-
 }
 .YourTeamHeader h3{
     float: left;
@@ -187,3 +186,44 @@ hr{
     float:right;
     vertical-align: middle;
 }
+
+    /*CSS for the cards in Your teams */
+    .card{
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        width: 225px;
+        height: 125px;
+        position: relative;
+        display: inline-block;
+        margin: 0 15px 30px 15px;
+        border-radius: 10px;
+    }
+    .card:hover{
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+    .card .InnerCard{
+        position: relative;
+        margin: 5% 7.5% 7.5%;
+        padding: 7.5%;
+    }
+    .card a{
+        text-decoration : none;
+    }
+    .card h4{
+        color: #414141;
+        vertical-align: middle;
+    }
+    .card p{
+        color: #414141;
+        vertical-align: middle;
+    }
+    .card #close{
+        font-size: x-large;
+        float: right;
+        padding: 7.5px;
+        z-index: 99;
+        cursor: pointer;
+    }
+    .card #close:hover{
+        color: #dd6868;
+    }

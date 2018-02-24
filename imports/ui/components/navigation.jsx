@@ -9,7 +9,7 @@ export default class Navigation extends Component {
     constructor () {
         super()
         this.state = {
-            isHidden:true
+            isHidden: true
         }
     }
     //Code sidebar appearance and disappearance
@@ -22,12 +22,6 @@ export default class Navigation extends Component {
         let style = {
             float: 'right'
         };
-        let visble = {
-
-        }
-        let hidden = {
-
-        }
         return (
             <div className = "NavClass">
                 <Button type="button" onClick={this.toggleVisible}><Glyphicon glyph="align-justify"/> Menu</Button>
