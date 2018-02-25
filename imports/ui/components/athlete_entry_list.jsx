@@ -26,13 +26,13 @@ export default class AthleteEntryList extends Component {
             alert('Please ensure you have selected Pre or Post Weight');
         }
         else if (this.props.selOp === 'PreWeight') {
-            Meteor.call('addPreWeight', this.props.athlete._id, this.props.dat, this.state.weight, () => {
+            Meteor.call('athletes.addPreWeight', this.props.athlete._id, this.props.dat, this.state.weight, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
             })
         }
         else if (this.props.selOp === 'PostWeight') {
-            Meteor.call('addPostWeight', this.props.athlete._id, this.props.dat, this.state.weight, () => {
+            Meteor.call('athletes.addPostWeight', this.props.athlete._id, this.props.dat, this.state.weight, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
             })

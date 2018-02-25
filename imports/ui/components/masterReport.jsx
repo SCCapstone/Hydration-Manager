@@ -269,7 +269,7 @@ export default withTracker(() => {
     console.log(athletesList);
 
     return {
-        subscriptions: [teamSubscription],
+        subscriptions: [teamSubscription, athleteSubscription],
         teamLoading,
         athleteLoading,
         teamsList,
