@@ -1,14 +1,27 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {withTracker} from 'meteor/react-meteor-data';
+import autoBind from 'react-autobind';
 import { Button } from 'react-bootstrap';
+
+import AthletesCollection from '../../api/Athletes/Athletes.js';
+import TeamsCollection from '..//../api/Teams/Teams.js';
 import {AthletesOld} from '../../api/athletes.jsx';
 import {Teams} from '../../api/teams.jsx';
 import { Link } from 'react-router-dom';
 
-export default class AthleteReport extends Component {
+class AthleteReport extends Component {
     constructor(props) {
         super(props);
-        this.deleteAthlete = this.deleteAthlete.bind(this);
-        this.athlete = this.athlete.bind(this);
+        // this.deleteAthlete = this.deleteAthlete.bind(this);
+        // this.athlete = this.athlete.bind(this);
+        autoBind(this);
+    }
+
+    componentWillUnmount() {
+        this.props.subscriptions.forEach((s) =>{
+            s.stop();
+        });
     }
 
     deleteAthlete() {
@@ -18,7 +31,7 @@ export default class AthleteReport extends Component {
     athlete() {
         if(this.props.match.params.athleteId) {
             athleteId = this.props.match.params.athleteId;
-            athlete = AthletesOld.findOne({"_id": athleteId});
+            athlete = AthletesCollection.findOne({"_id": athleteId});
             return athlete;
         }
         else{
@@ -28,7 +41,7 @@ export default class AthleteReport extends Component {
 
     team() {
         playerTeamId = this.athlete().teamId;
-        team = Teams.findOne({"_id": playerTeamId});
+        team = TeamsCollection.findOne({"_id": playerTeamId});
         return team;
     }
 
@@ -49,3 +62,34 @@ export default class AthleteReport extends Component {
         )
     }
 }
+
+AthleteReport.propTypes = {
+    subscriptions: PropTypes.array,
+    teamLoading: PropTypes.bool,
+    athleteLoading: PropTypes.bool,
+    teamsList: PropTypes.array,
+    athletesList: PropTypes.array,
+};
+
+// Retrieves data from server and puts it into client's minimongo
+export default withTracker(() => {
+    const teamSubscription = Meteor.subscribe('teams.thisUserId');
+    const athleteSubscription = Meteor.subscribe('athletes.thisTeamId');
+    const teamLoading = !teamSubscription.ready();
+    const athleteLoading = !athleteSubscription.ready();
+    const teamsList = !teamLoading ? TeamsCollection.find().fetch() : [];
+    const athletesList = !athleteLoading ? AthletesCollection.find().fetch() : [];
+    // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+    // match: PropTypes.object.isRequired,
+    // history: PropTypes.object.isRequired,
+    console.log(teamsList);
+    console.log(athletesList);
+
+    return {
+        subscriptions: [teamSubscription, athleteSubscription],
+        teamLoading,
+        athleteLoading,
+        teamsList,
+        athletesList,
+    };
+})(AthleteReport);
