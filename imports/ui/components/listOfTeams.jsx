@@ -14,11 +14,12 @@ routeToReport () {
     window.location ='/app/masterReport/'+ this.props.team._id;
 }
 deleteTeam() {
-  Meteor.call('deleteTm',this.props.team._id)
+  //Meteor.call('deleteTm',this.props.team._id)
 }
 
   render() {
     return (
+      <div>
         <ListGroup>
             {/*TODO: make the list strech across to the delete button */}
             <span className = "pull-left">
@@ -36,6 +37,7 @@ deleteTeam() {
             </span>
             <div>{/*Null comment*/}</div>
         </ListGroup>
+      </div>
     )
   }
 }

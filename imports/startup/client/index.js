@@ -11,6 +11,8 @@ import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
 
 import App from '../../ui/layouts/App/App';
+
+import '../both/api';
 //import '../../ui/stylesheets/app.scss';
 
 // Note:  <div id="react-root"></div> element defined in /client/main.html

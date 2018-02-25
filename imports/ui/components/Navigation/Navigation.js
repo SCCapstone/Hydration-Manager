@@ -19,13 +19,15 @@ import ROLES from '../../../api/Users/roles.js'
 
 // {/*LinkContainer: makes next comp. behave as React-Router <Link>*/}
 
+// <Link to="">Hydration Manager</Link>  //Link to nowhere for Navbar typical styling
+
 // ({ name, history })
 const Navigation = props => (
   <div>
   <Navbar className="NavClass">
     <Navbar.Header>
       <Navbar.Brand>
-        <Link to="">Hydration Manager</Link>  //Link to nowhere for Navbar typical styling
+        Hydration Manager
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>
@@ -61,10 +63,12 @@ const Navigation = props => (
               <NavItem eventKey={6.2} href="/app/AdminDash">Admin</NavItem>
             </LinkContainer> : ''}
 
-
           <MenuItem divider />
           <MenuItem eventKey={6.3} onClick={() => Meteor.logout() }>Logout</MenuItem>
         </NavDropdown>
+        <NavItem>
+          role: {props.userRoles[0]}
+        </NavItem>
       </Nav>
 
     </Navbar.Collapse>

@@ -3,7 +3,7 @@ import React from 'react';
 import { DropdownButton } from 'react-bootstrap';
 
 import WeightDropdownOfTeams from './weightDropdownOfTeams.jsx';
-import { Teams } from '../../api/teams.jsx';
+import { TeamsOld } from '../../api/teams.jsx';
 import { CurrentUser } from '../../api/users.jsx';
 import { Table } from 'react-bootstrap';
 import { debounce } from 'throttle-debounce';
@@ -38,18 +38,18 @@ export default class WeightEntry extends React.Component {
     };
 
     teams() {
-        const curUser = CurrentUser.findOne();
+        const curUser = this.props.name;  //CurrentUser.findOne();
         console.log(curUser);
-        const id = curUser.userID;
-        return Teams.find({user:id}).fetch();
+        const id = this.props.userId;  //curUser.userID;
+        return TeamsOld.find({user:id}).fetch();
     };
     athletes() {
         currentTeam = "";
-        const curUser = CurrentUser.findOne();
-        const id = curUser.userID;
+        const curUser =  this.props.name;//CurrentUser.findOne();
+        const id = this.props.userId;  //curUser.userID;
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
-            currentTeam = Teams.findOne({"_id": teamId, user:id});
+            currentTeam = TeamsOld.findOne({"_id": teamId, user:id});
             return Athletes.find({teamId: currentTeam._id}).fetch();
         }
         else{
@@ -72,7 +72,7 @@ export default class WeightEntry extends React.Component {
     displayCurrentTeam() {
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
-            currentTeam = Teams.findOne({"_id": teamId});
+            currentTeam = TeamsOld.findOne({"_id": teamId});
             return currentTeam.name + " " + currentTeam.season;
         }
         else{
@@ -80,6 +80,7 @@ export default class WeightEntry extends React.Component {
         }
     }
     render() {
+        const { props } = this;
         return (
             <div>
                 <div>

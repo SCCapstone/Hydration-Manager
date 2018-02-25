@@ -18,14 +18,14 @@ import YourTeams from '../../components/yourTeams.jsx';
 
 import LoginAlt from '../../pages/LoginAlt/LoginAlt.js';
 import Registration from '../../pages/Registration/Registration.js';
-// import NotFound from '../../pages/NotFound';
+import NotFound from '../../pages/NotFound/NotFound.js';
 //import AdminDash from '../../pages/AdminDash/AdminDash.js';
 
 // import VerifyEmailAlert from '../../components/VerifyEmailAlert';
 import Navigation from '../../components/Navigation/Navigation.js';
 import Public from '../../components/Public/Public.js';
 import Authorized from '../../components/Authorized/Authorized.js';
-// import AppFooter from '../../components/AppFooter';
+import AppFooter from '../../components/AppFooter/AppFooter.js';
 
 //import './App.scss';
 
@@ -58,8 +58,15 @@ class App extends React.Component {
                 <Public exact path="/registration" component={Registration} {...props} />
 
                 <Authorized exact path="/app" component={Home} {...props} />
-                
+                <Authorized exact path='/app/weightEntry' component={WeightEntry} {...props} />
+                <Authorized path='/app/weightEntry/:teamId' component={WeightEntry} {...props} />
+                <Authorized exact path='/app/masterReport/' component={MasterReport} {...props} />
+                <Authorized path='/app/masterReport/:teamId' component={MasterReport} {...props} />
+                <Authorized path='/app/athlete/:athleteId' component={AthleteReport} {...props} />
+                <Authorized exact path='/app/yourTeams' component={YourTeams} {...props} />
+                <Authorized exact path='/app/alerts' component={Alerts} {...props} />
 
+                <Route component={NotFound} />
                 {/*
 
                 <Route exact path="/" component={LoginAlt} />
@@ -89,7 +96,7 @@ class App extends React.Component {
                 */}
               </Switch>
             </Grid>
-            {/*<AppFooter/>*/}
+            <AppFooter/>
           </div>
          ) : ''}
       </BrowserRouter>

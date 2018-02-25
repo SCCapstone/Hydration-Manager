@@ -1,19 +1,22 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
+import { withTracker } from 'meteor/react-meteor-data';
 import {FormControl} from 'react-bootstrap';
 import {FormGroup} from 'react-bootstrap';
-import {Button} from 'react-bootstrap';
+import {Button, Table} from 'react-bootstrap';
 
 import {Modal} from 'react-bootstrap';
 import {ListGroup} from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
-import {Teams} from '../../api/teams.jsx';
+//import {Teams} from '../../api/teams.jsx';
+import TeamsCollection from '../../api/Teams/Teams.js';
 import ListOfTeams from './listOfTeams.jsx';
 import {CurrentUser} from '../../api/users.jsx';
 
 
-export default class YourTeams extends TrackerReact(React.Component) {
+//export default class YourTeams extends TrackerReact(React.Component) {
+class YourTeams extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,6 +28,7 @@ export default class YourTeams extends TrackerReact(React.Component) {
         this.close = this.close.bind(this);
         this.routeToReport = this.routeToReport.bind(this);
         this.addTeam = this.addTeam.bind(this);
+        this.showTeamsList = this.showTeamsList.bind(this);
     }
 
     routeToReport() {
@@ -45,10 +49,12 @@ export default class YourTeams extends TrackerReact(React.Component) {
         const teamSeason = this.state.teamSeason;
 
         if (teamName != "") {
-            const curUser = CurrentUser.findOne();
-            const id = curUser.userID;
+            const curUser = this.props.name;  //CurrentUser.findOne();
+            const id = this.props.userId;  //curUser.userID;
+            console.log(curUser);
+            console.log(id);
 
-            Meteor.call('addNewTeam', teamName, teamSeason, id, () => {
+            Meteor.call('teams.insert', teamName, teamSeason, id, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Team Created', 'success', 'fixed-top', 'fa-check');
 
@@ -59,12 +65,12 @@ export default class YourTeams extends TrackerReact(React.Component) {
         }
     }
 
-    teams() {
-        const curUser = CurrentUser.findOne();
-        console.log(curUser);
-        const id = curUser.userID;
-        return Teams.find({user: id}).fetch();
-    }
+    // teams() {
+    //     const curUser = this.props.name;  //CurrentUser.findOne();
+    //     console.log(curUser);
+    //     const id = this.props.userId;  //curUser.userID;
+    //     return Teams.find({user: id}).fetch();
+    // }
 /*
     handleAddTeam(e){
         //this.setState({value1: e.target.value1});
@@ -103,12 +109,28 @@ export default class YourTeams extends TrackerReact(React.Component) {
         </form>
     );
 */
+    showTeamsList() {
+      const teamsL = this.props.teamsList;
+      return (
+        <tbody>
+        {
+          teamsL.map((tm, idx) =>
+            <tr key={idx}>
+              <td>{idx + 1} </td>
+              <td>{tm.name}</td>
+              <td>{tm.season}</td>
+            </tr>
+          )
+        }
+        </tbody>
+      );
+    }
 
     render () {
         return (
             <div>
                 <div>
-                    <span><h3>Your Team's</h3></span>
+                    <span><h3>Your Teams</h3></span>
                     <span><Button onClick={this.open} bsStyle="primary">Create a Team</Button></span>
                 </div>
                 <div>
@@ -135,13 +157,63 @@ export default class YourTeams extends TrackerReact(React.Component) {
                 <div>
                     <br/>
                     <ListGroup className="teams">
-                        {this.teams().map((team)=>{return <ListOfTeams key={team._id} team={team} />})}
+                        {this.props.teamsList.map((team)=>{return <ListOfTeams key={team._id} team={team} />})}
                     </ListGroup>
+
+                    <div>
+                      <Table className="AdminTable" striped bordered condensed hover responsive >
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Season</th>
+                          </tr>
+                        </thead>
+                        {this.showTeamsList()}
+                      </Table>
+                    </div>
+
                 </div>
             </div>
         )
     }
 }
+
+// YourTeams.propTypes = {
+//   loading: PropTypes.bool.isRequired,
+//   teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+//   //match: PropTypes.object.isRequired,
+//   //history: PropTypes.object.isRequired,
+// };
+//
+// export default withTracker(() => {
+//   const subscription = Meteor.subscribe('teams');
+//   return {
+//     loading: !subscription.ready(),
+//     teamsList: TeamsCollection.find().fetch(),
+//   };
+// })(YourTeams);
+
+YourTeams.propTypes = {
+  subscriptions: PropTypes.array,
+  loading: PropTypes.bool,
+  teamsList: PropTypes.array
+};
+
+// Fetch User & Role data from server
+export default withTracker(() =>{
+  const subscription = Meteor.subscribe('teams');
+  const loading = !subscription.ready();
+  const teamsList = !loading ? TeamsCollection.find().fetch() : [];
+
+  return {
+    subscriptions: [subscription],
+    loading,
+    teamsList,
+  };
+})(YourTeams);
+
+
     /*
     render () {
         return (

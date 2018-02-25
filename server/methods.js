@@ -1,8 +1,6 @@
 
-/*
-
 import {SiteUser} from '../imports/api/users.jsx'
-import {Teams} from '../imports/api/teams.jsx'
+import {TeamsOld} from '../imports/api/teams.jsx'
 
 import {CurrentUser} from '../imports/api/users.jsx'
 
@@ -37,18 +35,18 @@ Meteor.methods({
     return isUser;
   },
 
-  addNewTeam(teamName, teamSeason, id) {
-    Teams.insert({
-      name: teamName,
-      season: teamSeason,
-      user: id,
-      createdAt: new Date()
-    });
-  },
-
-  deleteTm(id) {
-    Teams.remove(id);
-  },
+  // addNewTeam(teamName, teamSeason, id) {
+  //   Teams.insert({
+  //     name: teamName,
+  //     season: teamSeason,
+  //     user: id,
+  //     createdAt: new Date()
+  //   });
+  // },
+  //
+  // deleteTm(id) {
+  //   Teams.remove(id);
+  // },
 
   getCurrentUser() {
     var curUser = CurrentUser.findOne();
@@ -108,5 +106,3 @@ Meteor.methods({
   }
 
 });
-
-*/

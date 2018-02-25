@@ -7,13 +7,17 @@ import { Table } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import MasterDropdownOfTeams from './masterDropdownOfTeams.jsx';
 import {DropdownButton} from 'react-bootstrap';
-import {CurrentUser} from '../../api/users.jsx';
-import {Teams} from '../../api/teams.jsx';
+
+//import {CurrentUser} from '../../api/users.jsx';
+//import { Accounts } from 'meteor/accounts-base';
+
+import {TeamsOld} from '../../api/teams.jsx';
 import {Athletes} from '../../api/athletes.jsx';
 import AthleteSingle from './athletesingle.jsx';
 
 
 export default class MasterReport extends TrackerReact(React.Component) {
+//export default class MasterReport extends React.Component {
     constructor(props) {
         super(props);
 
@@ -48,7 +52,7 @@ export default class MasterReport extends TrackerReact(React.Component) {
         const pWeight = this.state.weight;
         const pHeight = this.state.height;
         const pTeamId = this.state.playerTeamId;
-        
+
 
         console.log(pName);
         console.log(pWeight);
@@ -73,12 +77,12 @@ export default class MasterReport extends TrackerReact(React.Component) {
     }
     athletes() {
         currentTeam = "";
-        const curUser = CurrentUser.findOne();
-        const id = curUser.userID;
+        const curUser = this.props.name;  //CurrentUser.findOne();
+        const id = this.props.userId;  //curUser.userID;
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
 
-            currentTeam = Teams.findOne({"_id": teamId, user:id});
+            currentTeam = TeamsOld.findOne({"_id": teamId, user:id});
             return Athletes.find({teamId: currentTeam._id}).fetch();
         }
         else{
@@ -87,10 +91,11 @@ export default class MasterReport extends TrackerReact(React.Component) {
 
     }
     teams() {
-        const curUser = CurrentUser.findOne();
+        const curUser = this.props.name;  //CurrentUser.findOne();
         console.log(curUser);
-        const id = curUser.userID;
-        return Teams.find({user:id}).fetch();
+        const id = this.props.userId;  //curUser.userID;
+        console.log(id);
+        return TeamsOld.find({user:id}).fetch();
     };
 
     displayAthletes() {
@@ -107,7 +112,7 @@ export default class MasterReport extends TrackerReact(React.Component) {
     displayCurrentTeam() {
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
-            currentTeam = Teams.findOne({"_id": teamId});
+            currentTeam = TeamsOld.findOne({"_id": teamId});
             return currentTeam.name + " " + currentTeam.season;
         }
         else{
@@ -152,10 +157,12 @@ export default class MasterReport extends TrackerReact(React.Component) {
                 playerTeamId : currentTeam
             });
         }
-        else if(Teams.findOne({user: CurrentUser.findOne().userID}) != undefined)
+        // CurrentUser.findOne().userID -> Alt. Ex: Meteor.users.findOne({ 'emails.address': email })
+
+        else if(TeamsOld.findOne({user: this.props.userId}) != undefined)
         {
             this.setState({
-                playerTeamId : Teams.findOne({user: CurrentUser.findOne().userID})._id
+                playerTeamId : TeamsOld.findOne({user: this.props.userId})._id
             });
         }
     }

@@ -1,1 +1,1 @@
-export const Teams = new Mongo.Collection('teams');
+export const TeamsOld = new Mongo.Collection('teamsOld');

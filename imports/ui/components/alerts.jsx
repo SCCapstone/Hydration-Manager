@@ -28,9 +28,9 @@ export default class Alerts extends TrackerReact(React.Component) {
         return Athletes.find().fetch();
         }
         teams() {
-            const curUser = CurrentUser.findOne();
+            const curUser = this.props.name;  //CurrentUser.findOne();
             console.log(curUser);
-            const id = curUser.userID;
+            const id = this.props.userId;  //curUser.userID;
             return Teams.find({user:id}).fetch();
         };
 
