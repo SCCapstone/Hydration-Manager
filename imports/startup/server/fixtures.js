@@ -40,14 +40,28 @@ if (!Meteor.isProduction) {
       },
     },
     roles: ['ADMIN'],
-  }];
+  },
+  {
+    email: 'admin1@admin1.com',
+    password: 'password1',
+    profile: {
+      name: {
+        first: 'Jane',
+        last: 'Doe'
+      },
+    },
+    roles: ['PUB'],
+  },
+  ];
 
   users.forEach(({ email, password, profile, roles }) => {
     const userExists = Meteor.users.findOne({ 'emails.address': email });
 
     if (!userExists) {
       const userId = Accounts.createUser({ email, password, profile });
-      Roles.addUsersToRoles(userId, roles);
+      //Roles.addUsersToRoles(userId, roles);
+      console.log(roles);
+      Roles.setUserRoles(userId, roles);
     }
   });
 };

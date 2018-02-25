@@ -67,7 +67,7 @@ const Navigation = props => (
           <MenuItem eventKey={6.3} onClick={() => Meteor.logout() }>Logout</MenuItem>
         </NavDropdown>
         <NavItem>
-          role: {props.userRoles[0]}
+          role: { props.userRoles[0] }
         </NavItem>
       </Nav>
 
@@ -75,6 +75,8 @@ const Navigation = props => (
   </Navbar>
   </div>
 );
+
+//props.userRoles[0]
 
 Navigation.defaultProps = {
   name: '',

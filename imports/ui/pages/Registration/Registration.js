@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+import { Roles } from 'meteor/alanning:roles';
 import { withRouter } from 'react-router-dom';
 import { Bert } from 'meteor/themeteorchef:bert';
 //import OAuthLoginButtons from '../../components/OAuthLoginButtons/OAuthLoginButtons';
@@ -69,6 +70,22 @@ class Registration extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    loggingIn = Meteor.loggingIn();
+    newUserId = Meteor.userId();
+    if (!!newUserId) {
+      //Roles.setUserRoles(newUserId,['View']);
+      Meteor.call('users.addNewRole', newUserId, ['View'], (error) => {
+        if (error) {
+          console.log("FAILED: Role not added!!");
+        } else {
+          console.log(newUserId);
+          console.log("SUCCESS: Role added!!");
+        }
+      } );
+    }
+  }
+
   handleSubmit(form) {
     const { history } = this.props;
 
@@ -80,17 +97,21 @@ class Registration extends React.Component {
           first: form.firstName.value,
           last: form.lastName.value,
         },
-        roles: [ROLES.VIEW],             //****** DEFAULT ROLE:  ADMIN *******
+        //roles: [ROLES.ADMIN],             //****** DEFAULT ROLE:  ADMIN *******
       },
     }, (error) => {
       if (error) {
           Bert.alert(error.reason, 'danger');
       } else {
+        //Roles.addUsersToRoles(newId, ['ADMIN']);
         Meteor.call('users.sendVerificationEmail');
         Bert.alert('Welcome!', 'success');
         history.push('/login');  //push(path, [state]) - (function) Pushes a new entry onto the history stack
       }
     });
+    // loggingIn = Meteor.loggingIn();
+    // newUserId = Meteor.userId();
+    // !loggingIn ? Roles.addUsersToRoles(newUserId, ['ADMIN']) : console.log("Role not added!!");
   }
 
   render() {

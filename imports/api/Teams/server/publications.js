@@ -4,7 +4,7 @@ import { Roles } from 'meteor/alanning:roles';
 import Teams from '../Teams.js';
 
 
-Meteor.publish('teams', function teams() {
+Meteor.publish('teams.thisUserId', function teams() {
     return Teams.find({user: this.userId });
   });
 

@@ -10,6 +10,9 @@ import editProfile from './edit-profile';
 import deleteAccount from './delete-account';
 
 Meteor.methods({
+  'users.addNewRole': function usersAddNewRole(targetId, roles) {
+    Roles.setUserRoles(targetId,roles);
+  },
 
   'users.changeRole': function usersChangeRole(updateInfo) {
     check(updateInfo, { _id: String, role: String });
@@ -31,7 +34,7 @@ Meteor.methods({
     }
 
     Roles.setUserRoles(targetUserId, roles, group)
-  }
+  },
 
   'users.sendVerificationEmail': function usersSendVerificationEmail() {
     return Accounts.sendVerificationEmail(this.userId);
