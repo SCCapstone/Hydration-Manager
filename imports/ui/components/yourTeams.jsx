@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import autoBind from 'react-autobind';
 import { withTracker } from 'meteor/react-meteor-data';
 import {FormControl} from 'react-bootstrap';
 import {FormGroup} from 'react-bootstrap';
@@ -15,7 +16,7 @@ import ListOfTeams from './listOfTeams.jsx';
 import {CurrentUser} from '../../api/users.jsx';
 
 
-//export default class YourTeams extends TrackerReact(React.Component) {
+//class YourTeams extends TrackerReact(React.Component) {
 class YourTeams extends React.Component {
     constructor(props) {
         super(props);
@@ -24,11 +25,22 @@ class YourTeams extends React.Component {
             teamName: '',
             teamSeason: '',
         };
-        this.open = this.open.bind(this);
-        this.close = this.close.bind(this);
-        this.routeToReport = this.routeToReport.bind(this);
-        this.addTeam = this.addTeam.bind(this);
-        this.showTeamsList = this.showTeamsList.bind(this);
+        // this.open = this.open.bind(this);
+        // this.close = this.close.bind(this);
+        // this.routeToReport = this.routeToReport.bind(this);
+        // this.addTeam = this.addTeam.bind(this);
+        // this.showTeamsList = this.showTeamsList.bind(this);
+        autoBind(this);  //binds class methods to the component instance
+    }
+
+    // componentWillMount() {
+    //   Roles.userIsInRole(user, ["ADMIN"]);
+    // }
+
+    componentWillUnmount() {
+      this.props.subscriptions.forEach((s) =>{
+        s.stop();
+      });
     }
 
     routeToReport() {
@@ -109,22 +121,6 @@ class YourTeams extends React.Component {
         </form>
     );
 */
-    showTeamsList() {
-      const teamsL = this.props.teamsList;
-      return (
-        <tbody>
-        {
-          teamsL.map((tm, idx) =>
-            <tr key={idx}>
-              <td>{idx + 1} </td>
-              <td>{tm.name}</td>
-              <td>{tm.season}</td>
-            </tr>
-          )
-        }
-        </tbody>
-      );
-    }
 
     render () {
         return (
@@ -160,39 +156,11 @@ class YourTeams extends React.Component {
                         {this.props.teamsList.map((team)=>{return <ListOfTeams key={team._id} team={team} />})}
                     </ListGroup>
 
-                    <div>
-                      <Table className="AdminTable" striped bordered condensed hover responsive >
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Season</th>
-                          </tr>
-                        </thead>
-                        {this.showTeamsList()}
-                      </Table>
-                    </div>
-
                 </div>
             </div>
         )
     }
 }
-
-// YourTeams.propTypes = {
-//   loading: PropTypes.bool.isRequired,
-//   teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
-//   //match: PropTypes.object.isRequired,
-//   //history: PropTypes.object.isRequired,
-// };
-//
-// export default withTracker(() => {
-//   const subscription = Meteor.subscribe('teams');
-//   return {
-//     loading: !subscription.ready(),
-//     teamsList: TeamsCollection.find().fetch(),
-//   };
-// })(YourTeams);
 
 YourTeams.propTypes = {
   subscriptions: PropTypes.array,
@@ -200,11 +168,17 @@ YourTeams.propTypes = {
   teamsList: PropTypes.array
 };
 
-// Fetch User & Role data from server
-export default withTracker(() =>{
+// Retrieves data from server and puts it into client's minimongo
+export default withTracker(() => {
   const subscription = Meteor.subscribe('teams');
   const loading = !subscription.ready();
-  const teamsList = !loading ? TeamsCollection.find().fetch() : [];
+  //const teamsList = !loading ? TeamsCollection.find().fetch() : [];
+  // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // match: PropTypes.object.isRequired,
+  // history: PropTypes.object.isRequired,
+
+  const teamsList = TeamsCollection.find().fetch();
+  console.log(teamsList);
 
   return {
     subscriptions: [subscription],

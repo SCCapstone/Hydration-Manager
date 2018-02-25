@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import Teams from './Teams.js';
-import handleMethodException from '../../modules/handle-method-exception';
+import handleMethodException from '../../modules/handle-method-exception.js';
 
 
 Meteor.methods({
