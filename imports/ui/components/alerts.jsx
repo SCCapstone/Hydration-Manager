@@ -1,15 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {withTracker} from 'meteor/react-meteor-data';
+import autoBind from 'react-autobind';
+
 import { Table } from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import AlertDropdownOfTeams from './alertDropdownOfTeams.jsx';
 import {DropdownButton} from 'react-bootstrap';
+
+
+import AthletesCollection from '../../api/Athletes/Athletes.js';
+import TeamsCollection from '..//../api/Teams/Teams.js';
+
 import {CurrentUser} from '../../api/users.jsx';
-import {Teams} from '../../api/teams.jsx';
+import {TeamsOld} from '../../api/teams.jsx';
 import {AthletesOld} from '../../api/athletes.jsx';
 import AthleteAlert from './athleteAlert.jsx';
 
 
-export default class Alerts extends TrackerReact(React.Component) {
+class Alerts extends React.Component {
         constructor(props) {
             super(props);
 
@@ -20,24 +29,32 @@ export default class Alerts extends TrackerReact(React.Component) {
                 height: '',
                 playerTeamId: '',
             };
-            this.teams = this.teams.bind(this);
-            this.athletes = this.athletes.bind(this);
-            this.getCurrentTeam = this.getCurrentTeam.bind(this);
+            // this.teams = this.teams.bind(this);
+            // this.athletes = this.athletes.bind(this);
+            // this.getCurrentTeam = this.getCurrentTeam.bind(this);
+            autoBind(this);
         }
+
+        componentWillUnmount() {
+            this.props.subscriptions.forEach((s) =>{
+                s.stop();
+            });
+        }
+
         athletes() {
-        return AthletesOld.find().fetch();
+        return AthletesCollection.find().fetch();
         }
         teams() {
             const curUser = this.props.name;  //CurrentUser.findOne();
             console.log(curUser);
             const id = this.props.userId;  //curUser.userID;
-            return Teams.find({user:id}).fetch();
+            return TeamsCollection.find({user:id}).fetch();
         };
 
         displayCurrentTeam() {
             if(this.props.match.params.teamId) {
                 teamId = this.props.match.params.teamId;
-                currentTeam = Teams.findOne({"_id": teamId});
+                currentTeam = TeamsCollection.findOne({"_id": teamId});
                 return currentTeam.name + " " + currentTeam.season;
             }
             else{
@@ -96,3 +113,34 @@ export default class Alerts extends TrackerReact(React.Component) {
                 )
         }
 }
+
+Alerts.propTypes = {
+    subscriptions: PropTypes.array,
+    teamLoading: PropTypes.bool,
+    athleteLoading: PropTypes.bool,
+    teamsList: PropTypes.array,
+    athletesList: PropTypes.array,
+};
+
+// Retrieves data from server and puts it into client's minimongo
+export default withTracker(() => {
+    const teamSubscription = Meteor.subscribe('teams.thisUserId');
+    const athleteSubscription = Meteor.subscribe('athletes.thisTeamId');
+    const teamLoading = !teamSubscription.ready();
+    const athleteLoading = !athleteSubscription.ready();
+    const teamsList = !teamLoading ? TeamsCollection.find().fetch() : [];
+    const athletesList = !athleteLoading ? AthletesCollection.find().fetch() : [];
+    // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+    // match: PropTypes.object.isRequired,
+    // history: PropTypes.object.isRequired,
+    console.log(teamsList);
+    console.log(athletesList);
+
+    return {
+        subscriptions: [teamSubscription, athleteSubscription],
+        teamLoading,
+        athleteLoading,
+        teamsList,
+        athletesList,
+    };
+})(Alerts);
