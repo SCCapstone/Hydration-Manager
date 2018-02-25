@@ -172,12 +172,12 @@ YourTeams.propTypes = {
 export default withTracker(() => {
   const subscription = Meteor.subscribe('teams');
   const loading = !subscription.ready();
-  //const teamsList = !loading ? TeamsCollection.find().fetch() : [];
+  const teamsList = !loading ? TeamsCollection.find().fetch() : [];
   // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
   // match: PropTypes.object.isRequired,
   // history: PropTypes.object.isRequired,
 
-  const teamsList = TeamsCollection.find().fetch();
+  //const teamsList = TeamsCollection.find().fetch();
   console.log(teamsList);
 
   return {
