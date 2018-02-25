@@ -45,10 +45,8 @@ export default class YourTeams extends TrackerReact(React.Component) {
         const teamSeason = this.state.teamSeason;
 
         if (teamName != "") {
-            const curUser = CurrentUser.findOne();
-            const id = curUser.userID;
 
-            Meteor.call('addNewTeam', teamName, teamSeason, id, () => {
+            Meteor.call('addNewTeam', teamName, teamSeason, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Team Created', 'success', 'fixed-top', 'fa-check');
 

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {debounce} from "throttle-debounce";
 import {Button} from 'react-bootstrap';
-import { User } from '../../api/users.jsx';
 
 export default class Logout extends React.Component {
 
@@ -19,7 +17,7 @@ export default class Logout extends React.Component {
     render() {
         return (
             <div>
-                <Button onClick={this.log}>Logout</Button>
+                <Button onClick={this.log}>Not Working Yet</Button>
             </div>
         )
     }

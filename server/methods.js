@@ -33,11 +33,11 @@ Meteor.methods({
   },
 
 
-  addNewTeam(teamName, teamSeason, id) {
+  addNewTeam(teamName, teamSeason) {
     Teams.insert({
       name: teamName,
       season: teamSeason,
-      user: id,
+      //user: id,
       createdAt: new Date()
     });
   },
@@ -105,7 +105,7 @@ Meteor.methods({
 
   logoutUser(id){
       User.update({_id: id},{
-          $set: {currentUser: "false"}
+          $set: {currentUser: false}
       });
   }
 

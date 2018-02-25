@@ -19,6 +19,7 @@ export const AppRouting = ( {match} ) => (
                 <Route path='/app/athlete/:athleteId' component={AthleteReport}/>
                 <Route path='/app/yourTeams' component={YourTeams}/>
                 <Route path='/app/alerts' component={Alerts}/>
+                <Route path='/appalerts/:teamId' component={Alerts}/>
                 <Route path='/app/logout' component={Logout}/>
             </Switch>
     </div>
