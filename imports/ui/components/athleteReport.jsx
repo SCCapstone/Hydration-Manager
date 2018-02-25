@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Button } from 'react-bootstrap';
-import {Athletes} from '../../api/athletes.jsx';
+import {AthletesOld} from '../../api/athletes.jsx';
 import {Teams} from '../../api/teams.jsx';
 import { Link } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ export default class AthleteReport extends Component {
     athlete() {
         if(this.props.match.params.athleteId) {
             athleteId = this.props.match.params.athleteId;
-            athlete = Athletes.findOne({"_id": athleteId});
+            athlete = AthletesOld.findOne({"_id": athleteId});
             return athlete;
         }
         else{

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Button } from 'react-bootstrap';
-import {Athletes} from '../../api/athletes.jsx';
+import {AthletesOld} from '../../api/athletes.jsx';
 import { Link } from 'react-router-dom';
 
 export default class AthleteSingle extends Component {
@@ -19,7 +19,7 @@ export default class AthleteSingle extends Component {
     }
 
     athletes() {
-        return Athletes.find().fetch();
+        return AthletesOld.find().fetch();
     }
     render() {
         athletes = this.athletes;

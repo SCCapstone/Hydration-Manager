@@ -11,7 +11,7 @@ Meteor.methods({
     //   season: String,
     //   id: String,
     // });
-
+    console.log(tname);
     try {
       return Teams.insert({
         name: tname,

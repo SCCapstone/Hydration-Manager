@@ -23,18 +23,18 @@ describe("unitTest", function() {
 //     })
 //
 //     var getAthlete = server.execute(function(){
-//         const {Athletes} = require('../../imports/api/athletes.jsx');
-//         return Athletes.findOne({name:'Test Guy'});
+//         const {AthletesOld} = require('../../imports/api/athletes.jsx');
+//         return AthletesOld.findOne({name:'Test Guy'});
 //     })
 //
 //     expect(getAthlete.name).to.equal('Test Guy');
 //
 //     afterEach( function() {
 //         server.execute( function() {
-//             const {Athletes} = require('../../imports/api/athletes.jsx');
-//             var athlete = Athletes.findOne( {name: 'Test Guy', baseWeight: '155', height:'72' });
+//             const {AthletesOld} = require('../../imports/api/athletes.jsx');
+//             var athlete = AthletesOld.findOne( {name: 'Test Guy', baseWeight: '155', height:'72' });
 //             if (athlete) {
-//                 Athletes.remove( athlete._id );
+//                 AthletesOld.remove( athlete._id );
 //             }
 //         })
 //     })

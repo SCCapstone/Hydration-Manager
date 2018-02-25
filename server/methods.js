@@ -4,7 +4,7 @@ import {TeamsOld} from '../imports/api/teams.jsx'
 
 import {CurrentUser} from '../imports/api/users.jsx'
 
-import {Athletes} from '../imports/api/athletes.jsx'
+import {AthletesOld} from '../imports/api/athletes.jsx'
 
 Meteor.methods({
 
@@ -55,7 +55,7 @@ Meteor.methods({
   },
 
   addNewPlayer(name, weight, height, teamId) {
-    Athletes.insert({
+    AthletesOld.insert({
       name: name,
       baseWeight: weight,
       height: height,
@@ -67,11 +67,11 @@ Meteor.methods({
   },
 
   addPreWeight(id, date, weight) {
-        Athletes.update(
+        AthletesOld.update(
         { _id: id },
         { $pull: {preWeightData: {date:date} }});
 
-      Athletes.update(
+      AthletesOld.update(
           { _id: id },
           {
               $push: {
@@ -84,11 +84,11 @@ Meteor.methods({
       );
   },
   addPostWeight(id, date, weight) {
-      Athletes.update(
+      AthletesOld.update(
           { _id: id },
           { $pull: {postWeightData: {date:date} }});
 
-      Athletes.update(
+      AthletesOld.update(
           { _id: id },
           {
             $push: {
@@ -102,7 +102,7 @@ Meteor.methods({
 
   },
   deleteAthlete(id) {
-    Athletes.remove(id);
+    AthletesOld.remove(id);
   }
 
 });

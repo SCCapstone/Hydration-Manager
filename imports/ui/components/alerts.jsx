@@ -5,7 +5,7 @@ import AlertDropdownOfTeams from './alertDropdownOfTeams.jsx';
 import {DropdownButton} from 'react-bootstrap';
 import {CurrentUser} from '../../api/users.jsx';
 import {Teams} from '../../api/teams.jsx';
-import {Athletes} from '../../api/athletes.jsx';
+import {AthletesOld} from '../../api/athletes.jsx';
 import AthleteAlert from './athleteAlert.jsx';
 
 
@@ -25,7 +25,7 @@ export default class Alerts extends TrackerReact(React.Component) {
             this.getCurrentTeam = this.getCurrentTeam.bind(this);
         }
         athletes() {
-        return Athletes.find().fetch();
+        return AthletesOld.find().fetch();
         }
         teams() {
             const curUser = this.props.name;  //CurrentUser.findOne();

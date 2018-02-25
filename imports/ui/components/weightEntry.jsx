@@ -8,7 +8,7 @@ import { CurrentUser } from '../../api/users.jsx';
 import { Table } from 'react-bootstrap';
 import { debounce } from 'throttle-debounce';
 
-import {Athletes} from '../../api/athletes.jsx';
+import {AthletesOld} from '../../api/athletes.jsx';
 import AthleteEntryList from './athlete_entry_list.jsx';
 
 export default class WeightEntry extends React.Component {
@@ -50,7 +50,7 @@ export default class WeightEntry extends React.Component {
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
             currentTeam = TeamsOld.findOne({"_id": teamId, user:id});
-            return Athletes.find({teamId: currentTeam._id}).fetch();
+            return AthletesOld.find({teamId: currentTeam._id}).fetch();
         }
         else{
             return null;
