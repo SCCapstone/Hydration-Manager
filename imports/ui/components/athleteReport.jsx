@@ -20,19 +20,19 @@ class AthleteReport extends Component {
         // this.athlete = this.athlete.bind(this);
     }
 
-    //
-    // showCurrentWeight() {
-    //     preWeightDate = this.athlete().preWeightData[0].date;
-    //     postWeightDate = this.athlete().postWeightData[0].date;
-    //     if(postWeightDate > preWeightDate)
-    //     {
-    //         return this.athlete().postWeightData[0].weight;
-    //     }
-    //     else
-    //     {
-    //         return this.athlete().preWeightData[0].weight;
-    //     }
-    // }
+
+    showCurrentWeight() {
+        preWeightDate = this.athlete().preWeightData[0].date;
+        postWeightDate = this.athlete().postWeightData[0].date;
+        if(postWeightDate > preWeightDate)
+        {
+            return this.athlete().postWeightData[0].weight;
+        }
+        else
+        {
+            return this.athlete().preWeightData[0].weight;
+        }
+    }
 
 
     componentWillUnmount() {
@@ -75,7 +75,7 @@ class AthleteReport extends Component {
                 <h5>Team: {this.team().name} {this.team().season}</h5>
                 <h5>Height: {this.athlete().height} in.</h5>
                 <h5>Base Weight: {this.athlete().baseWeight} lbs.</h5>
-                {/*<h5>Current Weight: {this.showCurrentWeight()} lbs.</h5>*/}
+                <h5>Current Weight: {this.showCurrentWeight()} lbs.</h5>
                 <AthleteReportTable athlete={this.athlete()}/>
             </div>
         )
