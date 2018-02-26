@@ -1,19 +1,23 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
+import autoBind from 'react-autobind';
+import { withTracker } from 'meteor/react-meteor-data';
 import {FormControl} from 'react-bootstrap';
 import {FormGroup} from 'react-bootstrap';
-import {Button} from 'react-bootstrap';
+import {Button, Table} from 'react-bootstrap';
 
 import {Modal} from 'react-bootstrap';
 import {ListGroup} from 'react-bootstrap';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
-import {Teams} from '../../api/teams.jsx';
+//import {Teams} from '../../api/teams.jsx';
+import TeamsCollection from '../../api/Teams/Teams.js';
 import ListOfTeams from './listOfTeams.jsx';
 import {User} from '../../api/users.jsx';
 
 
-export default class YourTeams extends TrackerReact(React.Component) {
+//class YourTeams extends TrackerReact(React.Component) {
+class YourTeams extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,10 +25,22 @@ export default class YourTeams extends TrackerReact(React.Component) {
             teamName: '',
             teamSeason: '',
         };
-        this.open = this.open.bind(this);
-        this.close = this.close.bind(this);
-        this.routeToReport = this.routeToReport.bind(this);
-        this.addTeam = this.addTeam.bind(this);
+        // this.open = this.open.bind(this);
+        // this.close = this.close.bind(this);
+        // this.routeToReport = this.routeToReport.bind(this);
+        // this.addTeam = this.addTeam.bind(this);
+        // this.showTeamsList = this.showTeamsList.bind(this);
+        autoBind(this);  //binds class methods to the component instance
+    }
+
+    // componentWillMount() {
+    //   Roles.userIsInRole(user, ["ADMIN"]);
+    // }
+
+    componentWillUnmount() {
+      this.props.subscriptions.forEach((s) =>{
+        s.stop();
+      });
     }
 
     routeToReport() {
@@ -46,7 +62,12 @@ export default class YourTeams extends TrackerReact(React.Component) {
 
         if (teamName != "") {
 
-            Meteor.call('addNewTeam', teamName, teamSeason, () => {
+            const curUser = this.props.name;  //CurrentUser.findOne();
+            const id = this.props.userId;  //curUser.userID;
+            console.log(curUser);
+            console.log(id);
+
+            Meteor.call('teams.insert', teamName, teamSeason, id, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Team Created', 'success', 'fixed-top', 'fa-check');
 
@@ -57,13 +78,21 @@ export default class YourTeams extends TrackerReact(React.Component) {
         }
     }
 
-    teams() {
-       // const curUser = CurrentUser.findOne();
-       // console.log(curUser);
-       // const id = curUser.userID;
-       // return Teams.find({user: id}).fetch();
-        return Teams.find().fetch();
+    // teams() {
+    //     const curUser = this.props.name;  //CurrentUser.findOne();
+    //     console.log(curUser);
+    //     const id = this.props.userId;  //curUser.userID;
+    //     return Teams.find({user: id}).fetch();
+    // }
+
+/*
+    handleAddTeam(e){
+        //this.setState({value1: e.target.value1});
+        this.team = this.state.value1;
+        this.season = this.state.value2;
+        addTeam();
     }
+ */
 
     handleTeam = (e) => {
         e.persist();
@@ -74,7 +103,7 @@ export default class YourTeams extends TrackerReact(React.Component) {
     handleSeason = (e) => {
         e.persist();
         this.setState({
-            teamSeason : e.target.value
+            teamSeason: e.target.value
         });
     }
 /*
@@ -96,12 +125,17 @@ export default class YourTeams extends TrackerReact(React.Component) {
     );
 */
 
-    render () {
+    render() {
         return (
             <div>
                 <div className="YourTeamHeader">
                     <h3>Your Team's</h3>
                     <Button onClick={this.open} bsStyle="primary">Create a Team</Button>
+{/*=======*/}
+                {/*<div>*/}
+                    {/*<span><h3>Your Teams</h3></span>*/}
+                    {/*<span><Button onClick={this.open} bsStyle="primary">Create a Team</Button></span>*/}
+{/*>>>>>>> user-auth*/}
                 </div>
                 <hr/>
                 <div>
@@ -124,6 +158,75 @@ export default class YourTeams extends TrackerReact(React.Component) {
                     </Modal>
                 </div>
                 <div>
+                    <br/>
+                    <ListGroup className="teams">
+                        {this.props.teamsList.map((team)=>{return <ListOfTeams key={team._id} team={team} />})}
+                    </ListGroup>
+
+                </div>
+            </div>
+        )
+    }
+}
+
+YourTeams.propTypes = {
+  subscriptions: PropTypes.array,
+  loading: PropTypes.bool,
+  teamsList: PropTypes.array
+};
+
+// Retrieves data from server and puts it into client's minimongo
+export default withTracker(() => {
+  const subscription = Meteor.subscribe('teams.thisUserId');
+  const loading = !subscription.ready();
+  const teamsList = !loading ? TeamsCollection.find().fetch() : [];
+  // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // match: PropTypes.object.isRequired,
+  // history: PropTypes.object.isRequired,
+  console.log(teamsList);
+
+  return {
+    subscriptions: [subscription],
+    loading,
+    teamsList,
+  };
+})(YourTeams);
+
+
+    /*
+    render () {
+        return (
+            <div>
+                <br/>
+                <div>
+                    <span className = "mui--pull-left"><h3>Your Team's</h3></span>
+                    <span className = "mui--pull-right"><Button onClick={this.open} color="primary" variant="raised">Create a Team</Button></span>
+                </div>
+                <div>
+                    <Modal show={this.state.showModal} onHide={this.close} >
+                        <Modal.Header>
+                            <Modal.Title>Team Entry Form</Modal.Title>
+                        </Modal.Header>
+
+                        <Modal.Body>
+                            <form>
+                                <input ref={el => {this.team = el;}} required = {true} />
+                                <input ref={el => {this.season = el;}} required = {true} />
+                            </form>
+                            <form>
+                                <FormControl type='input' value={el => {this.team = el;}}></FormControl>
+                                <FormControl type='input' value={el => {this.season = el;}}></FormControl>
+                            </form>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={this.close} variant="raised"> Close </Button>
+                            <Button onClick={this.addTeam} variant="raised" color="primary"> Create Team </Button>
+                        </Modal.Footer>
+                    </Modal>
+                </div>
+                <br/>
+                <div className="mui--divider-top">
+                    <br/>
                     <ListGroup className="teams">
                         {this.teams().map((team)=>{return <ListOfTeams key={team._id} team={team} />})}
                     </ListGroup>
@@ -132,3 +235,4 @@ export default class YourTeams extends TrackerReact(React.Component) {
         )
     }
 }
+*/

@@ -1,19 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {FormControl} from 'react-bootstrap';
 import {FormGroup} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
+import { withTracker } from 'meteor/react-meteor-data';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import MasterDropdownOfTeams from './masterDropdownOfTeams.jsx';
 import {DropdownButton} from 'react-bootstrap';
-import {User} from '../../api/users.jsx';
-import {Teams} from '../../api/teams.jsx';
-import {Athletes} from '../../api/athletes.jsx';
+
+//import {CurrentUser} from '../../api/users.jsx';
+//import { Accounts } from 'meteor/accounts-base';
+import autoBind from 'react-autobind';
+import {TeamsOld} from '../../api/teams.jsx';
+import {AthletesOld} from '../../api/athletes.jsx';
+
 import AthleteSingle from './athletesingle.jsx';
+import TeamsCollection from '../../api/Teams/Teams.js';
+import AthletesCollection from '../../api/Athletes/Athletes.js';
 
 
-export default class MasterReport extends TrackerReact(React.Component) {
+class MasterReport extends React.Component {
+//export default class MasterReport extends React.Component {
     constructor(props) {
         super(props);
 
@@ -24,14 +33,22 @@ export default class MasterReport extends TrackerReact(React.Component) {
             height: '',
             playerTeamId: '',
         };
-        this.routeToReport = this.routeToReport.bind(this);
-        this.open = this.open.bind(this);
-        this.close = this.close.bind(this);
-        this.addPlayer = this.addPlayer.bind(this);
-        this.teams = this.teams.bind(this);
-        this.athletes = this.athletes.bind(this);
-        this.getCurrentTeam = this.getCurrentTeam.bind(this);
+        // this.routeToReport = this.routeToReport.bind(this);
+        // this.open = this.open.bind(this);
+        // this.close = this.close.bind(this);
+        // this.addPlayer = this.addPlayer.bind(this);
+        // this.teams = this.teams.bind(this);
+        // this.athletes = this.athletes.bind(this);
+        // this.getCurrentTeam = this.getCurrentTeam.bind(this);
+        autoBind(this);
     }
+
+    componentWillUnmount() {
+        this.props.subscriptions.forEach((s) =>{
+            s.stop();
+        });
+    }
+
     routeToReport () {
         window.location ='/app/athleteReport';
     }
@@ -49,15 +66,17 @@ export default class MasterReport extends TrackerReact(React.Component) {
         const pHeight = this.state.height;
         const pTeamId = this.state.playerTeamId;
 
+
         console.log(pName);
         console.log(pWeight);
         console.log(pHeight);
+        console.log(pTeamId);
         if(pName == '' || pWeight == '' || pHeight == '' || pTeamId == '')
         {
             window.alert("Make sure to complete all fields for player creation. If no teams are available, contact an admin to assign you a team.");
         }
         else {
-            Meteor.call('addNewPlayer', pName, pWeight, pHeight, pTeamId, () => {
+            Meteor.call('athletes.insert', pName, pWeight, pHeight, pTeamId, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Player Created', 'success', 'fixed-top', 'fa-check');
 
@@ -72,12 +91,14 @@ export default class MasterReport extends TrackerReact(React.Component) {
     }
     athletes() {
         currentTeam = "";
-        //const curUser = CurrentUser.findOne();
-        //const id = curUser.userID;
+
+        const curUser = this.props.name;  //CurrentUser.findOne();
+        const id = this.props.userId;  //curUser.userID;
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
-            currentTeam = Teams.findOne({"_id": teamId});
-            return Athletes.find({teamId: currentTeam._id}).fetch();
+
+            currentTeam = TeamsCollection.findOne({"_id": teamId});
+            return AthletesCollection.find({teamId: currentTeam._id}).fetch();
         }
         else{
             return null;
@@ -85,11 +106,11 @@ export default class MasterReport extends TrackerReact(React.Component) {
 
     }
     teams() {
-        //const curUser = CurrentUser.findOne();
-        //console.log(curUser);
-        //const id = curUser.userID;
-        //return Teams.find({user:id}).fetch();
-        return Teams.find().fetch();
+        const curUser = this.props.name;  //CurrentUser.findOne();
+        console.log(curUser);
+        const id = this.props.userId;  //curUser.userID;
+        console.log(id);
+        return TeamsCollection.find({user:id}).fetch();
     };
 
     displayAthletes() {
@@ -106,7 +127,7 @@ export default class MasterReport extends TrackerReact(React.Component) {
     displayCurrentTeam() {
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
-            currentTeam = Teams.findOne({"_id": teamId});
+            currentTeam = TeamsCollection.findOne({"_id": teamId});
             return currentTeam.name + " " + currentTeam.season;
         }
         else{
@@ -151,13 +172,15 @@ export default class MasterReport extends TrackerReact(React.Component) {
                 playerTeamId : currentTeam
             });
         }
-     /*   else if(Teams.findOne({user: User.findOne().userID}) != undefined)
+
+        // CurrentUser.findOne().userID -> Alt. Ex: Meteor.users.findOne({ 'emails.address': email })
+
+        else if(TeamsCollection.findOne({user: this.props.userId}) != undefined)
         {
             this.setState({
-                playerTeamId : Teams.findOne({user: CurrentUser.findOne().userID})._id
+                playerTeamId : TeamsCollection.findOne({user: this.props.userId})._id
             });
         }
-    */
     }
 
     render() {
@@ -223,3 +246,34 @@ export default class MasterReport extends TrackerReact(React.Component) {
         )
     }
 }
+
+MasterReport.propTypes = {
+    subscriptions: PropTypes.array,
+    teamLoading: PropTypes.bool,
+    athleteLoading: PropTypes.bool,
+    teamsList: PropTypes.array,
+    athletesList: PropTypes.array,
+};
+
+// Retrieves data from server and puts it into client's minimongo
+export default withTracker(() => {
+    const teamSubscription = Meteor.subscribe('teams.thisUserId');
+    const athleteSubscription = Meteor.subscribe('athletes.thisTeamId');
+    const teamLoading = !teamSubscription.ready();
+    const athleteLoading = !athleteSubscription.ready();
+    const teamsList = !teamLoading ? TeamsCollection.find().fetch() : [];
+    const athletesList = !athleteLoading ? AthletesCollection.find().fetch() : [];
+    // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+    // match: PropTypes.object.isRequired,
+    // history: PropTypes.object.isRequired,
+    console.log(teamsList);
+    console.log(athletesList);
+
+    return {
+        subscriptions: [teamSubscription, athleteSubscription],
+        teamLoading,
+        athleteLoading,
+        teamsList,
+        athletesList,
+    };
+})(MasterReport);

@@ -1,0 +1,13 @@
+// overrides of default Bootstrap CSS
+
+@import './mixins';
+
+.page-header {
+  margin-top: 0;
+}
+
+@include breakpoint(tablet) {
+  .page-header {
+    margin-top: 20px;
+  }
+}

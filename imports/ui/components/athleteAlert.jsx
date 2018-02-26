@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Athletes} from '../../api/athletes.jsx';
+import {AthletesOld} from '../../api/athletes.jsx';
 import { Link } from 'react-router-dom';
 
 export default class AthleteAlert extends Component {
@@ -7,7 +7,7 @@ export default class AthleteAlert extends Component {
         super(props);
     }
     athletes() {
-        return Athletes.find().fetch();
+        return AthletesOld.find().fetch();
     }
     render() {
         athletes = this.athletes;

@@ -1,29 +1,45 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {withTracker} from 'meteor/react-meteor-data';
+import autoBind from 'react-autobind';
 import { Button } from 'react-bootstrap';
-import {Athletes} from '../../api/athletes.jsx';
+
+import AthletesCollection from '../../api/Athletes/Athletes.js';
+import TeamsCollection from '..//../api/Teams/Teams.js';
+import {AthletesOld} from '../../api/athletes.jsx';
 import {Teams} from '../../api/teams.jsx';
 import { Link } from 'react-router-dom';
 import AthleteReportTable from './athleteReportTable';
 
-export default class AthleteReport extends Component {
+class AthleteReport extends Component {
     constructor(props) {
         super(props);
-        this.deleteAthlete = this.deleteAthlete.bind(this);
-        this.athlete = this.athlete.bind(this);
-        this.showCurrentWeight = this.showCurrentWeight.bind(this);
+        autoBind(this);
+
+        // this.deleteAthlete = this.deleteAthlete.bind(this);
+        // this.athlete = this.athlete.bind(this);
     }
 
-    showCurrentWeight() {
-        preWeightDate = this.athlete().preWeightData[0].date;
-        postWeightDate = this.athlete().postWeightData[0].date;
-        if(postWeightDate > preWeightDate)
-        {
-            return this.athlete().postWeightData[0].weight;
-        }
-        else
-        {
-            return this.athlete().preWeightData[0].weight;
-        }
+    //
+    // showCurrentWeight() {
+    //     preWeightDate = this.athlete().preWeightData[0].date;
+    //     postWeightDate = this.athlete().postWeightData[0].date;
+    //     if(postWeightDate > preWeightDate)
+    //     {
+    //         return this.athlete().postWeightData[0].weight;
+    //     }
+    //     else
+    //     {
+    //         return this.athlete().preWeightData[0].weight;
+    //     }
+    // }
+
+
+    componentWillUnmount() {
+        this.props.subscriptions.forEach((s) =>{
+            s.stop();
+        });
+
     }
 
     deleteAthlete() {
@@ -33,7 +49,7 @@ export default class AthleteReport extends Component {
     athlete() {
         if(this.props.match.params.athleteId) {
             athleteId = this.props.match.params.athleteId;
-            athlete = Athletes.findOne({"_id": athleteId});
+            athlete = AthletesCollection.findOne({"_id": athleteId});
             return athlete;
         }
         else{
@@ -43,7 +59,7 @@ export default class AthleteReport extends Component {
 
     team() {
         playerTeamId = this.athlete().teamId;
-        team = Teams.findOne({"_id": playerTeamId});
+        team = TeamsCollection.findOne({"_id": playerTeamId});
         return team;
     }
 
@@ -59,9 +75,40 @@ export default class AthleteReport extends Component {
                 <h5>Team: {this.team().name} {this.team().season}</h5>
                 <h5>Height: {this.athlete().height} in.</h5>
                 <h5>Base Weight: {this.athlete().baseWeight} lbs.</h5>
-                <h5>Current Weight: {this.showCurrentWeight()} lbs.</h5>
+                {/*<h5>Current Weight: {this.showCurrentWeight()} lbs.</h5>*/}
                 <AthleteReportTable athlete={this.athlete()}/>
             </div>
         )
     }
 }
+
+AthleteReport.propTypes = {
+    subscriptions: PropTypes.array,
+    teamLoading: PropTypes.bool,
+    athleteLoading: PropTypes.bool,
+    teamsList: PropTypes.array,
+    athletesList: PropTypes.array,
+};
+
+// Retrieves data from server and puts it into client's minimongo
+export default withTracker(() => {
+    const teamSubscription = Meteor.subscribe('teams.thisUserId');
+    const athleteSubscription = Meteor.subscribe('athletes.thisTeamId');
+    const teamLoading = !teamSubscription.ready();
+    const athleteLoading = !athleteSubscription.ready();
+    const teamsList = !teamLoading ? TeamsCollection.find().fetch() : [];
+    const athletesList = !athleteLoading ? AthletesCollection.find().fetch() : [];
+    // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+    // match: PropTypes.object.isRequired,
+    // history: PropTypes.object.isRequired,
+    console.log(teamsList);
+    console.log(athletesList);
+
+    return {
+        subscriptions: [teamSubscription, athleteSubscription],
+        teamLoading,
+        athleteLoading,
+        teamsList,
+        athletesList,
+    };
+})(AthleteReport);

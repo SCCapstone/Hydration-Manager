@@ -1,27 +1,39 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
+import {withTracker} from 'meteor/react-meteor-data';
+import autoBind from 'react-autobind';
 import { DropdownButton } from 'react-bootstrap';
 
 import WeightDropdownOfTeams from './weightDropdownOfTeams.jsx';
-import { Teams } from '../../api/teams.jsx';
-import { User } from '../../api/users.jsx';
+
+import { TeamsOld } from '../../api/teams.jsx';
+import { CurrentUser } from '../../api/users.jsx';
+
 import { Table } from 'react-bootstrap';
 import { debounce } from 'throttle-debounce';
 
-import {Athletes} from '../../api/athletes.jsx';
+import AthletesCollection from '../../api/Athletes/Athletes.js';
+import TeamsCollection from '..//../api/Teams/Teams.js';
 import AthleteEntryList from './athlete_entry_list.jsx';
 
-export default class WeightEntry extends React.Component {
+class WeightEntry extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             selectedOption: 'Default',
             selectedDate: '',
         };
-        this.handleOptionChange = this.handleOptionChange.bind(this);
-        this.handleDateChange =  this.handleDateChange.bind(this);
-        this.handleDebounce = debounce(1000, this.handleDebounce);
+        // this.handleOptionChange = this.handleOptionChange.bind(this);
+        // this.handleDateChange =  this.handleDateChange.bind(this);
+        // this.handleDebounce = debounce(1000, this.handleDebounce);
+        autoBind(this);
     };
+
+    componentWillUnmount() {
+        this.props.subscriptions.forEach((s) =>{
+            s.stop();
+        });
+    }
 
     handleDebounce = () => {
         console.log('The selected option is:',this.state.selectedOption);
@@ -38,20 +50,19 @@ export default class WeightEntry extends React.Component {
     };
 
     teams() {
-        //const curUser = CurrentUser.findOne();
-        //console.log(curUser);
-        //const id = curUser.userID;
-        //return Teams.find({user:id}).fetch();
-        return Teams.find().fetch();
+        const curUser = this.props.name;  //CurrentUser.findOne();
+        console.log(curUser);
+        const id = this.props.userId;  //curUser.userID;
+        return TeamsCollection.find({user:id}).fetch();
     };
     athletes() {
         currentTeam = "";
-        //const curUser = CurrentUser.findOne();
-        //const id = curUser.userID;
+        const curUser =  this.props.name;//CurrentUser.findOne();
+        const id = this.props.userId;  //curUser.userID;
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
-            currentTeam = Teams.findOne({"_id": teamId});
-            return Athletes.find({teamId: currentTeam._id}).fetch();
+            currentTeam = TeamsCollection.findOne({"_id": teamId, user:id});
+            return AthletesCollection.find({teamId: currentTeam._id}).fetch();
         }
         else{
             return null;
@@ -73,7 +84,7 @@ export default class WeightEntry extends React.Component {
     displayCurrentTeam() {
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
-            currentTeam = Teams.findOne({"_id": teamId});
+            currentTeam = TeamsCollection.findOne({"_id": teamId});
             return currentTeam.name + " " + currentTeam.season;
         }
         else{
@@ -81,6 +92,7 @@ export default class WeightEntry extends React.Component {
         }
     }
     render() {
+        const { props } = this;
         return (
             <div>
                 <div>
@@ -133,3 +145,34 @@ export default class WeightEntry extends React.Component {
         )
     }
 }
+
+WeightEntry.propTypes = {
+    subscriptions: PropTypes.array,
+    teamLoading: PropTypes.bool,
+    athleteLoading: PropTypes.bool,
+    teamsList: PropTypes.array,
+    athletesList: PropTypes.array,
+};
+
+// Retrieves data from server and puts it into client's minimongo
+export default withTracker(() => {
+    const teamSubscription = Meteor.subscribe('teams.thisUserId');
+    const athleteSubscription = Meteor.subscribe('athletes.thisTeamId');
+    const teamLoading = !teamSubscription.ready();
+    const athleteLoading = !athleteSubscription.ready();
+    const teamsList = !teamLoading ? TeamsCollection.find().fetch() : [];
+    const athletesList = !athleteLoading ? AthletesCollection.find().fetch() : [];
+    // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+    // match: PropTypes.object.isRequired,
+    // history: PropTypes.object.isRequired,
+    console.log(teamsList);
+    console.log(athletesList);
+
+    return {
+        subscriptions: [teamSubscription, athleteSubscription],
+        teamLoading,
+        athleteLoading,
+        teamsList,
+        athletesList,
+    };
+})(WeightEntry);
