@@ -65,7 +65,7 @@ routeToReport () {
     window.location ='/app/masterReport/'+ this.props.team._id;
 }
 deleteTeam() {
-  //Meteor.call('deleteTm',this.props.team._id)
+  Meteor.call('teams.remove',this.props.team._id)
 }
 
   render() {

@@ -63,4 +63,8 @@ Meteor.methods({
         );
     },
 
+    'athletes.remove': function removeAthlete(id) {
+        Athletes.remove(id);
+    }
+
 });

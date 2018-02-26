@@ -49,6 +49,10 @@ class MasterReport extends React.Component {
         });
     }
 
+    componentDidMount() {
+        this.getCurrentTeam();
+    }
+
     routeToReport () {
         window.location ='/app/athleteReport';
     }
@@ -127,8 +131,15 @@ class MasterReport extends React.Component {
     displayCurrentTeam() {
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
-            currentTeam = TeamsCollection.findOne({"_id": teamId});
-            return currentTeam.name + " " + currentTeam.season;
+            for(i=0;i<this.props.teamsList.length;i++)
+            {
+                if(this.props.teamsList[i]._id==teamId)
+                {
+                    return this.props.teamsList[i].name + " " + this.props.teamsList[i].season;
+                }
+            }
+            // currentTeam = TeamsCollection.findOne({"_id": teamId});
+            // return currentTeam.name + " " + currentTeam.season;
         }
         else{
             return "";
@@ -175,10 +186,10 @@ class MasterReport extends React.Component {
 
         // CurrentUser.findOne().userID -> Alt. Ex: Meteor.users.findOne({ 'emails.address': email })
 
-        else if(TeamsCollection.findOne({user: this.props.userId}) != undefined)
+        else if(this.props.teamsList[0] != undefined)
         {
             this.setState({
-                playerTeamId : TeamsCollection.findOne({user: this.props.userId})._id
+                playerTeamId : this.props.teamsList[0]._id
             });
         }
     }

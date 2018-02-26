@@ -15,7 +15,7 @@ export default class AthleteSingle extends Component {
     }
 
     deleteAthlete() {
-      Meteor.call('deleteAthlete',this.props.athlete._id);
+      Meteor.call('athletes.remove',this.props.athlete._id);
     }
 
     athletes() {

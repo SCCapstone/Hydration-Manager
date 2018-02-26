@@ -24,6 +24,10 @@ Meteor.methods({
     }
   },
 
+  'teams.remove': function removeTeam(id) {
+    Teams.remove(id);
+  }
+
 });
 
 // rateLimit({
