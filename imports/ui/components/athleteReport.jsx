@@ -36,7 +36,6 @@ class AthleteReport extends Component {
         }
     }
 
-
     componentWillUnmount() {
         this.props.subscriptions.forEach((s) =>{
             s.stop();
@@ -78,6 +77,7 @@ class AthleteReport extends Component {
                 <h5>Height: {this.athlete().height} in.</h5>
                 <h5>Base Weight: {this.athlete().baseWeight} lbs.</h5>
                 <h5>Current Weight: {this.showCurrentWeight()} lbs.</h5>
+                <h5>Total Loss: {null} lbs.</h5>
                 <AthleteReportTable athlete={this.athlete()}/>
             </div>
         )

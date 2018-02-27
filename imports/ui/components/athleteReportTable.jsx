@@ -59,6 +59,28 @@ export default class AthleteReportTable extends Component{
         }
     }
 
+    getHydration(aDate) {
+        preData = this.props.athlete.preWeightData;
+        postData = this.props.athlete.postWeightData;
+        var pre = 0;
+        var post = 0;
+        for(i = 0; i < preData.length; i++)
+        {
+            if(preData[i].date == aDate)
+            {
+                pre = preData[i].weight;
+            }
+        }
+        for(i = 0; i < postData.length; i++)
+        {
+            if(postData[i].date == aDate)
+            {
+                post = postData[i].weight;
+            }
+        }
+        return (((pre-post))/pre) * 100;
+    }
+
     render() {
         return(
             <div>
@@ -68,10 +90,11 @@ export default class AthleteReportTable extends Component{
                             <th>Date</th>
                             <th>PreWeight</th>
                             <th>PostWeight</th>
+                            <th>Hydration</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {this.state.dates.map((date)=><tr><td>{date}</td><td>{this.getDatePreWeight(date)}</td><td>{this.getDatePostWeight(date)}</td></tr>)}
+                    {this.state.dates.map((date)=><tr><td>{date}</td><td>{this.getDatePreWeight(date)}</td><td>{this.getDatePostWeight(date)}</td><td>{this.getHydration(date)}</td></tr>)}
                     </tbody>
                 </Table>
             </div>
