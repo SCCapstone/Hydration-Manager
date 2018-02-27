@@ -3,7 +3,6 @@ import React from 'react';
 import autoBind from 'react-autobind';
 import { Button, Col, ControlLabel, FormGroup, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
@@ -14,7 +13,6 @@ import 'jquery-validation';
 
 // Custom File Imports
 import TextComp from '../../components/TextComp/TextComp';
-import GenericFooter from '../../components/GenericFooter/GenericFooter';
 
 class Registration extends React.Component {
   constructor(props) {
@@ -86,13 +84,6 @@ class Registration extends React.Component {
     Accounts.createUser({
       email: form.emailAddress.value,
       password: form.password.value,
-      profile: {
-        name: {
-          first: form.firstName.value,
-          last: form.lastName.value,
-        },
-        //roles: [ROLES.ADMIN],             //****** DEFAULT ROLE:  ADMIN *******
-      },
     }, (error) => {
       if (error) {
           Bert.alert(error.reason, 'danger');

@@ -36,10 +36,6 @@ class YourTeams extends React.Component {
       });
     }
 
-    routeToReport() {
-        window.location = '/app/masterReport';
-    }
-
     open() {
         this.setState({showModal: true});
     }
@@ -93,6 +89,7 @@ class YourTeams extends React.Component {
             teamName: e.target.value
         });
     }
+
     handleSeason = (e) => {
         e.persist();
         this.setState({
@@ -121,7 +118,7 @@ class YourTeams extends React.Component {
     render() {
         return (
             <div>
-                <div class="YourTeamHeader">
+                <div className="YourTeamHeader">
                     <h3>Your Teams</h3>
                     <Button onClick={this.open} bsStyle="primary">Create a Team</Button>
 {/*=======*/}
