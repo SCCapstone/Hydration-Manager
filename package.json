@@ -1,5 +1,5 @@
 {
-  "name": "Hydration Manager",
+  "name": "hydration-manager",
   "private": true,
   "scripts": {
     "start": "meteor run",
@@ -25,7 +25,6 @@
     "throttle-debounce": "^1.0.1"
   },
   "devDependencies": {
-    "bcrypt": "^1.0.3",
     "chai": "^4.1.2"
   }
 }

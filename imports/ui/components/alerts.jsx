@@ -9,7 +9,8 @@ import { Table, DropdownButton } from 'react-bootstrap';
 import AlertDropdownOfTeams from './alertDropdownOfTeams.jsx';
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 import TeamsCollection from '..//../api/Teams/Teams.js';
-import AthleteAlert from '../../../unused_files/athleteAlert.jsx';
+import { Teams } from '../../api/teams.jsx';
+import AthleteAlert from './athleteAlert.jsx';
 
 class Alerts extends React.Component {
         constructor(props) {
@@ -37,6 +38,7 @@ class Alerts extends React.Component {
         athletes() {
         return AthletesCollection.find().fetch();
         }
+
         teams() {
 
             const curUser = this.props.name;  //CurrentUser.findOne();

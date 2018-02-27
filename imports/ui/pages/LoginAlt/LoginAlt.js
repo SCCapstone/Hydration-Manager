@@ -59,8 +59,8 @@ class LoginAlt extends React.Component {
 
   render() {
     return (
-      <div class="LoginBackGround">
-          <div class = "Login">
+      <div className="LoginBackGround">
+          <div className = "Login">
               <h1>Hydration Manager</h1>
               <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
                   <FormGroup>
@@ -74,7 +74,7 @@ class LoginAlt extends React.Component {
                       <input type="password" name="password" className="form-control"/>
                   </FormGroup>
                   <FormGroup>
-                      <div class = "LoginButtons">
+                      <div className = "LoginButtons">
                           <Button type="submit">Login</Button>
                           <Button onClick = {this.routeToRegistration}>Register</Button>
                           <br/>

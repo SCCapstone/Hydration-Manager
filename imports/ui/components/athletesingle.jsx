@@ -39,25 +39,21 @@ export default class AthleteSingle extends Component {
       Meteor.call('athletes.remove',this.props.athlete._id);
     }
 
-    athletes() {
-        return AthletesOld.find().fetch();
-        // return AthletesCollection.find().fetch();
-    }
-
-
     calculateHydration() {
-        if (this.athletes().preWeightData[0] && this.athletes().postWeightData[0])
+        if (this.athletes.preWeightData[0] && this.athletes.postWeightData[0])
         {
-            return ((this.athletes().preWeightData[0].date - this.athletes().postWeightData[0].date) / this.athletes().preWeightData[0].date) *100;
+            const hydrate = ((this.athletes.preWeightData[0].date - this.athletes.postWeightData[0].date) / this.athletes.preWeightData[0].date) *100;
+            console.log(hydrate.toString);
+            return (hydrate.toString);
         }
         else
         {
-            return ((this.athletes().preWeightData[1].date - this.athletes().postWeightData[1].date) / this.athletes().preWeightData[1].date) *100;
+            const hydrate1 = ((this.athletes.preWeightData[1].date - this.athletes.postWeightData[1].date) / this.athletes.preWeightData[1].date) *100;
+            console.log(hydrate1.toString);
+            return (hydrate1.toString);
         }
     }
     render() {
-        const latestPre = {};
-        const latestPost = {};
         athletes = this.athletes;
         return (
             <tr>
@@ -66,7 +62,7 @@ export default class AthleteSingle extends Component {
                 </Link>
                 <td>{this.props.athlete.baseWeight}</td>
                 <td>{this.props.athlete.height}</td>
-                <td>{/*this.calculateHydration()*/}</td>
+                <td>{/*this.calculateHydration*/}</td>
                 {/*TODO: The way this is stuctured, data MUST be entered sequentially*/}
             </tr>
         )

@@ -114,8 +114,8 @@ class Registration extends React.Component {
 
   render() {
     return (
-      <div class="RegistrationBackground">
-        <div class = "Registration">
+      <div className = "RegistrationBackGround">
+        <div className = "Registration">
         <Row>
           <Col xs={12} sm={6} md={5} lg={4}>
             <h4 className="page-header">Registration</h4>
