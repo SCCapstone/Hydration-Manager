@@ -1,8 +1,11 @@
 // Populate User collection (in accounts-base)
 //   - For 'development' & 'staging' environments
+// Package Imports
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
+
+// Custom File Imports
 //import ROLES  from '../../api/Users/roles.js';
 
 // import seeder from '@cleverbeagle/seeder';

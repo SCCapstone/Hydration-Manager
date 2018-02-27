@@ -1,7 +1,7 @@
+// Package Imports
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './GenericFooter.scss';
 
 const GenericFooter = ({ children }) => (
   <div className="GenericFooter">

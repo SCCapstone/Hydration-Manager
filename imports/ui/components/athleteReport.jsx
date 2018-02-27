@@ -1,14 +1,16 @@
-import React, {Component} from 'react';
+// Package Imports
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {withTracker} from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import autoBind from 'react-autobind';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
+// Custom File Imports
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 import TeamsCollection from '..//../api/Teams/Teams.js';
-import {AthletesOld} from '../../api/athletes.jsx';
-import {Teams} from '../../api/teams.jsx';
-import { Link } from 'react-router-dom';
+import { Teams } from '../../api/teams.jsx';
+
 import AthleteReportTable from './athleteReportTable';
 
 class AthleteReport extends Component {

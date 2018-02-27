@@ -1,13 +1,14 @@
-import React, {Component} from 'react'
+// Package Imports
+import React, { Component } from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import { Glyphicon } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
+import { Button, Glyphicon } from 'react-bootstrap';
+
 /* Side navigation bar for the application */
 
 export default class Navigation extends Component {
 
     constructor () {
-        super()
+        super();
         this.state = {
             isHidden: true
         }

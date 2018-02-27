@@ -1,7 +1,6 @@
+// Package Imports
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import './TextComp.scss';
 
 const TextComp = ({ children }) => (
   <div className="TextComp">

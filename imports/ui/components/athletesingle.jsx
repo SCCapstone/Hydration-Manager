@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
-import { Button } from 'react-bootstrap';
-import {AthletesOld} from '../../api/athletes.jsx';
+// Package Imports
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import AthletesCollection from "../../api/Athletes/Athletes";
-import PropTypes from 'prop-types';
-import {withTracker} from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import autoBind from 'react-autobind';
+
+// Custom File Imports
+import { AthletesOld } from '../../api/athletes.jsx';
+
 
 export default class AthleteSingle extends Component {
     constructor(props) {

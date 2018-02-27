@@ -1,20 +1,16 @@
+// Package Imports
 import React from 'react';
 import PropTypes from 'prop-types';
 import {withTracker} from 'meteor/react-meteor-data';
 import autoBind from 'react-autobind';
-import { DropdownButton } from 'react-bootstrap';
+import { DropdownButton, Table } from 'react-bootstrap';
 
+// Custom File Imports
 import WeightDropdownOfTeams from './weightDropdownOfTeams.jsx';
-
-import { TeamsOld } from '../../api/teams.jsx';
-import { CurrentUser } from '../../api/users.jsx';
-
-import { Table } from 'react-bootstrap';
-import { debounce } from 'throttle-debounce';
-
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 import TeamsCollection from '..//../api/Teams/Teams.js';
 import AthleteEntryList from './athlete_entry_list.jsx';
+
 
 class WeightEntry extends React.Component {
     constructor(props) {

@@ -1,22 +1,15 @@
+// Package Imports
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withTracker} from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import autoBind from 'react-autobind';
+import { Table, DropdownButton } from 'react-bootstrap';
 
-import { Table } from 'react-bootstrap';
-import TrackerReact from 'meteor/ultimatejs:tracker-react';
+// Custom File Imports
 import AlertDropdownOfTeams from './alertDropdownOfTeams.jsx';
-import {DropdownButton} from 'react-bootstrap';
-
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 import TeamsCollection from '..//../api/Teams/Teams.js';
-
-import {CurrentUser} from '../../api/users.jsx';
-import {TeamsOld} from '../../api/teams.jsx';
-import {AthletesOld} from '../../api/athletes.jsx';
-
-import AthleteAlert from './athleteAlert.jsx';
-
+import AthleteAlert from '../../../unused_files/athleteAlert.jsx';
 
 class Alerts extends React.Component {
         constructor(props) {

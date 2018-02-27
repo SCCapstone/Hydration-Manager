@@ -1,16 +1,12 @@
-
+// Package Imports
 import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
+
+// Custom File Imports
 import Athletes from './Athletes.js';
 import handleMethodException from '../../modules/handle-method-exception.js';
 
 Meteor.methods({
     'athletes.insert': function athletesInsert(aName,aWeight,aHeight,aTeamId) {
-        // check(doc, {
-        //   name: String,
-        //   season: String,
-        //   id: String,
-        // });
         console.log(aName);
         try {
             return Athletes.insert({
@@ -48,7 +44,7 @@ Meteor.methods({
     'athletes.addPostWeight': function addPostWeight(id, date, weight) {
         Athletes.update(
             { _id: id },
-            { $pull: {ostWeightData: {date:date} }});
+            { $pull: {postWeightData: {date:date} }});
 
         Athletes.update(
             { _id: id },

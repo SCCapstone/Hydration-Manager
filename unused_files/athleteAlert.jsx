@@ -1,6 +1,9 @@
-import React, {Component} from 'react';
-import {AthletesOld} from '../../api/athletes.jsx';
+// Package Imports
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+
+// Custom File Imports
+import { AthletesOld } from '../imports/api/athletes.jsx';
 
 export default class AthleteAlert extends Component {
     constructor(props) {

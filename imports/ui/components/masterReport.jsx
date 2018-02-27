@@ -1,28 +1,18 @@
+// Package Imports
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FormControl} from 'react-bootstrap';
-import {FormGroup} from 'react-bootstrap';
-import {Button} from 'react-bootstrap';
-import { Modal } from 'react-bootstrap';
-import { Table } from 'react-bootstrap';
+import { Button, DropdownButton, FormControl, FormGroup, Modal, Table } from 'react-bootstrap';
 import { withTracker } from 'meteor/react-meteor-data';
-import TrackerReact from 'meteor/ultimatejs:tracker-react';
-import MasterDropdownOfTeams from './masterDropdownOfTeams.jsx';
-import {DropdownButton} from 'react-bootstrap';
-
-//import {CurrentUser} from '../../api/users.jsx';
-//import { Accounts } from 'meteor/accounts-base';
 import autoBind from 'react-autobind';
-import {TeamsOld} from '../../api/teams.jsx';
-import {AthletesOld} from '../../api/athletes.jsx';
 
+// Custom File Imports
+import MasterDropdownOfTeams from './masterDropdownOfTeams.jsx';
 import AthleteSingle from './athletesingle.jsx';
 import TeamsCollection from '../../api/Teams/Teams.js';
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 
 
 class MasterReport extends React.Component {
-//export default class MasterReport extends React.Component {
     constructor(props) {
         super(props);
 

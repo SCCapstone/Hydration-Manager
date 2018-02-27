@@ -29,7 +29,6 @@ meteortesting:mocha
 react-meteor-data
 alanning:roles
 accounts-base
-fourseven:scss
 dynamic-import
 
 # autopublish

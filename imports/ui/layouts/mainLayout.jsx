@@ -1,13 +1,12 @@
+// Package Imports
 import React from 'react';
+import { Link, Redirect, Route, withRouter } from 'react-router-dom'
+
+// Custom File Imports
 import { App } from '../components/app.jsx';
-import Login from '../pages/Login.jsx';
-import Registration from '../pages/Registration.jsx';
-import {
-    Route,
-    Link,
-    Redirect,
-    withRouter
-} from 'react-router-dom'
+import Login from '../../../unused_files/Login.jsx';
+import Registration from '../../../unused_files/Registration.jsx';
+
 
 /* The idea here is that this mainLayout will be used as a
 * security buffer, either directing to login.js or to the application

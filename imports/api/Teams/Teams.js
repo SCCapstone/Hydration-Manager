@@ -1,10 +1,11 @@
-// export const Teams = new Mongo.Collection('teams');
-
+// Package Imports
 import { Mongo } from 'meteor/mongo';
-import SimpleSchema from 'simpl-schema';
 
+// Custom File Imports
 const Teams = new Mongo.Collection('teams');
 
+
+export default Teams;
 // Teams.allow({
 //   insert: () => false,
 //   update: () => false,
@@ -42,7 +43,7 @@ const Teams = new Mongo.Collection('teams');
 //
 // Teams.attachSchema(Teams.schema);
 
-export default Teams;
+
 
 
 // addNewTeam(teamName, teamSeason, id) {

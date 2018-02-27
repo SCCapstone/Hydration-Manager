@@ -1,16 +1,13 @@
+// Package Imports
 import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
+
+// Custom File Imports
 import Teams from './Teams.js';
 import handleMethodException from '../../modules/handle-method-exception.js';
 
 
 Meteor.methods({
   'teams.insert': function teamsInsert(tname, tseason, tid) {
-    // check(doc, {
-    //   name: String,
-    //   season: String,
-    //   id: String,
-    // });
     console.log(tname);
     try {
       return Teams.insert({

@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import { Button,ListGroup,ListGroupItem } from 'react-bootstrap';
+// Package Imports
+import React, { Component } from 'react'
+import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Modal } from 'react-bootstrap';
 
 export default class ListOfTeams extends Component {
 

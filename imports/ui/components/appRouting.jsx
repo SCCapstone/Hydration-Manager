@@ -1,10 +1,13 @@
+// Package Imports
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+
+// Custom File Imports
 import WeightEntry from './weightEntry.jsx';
 import MasterReport from './masterReport.jsx';
 import AthleteReport from './athleteReport';
 import Alerts from './alerts.jsx';
-import Logout from './logout.jsx';
+import Logout from '../../../unused_files/logout.jsx';
 import YourTeams from './yourTeams.jsx';
 
 /* Routing for the main application */

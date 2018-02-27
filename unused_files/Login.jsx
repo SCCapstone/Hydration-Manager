@@ -1,9 +1,10 @@
+
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { FormGroup } from 'react-bootstrap';
 import { FormControl } from 'react-bootstrap';
 import { Registration } from './Registration.jsx';
-import { User } from '../../api/users.jsx';
+import { User } from '../imports/api/users.jsx';
 
 
 export default class Login extends React.Component {

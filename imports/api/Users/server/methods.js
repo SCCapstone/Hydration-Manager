@@ -1,11 +1,11 @@
+// Package Imports
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 
+// Custom File Imports
 import ROLES from '../roles';
-
-//JS functions:
 import editProfile from './edit-profile';
 import deleteAccount from './delete-account';
 

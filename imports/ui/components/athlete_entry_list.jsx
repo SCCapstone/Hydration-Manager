@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
-import {debounce} from 'throttle-debounce';
+// Package Imports
+import React, { Component } from 'react';
+import { debounce } from 'throttle-debounce';
 
 export default class AthleteEntryList extends Component {
     constructor(props) {

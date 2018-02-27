@@ -1,19 +1,17 @@
+// Package Imports
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
-import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
-import _ from 'lodash';
+import { Button, Col, ControlLabel, FormGroup, Row } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { withTracker } from 'meteor/react-meteor-data';
-import TextComp from '../../components/TextComp/TextComp';
-import GenericFooter from '../../components/GenericFooter/GenericFooter';
-
 import $ from 'jquery';
 import 'jquery-validation';
 
-import './Profile.scss';
+// Custom File Imports
+import GenericFooter from '../../components/GenericFooter/GenericFooter';
 
 class Profile extends React.Component {
   constructor(props) {

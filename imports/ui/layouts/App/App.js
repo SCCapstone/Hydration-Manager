@@ -1,3 +1,4 @@
+// Package Imports
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
@@ -6,28 +7,22 @@ import { Grid } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
-import getUserName from '../../../modules/get-user-name';
 
-import Home from '../../components/home.jsx';
+// Custom File Imports
+import getUserName from '../../../modules/get-user-name';
 import WeightEntry from '../../components/weightEntry.jsx';
 import MasterReport from '../../components/masterReport.jsx';
 import AthleteReport from '../../components/athleteReport.jsx';
 import Alerts from '../../components/alerts.jsx';
-import Logout from '../../components/logout.jsx';
 import YourTeams from '../../components/yourTeams.jsx';
-
 import LoginAlt from '../../pages/LoginAlt/LoginAlt.js';
 import Registration from '../../pages/Registration/Registration.js';
 import NotFound from '../../pages/NotFound/NotFound.js';
-//import AdminDash from '../../pages/AdminDash/AdminDash.js';
-
-// import VerifyEmailAlert from '../../components/VerifyEmailAlert';
 import Navigation from '../../components/Navigation/Navigation.js';
 import Public from '../../components/Public/Public.js';
 import Authorized from '../../components/Authorized/Authorized.js';
 import AppFooter from '../../components/AppFooter/AppFooter.js';
 
-//import './App.scss';
 
 
 class App extends React.Component {
@@ -43,7 +38,7 @@ class App extends React.Component {
 
       <BrowserRouter>
         {!props.loading ? (
-          <div className="AppClass">
+          <div className="LoginBackGround">
 
             {props.isAuthorized ?
 

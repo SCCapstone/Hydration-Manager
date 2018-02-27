@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+// Package Imports
+import React, { Component } from 'react';
 
 export default class ListWeight extends Component {
     constructor(props) {

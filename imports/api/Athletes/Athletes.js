@@ -1,8 +1,8 @@
-// export const Teams = new Mongo.Collection('teams');
-
+// Package Imports
 import { Mongo } from 'meteor/mongo';
-import SimpleSchema from 'simpl-schema';
+
+// Custom File Imports
+
 
 const Athletes = new Mongo.Collection('athletes');
-
 export default Athletes;

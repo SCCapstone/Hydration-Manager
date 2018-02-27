@@ -1,22 +1,15 @@
+// Package Imports
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
 import { withTracker } from 'meteor/react-meteor-data';
-import {FormControl} from 'react-bootstrap';
-import {FormGroup} from 'react-bootstrap';
-import {Button, Table} from 'react-bootstrap';
+import { Button, FormControl, FormGroup, ListGroup, Modal} from 'react-bootstrap';
 
-import {Modal} from 'react-bootstrap';
-import {ListGroup} from 'react-bootstrap';
-import TrackerReact from 'meteor/ultimatejs:tracker-react';
-
-//import {Teams} from '../../api/teams.jsx';
+// Custom File Imports
 import TeamsCollection from '../../api/Teams/Teams.js';
 import ListOfTeams from './listOfTeams.jsx';
-import {User} from '../../api/users.jsx';
 
 
-//class YourTeams extends TrackerReact(React.Component) {
 class YourTeams extends React.Component {
     constructor(props) {
         super(props);

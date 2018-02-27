@@ -1,6 +1,7 @@
+// Package Imports
 import React from 'react';
 import autoBind from 'react-autobind';
-import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Button, Col, ControlLabel, FormGroup, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
@@ -8,14 +9,12 @@ import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { withRouter } from 'react-router-dom';
 import { Bert } from 'meteor/themeteorchef:bert';
-//import OAuthLoginButtons from '../../components/OAuthLoginButtons/OAuthLoginButtons';
-import TextComp from '../../components/TextComp/TextComp';
-import GenericFooter from '../../components/GenericFooter/GenericFooter';
-
-import ROLES from '../../../api/Users/roles';
-
 import $ from 'jquery';
 import 'jquery-validation';
+
+// Custom File Imports
+import TextComp from '../../components/TextComp/TextComp';
+import GenericFooter from '../../components/GenericFooter/GenericFooter';
 
 class Registration extends React.Component {
   constructor(props) {
@@ -28,12 +27,13 @@ class Registration extends React.Component {
 
     $(component.form).validate( {
       rules: {
-        firstName: {
+ /*       firstName: {
           required: true,
         },
         lastName: {
           required: true,
         },
+*/
         emailAddress: {
           required: true,
           email: true,
@@ -47,12 +47,6 @@ class Registration extends React.Component {
         }
       },
       messages: {
-        firstName: {
-          required: 'Please enter your first name.',
-        },
-        lastName: {
-          required: 'Please enter your last name.',
-        },
         emailAddress: {
           required: 'Please enter your email address.',
           email: 'Is this email address correct?',
@@ -114,9 +108,14 @@ class Registration extends React.Component {
     // !loggingIn ? Roles.addUsersToRoles(newUserId, ['ADMIN']) : console.log("Role not added!!");
   }
 
+    routeToLogin () {
+        window.location = '/login';
+    }
+
   render() {
     return (
-      <div className="Registration">
+      <div class="RegistrationBackground">
+        <div class = "Registration">
         <Row>
           <Col xs={12} sm={6} md={5} lg={4}>
             <h4 className="page-header">Registration</h4>
@@ -133,28 +132,6 @@ class Registration extends React.Component {
               </Col>
             </Row>
             <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
-              <Row>
-                <Col xs={6}>
-                  <FormGroup>
-                    <ControlLabel>First Name</ControlLabel>
-                    <input
-                      type="text"
-                      name="firstName"
-                      className="form-control"
-                    />
-                  </FormGroup>
-                </Col>
-                <Col xs={6}>
-                  <FormGroup>
-                    <ControlLabel>Last Name</ControlLabel>
-                    <input
-                      type="text"
-                      name="lastName"
-                      className="form-control"
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
               <FormGroup>
                 <ControlLabel>Email Address</ControlLabel>
                 <input
@@ -181,16 +158,15 @@ class Registration extends React.Component {
                 />
                 <TextComp>Minimum of six characters.</TextComp>
               </FormGroup>
-              <Button type="submit" bsStyle="success">Sign Up</Button>
-
-              <GenericFooter>
-                <p>Already have an account? <Link to="/login">Log In</Link>.</p>
-              </GenericFooter>
-
+              <FormGroup>
+                <Button type="submit">Sign Up</Button>
+                <Button onClick={this.routeToLogin}>Back</Button>
+              </FormGroup>
             </form>
           </Col>
         </Row>
       </div>
+    </div>
     );
   }
 }
@@ -200,3 +176,29 @@ Registration.propTypes = {
 };
 
 export default withRouter(Registration);
+
+/*
+<Row>
+                <Col xs={6}>
+                  <FormGroup>
+                    <ControlLabel>First Name</ControlLabel>
+                    <input
+                      type="text"
+                      name="firstName"
+                      className="form-control"
+                    />
+                  </FormGroup>
+                </Col>
+                <Col xs={6}>
+                  <FormGroup>
+                    <ControlLabel>Last Name</ControlLabel>
+                    <input
+                      type="text"
+                      name="lastName"
+                      className="form-control"
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
+
+ */

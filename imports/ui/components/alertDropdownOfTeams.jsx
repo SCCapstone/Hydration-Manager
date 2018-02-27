@@ -1,6 +1,8 @@
-import React, {Component} from 'react';
+// Package Imports
+import React, { Component } from 'react';
 import {MenuItem} from 'react-bootstrap';
-import { NavLink, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
 export default class AlertDropdownOfTeams extends Component {
 
 constructor(props) {

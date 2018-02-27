@@ -5,15 +5,14 @@
 // Meteor.startup(() => {
 //     render(renderRoutes(), document.getElementById('root'));
 // })
-
+// Package Imports
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
 
+// Custom File Imports
 import App from '../../ui/layouts/App/App';
-
 import '../both/api';
-//import '../../ui/stylesheets/app.scss';
 
 // Note:  <div id="react-root"></div> element defined in /client/main.html
 //           -- called on client side of Meteor startup

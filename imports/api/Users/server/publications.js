@@ -1,6 +1,8 @@
+// Package Imports
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 
+// Custom File Imports
 import ROLES from '../roles';
 
 Meteor.publish('users.roles', () => Roles.getAllRoles());
@@ -12,6 +14,5 @@ Meteor.publish('users', function users() {
       Roles.getAllRoles(),
     ];
   }
-
   return this.ready();
 });

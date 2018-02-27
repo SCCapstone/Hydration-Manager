@@ -1,3 +1,4 @@
+// Package Imports
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -5,8 +6,6 @@ import { Link } from 'react-router';
 import { Roles } from 'meteor/alanning:roles';
 import { Table } from 'react-bootstrap';
 import ROLES from '../../../api/Users/roles';
-
-//import Loading from '../../components/Loading.jsx';
 
 class AdminDash extends Component {
   constructor(props) {
