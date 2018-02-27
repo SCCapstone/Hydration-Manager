@@ -38,7 +38,7 @@ class App extends React.Component {
 
       <BrowserRouter>
         {!props.loading ? (
-          <div className="LoginBackGround">
+          <div className="">
 
             {props.isAuthorized ?
 

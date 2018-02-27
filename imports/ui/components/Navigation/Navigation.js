@@ -48,7 +48,7 @@ const Navigation = props => (
       </Nav>
 
       <Nav pullRight>
-        <NavDropdown eventKey={5} title={props.name} id="user-dropdown">
+        <NavDropdown eventKey={5} title={props.name} id="user-dropdown" noCaret>
           <LinkContainer to="/profile">
             <NavItem eventKey={5.1} href="/profile">Profile</NavItem>
           </LinkContainer>

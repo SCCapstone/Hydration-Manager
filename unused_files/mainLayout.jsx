@@ -3,9 +3,9 @@ import React from 'react';
 import { Link, Redirect, Route, withRouter } from 'react-router-dom'
 
 // Custom File Imports
-import { App } from '../components/app.jsx';
-import Login from '../../../unused_files/Login.jsx';
-import Registration from '../../../unused_files/Registration.jsx';
+import { App } from '../imports/ui/components/app.jsx';
+import Login from './Login.jsx';
+import Registration from './Registration.jsx';
 
 
 /* The idea here is that this mainLayout will be used as a

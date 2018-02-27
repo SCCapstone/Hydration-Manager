@@ -121,8 +121,8 @@ class YourTeams extends React.Component {
     render() {
         return (
             <div>
-                <div className="YourTeamHeader">
-                    <h3>Your Team's</h3>
+                <div class="YourTeamHeader">
+                    <h3>Your Teams</h3>
                     <Button onClick={this.open} bsStyle="primary">Create a Team</Button>
 {/*=======*/}
                 {/*<div>*/}
