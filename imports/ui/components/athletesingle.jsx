@@ -2,14 +2,34 @@ import React, {Component} from 'react';
 import { Button } from 'react-bootstrap';
 import {AthletesOld} from '../../api/athletes.jsx';
 import { Link } from 'react-router-dom';
+import AthletesCollection from "../../api/Athletes/Athletes";
+import PropTypes from 'prop-types';
+import {withTracker} from 'meteor/react-meteor-data';
+import autoBind from 'react-autobind';
 
 export default class AthleteSingle extends Component {
     constructor(props) {
         super(props);
-        this.routeToWE = this.routeToWE.bind(this);
-        this.deleteAthlete = this.deleteAthlete.bind(this)
+        autoBind(this);
+      //  this.routeToWE = this.routeToWE.bind(this);
+      //  this.deleteAthlete = this.deleteAthlete.bind(this)
     }
-
+/*   <td>
+        {this.props.athlete.preWeightData.map((e,i)=>
+            <p>{e.date}: {e.weight}</p>
+        )}
+    </td>
+    <td>
+        {this.props.athlete.postWeightData.map((e,i)=>
+            <p>{e.date}: {e.weight}</p>
+        )}
+    </td>
+    <td>
+        <Button bsStyle="danger" onClick={this.deleteAthlete} bsSize="small">
+            &times;
+        </Button>
+    </td>
+*/
     routeToWE () {
         window.location ='/app/weightEntry';
     }
@@ -20,8 +40,23 @@ export default class AthleteSingle extends Component {
 
     athletes() {
         return AthletesOld.find().fetch();
+        // return AthletesCollection.find().fetch();
+    }
+
+
+    calculateHydration() {
+        if (this.athletes().preWeightData[0] && this.athletes().postWeightData[0])
+        {
+            return ((this.athletes().preWeightData[0].date - this.athletes().postWeightData[0].date) / this.athletes().preWeightData[0].date) *100;
+        }
+        else
+        {
+            return ((this.athletes().preWeightData[1].date - this.athletes().postWeightData[1].date) / this.athletes().preWeightData[1].date) *100;
+        }
     }
     render() {
+        const latestPre = {};
+        const latestPost = {};
         athletes = this.athletes;
         return (
             <tr>
@@ -30,22 +65,8 @@ export default class AthleteSingle extends Component {
                 </Link>
                 <td>{this.props.athlete.baseWeight}</td>
                 <td>{this.props.athlete.height}</td>
+                <td>{/*this.calculateHydration()*/}</td>
                 {/*TODO: The way this is stuctured, data MUST be entered sequentially*/}
-                <td>
-                    {this.props.athlete.preWeightData.map((e,i)=>
-                        <p>{e.date}: {e.weight}</p>
-                    )}
-                </td>
-                <td>
-                    {this.props.athlete.postWeightData.map((e,i)=>
-                        <p>{e.date}: {e.weight}</p>
-                    )}
-                </td>
-                <td>
-                    <Button bsStyle="danger" onClick={this.deleteAthlete} bsSize="small">
-                        &times;
-                    </Button>
-                </td>
             </tr>
         )
     }

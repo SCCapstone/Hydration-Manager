@@ -242,9 +242,7 @@ class MasterReport extends React.Component {
                           <th>Name</th>
                           <th>Base Weight</th>
                           <th>Height</th>
-                          <th>PreWeight</th>
-                          <th>PostWeight</th>
-                          <th>Remove</th>
+                          <th>Hydration</th>
                       </tr>
                       </thead>
                         <tbody>
