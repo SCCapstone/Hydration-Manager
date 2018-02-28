@@ -208,8 +208,8 @@ class MasterReport extends React.Component {
                             <form>
                                 <FormGroup>
                                     <FormControl placeholder='Player Name' label='Player Name' type='text' onChange={this.handleName}/>
-                                    <FormControl placeholder='Baseline Weight' label='Base Weight' type='number' onChange={this.handleWeight}/>
-                                    <FormControl placeholder='Height' label='Height' type='number' onChange={this.handleHeight}/>
+                                    <FormControl placeholder='Baseline Weight (lbs)' label='Base Weight' type='number' onChange={this.handleWeight}/>
+                                    <FormControl placeholder='Height (in)' label='Height' type='number' onChange={this.handleHeight}/>
                                     <FormControl placeholder='Team' value={this.state.playerTeamId} componentClass="select" label='Team' onChange={this.handleTeam}>
                                         {this.teams().map((team)=><option value={team._id} key={team._id}>{team.name} {team.season}</option>)}
                                     </FormControl>
@@ -232,7 +232,7 @@ class MasterReport extends React.Component {
                           <th>Name</th>
                           <th>Base Weight</th>
                           <th>Height</th>
-                          <th>Hydration</th>
+                          <th>Weight Loss %</th>
                       </tr>
                       </thead>
                         <tbody>
