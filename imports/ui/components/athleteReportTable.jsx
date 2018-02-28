@@ -132,7 +132,7 @@ export default class AthleteReportTable extends Component{
                             <th>Date</th>
                             <th>PreWeight</th>
                             <th>PostWeight</th>
-                            <th>Hydration</th>
+                            <th>Weight Loss %</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -85,7 +85,7 @@ class Alerts extends React.Component {
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Hydration %</th>
+                                <th>Weight Loss %</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -96,7 +96,7 @@ class Alerts extends React.Component {
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Hydration %</th>
+                                <th>Weight Loss %</th>
                             </tr>
                             </thead>
                             <tbody>
