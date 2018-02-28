@@ -39,6 +39,8 @@ export default class AthleteSingle extends Component {
       Meteor.call('athletes.remove',this.props.athlete._id);
     }
 
+
+
     render() {
         athlete = this.props.athlete;
         var hydrate = "";
@@ -54,6 +56,34 @@ export default class AthleteSingle extends Component {
         {
             hydrate = 'null';
         }
+
+        var preWeightDate = null;
+        var postWeightDate = null;
+        var currentWeight = null;
+        if(athlete.preWeightData[0] !== undefined)
+        {
+               preWeightDate = athlete.preWeightData[0].date;
+        }
+        if (athlete.postWeightData[0] !== undefined) {
+            postWeightDate = athlete.postWeightData[0].date;
+        }
+        if(postWeightDate !== null && preWeightDate !== null)
+        {
+            currentWeight = athlete.postWeightData[0].weight;
+
+        }
+        else if(postWeightDate !== null)
+        {
+            currentWeight =  athlete.postWeightData[0].weight;
+        }
+        else if(preWeightDate !== null)
+        {
+            currentWeight =  athlete.preWeightData[0].weight;
+        }
+        else
+        {
+            currentWeight = 'Wheres the weight';
+        }
         return (
             <tr>
                 <Link to={"/app/athlete/" + this.props.athlete._id}>
@@ -61,6 +91,7 @@ export default class AthleteSingle extends Component {
                 </Link>
                 <td>{this.props.athlete.baseWeight}</td>
                 <td>{this.props.athlete.height}</td>
+                <td>{currentWeight}</td>
                 <td>{hydrate}</td>
                 {/*TODO: The way this is stuctured, data MUST be entered sequentially*/}
             </tr>

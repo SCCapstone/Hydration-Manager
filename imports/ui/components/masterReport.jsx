@@ -225,13 +225,13 @@ class MasterReport extends React.Component {
                 <br/>
                 <div>
                     <br/>
-                    {/*TODO: Able to click on athlete to go athlete report screen*/}
                     <Table striped bordered condensed hover className="teams">
                       <thead>
                       <tr>
                           <th>Name</th>
-                          <th>Base Weight</th>
-                          <th>Height</th>
+                          <th>Base Weight (lbs.)</th>
+                          <th>Height (in.)</th>
+                          <th>Current Weight (lbs.)</th>
                           <th>Weight Loss %</th>
                       </tr>
                       </thead>
