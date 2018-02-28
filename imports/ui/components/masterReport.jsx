@@ -232,7 +232,7 @@ class MasterReport extends React.Component {
                           <th>Base Weight (lbs.)</th>
                           <th>Height (in.)</th>
                           <th>Current Weight (lbs.)</th>
-                          <th>Weight Loss %</th>
+                          <th>Most Recent Weight Loss %</th>
                       </tr>
                       </thead>
                         <tbody>
