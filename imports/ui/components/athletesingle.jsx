@@ -41,7 +41,14 @@ export default class AthleteSingle extends Component {
 
     render() {
         athlete = this.props.athlete;
-        var hydrate = ((athlete.preWeightData[0].weight - athlete.postWeightData[0].weight) / athlete.preWeightData[0].weight) *100;
+        var hydrate = "";
+        if(athlete.preWeightData[0] == undefined || athlete.postWeightData[0] == undefined)
+        {
+            hydrate == null;
+        }
+        else {
+            hydrate = ((athlete.preWeightData[0].weight - athlete.postWeightData[0].weight) / athlete.preWeightData[0].weight) *100;
+        }
         console.log(hydrate);
         if (hydrate == null)
         {
