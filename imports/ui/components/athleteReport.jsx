@@ -30,10 +30,10 @@ class AthleteReport extends Component {
         if(this.athlete().preWeightData[0] != undefined) {
             preWeightDate = this.athlete().preWeightData[0].date;
         }
-        if (this.athlete().preWeightData[0] != undefined) {
+        if (this.athlete().postWeightData[0] != undefined) {
             postWeightDate = this.athlete().postWeightData[0].date;
         }
-        if(postWeightDate != null || preWeightDate != null)
+        if(postWeightDate != null && preWeightDate != null)
         {
             if(postWeightDate > preWeightDate)
             {
@@ -44,7 +44,16 @@ class AthleteReport extends Component {
                 return this.athlete().preWeightData[0].weight;
             }
         }
-        else {
+        else if(postWeightDate != null)
+        {
+            return this.athlete().postWeightData[0].weight;
+        }
+        else if(preWeightDate != null)
+        {
+            return this.athlete().preWeightData[0].weight;
+        }
+        else
+        {
             return null;
         }
     }
@@ -77,6 +86,23 @@ class AthleteReport extends Component {
         return team;
     }
 
+    calcLoss(){
+        currentWeight = this.showCurrentWeight();
+        baseWeight = this.athlete().baseWeight;
+        weightChange = currentWeight - baseWeight;
+        if(weightChange > 0)
+        {
+            return "+" + weightChange;
+        }
+        else if (weightChange == 0)
+        {
+            return weightChange;
+        }
+        else {
+            return "(" + weightChange + ")";
+        }
+    }
+
     render() {
         athlete = this.athlete;
         team = this.team;
@@ -90,7 +116,7 @@ class AthleteReport extends Component {
                 <h5>Height: {this.athlete().height} in.</h5>
                 <h5>Base Weight: {this.athlete().baseWeight} lbs.</h5>
                 <h5>Current Weight: {this.showCurrentWeight()} lbs.</h5>
-                <h5>Total Loss: {null} lbs.</h5>
+                <h5>Total Weight Change: {this.calcLoss()} lbs.</h5>
                 <AthleteReportTable athlete={this.athlete()}/>
             </div>
         )
