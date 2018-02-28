@@ -62,6 +62,7 @@ export default class AthleteReportTable extends Component{
     getHydration(aDate) {
         preData = this.props.athlete.preWeightData;
         postData = this.props.athlete.postWeightData;
+        hydration = null;
         var pre = 0;
         var post = 0;
         for(i = 0; i < preData.length; i++)
@@ -85,7 +86,41 @@ export default class AthleteReportTable extends Component{
             }
 
         }
-        return (((pre-post))/pre) * 100;
+        if(pre > 0 && post > 0) {
+            hydration = (((pre - post)) / pre) * 100;
+            if(hydration >= -2 && hydration <=3)
+            {
+               this.setColor(aDate,'greenStatus');
+            }
+            else if(hydration >= -4 && hydration <-2)
+            {
+                //yellow
+                this.setColor(aDate,'yellowStatus');
+            }
+            else if(hydration < -4 || hydration > 3)
+            {
+                //red
+                this.setColor(aDate,'redStatus');
+            }
+            return hydration;
+        }
+        else
+        {
+            return "Please enter missing weight to see hydration status for this day."
+        }
+    }
+
+    setColor(aDate,aColor) {
+        elements = document.getElementsByTagName('tr');
+        console.log(aDate);
+        for(i=0;i<elements.length;i++)
+        {
+            console.log(elements[i].keyprop);
+            if(elements[i].getAttribute('keyprop') == aDate)
+            {
+                elements[i].classList.add(aColor);
+            }
+        }
     }
 
     render() {
@@ -101,7 +136,7 @@ export default class AthleteReportTable extends Component{
                         </tr>
                     </thead>
                     <tbody>
-                    {this.state.dates.map((date)=><tr><td>{date}</td><td>{this.getDatePreWeight(date)}</td><td>{this.getDatePostWeight(date)}</td><td>{this.getHydration(date)}</td></tr>)}
+                    {this.state.dates.map((date)=><tr key={date} keyprop={date}><td>{date}</td><td>{this.getDatePreWeight(date)}</td><td>{this.getDatePostWeight(date)}</td><td>{this.getHydration(date)}</td></tr>)}
                     </tbody>
                 </Table>
             </div>

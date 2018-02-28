@@ -46,8 +46,11 @@ export default class AthleteSingle extends Component {
         {
             hydrate == null;
         }
-        else {
+        else if(athlete.preWeightData[0].date == athlete.postWeightData[0].date){
             hydrate = ((athlete.preWeightData[0].weight - athlete.postWeightData[0].weight) / athlete.preWeightData[0].weight) *100;
+        }
+        else{
+            hydrate = "Please add missing Post Weight/Pre Weight for most recent date to see hydration status";
         }
         console.log(hydrate);
         if (hydrate == null)
