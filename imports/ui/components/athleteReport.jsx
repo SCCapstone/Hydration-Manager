@@ -35,6 +35,10 @@ class AthleteReport extends Component {
         }
         if(postWeightDate != null && preWeightDate != null)
         {
+            return this.athlete().postWeightData[0].weight;
+   /*
+            If both weights do exist, current weight will be postWeight data. -anthony
+
             if(postWeightDate > preWeightDate)
             {
                 return this.athlete().postWeightData[0].weight;
@@ -43,6 +47,7 @@ class AthleteReport extends Component {
             {
                 return this.athlete().preWeightData[0].weight;
             }
+   */
         }
         else if(postWeightDate != null)
         {
