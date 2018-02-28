@@ -66,17 +66,24 @@ export default class AthleteReportTable extends Component{
         var post = 0;
         for(i = 0; i < preData.length; i++)
         {
-            if(preData[i].date == aDate)
+            if(preData[i] != undefined)
             {
-                pre = preData[i].weight;
+                if(preData[i].date == aDate)
+                {
+                    pre = preData[i].weight;
+                }
             }
         }
         for(i = 0; i < postData.length; i++)
         {
-            if(postData[i].date == aDate)
+            if(postData[i] != undefined)
             {
-                post = postData[i].weight;
+                if(postData[i].date == aDate)
+                {
+                    post = postData[i].weight;
+                }
             }
+
         }
         return (((pre-post))/pre) * 100;
     }

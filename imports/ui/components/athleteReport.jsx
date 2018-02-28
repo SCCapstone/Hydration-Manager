@@ -24,15 +24,28 @@ class AthleteReport extends Component {
 
 
     showCurrentWeight() {
-        preWeightDate = this.athlete().preWeightData[0].date;
-        postWeightDate = this.athlete().postWeightData[0].date;
-        if(postWeightDate > preWeightDate)
-        {
-            return this.athlete().postWeightData[0].weight;
+        preWeightDate = null;
+        postWeightDate = null;
+
+        if(this.athlete().preWeightData[0] != undefined) {
+            preWeightDate = this.athlete().preWeightData[0].date;
         }
-        else
+        if (this.athlete().preWeightData[0] != undefined) {
+            postWeightDate = this.athlete().postWeightData[0].date;
+        }
+        if(postWeightDate != null || preWeightDate != null)
         {
-            return this.athlete().preWeightData[0].weight;
+            if(postWeightDate > preWeightDate)
+            {
+                return this.athlete().postWeightData[0].weight;
+            }
+            else
+            {
+                return this.athlete().preWeightData[0].weight;
+            }
+        }
+        else {
+            return null;
         }
     }
 
