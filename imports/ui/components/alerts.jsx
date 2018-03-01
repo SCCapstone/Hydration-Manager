@@ -35,8 +35,48 @@ class Alerts extends React.Component {
             });
         }
 
-        athletes() {
-        return AthletesCollection.find().fetch();
+        redAthletes() {
+            allAthletes = AthletesCollection.find().fetch();
+            redAthletes = [];
+            for (i = 0; i < allAthletes.length; i++)
+            {
+                if(allAthletes[i].preWeightData[0] != undefined && allAthletes[i].postWeightData[0] != undefined)
+                {
+                    if(allAthletes[i].preWeightData[0].date == allAthletes[i].postWeightData[0].date)
+                    {
+                        preWeight = allAthletes[i].preWeightData[0].weight;
+                        postWeight = allAthletes[i].postWeightData[0].weight;
+                        hydration = (preWeight-postWeight)/preWeight*100;
+                        if(hydration < -4 || hydration > 3)
+                        {
+                            redAthletes.push(allAthletes[i]);
+                        }
+                    }
+                }
+            }
+            return redAthletes;
+        }
+
+        yellowAthletes(){
+            allAthletes = AthletesCollection.find().fetch();
+            yellowAthletes = [];
+            for (i = 0; i < allAthletes.length; i++)
+            {
+                if(allAthletes[i].preWeightData[0] != undefined && allAthletes[i].postWeightData[0] != undefined)
+                {
+                    if(allAthletes[i].preWeightData[0].date == allAthletes[i].postWeightData[0].date)
+                    {
+                        preWeight = allAthletes[i].preWeightData[0].weight;
+                        postWeight = allAthletes[i].postWeightData[0].weight;
+                        hydration = (preWeight-postWeight)/preWeight*100;
+                        if(hydration >= -4 && hydration < -2)
+                        {
+                            yellowAthletes.push(allAthletes[i]);
+                        }
+                    }
+                }
+            }
+            return yellowAthletes;
         }
 
         teams() {
@@ -71,36 +111,40 @@ class Alerts extends React.Component {
                 <div>
                     <div>
                         <span><h3>Alerts</h3></span>
-                        <span>
-                            <DropdownButton id={'Team Select'} title={'Team Select'} noCaret>
-                                {this.teams().map((team)=>{return <AlertDropdownOfTeams key={team._id} team={team} />})}
-                            </DropdownButton>
-                        </span>
-                        <h1> {this.displayCurrentTeam()} </h1>
+                        {/*<span>*/}
+                            {/*<DropdownButton id={'Team Select'} title={'Team Select'} noCaret>*/}
+                                {/*{this.teams().map((team)=>{return <AlertDropdownOfTeams key={team._id} team={team} />})}*/}
+                            {/*</DropdownButton>*/}
+                        {/*</span>*/}
+                        {/*<h1> {this.displayCurrentTeam()} </h1>*/}
                     </div>
                     <div>
                         <br/>
                         {/*TODO: Able to click on athlete to go athlete report screen*/}
+                        <h4>Red Athletes</h4>
                         <Table striped bordered condensed hover className="red">
                             <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Team</th>
                                 <th>Weight Loss %</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {this.athletes().map((athlete)=>{return <AthleteAlert key={athlete._id} athlete={athlete} />})}
+                            {this.redAthletes().map((athlete)=>{return <AthleteAlert key={athlete._id} athlete={athlete} teamsList={this.props.teamsList}/>})}
                             </tbody>
                         </Table>
+                        <h4>Yellow Athletes</h4>
                         <Table striped bordered condensed hover className="yellow">
                             <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Team</th>
                                 <th>Weight Loss %</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {this.athletes().map((athlete)=>{return <AthleteAlert key={athlete._id} athlete={athlete} />})}
+                            {this.yellowAthletes().map((athlete)=>{return <AthleteAlert key={athlete._id} athlete={athlete} teamsList={this.props.teamsList}/>})}
                             </tbody>
                         </Table>
                     </div>

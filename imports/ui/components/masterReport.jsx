@@ -191,7 +191,7 @@ class MasterReport extends React.Component {
             <div>
                 <div>
                     <h3>Master Report</h3>
-                        <DropdownButton id={'Team Select'} title={'Team Select'} noCaret>
+                        <DropdownButton id={'Team Select'} title={'Team Select'}>
                             {this.teams().map((team)=>{return <MasterDropdownOfTeams key={team._id} team={team} />})}
                         </DropdownButton>
                     <h1> {this.displayCurrentTeam()} </h1>

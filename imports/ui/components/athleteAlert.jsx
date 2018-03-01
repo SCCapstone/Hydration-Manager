@@ -9,9 +9,20 @@ export default class AthleteAlert extends Component {
     constructor(props) {
         super(props);
     }
-    athletes() {
-        return AthletesOld.find().fetch();
+    // athletes() {
+    //     return AthletesOld.find().fetch();
+    // }
+
+    getTeam() {
+        for(i=0;i<this.props.teamsList.length;i++)
+        {
+            if(this.props.teamsList[i]._id == this.props.athlete.teamId)
+            {
+                return this.props.teamsList[i].name + " " + this.props.teamsList[i].season;
+            }
+        }
     }
+
     render() {
         athlete = this.props.athlete;
         var hydrate = "";
@@ -32,6 +43,7 @@ export default class AthleteAlert extends Component {
                 <Link to={"/app/athlete/" + this.props.athlete._id}>
                 <td>{this.props.athlete.name}</td>
                 </Link>
+                <td>{this.getTeam()}</td>
                 <td>{hydrate}</td>
             </tr>
         )
