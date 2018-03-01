@@ -225,14 +225,14 @@ class MasterReport extends React.Component {
                 <br/>
                 <div>
                     <br/>
-                    <Table striped bordered condensed hover className="teams">
+                    <Table striped bordered condensed hover responsive className="teams">
                       <thead>
                       <tr>
                           <th>Name</th>
+                          <th>Most Recent Weight Loss %</th>
+                          <th>Current Weight (lbs.)</th>
                           <th>Base Weight (lbs.)</th>
                           <th>Height (in.)</th>
-                          <th>Current Weight (lbs.)</th>
-                          <th>Most Recent Weight Loss %</th>
                       </tr>
                       </thead>
                         <tbody>

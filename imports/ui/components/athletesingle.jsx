@@ -52,7 +52,7 @@ export default class AthleteSingle extends Component {
             hydrate = ((athlete.preWeightData[0].weight - athlete.postWeightData[0].weight) / athlete.preWeightData[0].weight) *100;
         }
         else{
-            hydrate = "Please add missing Post Weight/Pre Weight for most recent date to see hydration status";
+            hydrate = "Most Recent Pre/Post Weight Missing";
         }
         console.log(hydrate);
         if (hydrate == null)
@@ -92,11 +92,10 @@ export default class AthleteSingle extends Component {
                 <Link to={"/app/athlete/" + this.props.athlete._id}>
                 <td>{this.props.athlete.name}</td>
                 </Link>
+                <td>{hydrate}</td>
+                <td>{currentWeight}</td>
                 <td>{this.props.athlete.baseWeight}</td>
                 <td>{this.props.athlete.height}</td>
-                <td>{currentWeight}</td>
-                <td>{hydrate}</td>
-                {/*TODO: The way this is stuctured, data MUST be entered sequentially*/}
             </tr>
         )
     }

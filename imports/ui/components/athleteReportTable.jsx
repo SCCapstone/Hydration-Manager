@@ -126,17 +126,17 @@ export default class AthleteReportTable extends Component{
     render() {
         return(
             <div>
-                <Table>
+                <Table striped bordered condensed hover responsive>
                     <thead>
                         <tr>
                             <th>Date</th>
+                            <th>Weight Loss %</th>
                             <th>PreWeight</th>
                             <th>PostWeight</th>
-                            <th>Weight Loss %</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {this.state.dates.map((date)=><tr key={date} keyprop={date}><td>{date}</td><td>{this.getDatePreWeight(date)}</td><td>{this.getDatePostWeight(date)}</td><td>{this.getHydration(date)}</td></tr>)}
+                    {this.state.dates.map((date)=><tr key={date} keyprop={date}><td>{date}</td><td>{this.getHydration(date)}</td><td>{this.getDatePreWeight(date)}</td><td>{this.getDatePostWeight(date)}</td></tr>)}
                     </tbody>
                 </Table>
             </div>

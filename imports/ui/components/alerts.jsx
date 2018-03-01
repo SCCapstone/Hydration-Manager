@@ -122,7 +122,7 @@ class Alerts extends React.Component {
                         <br/>
                         {/*TODO: Able to click on athlete to go athlete report screen*/}
                         <h4>Red Athletes</h4>
-                        <Table striped bordered condensed hover className="red">
+                        <Table striped bordered condensed hover responsive className="red">
                             <thead>
                             <tr>
                                 <th>Name</th>
@@ -135,7 +135,7 @@ class Alerts extends React.Component {
                             </tbody>
                         </Table>
                         <h4>Yellow Athletes</h4>
-                        <Table striped bordered condensed hover className="yellow">
+                        <Table striped bordered condensed hover responsive className="yellow">
                             <thead>
                             <tr>
                                 <th>Name</th>
