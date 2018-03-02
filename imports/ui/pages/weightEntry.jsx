@@ -6,10 +6,10 @@ import autoBind from 'react-autobind';
 import { DropdownButton, Table } from 'react-bootstrap';
 
 // Custom File Imports
-import WeightDropdownOfTeams from './weightDropdownOfTeams.jsx';
+import WeightDropdownOfTeams from '../components/weightDropdownOfTeams.jsx';
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 import TeamsCollection from '..//../api/Teams/Teams.js';
-import AthleteEntryList from './athlete_entry_list.jsx';
+import AthleteEntryList from '../components/athlete_entry_list.jsx';
 
 
 class WeightEntry extends React.Component {

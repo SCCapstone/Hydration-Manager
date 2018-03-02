@@ -103,61 +103,45 @@ class Registration extends React.Component {
         window.location = '/login';
     }
 
-  render() {
-    return (
-      <div className = "RegistrationBackGround">
-        <div className = "Registration">
-        <Row>
-          <Col xs={12} sm={6} md={5} lg={4}>
-            <h4 className="page-header">Registration</h4>
-            <Row>
-              <Col xs={12}>
-                {/*<OAuthLoginButtons
-                  services={['facebook', 'github', 'google']}
-                  emailMessage={{
-                    offset: 97,
-                    text: 'Sign Up with an Email Address',
-                  }}
-                />
-                */}
-              </Col>
-            </Row>
-            <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
-              <FormGroup>
-                <ControlLabel>Email Address</ControlLabel>
-                <input
-                  type="email"
-                  name="emailAddress"
-                  className="form-control"
-                />
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>Password</ControlLabel>
-                <input
-                  type="password"
-                  name="password"
-                  className="form-control"
-                />
-                <TextComp>Minimum of six characters.</TextComp>
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>Confirm Password</ControlLabel>
-                <input
-                  type="password"
-                  name="password_conform"
-                  className="form-control"
-                />
-                <TextComp>Minimum of six characters.</TextComp>
-              </FormGroup>
-              <FormGroup>
-                <Button type="submit">Sign Up</Button>
-                <Button onClick={this.routeToLogin}>Back</Button>
-              </FormGroup>
-            </form>
-          </Col>
-        </Row>
-      </div>
-    </div>
+    render() {
+        return (
+            <div className="RegistrationBackGround">
+              <div className="Registration">
+                <h4 className="page-header">Registration</h4>
+                <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+                  <FormGroup>
+                    <ControlLabel>Email Address</ControlLabel>
+                    <input
+                        type="email"
+                        name="emailAddress"
+                        className="form-control"
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <ControlLabel>Password</ControlLabel>
+                    <input
+                        type="password"
+                        name="password"
+                        className="form-control"
+                    />
+                    <TextComp>Minimum of six characters.</TextComp>
+                  </FormGroup>
+                  <FormGroup>
+                    <ControlLabel>Confirm Password</ControlLabel>
+                    <input
+                        type="password"
+                        name="password_conform"
+                        className="form-control"
+                    />
+                    <TextComp>Minimum of six characters.</TextComp>
+                  </FormGroup>
+                  <FormGroup>
+                    <Button type="submit">Sign Up</Button>
+                    <Button onClick={this.routeToLogin}>Back</Button>
+                  </FormGroup>
+                </form>
+              </div>
+            </div>
     );
   }
 }

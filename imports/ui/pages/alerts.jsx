@@ -6,11 +6,11 @@ import autoBind from 'react-autobind';
 import { Table, DropdownButton } from 'react-bootstrap';
 
 // Custom File Imports
-import AlertDropdownOfTeams from './alertDropdownOfTeams.jsx';
+import AlertDropdownOfTeams from '../components/alertDropdownOfTeams.jsx';
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 import TeamsCollection from '..//../api/Teams/Teams.js';
 import { Teams } from '../../api/teams.jsx';
-import AthleteAlert from './athleteAlert.jsx';
+import AthleteAlert from '../components/athleteAlert.jsx';
 
 class Alerts extends React.Component {
         constructor(props) {

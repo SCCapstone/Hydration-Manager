@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, Redirect, Route, withRouter } from 'react-router-dom'
 
 // Custom File Imports
-import { App } from '../imports/ui/components/app.jsx';
+import { App } from './app.jsx';
 import Login from './Login.jsx';
 import Registration from './Registration.jsx';
 

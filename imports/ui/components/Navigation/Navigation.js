@@ -60,8 +60,6 @@ const Navigation = props => (
             <LinkContainer to="/app/adminDash">
               <NavItem eventKey={5.1} href="/app/AdminDash">Admin</NavItem>
             </LinkContainer> : ''}
-
-          <MenuItem divider />
           <MenuItem eventKey={5.2} onClick={() => Meteor.logout() }>Logout</MenuItem>
         </NavDropdown>
         <NavItem>

@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 // Custom File Imports
-import  Navigation  from '../../../unused_files/navigation.jsx';
+import  Navigation  from './navigation.jsx';
 import { AppRouting } from './appRouting.jsx';
 
 /* Contains the main application */

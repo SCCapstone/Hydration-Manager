@@ -7,7 +7,7 @@ import { Button, FormControl, FormGroup, ListGroup, Modal} from 'react-bootstrap
 
 // Custom File Imports
 import TeamsCollection from '../../api/Teams/Teams.js';
-import ListOfTeams from './listOfTeams.jsx';
+import ListOfTeams from '../components/listOfTeams.jsx';
 
 
 class YourTeams extends React.Component {

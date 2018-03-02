@@ -6,8 +6,8 @@ import { withTracker } from 'meteor/react-meteor-data';
 import autoBind from 'react-autobind';
 
 // Custom File Imports
-import MasterDropdownOfTeams from './masterDropdownOfTeams.jsx';
-import AthleteSingle from './athletesingle.jsx';
+import MasterDropdownOfTeams from '../components/masterDropdownOfTeams.jsx';
+import AthleteSingle from '../components/athletesingle.jsx';
 import TeamsCollection from '../../api/Teams/Teams.js';
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 

@@ -3,12 +3,12 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 // Custom File Imports
-import WeightEntry from './weightEntry.jsx';
-import MasterReport from './masterReport.jsx';
-import AthleteReport from './athleteReport';
-import Alerts from './alerts.jsx';
-import Logout from '../../../unused_files/logout.jsx';
-import YourTeams from './yourTeams.jsx';
+import WeightEntry from '../imports/ui/pages/weightEntry.jsx';
+import MasterReport from '../imports/ui/pages/masterReport.jsx';
+import AthleteReport from '../imports/ui/pages/athleteReport';
+import Alerts from '../imports/ui/pages/alerts.jsx';
+import Logout from './logout.jsx';
+import YourTeams from '../imports/ui/pages/yourTeams.jsx';
 
 /* Routing for the main application */
 

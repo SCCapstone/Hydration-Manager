@@ -1,97 +1,89 @@
 // Package Imports
-import { Meteor } from 'meteor/meteor';
+import {Meteor} from 'meteor/meteor';
 import React from 'react';
 import autoBind from 'react-autobind';
-import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { Bert } from 'meteor/themeteorchef:bert';
+import {Row, Col, FormGroup, ControlLabel, Button} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
+import {Bert} from 'meteor/themeteorchef:bert';
 import $ from 'jquery';
 import 'jquery-validation';
 
 // Custom File Import
 import GenericFooter from '../../components/GenericFooter/GenericFooter';
 
-class LoginAlt extends React.Component {
-  constructor(props) {
-    super(props);
-    autoBind(this);
-  }
+export default class LoginAlt extends React.Component {
+    constructor(props) {
+        super(props);
+        autoBind(this);
+    }
 
-  componentDidMount() {
-    const component = this;
+    componentDidMount() {
+        const component = this;
 
-    $(component.form).validate( {
-      rules: {
-        emailAddress: {
-          required: true,
-          email: true,
-        },
-        password: {
-          required: true,
-        },
-      },
-      messages: {
-        emailAddress: {
-          required: 'Enter email address here.',
-          email: 'Is this email address correct?',
-        },
-        password: {
-          required: 'Enter password here.',
-        },
-      },
-      submitHandler() { component.handleSubmit(component.form); },
-    });
-  }
+        $(component.form).validate({
+            rules: {
+                emailAddress: {
+                    required: true,
+                    email: true,
+                },
+                password: {
+                    required: true,
+                },
+            },
+            messages: {
+                emailAddress: {
+                    required: 'Enter email address here.',
+                    email: 'Is this email address correct?',
+                },
+                password: {
+                    required: 'Enter password here.',
+                },
+            },
+            submitHandler() {
+                component.handleSubmit(component.form);
+            },
+        });
+    }
 
-  handleSubmit(form) {
-    Meteor.loginWithPassword(form.emailAddress.value, form.password.value, (error) => {
-      if (error) {
-        Bert.alert(error.reason, 'danger');
-      } else {
-        Bert.alert('Welcome back!', 'success');
-      }
-    });
-  }
+    handleSubmit(form) {
+        Meteor.loginWithPassword(form.emailAddress.value, form.password.value, (error) => {
+            if (error) {
+                Bert.alert(error.reason, 'danger');
+            } else {
+                Bert.alert('Welcome back!', 'success');
+            }
+        });
+    }
 
-    routeToRegistration () {
+    routeToRegistration() {
         window.location = '/registration';
     }
 
-  render() {
-    return (
-      <div className="LoginBackGround">
-          <div className = "Login">
-              <h1>Hydration Manager</h1>
-              <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
-                  <FormGroup>
-                      <ControlLabel>Email Address</ControlLabel>
-                      <input type="email" name="emailAddress" className="form-control"/>
-                  </FormGroup>
-                  <FormGroup>
-                      <ControlLabel className="clearfix">
-                          <span className="pull-left">Password</span>
-                      </ControlLabel>
-                      <input type="password" name="password" className="form-control"/>
-                  </FormGroup>
-                  <FormGroup>
-                      <div className = "LoginButtons">
-                          <Button type="submit">Login</Button>
-                          <Button onClick = {this.routeToRegistration}>Register</Button>
-                          <br/>
-                          {/*TODO: Make forgot password do something */}
-                          <Button>Forgot Password</Button>
-                      </div>
-                  </FormGroup>
-              </form>
-                  <p>A University of South Carolina Capstone Project</p>
-          </div>
-      </div>
+    render() {
+        return (
+            <div className="LoginBackGround">
+                <div className="Login">
+                    <h1>Hydration Manager</h1>
+                    <br/>
+                    <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+                        <FormGroup>
+                            <input type="email" name="emailAddress" className="form-control" placeholder="Email Address"/>
+                        </FormGroup>
+                        <FormGroup>
+                            <input type="password" name="password" className="form-control" placeholder="Password"/>
+                            <p id = "password"><Link to="">Forgot Password?</Link>.</p>
+                        </FormGroup>
+                        <FormGroup id = "LoginButtonContainer">
+                            <Button id="LoginButton" type="submit" bsStyle="primary">Login</Button><br/>
+                            <p>{'Don\'t have an account?'} <Link to="/registration">Sign Up</Link>.</p>
+                        </FormGroup>
+                    </form>
+                </div>
+            </div>
 
-    );
-  }
+        );
+    }
 }
-
-export default LoginAlt;
 
 /*
 <div>

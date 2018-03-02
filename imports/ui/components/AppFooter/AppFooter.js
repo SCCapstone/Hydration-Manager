@@ -14,7 +14,7 @@ const AppFooter = () => (
      */
   <div className="AppFooter">
     <Grid>
-      <p className="pull-left">&copy; 2017-2018 Hydration Manager</p>
+      <p className="pull-left">&copy; Hydration Manager</p>
     </Grid>
   </div>
 );
