@@ -21,6 +21,13 @@ import { withRouter } from 'react-router-dom';
 // <Link to="">Hydration Manager</Link>  //Link to nowhere for Navbar typical styling
 
 // ({ name, history })
+
+/*    <LinkContainer to="/profile">
+      <NavItem eventKey={5.1} href="/profile">Profile</NavItem>
+    </LinkContainer>
+Profile not currently working, will get 404 errors when trying to logout from this page.
+-anthony
+*/
 const Navigation = props => (
   <div>
   <Navbar className="NavClass">
@@ -49,17 +56,13 @@ const Navigation = props => (
 
       <Nav pullRight>
         <NavDropdown eventKey={5} title={props.name} id="user-dropdown" noCaret>
-          <LinkContainer to="/profile">
-            <NavItem eventKey={5.1} href="/profile">Profile</NavItem>
-          </LinkContainer>
-
           {props.userRoles[0] === "ADMIN" ?
             <LinkContainer to="/app/adminDash">
-              <NavItem eventKey={5.2} href="/app/AdminDash">Admin</NavItem>
+              <NavItem eventKey={5.1} href="/app/AdminDash">Admin</NavItem>
             </LinkContainer> : ''}
 
           <MenuItem divider />
-          <MenuItem eventKey={5.3} onClick={() => Meteor.logout() }>Logout</MenuItem>
+          <MenuItem eventKey={5.2} onClick={() => Meteor.logout() }>Logout</MenuItem>
         </NavDropdown>
         <NavItem>
           role: { props.userRoles[0] }

@@ -118,14 +118,9 @@ class YourTeams extends React.Component {
     render() {
         return (
             <div>
+                <h3>Your Teams</h3>
                 <div className="YourTeamHeader">
-                    <h3>Your Teams</h3>
-                    <Button onClick={this.open} bsStyle="primary">Create a Team</Button>
-{/*=======*/}
-                {/*<div>*/}
-                    {/*<span><h3>Your Teams</h3></span>*/}
-                    {/*<span><Button onClick={this.open} bsStyle="primary">Create a Team</Button></span>*/}
-{/*>>>>>>> user-auth*/}
+                    <span><Button onClick={this.open} bsStyle="primary">Create a Team</Button></span>
                 </div>
                 <hr/>
                 <div>

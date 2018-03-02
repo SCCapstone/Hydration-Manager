@@ -109,8 +109,8 @@ class Alerts extends React.Component {
         render() {
             return (
                 <div>
-                    <div>
-                        <span><h3>Alerts</h3></span>
+                    <span><h3>Alerts</h3></span>
+                    <div className="AlertsHeader">
                         {/*<span>*/}
                             {/*<DropdownButton id={'Team Select'} title={'Team Select'} noCaret>*/}
                                 {/*{this.teams().map((team)=>{return <AlertDropdownOfTeams key={team._id} team={team} />})}*/}
@@ -118,7 +118,9 @@ class Alerts extends React.Component {
                         {/*</span>*/}
                         {/*<h1> {this.displayCurrentTeam()} </h1>*/}
                     </div>
+                    <hr/>
                     <div>
+                        <div className="redBack">
                         <br/>
                         {/*TODO: Able to click on athlete to go athlete report screen*/}
                         <h4>Red Athletes</h4>
@@ -134,6 +136,9 @@ class Alerts extends React.Component {
                             {this.redAthletes().map((athlete)=>{return <AthleteAlert key={athlete._id} athlete={athlete} teamsList={this.props.teamsList}/>})}
                             </tbody>
                         </Table>
+                        </div>
+                        <br/><br/>
+                        <div className="yellowBack">
                         <h4>Yellow Athletes</h4>
                         <Table striped bordered condensed hover responsive className="yellow">
                             <thead>
@@ -147,6 +152,7 @@ class Alerts extends React.Component {
                             {this.yellowAthletes().map((athlete)=>{return <AthleteAlert key={athlete._id} athlete={athlete} teamsList={this.props.teamsList}/>})}
                             </tbody>
                         </Table>
+                        </div>
                     </div>
                 </div>
 

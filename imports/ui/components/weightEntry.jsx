@@ -91,15 +91,14 @@ class WeightEntry extends React.Component {
         const { props } = this;
         return (
             <div>
-                <div>
-                    <h3>Weight Entry</h3>
-                        <DropdownButton id={'Team Select'} title={'Team Select'}>
+                <h3>Weight Entry</h3>
+                    <div className="WeightHeader">
+                    <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'Default'} noCaret>
                            {this.teams().map((team)=>{return <WeightDropdownOfTeams key={team._id} team={team} />})}
-                        </DropdownButton>
+                    </DropdownButton>
                     <h1>{this.displayCurrentTeam()}</h1>
-                    <div>{/*Null comment*/}</div>
-                </div><br/>
-
+                </div>
+                <hr/>
                 <form>
                     <br/>
                     <div>
@@ -107,14 +106,11 @@ class WeightEntry extends React.Component {
                     </div><br/>
 
                     <div>
-                        {/*TODO: Look into changing these radio buttons to a toggle*/}
                         <label>
                             <input type="radio" value="PreWeight" checked={this.state.selectedOption === 'PreWeight'} onChange={this.handleOptionChange}/>
                             PreWeight
                         </label>
-                        {/*TODO: Fix this label hack*/}
-                        <label>{/*Null Comment to add some spaaaace*/}</label>
-                        <span>&nbsp;&nbsp;&nbsp;
+                        <span>
                             <label>
                                 <input type="radio" value="PostWeight" checked={this.state.selectedOption === 'PostWeight'} onChange={this.handleOptionChange.bind(this)}/>
                                 PostWeight
@@ -122,8 +118,6 @@ class WeightEntry extends React.Component {
                         </span>
                     </div>
                     <div>{/*Null comment*/}</div><br/><br/><br/>
-
-                    {/*TODO: Able to click on athlete to go athlete report screen*/}
                     <Table striped bordered condensed hover className="teams">
                         <thead>
                         <tr>

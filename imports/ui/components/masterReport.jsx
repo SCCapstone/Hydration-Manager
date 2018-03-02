@@ -189,21 +189,20 @@ class MasterReport extends React.Component {
 
         return (
             <div>
-                <div>
-                    <h3>Master Report</h3>
-                        <DropdownButton id={'Team Select'} title={'Team Select'}>
-                            {this.teams().map((team)=>{return <MasterDropdownOfTeams key={team._id} team={team} />})}
-                        </DropdownButton>
-                    <h1> {this.displayCurrentTeam()} </h1>
+                <h3>Master Report</h3>
+                <div className="MasterHeader">
+                    <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'Default'} noCaret>
+                        {this.teams().map((team)=>{return <MasterDropdownOfTeams key={team._id} team={team} />})}
+                    </DropdownButton>
                     <span><Button onClick={this.open} bsStyle="primary">Create an Athlete</Button></span>
-                    <div>{/*Null comment*/}</div>
-                </div>
+                    <h1> {this.displayCurrentTeam()} </h1>
+               </div>
+                <hr/>
                 <div>
                     <Modal show={this.state.showModal} onHide={this.close} >
                         <Modal.Header>
                             <Modal.Title>Athlete Entry Form</Modal.Title>
                         </Modal.Header>
-                        {/*TODO: Check that name is a string, baseweight is a number, and height is a number */}
                         <Modal.Body>
                             <form>
                                 <FormGroup>

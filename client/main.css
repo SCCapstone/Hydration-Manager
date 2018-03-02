@@ -157,18 +157,36 @@ hr{
         height: 100vh;
     }
 }
+/*Weight Entry Page CSS */
 
-/*Alert Page CSS */
-
-.red {
-    border-style: groove;
-    border-width: 2px;
-    border-color: red;
+.WeightHeader{
+    display: inline-block;
+    width: 100%;
 }
-.yellow {
-    border-style: groove;
-    border-width: 2px;
-    border-color: yellow;
+.WeightHeader h3{
+    float: left;
+    margin: 0;
+    line-height: 1.42857;
+}
+.WeightHeader button{
+    float:right;
+    vertical-align: middle;
+}
+
+/*Master Report Page CSS */
+
+.MasterHeader{
+    display: inline-block;
+    width: 100%;
+}
+.MasterHeader h3{
+    float: left;
+    margin: 0;
+    line-height: 1.42857;
+}
+.MasterHeader button{
+    float:right;
+    vertical-align: middle;
 }
 
 /*Your Team's Page CSS */
@@ -186,6 +204,42 @@ hr{
     float:right;
     vertical-align: middle;
 }
+
+/*Alerts Page CSS */
+
+.AlertsHeader{
+    display: inline-block;
+    width: 100%;
+}
+.AlertsHeader h3{
+    float: left;
+    margin: 0;
+    line-height: 1.42857;
+}
+.AlertsHeader button{
+    float:right;
+    vertical-align: middle;
+}
+
+.red {
+    border-style: groove;
+    border-width: 2px;
+    border-color: red;
+}
+.yellow {
+    border-style: groove;
+    border-width: 2px;
+    border-color: yellow;
+}
+
+.yellowBack {
+    background-color: #ffff99;
+}
+
+.redBack {
+    background-color: #ff9999;
+}
+
 
 /*CSS for the cards in Your teams */
 .card{
