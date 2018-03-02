@@ -93,7 +93,7 @@ class WeightEntry extends React.Component {
             <div>
                 <h3>Weight Entry</h3>
                     <div className="WeightHeader">
-                    <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'Default'} noCaret>
+                    <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'Default'}>
                            {this.teams().map((team)=>{return <WeightDropdownOfTeams key={team._id} team={team} />})}
                     </DropdownButton>
                     <h1>{this.displayCurrentTeam()}</h1>

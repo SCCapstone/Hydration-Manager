@@ -105,39 +105,41 @@ class Registration extends React.Component {
 
     render() {
         return (
-            <div className="RegistrationBackGround">
-              <div className="Registration">
-                <h4 className="page-header">Registration</h4>
+            <div className = "RegistrationBackGround">
+              <div className = "Registration">
+                <h1>Registration</h1>
+                <br/>
                 <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
                   <FormGroup>
-                    <ControlLabel>Email Address</ControlLabel>
                     <input
                         type="email"
                         name="emailAddress"
                         className="form-control"
+                        placeholder="Email Address"
                     />
                   </FormGroup>
                   <FormGroup>
-                    <ControlLabel>Password</ControlLabel>
                     <input
                         type="password"
                         name="password"
                         className="form-control"
+                        placeholder="Password"
                     />
-                    <TextComp>Minimum of six characters.</TextComp>
+                    <p>Minimum of six characters.</p>
                   </FormGroup>
                   <FormGroup>
-                    <ControlLabel>Confirm Password</ControlLabel>
                     <input
                         type="password"
                         name="password_conform"
                         className="form-control"
+                        placeholder="Confirm Password"
                     />
-                    <TextComp>Minimum of six characters.</TextComp>
+                    <p>Minimum of six characters.</p>
                   </FormGroup>
                   <FormGroup>
-                    <Button type="submit">Sign Up</Button>
-                    <Button onClick={this.routeToLogin}>Back</Button>
+                    <br/>
+                    <Button id="SubmitButton"type="submit" bsStyle="primary">Sign Up</Button>
+                    <Button id="BackButton" onClick={this.routeToLogin}>Back</Button>
                   </FormGroup>
                 </form>
               </div>
@@ -152,28 +154,3 @@ Registration.propTypes = {
 
 export default withRouter(Registration);
 
-/*
-<Row>
-                <Col xs={6}>
-                  <FormGroup>
-                    <ControlLabel>First Name</ControlLabel>
-                    <input
-                      type="text"
-                      name="firstName"
-                      className="form-control"
-                    />
-                  </FormGroup>
-                </Col>
-                <Col xs={6}>
-                  <FormGroup>
-                    <ControlLabel>Last Name</ControlLabel>
-                    <input
-                      type="text"
-                      name="lastName"
-                      className="form-control"
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
-
- */

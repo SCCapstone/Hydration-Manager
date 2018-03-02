@@ -191,7 +191,7 @@ class MasterReport extends React.Component {
             <div>
                 <h3>Master Report</h3>
                 <div className="MasterHeader">
-                    <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'Default'} noCaret>
+                    <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'Default'}>
                         {this.teams().map((team)=>{return <MasterDropdownOfTeams key={team._id} team={team} />})}
                     </DropdownButton>
                     <span><Button onClick={this.open} bsStyle="primary">Create an Athlete</Button></span>

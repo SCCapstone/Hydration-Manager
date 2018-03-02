@@ -55,16 +55,13 @@ const Navigation = props => (
       </Nav>
 
       <Nav pullRight>
-        <NavDropdown eventKey={5} title={props.name} id="user-dropdown" noCaret>
+        <NavDropdown eventKey={5} title={props.name} id="user-dropdown">
           {props.userRoles[0] === "ADMIN" ?
             <LinkContainer to="/app/adminDash">
               <NavItem eventKey={5.1} href="/app/AdminDash">Admin</NavItem>
             </LinkContainer> : ''}
           <MenuItem eventKey={5.2} onClick={() => Meteor.logout() }>Logout</MenuItem>
         </NavDropdown>
-        <NavItem>
-          role: { props.userRoles[0] }
-        </NavItem>
       </Nav>
 
     </Navbar.Collapse>

@@ -2,10 +2,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
-import { Roles } from 'meteor/alanning:roles';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {Meteor} from 'meteor/meteor';
+import {withTracker} from 'meteor/react-meteor-data';
+import {Roles} from 'meteor/alanning:roles';
 
 // Custom File Imports
 import getUserName from '../../../modules/get-user-name';
@@ -36,30 +36,30 @@ class App extends React.Component {
 
             <BrowserRouter>
                 {!props.loading ? (
-                    <div className="">
+                    <div >
 
                         {props.isAuthorized ?
 
                             <Navigation {...props} />
                             : ''}
+                      <div className="AppContent">
+                        <Switch>
 
-                      <Switch>
+                          <Public exact path="/" component={LoginAlt} {...props} />
+                          <Public exact path="/login" component={LoginAlt} {...props} />
+                          <Public exact path="/registration" component={Registration} {...props} />
 
-                        <Public exact path="/" component={LoginAlt} {...props} />
-                        <Public exact path="/login" component={LoginAlt} {...props} />
-                        <Public exact path="/registration" component={Registration} {...props} />
+                          <Authorized exact path="/app" component={WeightEntry} {...props} />
+                          <Authorized exact path='/app/weightEntry' component={WeightEntry} {...props} />
+                          <Authorized path='/app/weightEntry/:teamId' component={WeightEntry} {...props} />
+                          <Authorized exact path='/app/masterReport/' component={MasterReport} {...props} />
+                          <Authorized path='/app/masterReport/:teamId' component={MasterReport} {...props} />
+                          <Authorized path='/app/athlete/:athleteId' component={AthleteReport} {...props} />
+                          <Authorized exact path='/app/yourTeams' component={YourTeams} {...props} />
+                          <Authorized exact path='/app/alerts' component={Alerts} {...props} />
 
-                        <Authorized exact path="/app" component={WeightEntry} {...props} />
-                        <Authorized exact path='/app/weightEntry' component={WeightEntry} {...props} />
-                        <Authorized path='/app/weightEntry/:teamId' component={WeightEntry} {...props} />
-                        <Authorized exact path='/app/masterReport/' component={MasterReport} {...props} />
-                        <Authorized path='/app/masterReport/:teamId' component={MasterReport} {...props} />
-                        <Authorized path='/app/athlete/:athleteId' component={AthleteReport} {...props} />
-                        <Authorized exact path='/app/yourTeams' component={YourTeams} {...props} />
-                        <Authorized exact path='/app/alerts' component={Alerts} {...props} />
-
-                        <Route component={NotFound}/>
-                          {/*
+                          <Route component={NotFound}/>
+                            {/*
 
                 <Route exact path="/" component={LoginAlt} />
                 <Route exact path="/login" component={LoginAlt} />
@@ -86,7 +86,8 @@ class App extends React.Component {
                 <Route name="privacy" path="/privacy" component={Privacy} />
                 <Route component={NotFound} />
                 */}
-                      </Switch>
+                        </Switch>
+                      </div>
                     </div>
                 ) : ''}
             </BrowserRouter>

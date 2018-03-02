@@ -7,13 +7,18 @@ body{
 .AppContent{
     margin: 0 auto;
     width: 85%;
-    padding-top: 5.5%;
 }
 hr{
     border: none;
     height: 1px;
     background-color: #333;
 }
+
+/* Nav CSS */
+.navbar{
+    margin-bottom: 0px;
+}
+
 
 /*Login Page CSS*/
 .LoginBackGround{
@@ -58,25 +63,31 @@ hr{
 .Login #password{
     float: right;
 }
+/*not the way this should be done */
+.Login #emailAddress-error{
+    font-size: 75%;
+}
+.Login #password-error{
+    font-size: 75%;
+}
 
 
 
 /*Registration Page CSS*/
 .RegistrationBackGround{
-    background-color: #414141;
+    background-image: linear-gradient(to left bottom, #414141, #393939, #313131, #292929, #212121);
     height: 100vh;
 }
 
 .Registration{
     background-color: whitesmoke;
-
     border: 10px solid whitesmoke;
     border-radius: 15px;
     box-shadow: 7px 8px 13px 2px rgba(0,0,0,0.5);
 
     /*Center the inside div */
     width: 600px;
-    height: 375px;
+    height: 425px;
     position: fixed; /*it can be absolute too*/
     left:0; right:0;
     top:-20%; bottom:0;
@@ -88,9 +99,22 @@ hr{
     max-height:100%;
     overflow:auto;
 }
-
-.Registration button {
+.Registration p{
+    position: relative;
+    font-size: 75%;
+}
+.Registration #SubmitButton {
     float: right;
+    width: 25%;
+}
+.Registration #BackButton {
+    float: left;
+}
+.Registration #emailAddress-error{
+    font-size: 75%;
+}
+.Registration #password-error{
+    font-size: 75%;
 }
 
 
