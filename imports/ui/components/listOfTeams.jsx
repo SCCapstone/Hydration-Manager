@@ -87,6 +87,7 @@ constructor(props) {
     this.routeToReport = this.routeToReport.bind(this);
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
+    this.deleteTeam = this.deleteTeam.bind(this);
 }
     routeToReport () {
         window.location ='/app/masterReport/'+ this.props.team._id;

@@ -118,13 +118,13 @@ class YourTeams extends React.Component {
     render() {
         return (
             <div>
-                <h3>Your Teams</h3>
                 <div className="YourTeamHeader">
-                    <span><Button onClick={this.open} bsStyle="primary">Create a Team</Button></span>
+                    <h3>Your Teams</h3>
+                    <Button onClick={this.open} bsStyle="primary">&#43; Create a Team</Button>
                 </div>
                 <hr/>
                 <div>
-                    <Modal show={this.state.showModal} onHide={this.close} >
+                    <Modal show={this.state.showModal} onHide={this.close}>
                         <Modal.Header>
                             <Modal.Title>Team Entry Form</Modal.Title>
                         </Modal.Header>
@@ -137,8 +137,8 @@ class YourTeams extends React.Component {
                             </form>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button onClick={this.close} bsStyle="danger"> Close </Button>
-                            <Button onClick={this.addTeam} bsStyle="success"> Create Team </Button>
+                            <Button onClick={this.close}> Close </Button>
+                            <Button onClick={this.addTeam} bsStyle="primary"> Create Team </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
