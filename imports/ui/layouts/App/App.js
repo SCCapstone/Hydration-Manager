@@ -2,10 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import {Meteor} from 'meteor/meteor';
-import {withTracker} from 'meteor/react-meteor-data';
-import {Roles} from 'meteor/alanning:roles';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Grid } from 'react-bootstrap';
+import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Roles } from 'meteor/alanning:roles';
 
 // Custom File Imports
 import getUserName from '../../../modules/get-user-name';
@@ -23,12 +24,13 @@ import Authorized from '../../components/Authorized/Authorized.js';
 import AppFooter from '../../components/AppFooter/AppFooter.js';
 
 
+
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        //this.state = { routePastLogin: null };
-        autoBind(this);  //binds class methods to the component instance
-    }
+  constructor(props) {
+    super(props);
+    //this.state = { routePastLogin: null };
+    autoBind(this);  //binds class methods to the component instance
+  }
 
     render() {
         const {props} = this;
@@ -36,19 +38,19 @@ class App extends React.Component {
 
             <BrowserRouter>
                 {!props.loading ? (
-                    <div >
+                    <div className="">
 
                         {props.isAuthorized ?
 
                             <Navigation {...props} />
                             : ''}
-                      <div className="AppContent">
-                        <Switch>
 
-                          <Public exact path="/" component={LoginAlt} {...props} />
-                          <Public exact path="/login" component={LoginAlt} {...props} />
-                          <Public exact path="/registration" component={Registration} {...props} />
+                      <Switch>
 
+                        <Public exact path="/" component={LoginAlt} {...props} />
+                        <Public exact path="/login" component={LoginAlt} {...props} />
+                        <Public exact path="/registration" component={Registration} {...props} />
+                        <Grid className = "AppContent">
                           <Authorized exact path="/app" component={WeightEntry} {...props} />
                           <Authorized exact path='/app/weightEntry' component={WeightEntry} {...props} />
                           <Authorized path='/app/weightEntry/:teamId' component={WeightEntry} {...props} />
@@ -57,9 +59,9 @@ class App extends React.Component {
                           <Authorized path='/app/athlete/:athleteId' component={AthleteReport} {...props} />
                           <Authorized exact path='/app/yourTeams' component={YourTeams} {...props} />
                           <Authorized exact path='/app/alerts' component={Alerts} {...props} />
-
-                          <Route component={NotFound}/>
-                            {/*
+                        </Grid>
+                        <Route component={NotFound}/>
+                          {/*
 
                 <Route exact path="/" component={LoginAlt} />
                 <Route exact path="/login" component={LoginAlt} />
@@ -86,8 +88,7 @@ class App extends React.Component {
                 <Route name="privacy" path="/privacy" component={Privacy} />
                 <Route component={NotFound} />
                 */}
-                        </Switch>
-                      </div>
+                      </Switch>
                     </div>
                 ) : ''}
             </BrowserRouter>
@@ -98,38 +99,38 @@ class App extends React.Component {
 }
 
 App.defaultProps = {
-    userId: '',
-    emailAddress: '',
+  userId: '',
+  emailAddress: '',
 };
 
 // Type checking props pushed to component
 App.propTypes = {
-    userId: PropTypes.string,
-    emailAddress: PropTypes.string,
-    emailVerified: PropTypes.bool.isRequired,
-    loading: PropTypes.bool.isRequired,
-    isAuthorized: PropTypes.bool.isRequired,
-    userRoles: PropTypes.array
+  userId: PropTypes.string,
+  emailAddress: PropTypes.string,
+  emailVerified: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+  isAuthorized: PropTypes.bool.isRequired,
+  userRoles: PropTypes.array
 };
 
 // Data from the server pushed to main app component
 export default withTracker(() => {
-    const loggingIn = Meteor.loggingIn();
-    const user = Meteor.user();
-    const userId = Meteor.userId();
-    const loading = !Roles.subscription.ready();
-    // &&'s below - > returns furthest right "truthy" value
-    const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
-    const emailAddress = user && user.emails && user.emails[0].address;
+  const loggingIn = Meteor.loggingIn();
+  const user = Meteor.user();
+  const userId = Meteor.userId();
+  const loading = !Roles.subscription.ready();
+  // &&'s below - > returns furthest right "truthy" value
+  const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
+  const emailAddress = user && user.emails && user.emails[0].address;
 
-    return {
-        loading,
-        loggingIn,
-        isAuthorized: !loggingIn && !!userId,
-        name: name || emailAddress,
-        userId,
-        emailAddress,
-        emailVerified: user && user.emails ? user && user.emails && user.emails[0].verified : true,
-        userRoles: !loading ? Roles.getRolesForUser(userId) : [], //!loading && Roles.getRolesForUser(userId),
-    };
+  return {
+    loading,
+    loggingIn,
+    isAuthorized: !loggingIn && !!userId,
+    name: name || emailAddress,
+    userId,
+    emailAddress,
+    emailVerified: user && user.emails ? user && user.emails && user.emails[0].verified : true,
+    userRoles: !loading ? Roles.getRolesForUser(userId) : [] , //!loading && Roles.getRolesForUser(userId),
+  };
 })(App);

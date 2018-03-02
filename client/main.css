@@ -4,10 +4,6 @@
 body{
 
 }
-.AppContent{
-    margin: 0 auto;
-    width: 85%;
-}
 hr{
     border: none;
     height: 1px;
@@ -142,12 +138,6 @@ hr{
 @media only screen and (min-width: 827px){
     .NavClass Button{
         display: none;
-    }
-    .AppContent{
-        padding: 3%;
-        padding-top: 5.5%;
-        box-shadow: 0px 0px 32px 10px rgba(65,65,65,0.1);
-        height: 100vh;
     }
 }
 /*Weight Entry Page CSS */
