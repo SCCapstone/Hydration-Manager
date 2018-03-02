@@ -126,7 +126,7 @@ export default class AthleteReportTable extends Component{
     render() {
         return(
             <div>
-                <Table striped bordered condensed hover responsive>
+                <Table bordered condensed hover responsive>
                     <thead>
                         <tr>
                             <th>Date</th>
