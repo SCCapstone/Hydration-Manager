@@ -66,11 +66,11 @@ export default class LoginAlt extends React.Component {
                     <h1>Hydration Manager</h1>
                     <br/>
                     <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
-                        <FormGroup>
-                            <input type="email" name="emailAddress" className="form-control email" placeholder="Email Address"/>
+                        <FormGroup className="email">
+                            <input type="email" name="emailAddress" className="form-control" placeholder="Email Address"/>
                         </FormGroup>
-                        <FormGroup>
-                            <input type="password" name="password" className="form-control password" placeholder="Password"/>
+                        <FormGroup className="password">
+                            <input type="password" name="password" className="form-control" placeholder="Password"/>
                             <p id = "password"><Link to="">Forgot Password?</Link>.</p>
                         </FormGroup>
                         <FormGroup id = "LoginButtonContainer">
