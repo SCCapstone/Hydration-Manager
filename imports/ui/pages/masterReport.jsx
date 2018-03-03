@@ -207,6 +207,10 @@ class MasterReport extends React.Component {
     render() {
         athletes = this.athletes;
 
+        if(this.props.athleteLoading || this.props.teamLoading){
+            return null;
+        }
+
         return (
             <div>
                 <h3>Master Report</h3>
@@ -271,6 +275,7 @@ MasterReport.propTypes = {
     athleteLoading: PropTypes.bool,
     teamsList: PropTypes.array,
     athletesList: PropTypes.array,
+    teamId: PropTypes.string,
 };
 
 // Retrieves data from server and puts it into client's minimongo
@@ -287,7 +292,7 @@ export default withTracker(({match}) => {
     // history: PropTypes.object.isRequired,
     console.log(teamsList);
     console.log(athletesList);
-    console.log(this.props);
+    console.log(athleteLoading);
 
     return {
         subscriptions: [teamSubscription, athleteSubscription],

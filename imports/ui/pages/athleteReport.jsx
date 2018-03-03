@@ -75,10 +75,19 @@ class AthleteReport extends Component {
     }
 
     athlete() {
-        if(this.props.match.params.athleteId) {
-            athleteId = this.props.match.params.athleteId;
-            athlete = AthletesCollection.findOne({"_id": athleteId});
-            return athlete;
+        if(this.props.athleteId) {
+            athleteId = this.props.athleteId;
+            // athlete = AthletesCollection.findOne({"_id": athleteId});
+            currentAthlete = '';
+            console.log(this.props.athletesList)
+            for(i=0;i<this.props.athletesList.length;i++)
+            {
+                if(this.props.athletesList[i]._id == athleteId)
+                {
+                    currentAthlete = (this.props.athletesList[i]);
+                }
+            }
+            return currentAthlete;
         }
         else{
             return "";
@@ -87,8 +96,9 @@ class AthleteReport extends Component {
 
     team() {
         playerTeamId = this.athlete().teamId;
-        team = TeamsCollection.findOne({"_id": playerTeamId});
-        return team;
+        currentTeam = TeamsCollection.findOne({"_id": playerTeamId});
+        console.log(playerTeamId + "," + currentTeam);
+        return currentTeam;
     }
 
     calcLoss(){
@@ -111,6 +121,10 @@ class AthleteReport extends Component {
     render() {
         athlete = this.athlete;
         team = this.team;
+
+        if(this.props.athleteLoading || this.props.teamLoading){
+            return null;
+        }
         return (
             <div>
                 <Link to = {"/app/masterReport/" + this.team()._id}><Button bsStyle="primary">&lt; Back to {this.team().name} {this.team().season}</Button></Link>
@@ -134,21 +148,24 @@ AthleteReport.propTypes = {
     athleteLoading: PropTypes.bool,
     teamsList: PropTypes.array,
     athletesList: PropTypes.array,
+    athleteId: PropTypes.string,
 };
 
 // Retrieves data from server and puts it into client's minimongo
-export default withTracker(() => {
+export default withTracker(({match}) => {
     const teamSubscription = Meteor.subscribe('teams.thisUserId');
     const athleteSubscription = Meteor.subscribe('athletes.thisTeamId');
     const teamLoading = !teamSubscription.ready();
     const athleteLoading = !athleteSubscription.ready();
     const teamsList = !teamLoading ? TeamsCollection.find().fetch() : [];
     const athletesList = !athleteLoading ? AthletesCollection.find().fetch() : [];
+    const athleteId = match.params.athleteId;
     // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
     // match: PropTypes.object.isRequired,
     // history: PropTypes.object.isRequired,
     console.log(teamsList);
     console.log(athletesList);
+    console.log(athleteLoading);
 
     return {
         subscriptions: [teamSubscription, athleteSubscription],
@@ -156,5 +173,6 @@ export default withTracker(() => {
         athleteLoading,
         teamsList,
         athletesList,
+        athleteId,
     };
 })(AthleteReport);
