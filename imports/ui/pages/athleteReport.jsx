@@ -35,7 +35,7 @@ class AthleteReport extends Component {
         }
         if(postWeightDate != null && preWeightDate != null)
         {
-            return this.athlete().postWeightData[0].weight;
+            return Number.parseFloat(this.athlete().postWeightData[0].weight).toPrecision(6);
    /*
             If both weights do exist, current weight will be postWeight data. -anthony
 
@@ -51,11 +51,11 @@ class AthleteReport extends Component {
         }
         else if(postWeightDate != null)
         {
-            return this.athlete().postWeightData[0].weight;
+            return Number.parseFloat(this.athlete().postWeightData[0].weight).toPrecision(6);;
         }
         else if(preWeightDate != null)
         {
-            return this.athlete().preWeightData[0].weight;
+            return Number.parseFloat(this.athlete().preWeightData[0].weight).toPrecision(6);;
         }
         else
         {
@@ -97,14 +97,14 @@ class AthleteReport extends Component {
         weightChange = currentWeight - baseWeight;
         if(weightChange > 0)
         {
-            return "+" + weightChange;
+            return "+" + Number.parseFloat(weightChange).toPrecision(6);
         }
         else if (weightChange == 0)
         {
-            return weightChange;
+            return Number.parseFloat(weightChange).toPrecision(6);
         }
         else {
-            return "(" + weightChange + ")";
+            return "(" + Number.parseFloat(weightChange).toPrecision(6) + ")";
         }
     }
 

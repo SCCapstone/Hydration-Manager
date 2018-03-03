@@ -145,15 +145,17 @@ class MasterReport extends React.Component {
 
     handleHeight = (e) => {
         e.persist();
+        const num = Number.parseFloat(e.target.value).toPrecision(6);
         this.setState({
-            height : e.target.value
+            height : num
         });
     };
 
     handleWeight = (e) => {
         e.persist();
+        const num = Number.parseFloat(e.target.value).toPrecision(6);
         this.setState({
-            weight : e.target.value
+            weight : num
         });
     };
 
