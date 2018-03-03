@@ -1,17 +1,24 @@
 // Package Imports
 import React, { Component } from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, FormControl, FormGroup, Modal, Button, Radio } from 'react-bootstrap';
+import autoBind from 'react-autobind';
+import { withTracker } from 'meteor/react-meteor-data';
+import PropTypes from 'prop-types';
 
-export default class AthleteReportTable extends Component{
+class AthleteReportTable extends Component{
 
     constructor(props){
         super(props);
         this.state = {
             dates : [],
+            date: '',
+            prePost: '',
+            weight: '',
         };
-        this.getListofDates = this.getListofDates.bind(this);
-        this.getDatePreWeight = this.getDatePreWeight.bind(this);
-        this.getDatePostWeight = this.getDatePostWeight.bind(this);
+        // this.getListofDates = this.getListofDates.bind(this);
+        // this.getDatePreWeight = this.getDatePreWeight.bind(this);
+        // this.getDatePostWeight = this.getDatePostWeight.bind(this);
+        autoBind(this);
     }
 
     componentDidMount() {
@@ -106,7 +113,7 @@ export default class AthleteReportTable extends Component{
         }
         else
         {
-            return "Please enter missing weight to see hydration status for this day."
+            return "Please enter missing Pre/Post weight."
         }
     }
 
@@ -123,9 +130,85 @@ export default class AthleteReportTable extends Component{
         }
     }
 
+    handleEditButtonClick(aDate) {
+        this.setState({
+           date : aDate,
+        });
+        this.open();
+    }
+
+    handleOptionChange = (e) => {
+        this.setState({prePost: e.target.value});
+    }
+
+    handleWeight = (e) => {
+        this.setState({weight: e.target.value});
+    }
+
+    open() {
+        this.setState({
+            showModal: true,
+        });
+    }
+    close() {
+        this.setState({ showModal: false });
+    }
+
+    editEntry() {
+        event.preventDefault();
+        const pId = this.props.athlete._id;
+        const pWeight = this.state.weight;
+        const pDate = this.state.date;
+        const pPrePost = this.state.prePost;
+
+        if(pId == '' || pWeight == '' || pDate == '' || pPrePost == '')
+        {
+            window.alert("Make sure to complete all fields for weight editing.");
+        }
+        else {
+            Meteor.call('athletes.editWeight', pId, pDate, pWeight, pPrePost, () => {
+                Bert.defaults = {hideDelay: 4500};
+                Bert.alert('Weight edited', 'success', 'fixed-top', 'fa-check');
+
+                this.setState({
+                    date: "",
+                    weight: "",
+                    prePost: "",
+                })
+                this.close();
+            });
+        }
+
+        this.close();
+    }
+
     render() {
         return(
             <div>
+                <div>
+                    <Modal show={this.state.showModal} onHide={this.close} >
+                        <Modal.Header>
+                            <Modal.Title>Athlete Entry Form</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <form>
+                                <FormGroup>
+                                    <FormControl.Static>{this.props.athlete.name}</FormControl.Static>
+                                    <FormControl.Static>{this.state.date}</FormControl.Static>
+                                    <FormGroup>
+                                        <Radio value='PreWeight' checked={this.state.prePost === 'PreWeight'} onChange={this.handleOptionChange}>PreWeight</Radio>
+                                        <Radio value='PostWeight' checked={this.state.prePost === 'PostWeight'} onChange={this.handleOptionChange}>PostWeight</Radio>
+                                    </FormGroup>
+                                    <FormControl placeholder='Enter Weight Here' label='Weight' type='number' onChange={this.handleWeight}/>
+                                </FormGroup>
+                            </form>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={this.close} bsStyle="danger"> Close </Button>
+                            <Button onClick={this.editEntry} bsStyle="success"> Complete Weight Edit </Button>
+                        </Modal.Footer>
+                    </Modal>
+                </div>
                 <Table bordered condensed hover responsive>
                     <thead>
                         <tr>
@@ -136,7 +219,7 @@ export default class AthleteReportTable extends Component{
                         </tr>
                     </thead>
                     <tbody>
-                    {this.state.dates.map((date)=><tr key={date} keyprop={date}><td>{date}</td><td>{this.getHydration(date)}</td><td>{this.getDatePreWeight(date)}</td><td>{this.getDatePostWeight(date)}</td></tr>)}
+                    {this.state.dates.map((date)=><tr key={date} keyprop={date}><td>{date}</td><td>{this.getHydration(date)}</td><td>{this.getDatePreWeight(date)}</td><td>{this.getDatePostWeight(date)}</td><td><Button onClick={() => this.handleEditButtonClick(date)}><span className="glyphicon glyphicon-pencil"></span>Edit</Button></td></tr>)}
                     </tbody>
                 </Table>
             </div>
@@ -144,3 +227,28 @@ export default class AthleteReportTable extends Component{
     }
 
 }
+
+AthleteReportTable.propTypes = {
+    subscriptions: PropTypes.array,
+    teamLoading: PropTypes.bool,
+    athleteLoading: PropTypes.bool,
+    teamsList: PropTypes.array,
+    athletesList: PropTypes.array,
+};
+
+// Retrieves data from server and puts it into client's minimongo
+export default withTracker(() => {
+    const teamSubscription = Meteor.subscribe('teams.thisUserId');
+    const athleteSubscription = Meteor.subscribe('athletes.thisTeamId');
+    const teamLoading = !teamSubscription.ready();
+    const athleteLoading = !athleteSubscription.ready();
+    // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+    // match: PropTypes.object.isRequired,
+    // history: PropTypes.object.isRequired,
+
+    return {
+        subscriptions: [teamSubscription, athleteSubscription],
+        teamLoading,
+        athleteLoading,
+    };
+})(AthleteReportTable);
