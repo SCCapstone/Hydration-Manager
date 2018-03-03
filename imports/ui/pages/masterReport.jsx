@@ -88,11 +88,29 @@ class MasterReport extends React.Component {
 
         const curUser = this.props.name;  //CurrentUser.findOne();
         const id = this.props.userId;  //curUser.userID;
-        if(this.props.match.params.teamId) {
-            teamId = this.props.match.params.teamId;
+        console.log(this.props.teamId);
+        if(this.props.teamId) {
+            teamId = this.props.teamId;
+            currentTeam = '';
+            // currentTeam = TeamsCollection.findOne({"_id": teamId});
+            for(i=0;i<this.props.teamsList.length; i++)
+            {
+                if(this.props.teamsList[i]._id == teamId)
+                {
+                    currentTeam = this.props.teamsList[i];
+                }
+            }
+            currentAthletes = [];
+            for(i=0;i<this.props.athletesList.length;i++)
+            {
+                if(this.props.athletesList[i].teamId == this.props.teamId)
+                {
+                    currentAthletes.push(this.props.athletesList[i]);
+                }
+            }
 
-            currentTeam = TeamsCollection.findOne({"_id": teamId});
-            return AthletesCollection.find({teamId: currentTeam._id}).fetch();
+            return currentAthletes;
+            // return AthletesCollection.find({teamId: currentTeam._id}).fetch();
         }
         else{
             return null;
@@ -119,8 +137,8 @@ class MasterReport extends React.Component {
     }
 
     displayCurrentTeam() {
-        if(this.props.match.params.teamId) {
-            teamId = this.props.match.params.teamId;
+        if(this.props.teamId) {
+            teamId = this.props.teamId;
             for(i=0;i<this.props.teamsList.length;i++)
             {
                 if(this.props.teamsList[i]._id==teamId)
@@ -168,9 +186,9 @@ class MasterReport extends React.Component {
     //Gets current team so that the modal window automatically has current team selected
     getCurrentTeam ()
     {
-        if(this.props.match.params.teamId)
+        if(this.props.teamId)
         {
-            currentTeam = this.props.match.params.teamId;
+            currentTeam = this.props.teamId;
             this.setState({
                 playerTeamId : currentTeam
             });
@@ -256,18 +274,20 @@ MasterReport.propTypes = {
 };
 
 // Retrieves data from server and puts it into client's minimongo
-export default withTracker(() => {
+export default withTracker(({match}) => {
     const teamSubscription = Meteor.subscribe('teams.thisUserId');
     const athleteSubscription = Meteor.subscribe('athletes.thisTeamId');
     const teamLoading = !teamSubscription.ready();
     const athleteLoading = !athleteSubscription.ready();
     const teamsList = !teamLoading ? TeamsCollection.find().fetch() : [];
     const athletesList = !athleteLoading ? AthletesCollection.find().fetch() : [];
+    const teamId = match.params.teamId;
     // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
     // match: PropTypes.object.isRequired,
     // history: PropTypes.object.isRequired,
     console.log(teamsList);
     console.log(athletesList);
+    console.log(this.props);
 
     return {
         subscriptions: [teamSubscription, athleteSubscription],
@@ -275,5 +295,6 @@ export default withTracker(() => {
         athleteLoading,
         teamsList,
         athletesList,
+        teamId,
     };
 })(MasterReport);
