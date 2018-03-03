@@ -67,14 +67,14 @@ export default class LoginAlt extends React.Component {
                     <br/>
                     <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
                         <FormGroup>
-                            <input type="email" name="emailAddress" className="form-control" placeholder="Email Address"/>
+                            <input type="email" name="emailAddress" className="form-control email" placeholder="Email Address"/>
                         </FormGroup>
                         <FormGroup>
-                            <input type="password" name="password" className="form-control" placeholder="Password"/>
+                            <input type="password" name="password" className="form-control password" placeholder="Password"/>
                             <p id = "password"><Link to="">Forgot Password?</Link>.</p>
                         </FormGroup>
                         <FormGroup id = "LoginButtonContainer">
-                            <Button id="LoginButton" type="submit" bsStyle="primary">Login</Button><br/>
+                            <Button id="LoginButton" type="submit" bsStyle="primary" className="login">Login</Button><br/>
                             <p>{'Don\'t have an account?'} <Link to="/registration">Sign Up</Link>.</p>
                         </FormGroup>
                     </form>
