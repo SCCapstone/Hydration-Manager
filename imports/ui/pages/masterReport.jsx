@@ -143,7 +143,7 @@ class MasterReport extends React.Component {
             {
                 if(this.props.teamsList[i]._id==teamId)
                 {
-                    return this.props.teamsList[i].name + " " + this.props.teamsList[i].season;
+                    return ": " + this.props.teamsList[i].name + " " + this.props.teamsList[i].season;
                 }
             }
             // currentTeam = TeamsCollection.findOne({"_id": teamId});
@@ -213,35 +213,43 @@ class MasterReport extends React.Component {
 
         return (
             <div>
-                <h3>Master Report</h3>
                 <div className="MasterHeader">
-                    <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'Default'}>
-                        {this.teams().map((team)=>{return <MasterDropdownOfTeams key={team._id} team={team} />})}
-                    </DropdownButton>
-                    <span><Button onClick={this.open} bsStyle="primary">Create an Athlete</Button></span>
-                    <h1> {this.displayCurrentTeam()} </h1>
-               </div>
+                    <h3>Master Report {this.displayCurrentTeam()}</h3>
+                    <div className="MasterButtons">
+                        <Button onClick={this.open} bsStyle="primary">&#43; Create an Athlete</Button>
+                        <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'default'} className = "DropDown">
+                            {this.teams().map((team) => {
+                                return <MasterDropdownOfTeams key={team._id} team={team}/>
+                            })}
+                        </DropdownButton>
+                    </div>
+                </div>
                 <hr/>
                 <div>
-                    <Modal show={this.state.showModal} onHide={this.close} >
+                    <Modal show={this.state.showModal} onHide={this.close}>
                         <Modal.Header>
                             <Modal.Title>Athlete Entry Form</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <form>
                                 <FormGroup>
-                                    <FormControl placeholder='Player Name' label='Player Name' type='text' onChange={this.handleName}/>
-                                    <FormControl placeholder='Baseline Weight (lbs)' label='Base Weight' type='number' onChange={this.handleWeight}/>
-                                    <FormControl placeholder='Height (in)' label='Height' type='number' onChange={this.handleHeight}/>
-                                    <FormControl placeholder='Team' value={this.state.playerTeamId} componentClass="select" label='Team' onChange={this.handleTeam}>
-                                        {this.teams().map((team)=><option value={team._id} key={team._id}>{team.name} {team.season}</option>)}
+                                    <FormControl placeholder='Player Name' label='Player Name' type='text'
+                                                 onChange={this.handleName}/><br/>
+                                    <FormControl placeholder='Baseline Weight (lbs)' label='Base Weight' type='number'
+                                                 onChange={this.handleWeight}/><br/>
+                                    <FormControl placeholder='Height (in)' label='Height' type='number'
+                                                 onChange={this.handleHeight}/><br/>
+                                    <FormControl placeholder='Team' value={this.state.playerTeamId}
+                                                 componentClass="select" label='Team' onChange={this.handleTeam}>
+                                        {this.teams().map((team) => <option value={team._id}
+                                                                            key={team._id}>{team.name} {team.season}</option>)}
                                     </FormControl>
                                 </FormGroup>
                             </form>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button onClick={this.close} bsStyle="danger"> Close </Button>
-                            <Button onClick={this.addPlayer} bsStyle="success"> Create Athlete </Button>
+                            <Button onClick={this.close}> Close </Button>
+                            <Button onClick={this.addPlayer} bsStyle="primary"> Create Athlete </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
@@ -249,18 +257,18 @@ class MasterReport extends React.Component {
                 <div>
                     <br/>
                     <Table striped bordered condensed hover responsive className="teams">
-                      <thead>
-                      <tr>
-                          <th>Name</th>
-                          <th>Most Recent Weight Loss %</th>
-                          <th>Current Weight (lbs.)</th>
-                          <th>Base Weight (lbs.)</th>
-                          <th>Height (in.)</th>
-                      </tr>
-                      </thead>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Most Recent Weight Loss %</th>
+                            <th>Current Weight (lbs.)</th>
+                            <th>Base Weight (lbs.)</th>
+                            <th>Height (in.)</th>
+                        </tr>
+                        </thead>
                         <tbody>
                         {this.displayAthletes()}
-                            {/*{this.athletes().map((athlete)=>{return <AthleteSingle key={athlete._id} athlete={athlete} />})}*/}
+                        {/*{this.athletes().map((athlete)=>{return <AthleteSingle key={athlete._id} athlete={athlete} />})}*/}
                         </tbody>
                     </Table>
                 </div>

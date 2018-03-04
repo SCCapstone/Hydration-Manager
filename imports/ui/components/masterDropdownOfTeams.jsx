@@ -9,10 +9,10 @@ constructor(props) {
     super(props);
 }
   render() {
-    return (
-        <div>
-            <MenuItem><Link to ={{pathname: "/app/masterReport/" + this.props.team._id}}>{this.props.team.name} {this.props.team.season}</Link></MenuItem>
-        </div>
-    )
+      return (
+          <MenuItem>
+              <Link to={{pathname: "/app/masterReport/" + this.props.team._id}}> {this.props.team.name} {this.props.team.season}</Link>
+          </MenuItem>
+      )
   }
 }

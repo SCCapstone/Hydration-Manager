@@ -81,43 +81,48 @@ class WeightEntry extends React.Component {
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
             currentTeam = TeamsCollection.findOne({"_id": teamId});
-            return currentTeam.name + " " + currentTeam.season;
+            return ": " + currentTeam.name + " " + currentTeam.season;
         }
         else{
             return "";
         }
     }
+
     render() {
-        const { props } = this;
+        const {props} = this;
         return (
             <div>
-                <h3>Weight Entry</h3>
-                    <div className="WeightHeader">
-                    <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'Default'}>
-                           {this.teams().map((team)=>{return <WeightDropdownOfTeams key={team._id} team={team} />})}
+                <div className="WeightHeader">
+                    <h3>Weight Entry {this.displayCurrentTeam()}</h3>
+                    <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'default'}>
+                        {this.teams().map((team) => {
+                            return <WeightDropdownOfTeams key={team._id} team={team}/>
+                        })}
                     </DropdownButton>
-                    <h1>{this.displayCurrentTeam()}</h1>
                 </div>
                 <hr/>
                 <form>
                     <br/>
                     <div>
                         <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange}/>
-                    </div><br/>
-
+                    </div>
+                    <br/>
                     <div>
                         <label>
-                            <input type="radio" value="PreWeight" checked={this.state.selectedOption === 'PreWeight'} onChange={this.handleOptionChange}/>
+                            <input type="radio" value="PreWeight"
+                                   checked={this.state.selectedOption === 'PreWeight'}
+                                   onChange={this.handleOptionChange}/>
                             PreWeight
                         </label>
-                        <span>
-                            <label>
-                                <input type="radio" value="PostWeight" checked={this.state.selectedOption === 'PostWeight'} onChange={this.handleOptionChange.bind(this)}/>
-                                PostWeight
-                            </label>
-                        </span>
+                        <label>
+                            <input type="radio" value="PostWeight"
+                                   checked={this.state.selectedOption === 'PostWeight'}
+                                   onChange={this.handleOptionChange.bind(this)}/>
+                            PostWeight
+                        </label>
                     </div>
-                    <div>{/*Null comment*/}</div><br/><br/><br/>
+                    <div>{/*Null comment*/}</div>
+                    <br/><br/><br/>
                     <Table striped bordered condensed hover className="teams">
                         <thead>
                         <tr>

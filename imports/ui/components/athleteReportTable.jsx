@@ -209,7 +209,7 @@ class AthleteReportTable extends Component{
                         </Modal.Footer>
                     </Modal>
                 </div>
-                <Table bordered condensed hover responsive>
+                <Table bordered condensed responsive>
                     <thead>
                         <tr>
                             <th>Date</th>

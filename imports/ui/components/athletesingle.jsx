@@ -95,9 +95,7 @@ export default class AthleteSingle extends Component {
         }
         return (
             <tr>
-                <Link to={"/app/athlete/" + this.props.athlete._id}>
-                <td>{this.props.athlete.name}</td>
-                </Link>
+                <td><Link to={"/app/athlete/" + this.props.athlete._id}>{this.props.athlete.name}</Link></td>
                 <td>{hydrate}</td>
                 <td>{currentWeight}</td>
                 <td>{this.props.athlete.baseWeight}</td>
