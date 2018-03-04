@@ -21,6 +21,10 @@ Meteor.methods({
     }
   },
 
+  'teams.edit': function teamsUpdate() {
+
+  },
+
   'teams.remove': function removeTeam(id) {
     Teams.remove(id);
   }
