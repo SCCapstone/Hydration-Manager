@@ -3,12 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import autoBind from 'react-autobind';
-import { Table, DropdownButton } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 
 // Custom File Imports
-import AlertDropdownOfTeams from '../components/alertDropdownOfTeams.jsx';
 import AthletesCollection from '../../api/Athletes/Athletes.js';
-import TeamsCollection from '..//../api/Teams/Teams.js';
+import TeamsCollection from '../../api/Teams/Teams.js';
 import AthleteAlert from '../components/athleteAlert.jsx';
 
 class Alerts extends React.Component {
@@ -46,6 +45,8 @@ class Alerts extends React.Component {
                         preWeight = allAthletes[i].preWeightData[0].weight;
                         postWeight = allAthletes[i].postWeightData[0].weight;
                         hydration = (preWeight-postWeight)/preWeight*100;
+                        //hydration2 = (allAthletes[i].baseWeight[i]-postWeight)/allAthletes[i].baseWeight[i]*100;
+                        //if(hydration < -4 || hydration > 3 || hydration2 < -4 || hydration2 > 3)
                         if(hydration < -4 || hydration > 3)
                         {
                             redAthletes.push(allAthletes[i]);
@@ -68,6 +69,8 @@ class Alerts extends React.Component {
                         preWeight = allAthletes[i].preWeightData[0].weight;
                         postWeight = allAthletes[i].postWeightData[0].weight;
                         hydration = (preWeight-postWeight)/preWeight*100;
+                        //hydration2 = (allAthletes[i].baseWeight[i]-postWeight)/allAthletes[i].baseWeight[i]*100;
+                        //if(hydration >= -4 && hydration < -2 || hydration2 >= -4 || hydration2 < -2)
                         if(hydration >= -4 && hydration < -2)
                         {
                             yellowAthletes.push(allAthletes[i]);
