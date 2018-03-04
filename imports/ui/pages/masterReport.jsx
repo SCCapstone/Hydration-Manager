@@ -22,6 +22,7 @@ class MasterReport extends React.Component {
             weight: '',
             height: '',
             playerTeamId: '',
+            teamSelected: '',
         };
         // this.routeToReport = this.routeToReport.bind(this);
         // this.open = this.open.bind(this);
@@ -89,17 +90,17 @@ class MasterReport extends React.Component {
         const curUser = this.props.name;  //CurrentUser.findOne();
         const id = this.props.userId;  //curUser.userID;
         console.log(this.props.teamId);
-        if(this.props.teamId) {
+        if(this.props.teamId !== '') {
             teamId = this.props.teamId;
-            currentTeam = '';
-            // currentTeam = TeamsCollection.findOne({"_id": teamId});
-            for(i=0;i<this.props.teamsList.length; i++)
-            {
-                if(this.props.teamsList[i]._id == teamId)
-                {
-                    currentTeam = this.props.teamsList[i];
-                }
-            }
+            // currentTeam = '';
+            // // currentTeam = TeamsCollection.findOne({"_id": teamId});
+            // for(i=0;i<this.props.teamsList.length; i++)
+            // {
+            //     if(this.props.teamsList[i]._id == teamId)
+            //     {
+            //         currentTeam = this.props.teamsList[i];
+            //     }
+            // }
             currentAthletes = [];
             for(i=0;i<this.props.athletesList.length;i++)
             {
@@ -108,21 +109,21 @@ class MasterReport extends React.Component {
                     currentAthletes.push(this.props.athletesList[i]);
                 }
             }
-
             return currentAthletes;
-            // return AthletesCollection.find({teamId: currentTeam._id}).fetch();
+            // return AthletesCollection.find({teamId: this.props.teamId}).fetch();
         }
         else{
-            return null;
+            return this.props.athletesList;
         }
 
     }
     teams() {
-        const curUser = this.props.name;  //CurrentUser.findOne();
-        console.log(curUser);
-        const id = this.props.userId;  //curUser.userID;
-        console.log(id);
-        return TeamsCollection.find({user:id}).fetch();
+        // const curUser = this.props.name;  //CurrentUser.findOne();
+        // console.log(curUser);
+        // const id = this.props.userId;  //curUser.userID;
+        // console.log(id);
+        // return TeamsCollection.find({user:id}).fetch();
+        return this.props.teamsList;
     };
 
     displayAthletes() {
@@ -215,8 +216,8 @@ class MasterReport extends React.Component {
             <div>
                 <h3>Master Report</h3>
                 <div className="MasterHeader">
-                    <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'Default'}>
-                        {this.teams().map((team)=>{return <MasterDropdownOfTeams key={team._id} team={team} />})}
+                    <DropdownButton id={'Team Select'} title='Team Select' key={null} bsStyle={'Default'}>
+                        { this.teams().map((team)=>{return <MasterDropdownOfTeams key={team._id} team={team} />} ) }
                     </DropdownButton>
                     <span><Button onClick={this.open} bsStyle="primary">Create an Athlete</Button></span>
                     <h1> {this.displayCurrentTeam()} </h1>
@@ -276,23 +277,32 @@ MasterReport.propTypes = {
     teamsList: PropTypes.array,
     athletesList: PropTypes.array,
     teamId: PropTypes.string,
+    match: PropTypes.object.isRequired,
+    // setCurTeamToDisplay: PropTypes.func,
+    // curTeamToDisplay: PropTypes.object,
+    //-->{!this.props.curTeamToDisplay ? 'Team Select' : this.props.curTeamToDisplay}
 };
 
 // Retrieves data from server and puts it into client's minimongo
 export default withTracker(({match}) => {
     const teamSubscription = Meteor.subscribe('teams.thisUserId');
-    const athleteSubscription = Meteor.subscribe('athletes.thisTeamId');
+    const athleteSubscription = Meteor.subscribe('athletes.all');
     const teamLoading = !teamSubscription.ready();
     const athleteLoading = !athleteSubscription.ready();
     const teamsList = !teamLoading ? TeamsCollection.find().fetch() : [];
     const athletesList = !athleteLoading ? AthletesCollection.find().fetch() : [];
-    const teamId = match.params.teamId;
+    //const teamId = match.params.teamId;
+    const isTeamIdPassed = !match.params.teamId ? false : true;
+    const teamId = isTeamIdPassed ? match.params.teamId : '';  //( (teamsList.length > 0) ? teamsList[0]._id : '');
+
     // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
     // match: PropTypes.object.isRequired,
     // history: PropTypes.object.isRequired,
     console.log(teamsList);
     console.log(athletesList);
     console.log(athleteLoading);
+    console.log('teamId');
+    console.log(teamId);
 
     return {
         subscriptions: [teamSubscription, athleteSubscription],

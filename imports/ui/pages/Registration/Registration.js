@@ -81,6 +81,7 @@ class Registration extends React.Component {
   handleSubmit(form) {
     const { history } = this.props;
 
+    //TODO: move to proper format
     Accounts.createUser({
       email: form.emailAddress.value,
       password: form.password.value,
@@ -153,4 +154,3 @@ Registration.propTypes = {
 };
 
 export default withRouter(Registration);
-

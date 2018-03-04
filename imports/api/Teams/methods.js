@@ -7,6 +7,8 @@ import handleMethodException from '../../modules/handle-method-exception.js';
 
 
 Meteor.methods({
+
+
   'teams.insert': function teamsInsert(tname, tseason, tid) {
     console.log(tname);
     try {
@@ -21,11 +23,15 @@ Meteor.methods({
     }
   },
 
+
   'teams.remove': function removeTeam(id) {
     Teams.remove(id);
-  }
+  },
+
 
 });
+
+
 
 // rateLimit({
 //   methods: [
@@ -36,17 +42,3 @@ Meteor.methods({
 //   limit: 5,
 //   timeRange: 1000,
 // });
-
-
-// addNewTeam(teamName, teamSeason, id) {
-//   Teams.insert({
-//     name: teamName,
-//     season: teamSeason,
-//     user: id,
-//     createdAt: new Date()
-//   });
-// },
-//
-// deleteTm(id) {
-//   Teams.remove(id);
-// },

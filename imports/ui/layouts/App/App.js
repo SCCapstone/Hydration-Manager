@@ -28,12 +28,16 @@ import AppFooter from '../../components/AppFooter/AppFooter.js';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    //this.state = { routePastLogin: null };
+    // this.state = { curTeamToDisplay: null };
     autoBind(this);  //binds class methods to the component instance
   }
-
+  // setCurTeamToDisplay(newTeam) {
+  //   this.setState({curTeamToDisplay: newTeam})
+  //   //--> setCurTeamToDisplay={setCurTeamToDisplay} {...props} {...state}
+  // }
+  
     render() {
-        const {props} = this;
+        const { props, state, setCurTeamToDisplay } = this;
         return (
 
             <BrowserRouter>

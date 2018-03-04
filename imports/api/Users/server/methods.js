@@ -1,18 +1,25 @@
 // Package Imports
 import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
+import _ from 'lodash';
 
 // Custom File Imports
 import ROLES from '../roles';
-import editProfile from './edit-profile';
-import deleteAccount from './delete-account';
+// import editProfile from './edit-profile';
+// import deleteAccount from './delete-account';
+
+
+//TODO: Add error handling (in virtually all methods)
 
 Meteor.methods({
+
+  
   'users.addNewRole': function usersAddNewRole(targetId, roles) {
     Roles.setUserRoles(targetId,roles);
   },
+
 
   'users.changeRole': function usersChangeRole(updateInfo) {
     check(updateInfo, { _id: String, role: String });
@@ -24,39 +31,118 @@ Meteor.methods({
     }
   },
 
-  'users.updateRoles': function usersUpdateRoles (targetUserId, roles, group=null) {
-    var loggedInUser = Meteor.user()
 
+  'users.updateRoles': function usersUpdateRoles (targetUserId, roles, group=null) {
+    var loggedInUser = Meteor.user();
     if (!loggedInUser ||
         !Roles.userIsInRole(loggedInUser,
                             [ROLES.ADMIN], group)) {
-      throw new Meteor.Error(403, "Access denied")
+      throw new Meteor.Error(403, "Access denied");
     }
-
     Roles.setUserRoles(targetUserId, roles, group)
   },
+
 
   'users.sendVerificationEmail': function usersSendVerificationEmail() {
     return Accounts.sendVerificationEmail(this.userId);
   },
 
-  'users.editProfile': function usersEditProfile(profile) {
-    check(profile, {
-      emailAddress: String,
-      profile: {
-        name: {
-          first: String,
-          last: String,
-        },
-      },
+
+  // 'users.editProfile': function usersEditProfile(profile) {
+  //   check(profile, {
+  //     emailAddress: String,
+  //     profile: {
+  //       name: {
+  //         first: String,
+  //         last: String,
+  //       },
+  //     },
+  //   });
+  //   return editProfile({ userId: this.userId, profile })
+  // },
+
+
+  // Replaces - users.editProfile
+  'users.update': function usersUpdate(user_obj) {
+    check(user_obj, Match.Any);
+    const currentProfile = Meteor.users.findOne({ _id: user_obj.id });
+    const currentEmail = _.get(currentProfile, 'emails.0.address', '');
+    //Update Accounts emails info
+    if (currentEmail.toLowerCase() !== user_obj.email.toLowerCase()) {
+      Accounts.addEmail(user_obj.id, user_obj.email);
+      Accounts.removeEmail(user_obj.id, currentEmail);
+    }
+    Meteor.users.update(user_obj.id, {
+      $set: {
+        'emails.0.address': user_obj.email,
+        'profile.name.first': user_obj.firstName,
+        'profile.name.last': user_obj.lastName
+      }
     });
-    return editProfile({ userId: this.userId, profile })
+    Roles.setUserRoles(user_obj.id, user_obj.roles);
+  },
+  /*    |--> Example Usage of 'users.update':
 
+              const user_obj = {
+                id: this.state.id,
+                email: this.state.email,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                roles: this.state.roles,
+              };
+              Meteor.call('updateUser', user_obj, (error) =>{..........
+  */
+
+  // Password required
+  'users.createNew_WithPswd': function usersCreateNewWithPswd(user_obj) {
+    check(user_obj, {email: String, password: String, role: String, name: String, lastName: String});
+    const user_info = {
+      email: user_obj.email,
+      password: user_obj.password
+    };
+    // on server: returns id if
+    // on client(see Registration.js): logs in newly created user, has callback
+    const id = Accounts.createUser(user_info);
+    Meteor.users.update({_id: id}, {
+      $set: {
+        profile: {
+          name: {first: user_obj.name, last: user_obj.lastName}
+        }
+      }
+    });
+    Roles.setUserRoles(id, [user_obj.role]);
   },
 
-  'users.deleteAccount': function usersDeleteAccount() {
-    return deleteAccount({ userId: this.userId })
 
+  // For Creating New User w/No Password (pswd selected later by user, possibly thru email)
+  // -- User cannot log in until password set (eg, with Accounts.setPassword)
+  'users.createNew_NoPswd': function usersCreateNewNoPswd(user_obj) {
+    check(user_obj, {email: String, role: String, name: String, lastName: String});
+    const user_info = {
+      email: user_obj.email
+    };
+    const id = Accounts.createUser(user_info);
+    Meteor.users.update({_id: id}, {
+      $set: {
+        profile: {
+          name: {first: user_obj.name, last: user_obj.lastName}
+        }
+      }
+    });
+    Roles.setUserRoles(id, [user_obj.role]);
+    // Send email with link for user to set their initial password.
+    if (Meteor.isServer) {
+      Accounts.sendEnrollmentEmail(id);
+    }
   },
+
+
+
+  'users.deleteAccount': function usersDeleteAccount(userID) {
+    //TODO: Add error handling
+    Meteor.users.remove(userId);
+  },
+
+
 
 });
