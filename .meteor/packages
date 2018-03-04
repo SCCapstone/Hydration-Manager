@@ -33,4 +33,3 @@ dynamic-import
 # autopublish
 accounts-ui
 accounts-password
-reactive-dict

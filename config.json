@@ -1,5 +1,6 @@
 {
-  "GCLOUD_PROJECT": "[hydration-manager-197021]",
+  "GCLOUD_PROJECT": "hydration-manager-197021",
   "DATA_BACKEND": "mongodb",
-  "MONGO_URL": "[mongodb://<dbuser>:<dbpassword>@ds251598.mlab.com:51598/hydration_manager]"
+  "MONGO_URL": "mongodb://<dbuser>:<dbpassword>@ds251598.mlab.com:51598/hydration_manager",
+  "MONGO_COLLECTION": ["Athletes", "Teams", "Users"]
 }

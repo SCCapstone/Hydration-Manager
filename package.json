@@ -3,9 +3,6 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "dist": "npm run meteor build ../ --directory --architecture os.linux.x86_64 --server-only",
-    "predeploy": "npm run dist && cp app.yaml ../bundle/ && cp Dockerfile ../bundle/",
-    "deploy": "npm run predeploy && (cd ../bundle && gcloud app deploy -q)",
     "chimp-watch": "chimp --ddp=http://localhost:3000 --watch --mocha --path=tests/users",
     "chimp-test": "chimp --mocha --path=tests/users"
   },
