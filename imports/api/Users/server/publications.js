@@ -5,10 +5,12 @@ import { Roles } from 'meteor/alanning:roles';
 // Custom File Imports
 import ROLES from '../roles';
 
-Meteor.publish('users.roles', () => Roles.getAllRoles());
+Meteor.publish('users.roles', () => Roles.getAllRoles() );
 
-Meteor.publish('users', function users() {
-  if (Roles.userIsInRole(this.userId, [ROLES.ADMIN]) ) {
+Meteor.publish('users.ifAdmin', function usersIfAdmin() {
+  userRole = Roles.getRolesForUser(this.userId);
+  //if (Roles.userIsInRole(this.userId, [ROLES.ADMIN]) ) {
+  if (userRole.includes('ADMIN')) {
     return [
       Meteor.users.find({}, { fields: { emails: 1, roles: 1 } }),
       Roles.getAllRoles(),
@@ -16,3 +18,5 @@ Meteor.publish('users', function users() {
   }
   return this.ready();
 });
+
+Meteor.publish('users.all', () => Meteor.users.find({}) );
