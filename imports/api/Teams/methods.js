@@ -22,7 +22,7 @@ Meteor.methods({
     }
   },
 
-    'teams.edit': function editAthlete(id, nm, s) {
+    'teams.edit': function editTeams(id, nm, s) {
         Teams.update(
             { _id: id },
             {

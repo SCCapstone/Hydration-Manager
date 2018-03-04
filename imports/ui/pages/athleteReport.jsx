@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 // Custom File Imports
 import AthletesCollection from '../../api/Athletes/Athletes.js';
-import TeamsCollection from '..//../api/Teams/Teams.js';
+import TeamsCollection from '../../api/Teams/Teams.js';
 
 import AthleteReportTable from '../components/athleteReportTable';
 
@@ -147,7 +147,7 @@ class AthleteReport extends Component {
             this.setState({height: e.target.value});
         }
 
-        handleEditButtonClick(aDate) {
+        handleEditButtonClick() {
             this.open();
         }
 

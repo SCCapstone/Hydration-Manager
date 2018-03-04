@@ -2,6 +2,11 @@
 import React, { Component } from 'react'
 import { Button, Form, FormControl, FormGroup, Modal, DropdownButton, MenuItem} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import autoBind from 'react-autobind';
+
+
+// Custom File Imports
+import TeamsCollection from '../../api/Teams/Teams.js';
 
 export default class ListOfTeams extends Component {
 
@@ -10,15 +15,18 @@ export default class ListOfTeams extends Component {
         this.state = {
             showModal: false,
             showEditModal: false,
-            name: '',
-            season: '',
+            teamEditName: '',
+            editSeason: '',
+            teamID: '',
         };
-        this.routeToReport = this.routeToReport.bind(this);
+        autoBind(this);
+/*        this.routeToReport = this.routeToReport.bind(this);
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
         this.openEdit = this.openEdit.bind(this)
         this.closeEdit = this.closeEdit.bind(this)
         this.deleteTeam = this.deleteTeam.bind(this);
+*/
     }
 
     routeToReport() {
@@ -49,19 +57,20 @@ export default class ListOfTeams extends Component {
         Meteor.call('teams.edit', this.props.team._id)
     }
 
-    handleName = (e) => {
-        this.setState({name: e.target.value});
+    handleEditName = (e) => {
+        this.setState({teamEditName: e.target.value});
     }
 
     handleSeason = (e) => {
-        this.setState({season: e.target.value});
+        this.setState({editSeason: e.target.value});
     }
+
 
     editEntry() {
         event.preventDefault();
-        const pID = this.team._id;
-        const nm = this.state.name;
-        const s = this.state.season;
+        const pID = this.props.team._id;
+        const nm = this.state.teamEditName;
+        const s = this.state.editSeason;
         if(pID == '' || nm == '' || s == '')
         {
             window.alert("Make sure to complete all fields for editing.");
@@ -72,8 +81,8 @@ export default class ListOfTeams extends Component {
                 Bert.alert('team edited', 'success', 'fixed-top', 'fa-check');
 
                 this.setState({
-                    name: '',
-                    season: '',
+                    teamEditName: '',
+                    editSeason: '',
                 })
                 this.closeEdit();
             });
@@ -142,13 +151,13 @@ export default class ListOfTeams extends Component {
                         <Modal.Body>
                             <form>
                                 <FormGroup>
-                                    <FormControl placeholder='Name' label='name' type='text' onChange={this.handleName}/>
+                                    <FormControl placeholder='Name' label='name' type='text' onChange={this.handleEditName}/>
                                     <FormControl placeholder='Season' label='season' type='text' onChange={this.handleSeason}/>
                                 </FormGroup>
                             </form>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button onClick={this.close} bsStyle="danger">Close</Button>
+                            <Button onClick={this.closeEdit} bsStyle="danger">Close</Button>
                             <Button onClick={this.editEntry} bsStyle="success">Complete Team Edit</Button>
                         </Modal.Footer>
                     </Modal>
