@@ -9,7 +9,7 @@ import { DropdownButton, MenuItem, Table } from 'react-bootstrap';
 // Custom File Imports
 import WeightDropdownOfTeams from '../components/weightDropdownOfTeams.jsx';
 import AthletesCollection from '../../api/Athletes/Athletes.js';
-import TeamsCollection from '..//../api/Teams/Teams.js';
+import TeamsCollection from '../../api/Teams/Teams.js';
 import AthleteEntryList from '../components/athlete_entry_list.jsx';
 
 
@@ -62,7 +62,7 @@ class WeightEntry extends React.Component {
             return AthletesCollection.find({teamId: currentTeam._id}).fetch();
         }
         else{
-            return null;
+            return AthletesCollection.find().fetch();
         }
     };
 

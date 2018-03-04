@@ -198,9 +198,9 @@ class AthleteReport extends Component {
                             <Modal.Body>
                                 <form>
                                     <FormGroup>
-                                        <FormControl placeholder='Name' label='Name' type='string' onChange={this.handleName}/>
-                                        <FormControl placeholder='Height' label='Height' type='number' onChange={this.handleHeight}/>
-                                        <FormControl placeholder='BaseWeight' label='Weight' type='number' onChange={this.handleWeight}/>
+                                        <FormControl placeholder={this.athlete().name} label='Name' type='string' onChange={this.handleName}/>
+                                        <FormControl placeholder={this.athlete().height} label='Height' type='number' onChange={this.handleHeight}/>
+                                        <FormControl placeholder={this.athlete().baseWeight} label='Weight' type='number' onChange={this.handleWeight}/>
                                     </FormGroup>
                                 </form>
                             </Modal.Body>
