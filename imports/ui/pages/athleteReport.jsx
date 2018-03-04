@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 // Custom File Imports
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 import TeamsCollection from '..//../api/Teams/Teams.js';
-import { Teams } from '../../api/teams.jsx';
 
 import AthleteReportTable from '../components/athleteReportTable';
 

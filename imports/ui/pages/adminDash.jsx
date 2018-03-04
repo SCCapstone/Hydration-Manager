@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { Roles } from 'meteor/alanning:roles';
 import { Table } from 'react-bootstrap';
-import ROLES from '../../../api/Users/roles';
+import ROLES from '../../api/Users/roles';
 
 class AdminDash extends Component {
   constructor(props) {
@@ -54,6 +54,7 @@ class AdminDash extends Component {
   render() {
     return this.showLoading() || (
       <div>
+          <p>Admin Page</p>
         <Table className="AdminTable" striped bordered condensed hover responsive >
           <thead>
             <tr>
