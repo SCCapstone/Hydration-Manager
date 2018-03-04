@@ -22,6 +22,9 @@ class AthleteReport extends Component {
         // this.athlete = this.athlete.bind(this);
     }
 
+    routeToMaster() {
+        window.location = "/app/masterReport/";
+    }
 
     showCurrentWeight() {
         preWeightDate = null;
@@ -125,20 +128,28 @@ class AthleteReport extends Component {
         if(this.props.athleteLoading || this.props.teamLoading){
             return null;
         }
-        return (
-            <div>
-                <Link to = {"/app/masterReport/" + this.team()._id}><Button bsStyle="primary">&lt; Back to {this.team().name} {this.team().season}</Button></Link>
-                <h3>Athlete Report</h3>
-                {/*TODO: Create component for the basic info*/}
-                <h4>{this.athlete().name}</h4>
-                <h5>Team: {this.team().name} {this.team().season}</h5>
-                <h5>Height: {this.athlete().height} in.</h5>
-                <h5>Base Weight: {this.athlete().baseWeight} lbs.</h5>
-                <h5>Current Weight: {this.showCurrentWeight()} lbs.</h5>
-                <h5>Total Weight Change: {this.calcLoss()} lbs.</h5>
-                <AthleteReportTable athlete={this.athlete()}/>
-            </div>
-        )
+        for(i=0;i < this.props.athletesList.length;i++)
+        {
+            if(this.props.athletesList[i]._id == this.props.athleteId)
+            {
+                return (
+                    <div>
+                        <Link to = {"/app/masterReport/" + this.team()._id}><Button bsStyle="primary">&lt; Back to {this.team().name} {this.team().season}</Button></Link>
+                        <h3>Athlete Report</h3>
+                        {/*TODO: Create component for the basic info*/}
+                        <h4>{this.athlete().name}</h4>
+                        <h5>Team: {this.team().name} {this.team().season}</h5>
+                        <h5>Height: {this.athlete().height} in.</h5>
+                        <h5>Base Weight: {this.athlete().baseWeight} lbs.</h5>
+                        <h5>Current Weight: {this.showCurrentWeight()} lbs.</h5>
+                        <h5>Total Weight Change: {this.calcLoss()} lbs.</h5>
+                        <AthleteReportTable athlete={this.athlete()}/>
+                    </div>
+                )
+            }
+        }
+        return this.routeToMaster();
+
     }
 }
 
