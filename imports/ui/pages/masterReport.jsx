@@ -223,7 +223,6 @@ class MasterReport extends React.Component {
                             {this.teams().map((team) => {
                                 return <MasterDropdownOfTeams key={team._id} team={team}/>
                             })}
-                            <MenuItem divider />
                             <MenuItem>
                               <Link to ={ {pathname: "/app/masterReport/"} }> All Athletes </Link>
                             </MenuItem>

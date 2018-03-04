@@ -1,9 +1,10 @@
 // Package Imports
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withTracker} from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import autoBind from 'react-autobind';
-import { DropdownButton, Table } from 'react-bootstrap';
+import { Link } from 'react-router-dom'
+import { DropdownButton, MenuItem, Table } from 'react-bootstrap';
 
 // Custom File Imports
 import WeightDropdownOfTeams from '../components/weightDropdownOfTeams.jsx';
@@ -98,6 +99,9 @@ class WeightEntry extends React.Component {
                         {this.teams().map((team) => {
                             return <WeightDropdownOfTeams key={team._id} team={team}/>
                         })}
+                        <MenuItem>
+                            <Link to ={ {pathname: "/app/weightEntry/"} }> All Athletes </Link>
+                        </MenuItem>
                     </DropdownButton>
                 </div>
                 <hr/>
@@ -152,7 +156,7 @@ WeightEntry.propTypes = {
 // Retrieves data from server and puts it into client's minimongo
 export default withTracker(() => {
     const teamSubscription = Meteor.subscribe('teams.thisUserId');
-    const athleteSubscription = Meteor.subscribe('athletes.thisTeamId');
+    const athleteSubscription = Meteor.subscribe('athletes.all');
     const teamLoading = !teamSubscription.ready();
     const athleteLoading = !athleteSubscription.ready();
     const teamsList = !teamLoading ? TeamsCollection.find().fetch() : [];
