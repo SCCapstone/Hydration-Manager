@@ -18,15 +18,14 @@ constructor(props) {
 //   // --> onSelect={ () => this.handleTeamChange(this.props.team.name) }
 // }
 
-  render() {
-    return (
-        <div>
-            <MenuItem >
-              <Link to ={{pathname: "/app/masterReport/" + this.props.team._id}}>{this.props.team.name} {this.props.team.season}</Link>
+    render() {
+        return (
+            <MenuItem>
+                <Link
+                    to={{pathname: "/app/masterReport/" + this.props.team._id}}>{this.props.team.name} {this.props.team.season}</Link>
             </MenuItem>
-        </div>
-    )
-  }
+        )
+    }
 }
 
 // MasterDropdownOfTeams.propTypes = {
