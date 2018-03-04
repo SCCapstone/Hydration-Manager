@@ -167,7 +167,9 @@ class AthleteReport extends Component {
                     Bert.alert('athlete edited', 'success', 'fixed-top', 'fa-check');
 
                     this.setState({
-
+                        name: '',
+                        base: '',
+                        height: '',
                     })
                     this.close();
                 });

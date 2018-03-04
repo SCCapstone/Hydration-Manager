@@ -96,24 +96,7 @@ class YourTeams extends React.Component {
             teamSeason: e.target.value
         });
     }
-/*
-    FieldGroup({id, label, help, ...props}) {
-        return (
-            <FormGroup controlId={id}>
-                <ControlLabel>{label}</ControlLabel>
-                <FormControl {...props}/>
-                {help && <HelpBlock>{help}</HelpBlock>}
-            </FormGroup>
-        );
-    }
-    formInstance = (
-        <form>
-            <FieldGroup id="formControlsTeam" type="text" label="text"/>
-            <FieldGroup id="formControlsSeason" type="text" label="text"/>
-            <Button type="submit">Submit</Button>
-        </form>
-    );
-*/
+
 
     render() {
         return (

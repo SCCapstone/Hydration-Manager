@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 // Custom File Imports
 import Teams from './Teams.js';
 import handleMethodException from '../../modules/handle-method-exception.js';
+import Athletes from "../Athletes/Athletes";
 
 
 Meteor.methods({
@@ -21,9 +22,14 @@ Meteor.methods({
     }
   },
 
-  'teams.edit': function teamsUpdate() {
-
-  },
+    'teams.edit': function editAthlete(id, nm, s) {
+        Teams.update(
+            { _id: id },
+            {
+                $set: { name: nm, season: s }
+            }
+        );
+    },
 
   'teams.remove': function removeTeam(id) {
     Teams.remove(id);

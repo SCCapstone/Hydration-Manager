@@ -1,6 +1,6 @@
 // Package Imports
 import React, { Component } from 'react'
-import { Button, Modal, DropdownButton, MenuItem} from 'react-bootstrap';
+import { Button, Form, FormControl, FormGroup, Modal, DropdownButton, MenuItem} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export default class ListOfTeams extends Component {
@@ -9,7 +9,9 @@ export default class ListOfTeams extends Component {
         super(props);
         this.state = {
             showModal: false,
-            showEditModal: false
+            showEditModal: false,
+            name: '',
+            season: '',
         };
         this.routeToReport = this.routeToReport.bind(this);
         this.open = this.open.bind(this);
@@ -47,8 +49,41 @@ export default class ListOfTeams extends Component {
         Meteor.call('teams.edit', this.props.team._id)
     }
 
+    handleName = (e) => {
+        this.setState({name: e.target.value});
+    }
+
+    handleSeason = (e) => {
+        this.setState({season: e.target.value});
+    }
+
+    editEntry() {
+        event.preventDefault();
+        const pID = this.team._id;
+        const nm = this.state.name;
+        const s = this.state.season;
+        if(pID == '' || nm == '' || s == '')
+        {
+            window.alert("Make sure to complete all fields for editing.");
+        }
+        else {
+            Meteor.call('teams.edit', pID, nm, s, () => {
+                Bert.defaults = {hideDelay: 4500};
+                Bert.alert('team edited', 'success', 'fixed-top', 'fa-check');
+
+                this.setState({
+                    name: '',
+                    season: '',
+                })
+                this.closeEdit();
+            });
+        }
+
+        this.close();
+    }
+
     /*TODO: FINISH THESE METHODS*/
-    handleEditField(event) {
+/*    handleEditField(event) {
         if (event.keyCode === 13) {
             let target = event.target,
                 update = {};
@@ -69,12 +104,12 @@ export default class ListOfTeams extends Component {
             season: this.refs[`season_${ teamId }`].value,
         });
     }
-
+*/
     render() {
         return (
             <div className="CardContainer">
                 <div className="card">
-                    <DropdownButton id="close">
+                    <DropdownButton id="close" title="">
                         <MenuItem onClick={this.openEdit}>Edit Team</MenuItem>
                         <MenuItem onClick={this.open}>Delete Team</MenuItem>
                     </DropdownButton>
@@ -100,29 +135,21 @@ export default class ListOfTeams extends Component {
                     </Modal>
                 </div>
                 <div>
-                    <Modal show={this.state.showEditModal} onHide={this.closeEdit}>
+                    <Modal show={this.state.showEditModal} onHide={this.closeEdit} >
                         <Modal.Header>
-                            <Modal.Title>Edit Team</Modal.Title>
+                            <Modal.Title>Team Edit</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <form>
-                                <div className="form-group">
-                                    <label>Team Name</label>
-                                    <input onKeyDown={this.handleEditField} type="text" className="form-control"
-                                           ref={this.props.team._id}
-                                           name="teamName" defaultValue={this.props.team.name}/>
-                                </div>
-                                <div className="form-group">
-                                    <label>Season</label>
-                                    <input onKeyDown={this.handleEditField} type="text" className="form-control"
-                                           ref={this.props.team._id}
-                                           name="teamName" defaultValue={this.props.team.season}/>
-                                </div>
+                                <FormGroup>
+                                    <FormControl placeholder='Name' label='name' type='text' onChange={this.handleName}/>
+                                    <FormControl placeholder='Season' label='season' type='text' onChange={this.handleSeason}/>
+                                </FormGroup>
                             </form>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button onClick={this.closeEdit}> Close </Button>
-                            <Button onClick={this.handleEditTeam} bsStyle="warning"> Update Team </Button> {/*TODO: FINISH handleEditTeam METHOD*/}
+                            <Button onClick={this.close} bsStyle="danger">Close</Button>
+                            <Button onClick={this.editEntry} bsStyle="success">Complete Team Edit</Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
