@@ -146,6 +146,9 @@ a:hover{
     text-decoration: none;
     color: #000;
 }
+.WeightRadioButtons label{
+    margin: 5px;
+}
 
 /*Master Report Page CSS */
 .MasterHeader{
@@ -293,6 +296,9 @@ a:hover{
     .MasterHeader button{
         float: none;
         vertical-align: middle;
+    }
+    .WeightRadioButtons label{
+        margin-left: 7.5px;
     }
 }
 @media only screen and (min-width: 827px){
