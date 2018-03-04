@@ -9,7 +9,6 @@ import { Table, DropdownButton } from 'react-bootstrap';
 import AlertDropdownOfTeams from '../components/alertDropdownOfTeams.jsx';
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 import TeamsCollection from '..//../api/Teams/Teams.js';
-import { Teams } from '../../api/teams.jsx';
 import AthleteAlert from '../components/athleteAlert.jsx';
 
 class Alerts extends React.Component {
@@ -109,22 +108,14 @@ class Alerts extends React.Component {
         render() {
             return (
                 <div>
-                    <span><h3>Alerts</h3></span>
-                    <div className="AlertsHeader">
-                        {/*<span>*/}
-                            {/*<DropdownButton id={'Team Select'} title={'Team Select'} noCaret>*/}
-                                {/*{this.teams().map((team)=>{return <AlertDropdownOfTeams key={team._id} team={team} />})}*/}
-                            {/*</DropdownButton>*/}
-                        {/*</span>*/}
-                        {/*<h1> {this.displayCurrentTeam()} </h1>*/}
-                    </div>
+                    <h3>Alerts</h3>
                     <hr/>
                     <div>
-                        <div className="redBack">
+                        <div>
                         <br/>
                         {/*TODO: Able to click on athlete to go athlete report screen*/}
                         <h4>Red Athletes</h4>
-                        <Table striped bordered condensed hover responsive className="red">
+                        <Table bordered condensed responsive>
                             <thead>
                             <tr>
                                 <th>Name</th>
@@ -132,15 +123,15 @@ class Alerts extends React.Component {
                                 <th>Weight Loss %</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="redBack">
                             {this.redAthletes().map((athlete)=>{return <AthleteAlert key={athlete._id} athlete={athlete} teamsList={this.props.teamsList}/>})}
                             </tbody>
                         </Table>
                         </div>
                         <br/><br/>
-                        <div className="yellowBack">
+                        <div>
                         <h4>Yellow Athletes</h4>
-                        <Table striped bordered condensed hover responsive className="yellow">
+                        <Table bordered condensed responsive>
                             <thead>
                             <tr>
                                 <th>Name</th>
@@ -148,14 +139,13 @@ class Alerts extends React.Component {
                                 <th>Weight Loss %</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="yellowBack">
                             {this.yellowAthletes().map((athlete)=>{return <AthleteAlert key={athlete._id} athlete={athlete} teamsList={this.props.teamsList}/>})}
                             </tbody>
                         </Table>
                         </div>
                     </div>
                 </div>
-
                 )
         }
 }

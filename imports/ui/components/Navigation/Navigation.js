@@ -29,44 +29,42 @@ Profile not currently working, will get 404 errors when trying to logout from th
 -anthony
 */
 const Navigation = props => (
-  <div>
-  <Navbar className="NavClass">
-    <Navbar.Header>
-      <Navbar.Brand>
-        Hydration Manager
-      </Navbar.Brand>
-      <Navbar.Toggle />
-    </Navbar.Header>
-    <Navbar.Collapse>
+    <div>
+      <Navbar inverse collapseOnSelect>
+        <Navbar.Header>
+          <Navbar.Brand>
+            Hydration Manager
+          </Navbar.Brand>
+          <Navbar.Toggle/>
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav>
+            <LinkContainer to={"/app/weightEntry"}>
+              <NavItem eventKey={1} href="/app/weightEntry">Weight Entry</NavItem>
+            </LinkContainer>
+            <LinkContainer to={"/app/masterReport"}>
+              <NavItem eventKey={2} href="/app/masterReport">Master Report</NavItem>
+            </LinkContainer>
+            <LinkContainer to={"/app/yourTeams"}>
+              <NavItem eventKey={3} href="/app/yourTeams">Your Teams</NavItem>
+            </LinkContainer>
+            <LinkContainer to={"/app/alerts"}>
+              <NavItem eventKey={4} href="/app/alerts">Alerts</NavItem>
+            </LinkContainer>
+          </Nav>
 
-      <Nav>
-        <LinkContainer to={"/app/weightEntry"}>
-          <NavItem eventKey={1} href="/app/weightEntry">Weight Entry</NavItem>
-        </LinkContainer>
-        <LinkContainer to={"/app/masterReport"}>
-          <NavItem eventKey={2} href="/app/masterReport">Master Report</NavItem>
-        </LinkContainer>
-        <LinkContainer to={"/app/yourTeams"}>
-          <NavItem eventKey={3} href="/app/yourTeams">Your Teams</NavItem>
-        </LinkContainer>
-        <LinkContainer to={"/app/alerts"}>
-          <NavItem eventKey={4} href="/app/alerts">Alerts</NavItem>
-        </LinkContainer>
-      </Nav>
-
-      <Nav pullRight>
-        <NavDropdown eventKey={5} title={props.name} id="user-dropdown">
-          {props.userRoles[0] === "ADMIN" ?
-            <LinkContainer to="/app/adminDash">
-              <NavItem eventKey={5.1} href="/app/AdminDash">Admin</NavItem>
-            </LinkContainer> : ''}
-          <MenuItem eventKey={5.2} onClick={() => Meteor.logout() }>Logout</MenuItem>
-        </NavDropdown>
-      </Nav>
-
-    </Navbar.Collapse>
-  </Navbar>
-  </div>
+          <Nav pullRight>
+            <NavDropdown eventKey={5} title={props.name} id="user-dropdown">
+                {props.userRoles[0] === "ADMIN" ?
+                    <LinkContainer to="/app/adminDash">
+                      <NavItem eventKey={5.1} href="/app/adminDash">Admin</NavItem>
+                    </LinkContainer> : ''}
+              <MenuItem eventKey={5.2} onClick={() => Meteor.logout()}>Logout</MenuItem>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    </div>
 );
 
 //props.userRoles[0]

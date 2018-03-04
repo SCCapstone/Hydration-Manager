@@ -96,24 +96,7 @@ class YourTeams extends React.Component {
             teamSeason: e.target.value
         });
     }
-/*
-    FieldGroup({id, label, help, ...props}) {
-        return (
-            <FormGroup controlId={id}>
-                <ControlLabel>{label}</ControlLabel>
-                <FormControl {...props}/>
-                {help && <HelpBlock>{help}</HelpBlock>}
-            </FormGroup>
-        );
-    }
-    formInstance = (
-        <form>
-            <FieldGroup id="formControlsTeam" type="text" label="text"/>
-            <FieldGroup id="formControlsSeason" type="text" label="text"/>
-            <Button type="submit">Submit</Button>
-        </form>
-    );
-*/
+
 
     render() {
         return (
@@ -131,8 +114,10 @@ class YourTeams extends React.Component {
                         <Modal.Body>
                             <form>
                                 <FormGroup>
-                                    <FormControl placeholder='Team Name' label='Team Name' type='text' onChange={this.handleTeam}/><br/>
-                                    <FormControl placeholder='Season' label='Season' type='text' onChange={this.handleSeason}/>
+                                    <FormControl placeholder='Team Name' label='Team Name' type='text'
+                                                 onChange={this.handleTeam}/><br/>
+                                    <FormControl placeholder='Season' label='Season' type='text'
+                                                 onChange={this.handleSeason}/>
                                 </FormGroup>
                             </form>
                         </Modal.Body>
@@ -142,13 +127,12 @@ class YourTeams extends React.Component {
                         </Modal.Footer>
                     </Modal>
                 </div>
-                <div>
-                    <br/>
-                    <ListGroup className="teams">
-                        {this.props.teamsList.map((team)=>{return <ListOfTeams key={team._id} team={team} />})}
-                    </ListGroup>
-
-                </div>
+                <br/>
+                <ul className="ListOfTeams">
+                    {this.props.teamsList.map((team) => {
+                        return <ListOfTeams key={team._id} team={team}/>
+                    })}
+                </ul>
             </div>
         )
     }
@@ -177,47 +161,3 @@ export default withTracker(() => {
   };
 })(YourTeams);
 
-
-    /*
-    render () {
-        return (
-            <div>
-                <br/>
-                <div>
-                    <span className = "mui--pull-left"><h3>Your Team's</h3></span>
-                    <span className = "mui--pull-right"><Button onClick={this.open} color="primary" variant="raised">Create a Team</Button></span>
-                </div>
-                <div>
-                    <Modal show={this.state.showModal} onHide={this.close} >
-                        <Modal.Header>
-                            <Modal.Title>Team Entry Form</Modal.Title>
-                        </Modal.Header>
-
-                        <Modal.Body>
-                            <form>
-                                <input ref={el => {this.team = el;}} required = {true} />
-                                <input ref={el => {this.season = el;}} required = {true} />
-                            </form>
-                            <form>
-                                <FormControl type='input' value={el => {this.team = el;}}></FormControl>
-                                <FormControl type='input' value={el => {this.season = el;}}></FormControl>
-                            </form>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button onClick={this.close} variant="raised"> Close </Button>
-                            <Button onClick={this.addTeam} variant="raised" color="primary"> Create Team </Button>
-                        </Modal.Footer>
-                    </Modal>
-                </div>
-                <br/>
-                <div className="mui--divider-top">
-                    <br/>
-                    <ListGroup className="teams">
-                        {this.teams().map((team)=>{return <ListOfTeams key={team._id} team={team} />})}
-                    </ListGroup>
-                </div>
-            </div>
-        )
-    }
-}
-*/

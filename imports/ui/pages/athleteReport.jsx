@@ -3,25 +3,33 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import autoBind from 'react-autobind';
-import { Button } from 'react-bootstrap';
+import { Button, FormControl, FormGroup, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 // Custom File Imports
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 import TeamsCollection from '..//../api/Teams/Teams.js';
-import { Teams } from '../../api/teams.jsx';
 
 import AthleteReportTable from '../components/athleteReportTable';
 
 class AthleteReport extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            showModal : false,
+            name: '',
+            base: '',
+            height: '',
+        };
         autoBind(this);
 
         // this.deleteAthlete = this.deleteAthlete.bind(this);
         // this.athlete = this.athlete.bind(this);
     }
 
+    routeToMaster() {
+        window.location = "/app/masterReport/";
+    }
 
     showCurrentWeight() {
         preWeightDate = null;
@@ -59,7 +67,7 @@ class AthleteReport extends Component {
         }
         else
         {
-            return null;
+            return this.athlete().baseWeight;
         }
     }
 
@@ -118,6 +126,58 @@ class AthleteReport extends Component {
         }
     }
 
+        open() {
+            this.setState({
+                showModal: true,
+            });
+        }
+        close() {
+            this.setState({ showModal: false });
+        }
+
+        handleName = (e) => {
+            this.setState({name: e.target.value});
+        }
+
+        handleWeight = (e) => {
+            this.setState({base: e.target.value});
+        }
+
+        handleHeight = (e) => {
+            this.setState({height: e.target.value});
+        }
+
+        handleEditButtonClick(aDate) {
+            this.open();
+        }
+
+        editEntry() {
+            event.preventDefault();
+            const pId = this.props.athleteId;
+            const nm = this.state.name;
+            const bw = this.state.base;
+            const h = this.state.height;
+            if(pId == '' || nm == '' || bw == '')
+            {
+                window.alert("Make sure to complete all fields for editing.");
+            }
+            else {
+                Meteor.call('athletes.edit', pId, nm, h, bw, () => {
+                    Bert.defaults = {hideDelay: 4500};
+                    Bert.alert('athlete edited', 'success', 'fixed-top', 'fa-check');
+
+                    this.setState({
+                        name: '',
+                        base: '',
+                        height: '',
+                    })
+                    this.close();
+                });
+            }
+
+            this.close();
+        }
+
     render() {
         athlete = this.athlete;
         team = this.team;
@@ -125,20 +185,46 @@ class AthleteReport extends Component {
         if(this.props.athleteLoading || this.props.teamLoading){
             return null;
         }
-        return (
-            <div>
-                <Link to = {"/app/masterReport/" + this.team()._id}><Button bsStyle="primary">&lt; Back to {this.team().name} {this.team().season}</Button></Link>
-                <h3>Athlete Report</h3>
-                {/*TODO: Create component for the basic info*/}
-                <h4>{this.athlete().name}</h4>
-                <h5>Team: {this.team().name} {this.team().season}</h5>
-                <h5>Height: {this.athlete().height} in.</h5>
-                <h5>Base Weight: {this.athlete().baseWeight} lbs.</h5>
-                <h5>Current Weight: {this.showCurrentWeight()} lbs.</h5>
-                <h5>Total Weight Change: {this.calcLoss()} lbs.</h5>
-                <AthleteReportTable athlete={this.athlete()}/>
-            </div>
-        )
+        for(i=0;i < this.props.athletesList.length;i++)
+        {
+            if(this.props.athletesList[i]._id == this.props.athleteId)
+            {
+                return (
+                    <div>
+                        <Modal show={this.state.showModal} onHide={this.close} >
+                            <Modal.Header>
+                                <Modal.Title>Athlete Edit</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <form>
+                                    <FormGroup>
+                                        <FormControl placeholder='Name' label='Name' type='string' onChange={this.handleName}/>
+                                        <FormControl placeholder='Height' label='Height' type='number' onChange={this.handleHeight}/>
+                                        <FormControl placeholder='BaseWeight' label='Weight' type='number' onChange={this.handleWeight}/>
+                                    </FormGroup>
+                                </form>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button onClick={this.close} bsStyle="danger">Close</Button>
+                                <Button onClick={this.editEntry} bsStyle="success">Complete Athlete Edit</Button>
+                            </Modal.Footer>
+                        </Modal>
+                        <Link to = {"/app/masterReport/" + this.team()._id}><Button bsStyle="primary">&lt; Back to {this.team().name} {this.team().season}</Button></Link>
+                        <h3>Athlete Report</h3>
+                        {/*TODO: Create component for the basic info*/}
+                        <h4>{this.athlete().name} <Button bsSize="xsmall" onClick={() => this.handleEditButtonClick()}><span className="glyphicon glyphicon-pencil"></span></Button></h4>
+                        <h5>Team: {this.team().name} {this.team().season}</h5>
+                        <h5>Height: {this.athlete().height} in.</h5>
+                        <h5>Base Weight: {this.athlete().baseWeight} lbs.</h5>
+                        <h5>Current Weight: {this.showCurrentWeight()} lbs.</h5>
+                        <h5>Total Weight Change: {this.calcLoss()} lbs.</h5>
+                        <AthleteReportTable athlete={this.athlete()}/>
+                    </div>
+                )
+            }
+        }
+        return this.routeToMaster();
+
     }
 }
 

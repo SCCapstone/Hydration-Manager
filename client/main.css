@@ -9,6 +9,14 @@ hr{
     height: 1px;
     background-color: #333;
 }
+a{
+    text-decoration: none;
+    color: #000;
+}
+/*Need to put something here, so they know its a link */
+a:hover{
+
+}
 
 /* Nav CSS */
 .navbar{
@@ -113,35 +121,11 @@ hr{
 }
 
 
-/*Mobile View CSS */
-@media (max-width: 826px){
-    .hidden-xs {
-        display: none !important;
-    }
-}
-@media only screen and (max-width: 826px) {
-    /*Adds the Button to toggle the nav in mobile view */
-    .nav-sidebar{
-        display: flex;
-        flex-direction: column;
-    }
-    .NavClass Button{
-        display: inline;
-        text-align: center;
-        vertical-align: middle;
-        background-color: #414141;
-        border-color: #414141;
-        color: whitesmoke;
-    }
-}
-@media only screen and (min-width: 827px){
-    .NavClass Button{
-        display: none;
-    }
-}
+
 
 /*Weight Entry Page CSS */
 .WeightHeader{
+    margin-top: 2%;
     display: inline-block;
     width: 100%;
 }
@@ -150,14 +134,22 @@ hr{
     margin: 0;
     line-height: 1.42857;
 }
-.WeightHeader button{
-    float:right;
+.WeightHeader .dropdown{
+    float: right;
     vertical-align: middle;
+}
+.WeightHeader .dropdown a{
+    text-decoration: none;
+    color: #000;
+}
+.WeightHeader .dropdown a:hover{
+    text-decoration: none;
+    color: #000;
 }
 
 /*Master Report Page CSS */
-
 .MasterHeader{
+    margin-top: 2%;
     display: inline-block;
     width: 100%;
 }
@@ -166,9 +158,22 @@ hr{
     margin: 0;
     line-height: 1.42857;
 }
+.MasterHeader .dropdown{
+    float: right;
+    vertical-align: middle;
+}
+.MasterHeader .dropdown a{
+    text-decoration: none;
+    color: #000;
+}
+.MasterHeader .dropdown a:hover{
+    text-decoration: none;
+    color: #000;
+}
 .MasterHeader button{
     float:right;
     vertical-align: middle;
+    margin-left: 10px;
 }
 
 /*Your Team's Page CSS */
@@ -186,6 +191,16 @@ hr{
     float:right;
     vertical-align: middle;
 }
+.ListOfTeams{
+    padding: 0;
+    display: inline;
+    list-style:none;
+}
+.CardContainer{
+    width: 50%;
+    float: left;
+}
+
     /*CSS for the cards in Your teams */
     .card{
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -216,44 +231,18 @@ hr{
         color: #414141;
         vertical-align: middle;
     }
-    .card #close{
-        font-size: x-large;
+    .card .dropdown{
         float: right;
-        padding: 7.5px;
-        z-index: 99;
-        cursor: pointer;
+    }
+    .card #close{
+        border-color: white;
     }
     .card #close:hover{
-        color: #dd6868;
+        background-color: white;
     }
 
 
 /*Alerts Page CSS */
-.AlertsHeader{
-    display: inline-block;
-    width: 100%;
-}
-.AlertsHeader h3{
-    float: left;
-    margin: 0;
-    line-height: 1.42857;
-}
-.AlertsHeader button{
-    float:right;
-    vertical-align: middle;
-}
-
-.red {
-    border-style: groove;
-    border-width: 2px;
-    border-color: red;
-}
-.yellow {
-    border-style: groove;
-    border-width: 2px;
-    border-color: yellow;
-}
-
 .yellowBack {
     background-color: #ffff99;
 }
@@ -261,9 +250,6 @@ hr{
 .redBack {
     background-color: #ff9999;
 }
-
-
-
 
 /*Athlete Report CSS*/
 .greenStatus {
@@ -276,4 +262,39 @@ hr{
 
 .redStatus {
     background-color: #ff9999;
+}
+
+/*Mobile View CSS */
+@media (max-width: 826px){
+
+}
+@media only screen and (max-width: 826px) {
+    .CardContainer{
+        width: 100%;
+        float: left;
+    }
+    .MasterHeader h3{
+        float: none;
+        text-align: center;
+        margin: 0;
+        line-height: 1.42857;
+    }
+    .MasterHeader .MasterButtons{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+    }
+    .MasterHeader .dropdown{
+        float: none;
+        vertical-align: middle;
+        margin-left: 10px;
+    }
+    .MasterHeader button{
+        float: none;
+        vertical-align: middle;
+    }
+}
+@media only screen and (min-width: 827px){
+
 }

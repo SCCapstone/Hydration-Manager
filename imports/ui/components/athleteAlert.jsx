@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 // Custom File Imports
-import { AthletesOld } from '../../api/athletes.jsx';
 
 export default class AthleteAlert extends Component {
     constructor(props) {
@@ -16,7 +15,7 @@ export default class AthleteAlert extends Component {
     getTeam() {
         for(i=0;i<this.props.teamsList.length;i++)
         {
-            if(this.props.teamsList[i]._id == this.props.athlete.teamId)
+            if(this.props.teamsList[i]._id === this.props.athlete.teamId)
             {
                 return this.props.teamsList[i].name + " " + this.props.teamsList[i].season;
             }
@@ -24,8 +23,9 @@ export default class AthleteAlert extends Component {
     }
 
     render() {
+
         athlete = this.props.athlete;
-        var hydrate = "";
+        var hydrate = 0;
         if(athlete.preWeightData[0] === undefined || athlete.postWeightData[0] === undefined)
         {
             hydrate == null;
@@ -37,13 +37,11 @@ export default class AthleteAlert extends Component {
         console.log(hydrate);
         if (hydrate == null || hydrate === undefined)
         {
-            hydrate = 'null';
+            hydrate = null;
         }
         return (
             <tr>
-                <Link to={"/app/athlete/" + this.props.athlete._id}>
-                <td>{this.props.athlete.name}</td>
-                </Link>
+                <td><Link to={"/app/athlete/" + this.props.athlete._id}>{this.props.athlete.name}</Link></td>
                 <td>{this.getTeam()}</td>
                 <td>{hydrate}</td>
             </tr>

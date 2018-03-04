@@ -24,10 +24,6 @@ constructor(props) {
             <MenuItem >
               <Link to ={{pathname: "/app/masterReport/" + this.props.team._id}}>{this.props.team.name} {this.props.team.season}</Link>
             </MenuItem>
-            <MenuItem divider />
-            <MenuItem>
-              <Link to ={ {pathname: "/app/masterReport/"} }> All Athletes </Link>
-            </MenuItem>
         </div>
     )
   }
