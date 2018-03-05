@@ -43,12 +43,29 @@ export default class ListOfTeams extends Component {
         this.setState({showEditModal: false})
     }
 
+    handleTeamEdit = (e) => {
+        e.persist();
+        this.setState({
+            newTeamName: e.target.value
+        });
+    }
+
+    handleSeasonEdit = (e) => {
+        e.persist();
+        this.setState({
+            newTeamSeason: e.target.value
+        });
+    }
+
     editTeam() {     /*TODO: LINK TO METHODS PROPERLY*/
-        Meteor.call('teams.edit', this.props.team._id)
+/*       Meteor.call('teams.edit', newTeamName, newTeamSeason, id, ()=>{
+           Bert.alert()
+       });*/
     }
 
     /*TODO: FINISH THESE METHODS*/
-    handleEditField(event) {
+/* -- When user hits the enter/return key, the team updates --
+ handleEditField(event) {
         if (event.keyCode === 13) {
             let target = event.target,
                 update = {};
@@ -58,9 +75,22 @@ export default class ListOfTeams extends Component {
 
             this.handleTeamUpdate(update);
         }
-    }
+    }*/
 
+    handleTeamUpdate(update){
+/*        Meteor.call('updateTeam', update, (error, response) => {
+            if(error){
+                Bert.alert(error.reason, 'danger');
+            } else{
+                this.setState({editing: null});
+                Bert.alert('Team updated!', 'success')
+            }
+        });*/
+    }
+/*
     handleEditItem() {
+    //console.log("Edit Button Clicked");
+
         let teamId = this.state.editing;
 
         this.handleTeamUpdate({
@@ -69,6 +99,7 @@ export default class ListOfTeams extends Component {
             season: this.refs[`season_${ teamId }`].value,
         });
     }
+*/
 
     render() {
         return (
@@ -108,21 +139,19 @@ export default class ListOfTeams extends Component {
                             <form>
                                 <div className="form-group">
                                     <label>Team Name</label>
-                                    <input onKeyDown={this.handleEditField} type="text" className="form-control"
-                                           ref={this.props.team._id}
+                                    <input onClick={this.handleEditField} type="text" className="form-control"
                                            name="teamName" defaultValue={this.props.team.name}/>
                                 </div>
                                 <div className="form-group">
                                     <label>Season</label>
-                                    <input onKeyDown={this.handleEditField} type="text" className="form-control"
-                                           ref={this.props.team._id}
-                                           name="teamName" defaultValue={this.props.team.season}/>
+                                    <input onClick={this.handleEditField} type="text" className="form-control"
+                                           name="teamSeason" defaultValue={this.props.team.season}/>
                                 </div>
                             </form>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={this.closeEdit}> Close </Button>
-                            <Button onClick={this.handleEditTeam} bsStyle="warning"> Update Team </Button> {/*TODO: FINISH handleEditTeam METHOD*/}
+                            <Button onClick={this.handleEditTeam} bsStyle="warning"> Update Team </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
