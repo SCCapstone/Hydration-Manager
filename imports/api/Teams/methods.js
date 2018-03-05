@@ -21,8 +21,19 @@ Meteor.methods({
     }
   },
 
-  'teams.edit': function teamsUpdate() {
-
+  'teams.edit': function teamsUpdate(id, newTeamName, newTeamSeason, editorsID) {
+    try{
+      return Teams.update( id._id, {
+        $set: {
+            name: newTeamName,
+            season: newTeamSeason,
+            editorsId: editorsID,
+            updatedAt: new Date(),
+        }
+      });
+    } catch(exception){
+      handleMethodException(exception);
+    }
   },
 
   'teams.remove': function removeTeam(id) {
