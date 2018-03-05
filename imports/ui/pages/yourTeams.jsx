@@ -96,24 +96,7 @@ class YourTeams extends React.Component {
             teamSeason: e.target.value
         });
     }
-/*
-    FieldGroup({id, label, help, ...props}) {
-        return (
-            <FormGroup controlId={id}>
-                <ControlLabel>{label}</ControlLabel>
-                <FormControl {...props}/>
-                {help && <HelpBlock>{help}</HelpBlock>}
-            </FormGroup>
-        );
-    }
-    formInstance = (
-        <form>
-            <FieldGroup id="formControlsTeam" type="text" label="text"/>
-            <FieldGroup id="formControlsSeason" type="text" label="text"/>
-            <Button type="submit">Submit</Button>
-        </form>
-    );
-*/
+
 
     render() {
         return (
@@ -163,7 +146,7 @@ YourTeams.propTypes = {
 
 // Retrieves data from server and puts it into client's minimongo
 export default withTracker(() => {
-  const subscription = Meteor.subscribe('teams.thisUserId');
+  const subscription = Meteor.subscribe('teams.all');
   const loading = !subscription.ready();
   const teamsList = !loading ? TeamsCollection.find().fetch() : [];
   // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,

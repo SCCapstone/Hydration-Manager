@@ -5,6 +5,9 @@ import { Roles } from 'meteor/alanning:roles';
 // Custom File Imports
 import Teams from '../Teams.js';
 
+
 Meteor.publish('teams.thisUserId', function teams() {
     return Teams.find({user: this.userId });
-  });
+});
+
+Meteor.publish('teams.all', () => Teams.find() );

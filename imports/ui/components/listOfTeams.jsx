@@ -1,7 +1,12 @@
 // Package Imports
 import React, { Component } from 'react'
-import { Button, Modal, DropdownButton, MenuItem} from 'react-bootstrap';
+import { Button, Form, FormControl, FormGroup, Modal, DropdownButton, MenuItem} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import autoBind from 'react-autobind';
+
+
+// Custom File Imports
+import TeamsCollection from '../../api/Teams/Teams.js';
 
 export default class ListOfTeams extends Component {
 
@@ -9,14 +14,19 @@ export default class ListOfTeams extends Component {
         super(props);
         this.state = {
             showModal: false,
-            showEditModal: false
+            showEditModal: false,
+            teamEditName: '',
+            editSeason: '',
+            teamID: '',
         };
-        this.routeToReport = this.routeToReport.bind(this);
+        autoBind(this);
+/*        this.routeToReport = this.routeToReport.bind(this);
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
         this.openEdit = this.openEdit.bind(this)
         this.closeEdit = this.closeEdit.bind(this)
         this.deleteTeam = this.deleteTeam.bind(this);
+*/
     }
 
     routeToReport() {
@@ -43,29 +53,46 @@ export default class ListOfTeams extends Component {
         this.setState({showEditModal: false})
     }
 
-    handleTeamEdit = (e) => {
-        e.persist();
-        this.setState({
-            newTeamName: e.target.value
-        });
-    }
-
-    handleSeasonEdit = (e) => {
-        e.persist();
-        this.setState({
-            newTeamSeason: e.target.value
-        });
-    }
-
     editTeam() {     /*TODO: LINK TO METHODS PROPERLY*/
-/*       Meteor.call('teams.edit', newTeamName, newTeamSeason, id, ()=>{
-           Bert.alert()
-       });*/
+        Meteor.call('teams.edit', this.props.team._id)
+    }
+
+    handleEditName = (e) => {
+        this.setState({teamEditName: e.target.value});
+    }
+
+    handleSeason = (e) => {
+        this.setState({editSeason: e.target.value});
+    }
+
+
+    editEntry() {
+        event.preventDefault();
+        const pID = this.props.team._id;
+        const nm = this.state.teamEditName;
+        const s = this.state.editSeason;
+        if(pID == '' || nm == '' || s == '')
+        {
+            window.alert("Make sure to complete all fields for editing.");
+        }
+        else {
+            Meteor.call('teams.edit', pID, nm, s, () => {
+                Bert.defaults = {hideDelay: 4500};
+                Bert.alert('team edited', 'success', 'fixed-top', 'fa-check');
+
+                this.setState({
+                    teamEditName: '',
+                    editSeason: '',
+                })
+                this.closeEdit();
+            });
+        }
+
+        this.close();
     }
 
     /*TODO: FINISH THESE METHODS*/
-/* -- When user hits the enter/return key, the team updates --
- handleEditField(event) {
+/*    handleEditField(event) {
         if (event.keyCode === 13) {
             let target = event.target,
                 update = {};
@@ -75,22 +102,9 @@ export default class ListOfTeams extends Component {
 
             this.handleTeamUpdate(update);
         }
-    }*/
-
-    handleTeamUpdate(update){
-/*        Meteor.call('updateTeam', update, (error, response) => {
-            if(error){
-                Bert.alert(error.reason, 'danger');
-            } else{
-                this.setState({editing: null});
-                Bert.alert('Team updated!', 'success')
-            }
-        });*/
     }
-/*
-    handleEditItem() {
-    //console.log("Edit Button Clicked");
 
+    handleEditItem() {
         let teamId = this.state.editing;
 
         this.handleTeamUpdate({
@@ -100,12 +114,11 @@ export default class ListOfTeams extends Component {
         });
     }
 */
-
     render() {
         return (
             <div className="CardContainer">
                 <div className="card">
-                    <DropdownButton id="close">
+                    <DropdownButton id="close" title="">
                         <MenuItem onClick={this.openEdit}>Edit Team</MenuItem>
                         <MenuItem onClick={this.open}>Delete Team</MenuItem>
                     </DropdownButton>
@@ -131,27 +144,21 @@ export default class ListOfTeams extends Component {
                     </Modal>
                 </div>
                 <div>
-                    <Modal show={this.state.showEditModal} onHide={this.closeEdit}>
+                    <Modal show={this.state.showEditModal} onHide={this.closeEdit} >
                         <Modal.Header>
-                            <Modal.Title>Edit Team</Modal.Title>
+                            <Modal.Title>Team Edit</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <form>
-                                <div className="form-group">
-                                    <label>Team Name</label>
-                                    <input onClick={this.handleEditField} type="text" className="form-control"
-                                           name="teamName" defaultValue={this.props.team.name}/>
-                                </div>
-                                <div className="form-group">
-                                    <label>Season</label>
-                                    <input onClick={this.handleEditField} type="text" className="form-control"
-                                           name="teamSeason" defaultValue={this.props.team.season}/>
-                                </div>
+                                <FormGroup>
+                                    <FormControl placeholder={this.props.team.name} label='name' type='text' onChange={this.handleEditName}/><br/>
+                                    <FormControl placeholder={this.props.team.season} label='season' type='text' onChange={this.handleSeason}/>
+                                </FormGroup>
                             </form>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button onClick={this.closeEdit}> Close </Button>
-                            <Button onClick={this.handleEditTeam} bsStyle="warning"> Update Team </Button>
+                            <Button onClick={this.closeEdit}>Close</Button>
+                            <Button onClick={this.editEntry} bsStyle="primary">Edit Team</Button>
                         </Modal.Footer>
                     </Modal>
                 </div>

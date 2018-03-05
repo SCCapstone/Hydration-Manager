@@ -63,6 +63,15 @@ Meteor.methods({
         Athletes.remove(id);
     },
 
+    'athletes.edit': function editAthlete(id, nm, h, bs) {
+        Athletes.update(
+            { _id: id },
+            {
+                $set: { name: nm, height: h, baseWeight: bs }
+            }
+        );
+    },
+
     'athletes.editWeight': function editAthleteWeight(id, date, weight, prePost)
     {
         if(prePost == 'PreWeight')
@@ -77,6 +86,5 @@ Meteor.methods({
         {
             console.log('Error in weight data editing');
         }
-    }
-
+    },
 });

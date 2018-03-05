@@ -15,9 +15,9 @@ import MasterReport from '../../pages/masterReport.jsx';
 import AthleteReport from '../../pages/athleteReport.jsx';
 import Alerts from '../../pages/alerts.jsx';
 import YourTeams from '../../pages/yourTeams.jsx';
-import LoginAlt from '../../pages/LoginAlt/LoginAlt.js';
-import Registration from '../../pages/Registration/Registration.js';
-import NotFound from '../../pages/NotFound/NotFound.js';
+import LoginAlt from '../../pages/LoginAlt.jsx';
+import Registration from '../../pages/Registration.jsx';
+import NotFound from '../../pages/NotFound.jsx';
 import Navigation from '../../components/Navigation/Navigation.js';
 import Public from '../../components/Public/Public.js';
 import Authorized from '../../components/Authorized/Authorized.js';
@@ -28,12 +28,16 @@ import AppFooter from '../../components/AppFooter/AppFooter.js';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    //this.state = { routePastLogin: null };
+    // this.state = { curTeamToDisplay: null };
     autoBind(this);  //binds class methods to the component instance
   }
-
+  // setCurTeamToDisplay(newTeam) {
+  //   this.setState({curTeamToDisplay: newTeam})
+  //   //--> setCurTeamToDisplay={setCurTeamToDisplay} {...props} {...state}
+  // }
+  
     render() {
-        const {props} = this;
+        const { props, state, setCurTeamToDisplay } = this;
         return (
 
             <BrowserRouter>
