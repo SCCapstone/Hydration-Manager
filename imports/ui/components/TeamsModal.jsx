@@ -47,17 +47,17 @@ export default class TeamsModal extends Component {
                 <div className="form-group">
                   <label>Team Name</label>
                   <input type="text" className="form-control" value={this.state.team_name}
-                         onChange={(e)=>{e.preventDefault(); this.setState({team_name: e.target.value})}}/>
+                         onChange={(e)=>{e.preventDefault(); this.setState({team_name: e.target.value})}} required/>
                 </div>
                 <div className="form-group">
                   <label>Sport Name</label>
                   <input type="text" className="form-control" value={this.state.sport_name}
-                         onChange={(e)=>{e.preventDefault(); this.setState({sport_name: e.target.value})}}/>
+                         onChange={(e)=>{e.preventDefault(); this.setState({sport_name: e.target.value})}} required/>
                 </div>
                 <div className="form-group">
                   <label>Season</label>
                   <input type="text" className="form-control" value={this.state.season}
-                         onChange={(e)=>{e.preventDefault(); this.setState({season: e.target.value})}}/>
+                         onChange={(e)=>{e.preventDefault(); this.setState({season: e.target.value})}} required/>
                 </div>
                 <div className="btn-group">
                   <button type="submit" className="btn btn-primary">Save</button>

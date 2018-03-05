@@ -32,6 +32,7 @@ export default class Navigation extends Component {
             btn-sm glyphicon glyphicon-menu-hamburger" onClick={this.toggleVisible}/>
                 <ul id= "pageNavigation" className= "hidden-sm hidden-xs nav-sidebar col-lg-2 nav nav-pills nav-stacked">
                     <li><NavLink to = '/app'>Home</NavLink></li>
+                    <li><NavLink to='/app/users'>Users</NavLink></li>
                     <li><NavLink to = '/app/weightEntry'>Weight Entry</NavLink></li>
                     <li><NavLink to = '/app/masterReport'>Master Report</NavLink></li>
                     <li><NavLink to = '/app/yourTeams'>Your Teams</NavLink></li>
