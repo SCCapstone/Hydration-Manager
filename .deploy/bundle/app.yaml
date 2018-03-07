@@ -1,9 +1,0 @@
-runtime: nodejs
-env: flex
-threadsafe: true
-automatic_scaling:
-  max_num_instances: 1
-env_variables:
-  MONGO_URL: 'mongodb://hydrationmanager:capstone@ds251598.mlab.com:51598/hydration_manager'
-  ROOT_URL: 'https://...'
-  METEOR_SETTINGS: '{}'

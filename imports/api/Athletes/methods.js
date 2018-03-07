@@ -63,11 +63,11 @@ Meteor.methods({
         Athletes.remove(id);
     },
 
-    'athletes.edit': function editAthlete(id, nm, h, bs) {
+    'athletes.edit': function editAthlete(id, nm, h, bs, t) {
         Athletes.update(
             { _id: id },
             {
-                $set: { name: nm, height: h, baseWeight: bs }
+                $set: { name: nm, height: h, baseWeight: bs, teamId: t }
             }
         );
     },

@@ -2,14 +2,11 @@
 import React, { Component } from 'react';
 import { MenuItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
-import autoBind from 'react-autobind';
-import PropTypes from 'prop-types';
 
 class MasterDropdownOfTeams extends Component {
 
 constructor(props) {
     super(props);
-    //autoBind(this);
 }
 
 // handleTeamChange(teamSelected) {

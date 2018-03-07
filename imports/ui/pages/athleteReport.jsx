@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import autoBind from 'react-autobind';
-import { Button, FormControl, FormGroup, Modal } from 'react-bootstrap';
+import { Button, DropdownButton, FormControl, FormGroup, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 // Custom File Imports
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 import TeamsCollection from '../../api/Teams/Teams.js';
-
+import ReportDropdownOfTeams from '../components/reportDropdownOfTeams.jsx';
 import AthleteReportTable from '../components/athleteReportTable';
 
 class AthleteReport extends Component {
@@ -20,6 +20,7 @@ class AthleteReport extends Component {
             name: '',
             base: '',
             height: '',
+            team: '',
         };
         autoBind(this);
 
@@ -103,10 +104,11 @@ class AthleteReport extends Component {
     }
 
     team() {
-        playerTeamId = this.athlete().teamId;
-        currentTeam = TeamsCollection.findOne({"_id": playerTeamId});
-        console.log(playerTeamId + "," + currentTeam);
-        return currentTeam;
+        //playerTeamId = this.athlete().teamId;
+        //currentTeam = TeamsCollection.findOne({"_id": playerTeamId});
+        //console.log(playerTeamId + "," + currentTeam);
+        //return currentTeam;
+        return this.props.teamsList;
     }
 
     calcLoss(){
@@ -147,6 +149,10 @@ class AthleteReport extends Component {
             this.setState({height: e.target.value});
         }
 
+        handleTeam = (e) => {
+            this.setState({team: e.target.value});
+        }
+
         handleEditButtonClick() {
             this.open();
         }
@@ -157,12 +163,13 @@ class AthleteReport extends Component {
             const nm = this.state.name;
             const bw = this.state.base;
             const h = this.state.height;
-            if(pId == '' || nm == '' || bw == '')
+            const t = this.state.team;
+            if(pId == '' || nm == '' || bw == '' || h == '' || t == '')
             {
                 window.alert("Make sure to complete all fields for editing.");
             }
             else {
-                Meteor.call('athletes.edit', pId, nm, h, bw, () => {
+                Meteor.call('athletes.edit', pId, nm, h, bw, t, () => {
                     Bert.defaults = {hideDelay: 4500};
                     Bert.alert('athlete edited', 'success', 'fixed-top', 'fa-check');
 
@@ -170,6 +177,7 @@ class AthleteReport extends Component {
                         name: '',
                         base: '',
                         height: '',
+                        team: '',
                     })
                     this.close();
                 });
@@ -201,6 +209,9 @@ class AthleteReport extends Component {
                                         <FormControl placeholder={this.athlete().name} label='Name' type='string' onChange={this.handleName}/>
                                         <FormControl placeholder={this.athlete().height} label='Height' type='number' onChange={this.handleHeight}/>
                                         <FormControl placeholder={this.athlete().baseWeight} label='Weight' type='number' onChange={this.handleWeight}/>
+                                        <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'default'} className = "DropDown" onChange={this.handleTeam}>
+                                            {this.team().map((team) => { return <ReportDropdownOfTeams key={team._id} team={team}/>})}
+                                        </DropdownButton>
                                     </FormGroup>
                                 </form>
                             </Modal.Body>
