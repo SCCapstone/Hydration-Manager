@@ -56,7 +56,7 @@ const Navigation = props => (
           <Nav pullRight>
             <NavDropdown eventKey={5} title={props.name} id="user-dropdown">
                 {props.userRoles[0] === "ADMIN" ?
-                    <LinkContainer to="/app/adminDash">
+                    <LinkContainer to={"/app/adminDash"}>
                       <NavItem eventKey={5.1} href="/app/adminDash">Admin</NavItem>
                     </LinkContainer> : ''}
               <MenuItem eventKey={5.2} onClick={() => Meteor.logout()}>Logout</MenuItem>

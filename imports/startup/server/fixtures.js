@@ -4,6 +4,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
+import { _ } from 'meteor/underscore';
 
 // Custom File Imports
 //import ROLES  from '../../api/Users/roles.js';
@@ -67,6 +68,15 @@ if (!Meteor.isProduction) {
       Roles.setUserRoles(userId, roles);
     }
   });
+
+  // const defaultRoles = ['ADMIN', 'PUB', 'VIEW']; // This could be tied to its own admin :)
+  //
+  // defaultRoles.forEach((role) => {
+  //   const existingRoles = _.pluck(Roles.getAllRoles().fetch(), 'name');
+  //   const roleExists = existingRoles.indexOf(role) > -1;
+  //   if (!roleExists) Roles.createRole(role);
+  // });
+
 };
 
 

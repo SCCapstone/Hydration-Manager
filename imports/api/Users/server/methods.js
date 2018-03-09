@@ -15,7 +15,7 @@ import ROLES from '../roles';
 
 Meteor.methods({
 
-  
+
   'users.addNewRole': function usersAddNewRole(targetId, roles) {
     Roles.setUserRoles(targetId,roles);
   },
@@ -24,11 +24,12 @@ Meteor.methods({
   'users.changeRole': function usersChangeRole(updateInfo) {
     check(updateInfo, { _id: String, role: String });
 
-    if (updateInfo._id !== this.userId && Roles.userIsInRole(this.userId, [ROLES.ADMIN])) {
-      Roles.setUserRoles(updateInfo._id, updateInfo.role);
-    } else {
-      throw new Meteor.Error('500', 'Access denied');
-    }
+    // if (updateInfo._id !== this.userId && Roles.userIsInRole(this.userId, [ROLES.ADMIN])) {
+    //   Roles.setUserRoles(updateInfo._id, updateInfo.role);
+    // } else {
+    //   throw new Meteor.Error('500', 'Access denied');
+    // }
+    Roles.setUserRoles(updateInfo._id, [updateInfo.role]);
   },
 
 

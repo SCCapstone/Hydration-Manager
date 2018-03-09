@@ -23,6 +23,7 @@ import Public from '../../components/Public/Public.js';
 import Authorized from '../../components/Authorized/Authorized.js';
 import AppFooter from '../../components/AppFooter/AppFooter.js';
 
+import AdminDash from '../../pages/adminDash.jsx';
 
 
 class App extends React.Component {
@@ -35,7 +36,7 @@ class App extends React.Component {
   //   this.setState({curTeamToDisplay: newTeam})
   //   //--> setCurTeamToDisplay={setCurTeamToDisplay} {...props} {...state}
   // }
-  
+
     render() {
         const { props, state, setCurTeamToDisplay } = this;
         return (
@@ -63,6 +64,8 @@ class App extends React.Component {
                           <Authorized path='/app/athlete/:athleteId' component={AthleteReport} {...props} />
                           <Authorized exact path='/app/yourTeams' component={YourTeams} {...props} />
                           <Authorized exact path='/app/alerts' component={Alerts} {...props} />
+
+                          <Authorized exact path='/app/adminDash' component={AdminDash} {...props} />
                         </Grid>
                         <Route component={NotFound}/>
                           {/*
