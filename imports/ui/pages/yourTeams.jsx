@@ -146,7 +146,7 @@ YourTeams.propTypes = {
 
 // Retrieves data from server and puts it into client's minimongo
 export default withTracker(() => {
-  const subscription = Meteor.subscribe('teams.thisUserId');
+  const subscription = Meteor.subscribe('teams.all');
   const loading = !subscription.ready();
   const teamsList = !loading ? TeamsCollection.find().fetch() : [];
   // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,

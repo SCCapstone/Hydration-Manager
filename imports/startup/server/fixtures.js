@@ -56,6 +56,17 @@ if (!Meteor.isProduction) {
     },
     roles: ['PUB'],
   },
+    {
+    email: 'hydration@usc.com',
+      password: 'password',
+      profile: {
+      name: {
+          first: 'Hydration',
+          last: 'Admin'
+      },
+    },
+    roles: ['ADMIN'],
+},
   ];
 
   users.forEach(({ email, password, profile, roles }) => {

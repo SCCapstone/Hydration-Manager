@@ -205,7 +205,7 @@ class AthleteReportTable extends Component{
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={this.close} bsStyle="danger"> Close </Button>
-                            <Button onClick={this.editEntry} bsStyle="success"> Complete Weight Edit </Button>
+                            <Button onClick={this.editEntry} bsStyle="primary"> Edit Weight </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>

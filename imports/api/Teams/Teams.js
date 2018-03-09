@@ -1,6 +1,6 @@
 // Package Imports
 import { Mongo } from 'meteor/mongo';
-
+/*import SimpleSchema from 'simpl-schema';*/
 // Custom File Imports
 const Teams = new Mongo.Collection('teams');
 

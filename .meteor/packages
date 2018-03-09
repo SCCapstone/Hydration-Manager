@@ -21,7 +21,6 @@ insecure@1.0.7                # Allow all DB writes from clients (for prototypin
 twbs:bootstrap
 
 
-meteortoys:allthings          # Control - M on running site to view Mongo stuff
 ultimatejs:tracker-react      # For getting data from Mongo
 themeteorchef:bert            # For adding Alerts to display to users
 xolvio:backdoor
@@ -34,3 +33,4 @@ dynamic-import
 # autopublish
 accounts-ui
 accounts-password
+meteortoys:allthings

@@ -107,11 +107,8 @@ class WeightEntry extends React.Component {
                 <hr/>
                 <form>
                     <br/>
-                    <div>
+                    <div className="WeightRadioButtons">
                         <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange}/>
-                    </div>
-                    <br/>
-                    <div>
                         <label>
                             <input type="radio" value="PreWeight"
                                    checked={this.state.selectedOption === 'PreWeight'}
@@ -125,8 +122,7 @@ class WeightEntry extends React.Component {
                             PostWeight
                         </label>
                     </div>
-                    <div>{/*Null comment*/}</div>
-                    <br/><br/><br/>
+                    <br/><br/>
                     <Table striped bordered condensed hover className="teams">
                         <thead>
                         <tr>

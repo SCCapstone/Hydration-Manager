@@ -206,7 +206,7 @@ class AthleteReport extends Component {
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button onClick={this.close} bsStyle="danger">Close</Button>
-                                <Button onClick={this.editEntry} bsStyle="success">Complete Athlete Edit</Button>
+                                <Button onClick={this.editEntry} bsStyle="primary">Edit Athlete</Button>
                             </Modal.Footer>
                         </Modal>
                         <Link to = {"/app/masterReport/" + this.team()._id}><Button bsStyle="primary">&lt; Back to {this.team().name} {this.team().season}</Button></Link>
