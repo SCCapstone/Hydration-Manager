@@ -24,7 +24,8 @@ class AthleteReportTable extends Component{
     componentDidMount() {
         this.getListofDates();
     }
-
+    /*Fetches the list of dates for postWeight and preWeight data and sorts the data by date
+    * @Params: none*/
     getListofDates() {
         curAthlete = this.props.athlete;
         curDates = [];
@@ -44,7 +45,8 @@ class AthleteReportTable extends Component{
                 dates : curDates
             });
     }
-
+    /*Fetches the date of the preWeight addition
+    * @Params: aDate*/
     getDatePreWeight(aDate) {
         preData = this.props.athlete.preWeightData;
         for(i = 0; i < preData.length; i++)
@@ -55,6 +57,8 @@ class AthleteReportTable extends Component{
             }
         }
     }
+    /*Fetches the date of the postWeight addition
+    * @Params: aDate*/
     getDatePostWeight(aDate) {
         postData = this.props.athlete.postWeightData;
         for(i = 0; i < postData.length; i++)
@@ -65,7 +69,8 @@ class AthleteReportTable extends Component{
             }
         }
     }
-
+    /*Fetchs the Hydration by date
+    * @Params: aDate*/
     getHydration(aDate) {
         preData = this.props.athlete.preWeightData;
         postData = this.props.athlete.postWeightData;
@@ -116,7 +121,8 @@ class AthleteReportTable extends Component{
             return "Please enter missing Pre/Post weight."
         }
     }
-
+    /*Sets color for element
+    * @params aDate, aColor*/
     setColor(aDate,aColor) {
         elements = document.getElementsByTagName('tr');
         console.log(aDate);
@@ -130,30 +136,36 @@ class AthleteReportTable extends Component{
         }
     }
 
+    /*handleEditButtonClick function -- when button is pressed date is set to aDate and this.open function is run
+    * @params aDate*/
     handleEditButtonClick(aDate) {
         this.setState({
            date : aDate,
         });
         this.open();
     }
-
+    /*handleOptionChange function -- sets prePost wight to e.target.value*/
     handleOptionChange = (e) => {
         this.setState({prePost: e.target.value});
     }
 
+    /*handleWeight function -- sets prePost wight to e.target.value*/
     handleWeight = (e) => {
         this.setState({weight: e.target.value});
     }
 
+    /*open function -- opens modal*/
     open() {
         this.setState({
             showModal: true,
         });
     }
+    /*close function -- closes modal*/
     close() {
         this.setState({ showModal: false });
     }
-
+    /*Edits entry and calls athlete.editWeight function on the server side passing through
+    @params pId, pDate pWeight, and pPrePost and closing modal upon finishing */
     editEntry() {
         event.preventDefault();
         const pId = this.props.athlete._id;
@@ -181,7 +193,7 @@ class AthleteReportTable extends Component{
 
         this.close();
     }
-
+    /*Renders Dates, Weight Loss Percentage, PreWeights, and PostWeights for athletes*/
     render() {
         return(
             <div>

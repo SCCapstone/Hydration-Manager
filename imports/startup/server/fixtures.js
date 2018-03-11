@@ -6,7 +6,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { _ } from 'meteor/underscore';
 
-// Custom File Imports
+// Custom File & Collection Imports
 //import ROLES  from '../../api/Users/roles.js';
 
 // import seeder from '@cleverbeagle/seeder';

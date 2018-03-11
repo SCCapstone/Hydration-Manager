@@ -9,6 +9,7 @@ import ROLES from '../../api/Users/roles';
 
 import autoBind from 'react-autobind';
 
+/*Administration Dashboard*/
 class AdminDash extends React.Component {
   constructor(props) {
     super(props);
@@ -19,16 +20,18 @@ class AdminDash extends React.Component {
   //   Roles.userIsInRole(user, ["ADMIN"]);
   // }
 
+  /*Subscriptions*/
   componentWillUnmount() {
     this.props.subscriptions.forEach((s) =>{
       s.stop();
     });
   }
 
+  /*Method that checks the status of the current user for authentication*/
   checkIfCurrentUser(mappedUserId, currentUserId) {
     return mappedUserId === currentUserId;
   }
-
+  /*Method for changing the role of a user*/
   handleRoleChange(update_obj) {
     Meteor.call('users.changeRole', update_obj, (error) => {
       if (error) {
@@ -41,6 +44,7 @@ class AdminDash extends React.Component {
 
   //<Link to={{ pathname: `/admin/users/${user._id}` }}>{user.profile.name.first}</Link>
   //{!!isCurrentUser ? <Glyphicon glyph="star" /> : ''}
+  /*Gathers user data*/
   showUsersList() {
     const users = this.props.usersList;
     const selectRoles = ROLES;  //this.props.allRoles;
@@ -80,7 +84,7 @@ class AdminDash extends React.Component {
       </tbody>
     )
   }
-
+  /*Loading Progress Panel*/
   showLoading() {
     if (!this.props.loading || 0 < _.size(this.props.usersList)) {
       return false;
@@ -89,7 +93,7 @@ class AdminDash extends React.Component {
       <div><p>Loading</p></div>
     );
   }
-
+  /*Displays Table of Users, including Name, Email, Verification Status, and Role Status*/
   render() {
     return (
       <div>

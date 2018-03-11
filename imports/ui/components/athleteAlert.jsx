@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-// Custom File Imports
+// Custom File & Collections Imports
 
 export default class AthleteAlert extends Component {
     constructor(props) {
@@ -12,6 +12,7 @@ export default class AthleteAlert extends Component {
     //     return AthletesOld.find().fetch();
     // }
 
+    /*getTeam function returns teams name and season*/
     getTeam() {
         for(i=0;i<this.props.teamsList.length;i++)
         {
@@ -21,7 +22,7 @@ export default class AthleteAlert extends Component {
             }
         }
     }
-
+    /*Renders alert data -- Provides checks and does math using if else statements*/
     render() {
 
         athlete = this.props.athlete;

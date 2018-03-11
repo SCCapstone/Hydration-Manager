@@ -10,7 +10,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
 
-// Custom File Imports
+// Custom File & Collections Imports
 import App from '../../ui/layouts/App/App';
 import '../both/api';
 

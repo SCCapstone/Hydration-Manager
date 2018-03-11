@@ -8,6 +8,7 @@ export default class AlertDropdownOfTeams extends Component {
 constructor(props) {
     super(props);
 }
+/*Renders hyperlink for team name and season*/
   render() {
     return (
         <div>

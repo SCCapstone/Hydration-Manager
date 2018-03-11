@@ -9,6 +9,7 @@ export default class WeightDropdownOfTeams extends Component {
 constructor(props) {
     super(props);
 }
+  /*Renders link to weight entry page for each individual team*/
   render() {
       return (
           <MenuItem>

@@ -1,11 +1,14 @@
 // Package Imports
 import { Mongo } from 'meteor/mongo';
 /*import SimpleSchema from 'simpl-schema';*/
-// Custom File Imports
+// Custom File and Collections Imports
 const Teams = new Mongo.Collection('teams');
 
 
 export default Teams;
+/* Section used for creating and modifying SimpleSchema for Teams Collection
+     -Provides specifics for all Teams attributes. */
+
 // Teams.allow({
 //   insert: () => false,
 //   update: () => false,

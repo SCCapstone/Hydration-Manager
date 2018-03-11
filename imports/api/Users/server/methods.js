@@ -14,13 +14,16 @@ import ROLES from '../roles';
 //TODO: Add error handling (in virtually all methods)
 
 Meteor.methods({
-
-
-  'users.addNewRole': function usersAddNewRole(targetId, roles) {
-    Roles.setUserRoles(targetId,roles);
+    /*Definition for users.addNewRole (Server Side Method), will be called by client who will pass through attributes:
+        * @Params targetId, roles
+        * This function will add a new role to a user within the users collection.*/
+      'users.addNewRole': function usersAddNewRole(targetId, roles) {
+          Roles.setUserRoles(targetId,roles);
   },
 
-
+    /*Definition for users.changeRole (Server Side Method), will be called by client who will pass through attributes:
+    * @Params updateInfo
+    * This function will change the role of a particular user within the users collection.*/
   'users.changeRole': function usersChangeRole(updateInfo) {
     check(updateInfo, { _id: String, role: String });
 
@@ -31,8 +34,9 @@ Meteor.methods({
     // }
     Roles.setUserRoles(updateInfo._id, [updateInfo.role]);
   },
-
-
+    /*Definition for users.updateRoles (Server Side Method), will be called by client who will pass through attributes:
+    * @Params targetUserId, roles, group
+    * This function will update the role of a particular user within the users collection.*/
   'users.updateRoles': function usersUpdateRoles (targetUserId, roles, group=null) {
     var loggedInUser = Meteor.user();
     if (!loggedInUser ||
@@ -43,7 +47,9 @@ Meteor.methods({
     Roles.setUserRoles(targetUserId, roles, group)
   },
 
-
+    /*Definition for users.sendVerificationEmail (Server Side Method), will be called by client who will pass through attributes:
+    * @Params updateInfo
+    * This function will send a verification email to user with the corresponding userId within the users collection.*/
   'users.sendVerificationEmail': function usersSendVerificationEmail() {
     return Accounts.sendVerificationEmail(this.userId);
   },
@@ -138,7 +144,9 @@ Meteor.methods({
   },
 
 
-
+    /* Definition for users.deleteAccount (Server Side Method), will be called by client who will pass through attributes:
+    * @Params userID
+    * This function will remove the user's account with the corresponding id passed through. */
   'users.deleteAccount': function usersDeleteAccount(userID) {
     //TODO: Add error handling
     Meteor.users.remove(userId);

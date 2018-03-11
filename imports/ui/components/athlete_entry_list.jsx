@@ -14,6 +14,7 @@ export default class AthleteEntryList extends Component {
         this.handleWeightChange = this.handleWeightChange.bind(this);
     }
 
+    /*handleDebounce function provides checks and alerts*/
     handleDebounce = (e) => {
         e.persist();
         console.log('You have selected:', this.props.selOp);
@@ -39,18 +40,20 @@ export default class AthleteEntryList extends Component {
             })
         }
     };
+    /*handleWeightChange Function will set weight to e.target.value*/
     handleWeightChange = (e) => {
         e.persist();
         this.setState({weight: e.target.value});
         this.handleDebounce(e);
     };
 
+    /*When Enter/Return button is press, it will run event.preventDefault function*/
     onKeyPress(event) {
         if(event.which === 13 /* Enter */) {
             event.preventDefault();
         }
     }
-
+/*Render weights and allows changes*/
     render() {
         return (
             <tr>

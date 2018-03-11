@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import autoBind from 'react-autobind';
 
 
-// Custom File Imports
+// Custom File & Collections Imports
 import TeamsCollection from '../../api/Teams/Teams.js';
 
 export default class ListOfTeams extends Component {
-
+    //Constructor
     constructor(props) {
         super(props);
         this.state = {
@@ -20,52 +20,65 @@ export default class ListOfTeams extends Component {
             teamID: '',
         };
         autoBind(this);
-/*        this.routeToReport = this.routeToReport.bind(this);
+    /*
+        this.routeToReport = this.routeToReport.bind(this);
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
         this.openEdit = this.openEdit.bind(this)
         this.closeEdit = this.closeEdit.bind(this)
-        this.deleteTeam = this.deleteTeam.bind(this);
-*/
+        this.deleteTeam = this.deleteTeam.bind(this); */
     }
-
+    //routeToReport Method -- sends the user to the masterReport page for the selected team
     routeToReport() {
         window.location = '/app/masterReport/' + this.props.team._id;
     }
-
+    //deleteTeam Method -- makes call to Teams Collection to remove the selected team
     deleteTeam() {
         Meteor.call('teams.remove', this.props.team._id)
     }
 
+    //open Method -- open the modal for the Team Deletion Confirmation Modal
     open() {
         this.setState({showModal: true});
     }
 
+    //close Method -- closes the modal for the Team Deletion Confirmation Modal
     close() {
         this.setState({showModal: false});
     }
 
+    //openEdit Method -- opens the modal for the Team Edit Modal
     openEdit() {
         this.setState({showEditModal: true})
     }
 
+    //closeEdit Method -- closes the modal for the Team Edit Modal
     closeEdit() {
         this.setState({showEditModal: false})
     }
 
-    editTeam() {     /*TODO: LINK TO METHODS PROPERLY*/
+    //Edit teams method that calls to the Meteor server established method passing through the team._id
+    editTeam() {
         Meteor.call('teams.edit', this.props.team._id)
     }
 
+    //handleEditName method that sets the teamEditName state
     handleEditName = (e) => {
         this.setState({teamEditName: e.target.value});
     }
 
+    //handleSeason method that sets the editSeason state
     handleSeason = (e) => {
         this.setState({editSeason: e.target.value});
     }
 
-
+   /* editEntry method -- edits the team
+    - Takes in inputs: teamEditName and editSeason
+    - Alerts the editor to complete all fields when editing
+    - Calls to the server to make changes to teams collection
+        --Passes in team_id(pID), teamEditName(nm), and editSeason(s)
+    - Provides an alert upon completion of the edit, and closing of the modal
+       */
     editEntry() {
         event.preventDefault();
         const pID = this.props.team._id;
@@ -117,6 +130,7 @@ export default class ListOfTeams extends Component {
     render() {
         return (
             <div className="CardContainer">
+                {/*Beginning of Card*/}
                 <div className="card">
                     <DropdownButton id="close" title="">
                         <MenuItem onClick={this.openEdit}>Edit Team</MenuItem>
@@ -129,6 +143,9 @@ export default class ListOfTeams extends Component {
                         </Link>
                     </div>
                 </div>
+                {/*Ending of Card*/}
+
+                {/*Beginning of Deleting Modal Confirmation*/}
                 <div>
                     <Modal show={this.state.showModal} onHide={this.close}>
                         <Modal.Header>
@@ -143,6 +160,9 @@ export default class ListOfTeams extends Component {
                         </Modal.Footer>
                     </Modal>
                 </div>
+                {/*Ending of Deleting Modal Confirmation*/}
+
+                {/*Beginning of Edit Teams Modal */}
                 <div>
                     <Modal show={this.state.showEditModal} onHide={this.closeEdit} >
                         <Modal.Header>
@@ -162,6 +182,8 @@ export default class ListOfTeams extends Component {
                         </Modal.Footer>
                     </Modal>
                 </div>
+                {/*Ending of Edit Teams Modal */}
+
             </div>
             /*---Confirm Edit Section Beginning---*/
             /*
