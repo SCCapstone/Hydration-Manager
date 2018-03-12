@@ -6,7 +6,6 @@ import autoBind from 'react-autobind';
 
 
 // Custom File & Collections Imports
-import TeamsCollection from '../../api/Teams/Teams.js';
 
 export default class ListOfTeams extends Component {
     //Constructor
@@ -20,13 +19,6 @@ export default class ListOfTeams extends Component {
             teamID: '',
         };
         autoBind(this);
-    /*
-        this.routeToReport = this.routeToReport.bind(this);
-        this.open = this.open.bind(this);
-        this.close = this.close.bind(this);
-        this.openEdit = this.openEdit.bind(this)
-        this.closeEdit = this.closeEdit.bind(this)
-        this.deleteTeam = this.deleteTeam.bind(this); */
     }
     //routeToReport Method -- sends the user to the masterReport page for the selected team
     routeToReport() {
@@ -65,12 +57,12 @@ export default class ListOfTeams extends Component {
     //handleEditName method that sets the teamEditName state
     handleEditName = (e) => {
         this.setState({teamEditName: e.target.value});
-    }
+    };
 
     //handleSeason method that sets the editSeason state
     handleSeason = (e) => {
         this.setState({editSeason: e.target.value});
-    }
+    };
 
    /* editEntry method -- edits the team
     - Takes in inputs: teamEditName and editSeason
@@ -96,37 +88,14 @@ export default class ListOfTeams extends Component {
                 this.setState({
                     teamEditName: '',
                     editSeason: '',
-                })
+                });
                 this.closeEdit();
             });
         }
 
         this.close();
-    }
+    };
 
-    /*TODO: FINISH THESE METHODS*/
-/*    handleEditField(event) {
-        if (event.keyCode === 13) {
-            let target = event.target,
-                update = {};
-
-            update._id = this.state.editing;
-            update[target.name] = target.value;
-
-            this.handleTeamUpdate(update);
-        }
-    }
-
-    handleEditItem() {
-        let teamId = this.state.editing;
-
-        this.handleTeamUpdate({
-            _id: teamId,
-            name: this.refs[`name_${ teamId }`].value,
-            season: this.refs[`season_${ teamId }`].value,
-        });
-    }
-*/
     render() {
         return (
             <div className="CardContainer">

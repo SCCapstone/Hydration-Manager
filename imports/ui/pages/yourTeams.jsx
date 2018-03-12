@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Button, FormControl, FormGroup, ListGroup, Modal} from 'react-bootstrap';
+import { Button, FormControl, FormGroup, Modal} from 'react-bootstrap';
 
 // Custom File Imports
 import TeamsCollection from '../../api/Teams/Teams.js';
@@ -38,11 +38,11 @@ class YourTeams extends React.Component {
 
     open() {
         this.setState({showModal: true});
-    }
+    };
 
     close() {
         this.setState({showModal: false});
-    }
+    };
 
     addTeam() {
         event.preventDefault();
@@ -65,37 +65,22 @@ class YourTeams extends React.Component {
                 this.close();
             });
         }
-    }
+    };
 
-    // teams() {
-    //     const curUser = this.props.name;  //CurrentUser.findOne();
-    //     console.log(curUser);
-    //     const id = this.props.userId;  //curUser.userID;
-    //     return Teams.find({user: id}).fetch();
-    // }
-
-/*
-    handleAddTeam(e){
-        //this.setState({value1: e.target.value1});
-        this.team = this.state.value1;
-        this.season = this.state.value2;
-        addTeam();
-    }
- */
 
     handleTeam = (e) => {
         e.persist();
         this.setState({
             teamName: e.target.value
         });
-    }
+    };
 
     handleSeason = (e) => {
         e.persist();
         this.setState({
             teamSeason: e.target.value
         });
-    }
+    };
 
 
     render() {

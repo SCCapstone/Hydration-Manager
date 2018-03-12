@@ -73,13 +73,13 @@ Meteor.methods({
         Athletes.remove(id);
     },
     /* Definition for athletes.edit (Server Side Method), will be called by client who will pass through attributes:
-    * @Params id, nm (name), h(height), bs(baseWeight)
-    * This function will update the name, height, and baseWeight of a particular athlete using the corresponding id. */
-    'athletes.edit': function editAthlete(id, nm, h, bs) {
+    * @Params id, nm (name), h(height), bs(baseWeight), t(teamID)
+    * This function will update the name, height, baseWeight, and team of a particular athlete using the corresponding id. */
+    'athletes.edit': function editAthlete(id, nm, h, bs, t) {
         Athletes.update(
             { _id: id },
             {
-                $set: { name: nm, height: h, baseWeight: bs }
+                $set: { name: nm, height: h, baseWeight: bs, teamId: t}
             }
         );
     },

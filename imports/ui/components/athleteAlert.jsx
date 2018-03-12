@@ -26,10 +26,10 @@ export default class AthleteAlert extends Component {
     render() {
 
         athlete = this.props.athlete;
-        var hydrate = 0;
+        let hydrate = 0;
         if(athlete.preWeightData[0] === undefined || athlete.postWeightData[0] === undefined)
         {
-            hydrate == null;
+            hydrate = null;
         }
         else {
             hydrate = ((athlete.preWeightData[0].weight - athlete.postWeightData[0].weight) / athlete.preWeightData[0].weight) *100;

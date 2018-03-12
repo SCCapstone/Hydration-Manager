@@ -1,0 +1,5 @@
+{
+"METEOR_SETTINGS":{
+    "MAIL_URL": "smtps://hydrationmanager@gmail.com:capstone@smtp.gmail.com:465"
+  }
+}

@@ -1,6 +1,5 @@
 // Package Imports
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
 
 const AppFooter = () => (

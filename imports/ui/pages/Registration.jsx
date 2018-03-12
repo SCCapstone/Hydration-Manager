@@ -1,7 +1,7 @@
 // Package Imports
 import React from 'react';
 import autoBind from 'react-autobind';
-import { Button, Col, ControlLabel, FormGroup, Row } from 'react-bootstrap';
+import { Button, FormGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
@@ -12,7 +12,6 @@ import $ from 'jquery';
 import 'jquery-validation';
 
 // Custom File Imports
-import TextComp from '../components/TextComp/TextComp';
 
 class Registration extends React.Component {
   constructor(props) {
@@ -139,7 +138,7 @@ class Registration extends React.Component {
                   </FormGroup>
                   <FormGroup>
                     <br/>
-                    <Button id="SubmitButton"type="submit" bsStyle="primary">Sign Up</Button>
+                    <Button id="SubmitButton" type="submit" bsStyle="primary">Sign Up</Button>
                     <Button id="BackButton" onClick={this.routeToLogin}>Back</Button>
                   </FormGroup>
                 </form>

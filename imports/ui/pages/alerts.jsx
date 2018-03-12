@@ -163,7 +163,7 @@ Alerts.propTypes = {
 
 // Retrieves data from server and puts it into client's minimongo
 export default withTracker(() => {
-    const teamSubscription = Meteor.subscribe('teams.thisUserId');
+    const teamSubscription = Meteor.subscribe('teams.all');
     const athleteSubscription = Meteor.subscribe('athletes.all');
     const teamLoading = !teamSubscription.ready();
     const athleteLoading = !athleteSubscription.ready();

@@ -18,11 +18,9 @@ import YourTeams from '../../pages/yourTeams.jsx';
 import LoginAlt from '../../pages/LoginAlt.jsx';
 import Registration from '../../pages/Registration.jsx';
 import NotFound from '../../pages/NotFound.jsx';
-import Navigation from '../../components/Navigation/Navigation.js';
-import Public from '../../components/Public/Public.js';
-import Authorized from '../../components/Authorized/Authorized.js';
-import AppFooter from '../../components/AppFooter/AppFooter.js';
-
+import Navigation from '../../components/Navigation.jsx';
+import Public from '../../components/Public.jsx';
+import Authorized from '../../components/Authorized.jsx';
 import AdminDash from '../../pages/adminDash.jsx';
 
 
@@ -36,6 +34,7 @@ class App extends React.Component {
   //   this.setState({curTeamToDisplay: newTeam})
   //   //--> setCurTeamToDisplay={setCurTeamToDisplay} {...props} {...state}
   // }
+
 
     render() {
         const { props, state, setCurTeamToDisplay } = this;

@@ -39,8 +39,8 @@ if (!Meteor.isProduction) {
     password: 'password',
     profile: {
       name: {
-        first: 'John',
-        last: 'Doe'
+        first: 'Admin',
+        last: ''
       },
     },
     roles: ['ADMIN'],
@@ -80,61 +80,4 @@ if (!Meteor.isProduction) {
     }
   });
 
-  // const defaultRoles = ['ADMIN', 'PUB', 'VIEW']; // This could be tied to its own admin :)
-  //
-  // defaultRoles.forEach((role) => {
-  //   const existingRoles = _.pluck(Roles.getAllRoles().fetch(), 'name');
-  //   const roleExists = existingRoles.indexOf(role) > -1;
-  //   if (!roleExists) Roles.createRole(role);
-  // });
-
-};
-
-
-// //if (!Meteor.isProduction) {
-// if ( Meteor.users.find().count() === 0 ) {
-//   const users = [{
-//     email: 'admin@admin.com',
-//     password: 'password',
-//     profile: {
-//       name: {
-//         first: 'John',
-//         last: 'Doe'
-//       },
-//     },
-//     roles: ['ADMIN'],
-//   }];
-//
-//   users.forEach(({ email, password, profile, roles }) => {
-//     const userExists = Meteor.users.findOne({ 'emails.address': email });
-//
-//     if (!userExists) {
-//       const userId = Accounts.createUser({ email, password, profile });
-//       Roles.addUsersToRoles(userId, roles);
-//     }
-//   });
-// }
-
-
-
-// // Alternate:
-//
-// if ( Meteor.users.find().count() === 0 ) {
-//     Accounts.createUser({
-//         username: 'admin1',
-//         emails: [
-//           {
-//             address: 'admin@admin.com',
-//             verified: true,
-//           }
-//         ],
-//         password: 'password',
-//         profile: {
-//           name: {
-//             first: 'John',
-//             last: 'Doe',
-//           },
-//         },
-//         roles: [ROLES.ADMIN],
-//     });
-// }
+}

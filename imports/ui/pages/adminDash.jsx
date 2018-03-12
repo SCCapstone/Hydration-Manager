@@ -2,7 +2,7 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+//import { Link } from 'react-router';
 import { Roles } from 'meteor/alanning:roles';
 import { Table, Glyphicon, Checkbox } from 'react-bootstrap';
 import ROLES from '../../api/Users/roles';
@@ -60,9 +60,6 @@ class AdminDash extends React.Component {
             <td width="5%">
               {!!isCurrentUser ? <Glyphicon glyph="ok" /> : ''}
             </td>
-            <td>
-              {user.profile.name.first} {user.profile.name.last}
-            </td>
             <td>{user.emails[0].address}</td>
             <td width="5%">
               <Checkbox onChange={() => console.log("Hello")}/>
@@ -97,15 +94,14 @@ class AdminDash extends React.Component {
   render() {
     return (
       <div>
-          <p>Admin Page</p>
+          <h3>Admin Dashboard</h3>
         <Table className="AdminTable" striped bordered condensed hover responsive >
           <thead>
             <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Verified</th>
-              <th>Roles</th>
+              <th>Current User:</th>
+              <th>Email:</th>
+              <th>Verified:</th>
+              <th>Roles:</th>
             </tr>
           </thead>
           {this.showUsersList()}
@@ -113,7 +109,7 @@ class AdminDash extends React.Component {
       </div>
     )
   }
-};
+}
 
 AdminDash.propTypes = {
   subscriptions: PropTypes.array,

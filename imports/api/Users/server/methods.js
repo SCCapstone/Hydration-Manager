@@ -12,8 +12,14 @@ import ROLES from '../roles';
 
 
 //TODO: Add error handling (in virtually all methods)
+//TODO: Remove this process.env variable and move this to a non public file or setting)
+Meteor.startup(function() {
+    process.env.MAIL_URL = "smtps://postmaster%40.sandbox2128a703612c4650830c88f0cb89b932.mailgun.org:127c6297173d29c775e482dc6a500b5c-833f99c3-fe2c07f1@smtp.mailgun.org:587";
+    Accounts.emailTemplates.from = "hydrationmanager@gmail.com";
+})
 
 Meteor.methods({
+
     /*Definition for users.addNewRole (Server Side Method), will be called by client who will pass through attributes:
         * @Params targetId, roles
         * This function will add a new role to a user within the users collection.*/
@@ -38,7 +44,7 @@ Meteor.methods({
     * @Params targetUserId, roles, group
     * This function will update the role of a particular user within the users collection.*/
   'users.updateRoles': function usersUpdateRoles (targetUserId, roles, group=null) {
-    var loggedInUser = Meteor.user();
+    let loggedInUser = Meteor.user();
     if (!loggedInUser ||
         !Roles.userIsInRole(loggedInUser,
                             [ROLES.ADMIN], group)) {
@@ -52,6 +58,10 @@ Meteor.methods({
     * This function will send a verification email to user with the corresponding userId within the users collection.*/
   'users.sendVerificationEmail': function usersSendVerificationEmail() {
     return Accounts.sendVerificationEmail(this.userId);
+  },
+
+  'users.sendResetPasswordEmail': function usersSendResetPasswordEmail() {
+      return Accounts.sendResetPasswordEmail(this.userId);
   },
 
 
@@ -108,7 +118,7 @@ Meteor.methods({
       password: user_obj.password
     };
     // on server: returns id if
-    // on client(see Registration.js): logs in newly created user, has callback
+    // on client(see Registration.jsx): logs in newly created user, has callback
     const id = Accounts.createUser(user_info);
     Meteor.users.update({_id: id}, {
       $set: {

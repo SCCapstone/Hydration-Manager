@@ -11,7 +11,7 @@ import $ from 'jquery';
 import 'jquery-validation';
 
 // Custom File Imports
-import GenericFooter from '../components/GenericFooter/GenericFooter';
+import GenericFooter from '../components/GenericFooter';
 
 class Profile extends React.Component {
   constructor(props) {

@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 // Custom File & Collections Imports
 import Teams from './Teams.js';
 import handleMethodException from '../../modules/handle-method-exception.js';
-import Athletes from "../Athletes/Athletes";
+import Athletes from "../Athletes/Athletes.js";
 
 
 Meteor.methods({

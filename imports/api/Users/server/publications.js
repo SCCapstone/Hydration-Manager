@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 
 // Custom File & Collection Imports
-import ROLES from '../roles';
 
 /*Publications*/
 Meteor.publish('users.roles', () => Roles.getAllRoles() );
