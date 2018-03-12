@@ -160,4 +160,3 @@ export default withTracker(() => {
     teamsList,
   };
 })(YourTeams);
-

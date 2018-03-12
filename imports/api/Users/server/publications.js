@@ -2,9 +2,10 @@
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 
-// Custom File Imports
+// Custom File & Collection Imports
 import ROLES from '../roles';
 
+/*Publications*/
 Meteor.publish('users.roles', () => Roles.getAllRoles() );
 
 Meteor.publish('users.ifAdmin', function usersIfAdmin() {
@@ -12,7 +13,8 @@ Meteor.publish('users.ifAdmin', function usersIfAdmin() {
   //if (Roles.userIsInRole(this.userId, [ROLES.ADMIN]) ) {
   if (userRole.includes('ADMIN')) {
     return [
-      Meteor.users.find({}, { fields: { emails: 1, roles: 1 } }),
+      // Meteor.users.find({}, { fields: { emails: 1, roles: 1 } }),
+      Meteor.users.find(),
       Roles.getAllRoles(),
     ];
   }

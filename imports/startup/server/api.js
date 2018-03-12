@@ -1,4 +1,4 @@
-// Custom File Imports
+// Custom File & Collection Imports
 import '../../api/Athletes/Athletes';
 import '../../api/Athletes/server/publications.js';
 import '../../api/Teams/Teams.js';

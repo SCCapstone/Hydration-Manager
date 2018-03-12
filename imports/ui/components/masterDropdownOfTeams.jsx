@@ -14,7 +14,7 @@ constructor(props) {
 //   this.props.setCurTeamToDisplay(teamSelected);
 //   // --> onSelect={ () => this.handleTeamChange(this.props.team.name) }
 // }
-
+    /*Renders link to masterReport for each individual team*/
     render() {
         return (
             <MenuItem>
