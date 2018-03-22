@@ -228,7 +228,7 @@ class AthleteReport extends Component {
                                         <FormControl placeholder={this.athlete().height} label='Height' type='number' onChange={this.handleHeight}/>
                                         <FormControl placeholder={this.athlete().baseWeight} label='Weight' type='number' onChange={this.handleWeight}/>
                                         <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'default'} className = "DropDown" onChange={this.handleTeam}>
-                                            {this.teams().map((team) => { return <ReportDropdownOfTeams key={team._id} team={team}/>})}
+                                            {this.team().map((team) => { return <ReportDropdownOfTeams key={team._id} team={team}/>})}
                                         </DropdownButton>
                                     </FormGroup>
                                 </form>
