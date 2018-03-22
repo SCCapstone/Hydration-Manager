@@ -9,7 +9,7 @@ import $ from 'jquery';
 import 'jquery-validation';
 
 // Custom File Import
-import GenericFooter from '../components/GenericFooter/GenericFooter';
+//import GenericFooter from '../components/GenericFooter/GenericFooter';
 
 export default class LoginAlt extends React.Component {
     constructor(props) {

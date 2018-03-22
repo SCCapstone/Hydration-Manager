@@ -12,7 +12,7 @@ import $ from 'jquery';
 import 'jquery-validation';
 
 // Custom File Imports
-import TextComp from '../components/TextComp/TextComp';
+//import TextComp from '../components/TextComp/TextComp';
 
 class Registration extends React.Component {
   constructor(props) {
