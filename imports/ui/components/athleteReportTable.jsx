@@ -5,6 +5,8 @@ import autoBind from 'react-autobind';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 
+/*AthleteReportTable component can be found and is linked with the athleteReport page at location
+ * imports/ui/pages/athleteReport.jsx */
 class AthleteReportTable extends Component{
 
     constructor(props){
@@ -69,7 +71,7 @@ class AthleteReportTable extends Component{
             }
         }
     }
-    /*Fetchs the Hydration by date
+    /*Fetches the Hydration by date
     * @Params: aDate*/
     getHydration(aDate) {
         preData = this.props.athlete.preWeightData;
@@ -136,36 +138,36 @@ class AthleteReportTable extends Component{
         }
     }
 
-    /*handleEditButtonClick function -- when button is pressed date is set to aDate and this.open function is run
-    * @params aDate*/
+    /* handleEditButtonClick function -- when button is pressed date is set to aDate and this.open function is run
+     * @params aDate*/
     handleEditButtonClick(aDate) {
         this.setState({
            date : aDate,
         });
         this.open();
     }
-    /*handleOptionChange function -- sets prePost wight to e.target.value*/
+    /* handleOptionChange function -- sets prePost weight to e.target.value */
     handleOptionChange = (e) => {
         this.setState({prePost: e.target.value});
     }
 
-    /*handleWeight function -- sets prePost wight to e.target.value*/
+    /* handleWeight function -- sets prePost weight to e.target.value */
     handleWeight = (e) => {
         this.setState({weight: e.target.value});
     }
 
-    /*open function -- opens modal*/
+    /* open function -- opens modal */
     open() {
         this.setState({
             showModal: true,
         });
     }
-    /*close function -- closes modal*/
+    /* close function -- closes modal */
     close() {
         this.setState({ showModal: false });
     }
-    /*Edits entry and calls athlete.editWeight function on the server side passing through
-    @params pId, pDate pWeight, and pPrePost and closing modal upon finishing */
+    /* Edits entry and calls athlete.editWeight function on the server side passing through
+       @params pId, pDate pWeight, and pPrePost and closing modal upon finishing */
     editEntry() {
         event.preventDefault();
         const pId = this.props.athlete._id;

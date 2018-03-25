@@ -11,7 +11,7 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import $ from 'jquery';
 import 'jquery-validation';
 
-// Custom File Imports
+// Collection(s) & Custom File(s) Imports
 //import TextComp from '../components/TextComp/TextComp';
 
 class Registration extends React.Component {
@@ -78,6 +78,7 @@ class Registration extends React.Component {
     }
   }
 
+  /* Submits form */
   handleSubmit(form) {
     const { history } = this.props;
 
@@ -90,6 +91,7 @@ class Registration extends React.Component {
           Bert.alert(error.reason, 'danger');
       } else {
         //Roles.addUsersToRoles(newId, ['ADMIN']);
+
         Meteor.call('users.sendVerificationEmail');
         Bert.alert('Welcome!', 'success');
         history.push('/login');  //push(path, [state]) - (function) Pushes a new entry onto the history stack
@@ -100,10 +102,12 @@ class Registration extends React.Component {
     // !loggingIn ? Roles.addUsersToRoles(newUserId, ['ADMIN']) : console.log("Role not added!!");
   }
 
+    /* Routes to Login window */
     routeToLogin () {
         window.location = '/login';
     }
 
+    /* Renders Registration form */
     render() {
         return (
             <div className = "RegistrationBackGround">
