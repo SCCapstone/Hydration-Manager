@@ -5,6 +5,8 @@ import autoBind from 'react-autobind';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 
+/*AthleteReportTable component can be found and is linked with the athleteReport page at location
+ * imports/ui/pages/athleteReport.jsx */
 class AthleteReportTable extends Component{
 
     constructor(props){
@@ -69,14 +71,14 @@ class AthleteReportTable extends Component{
             }
         }
     }
-    /*Fetchs the Hydration by date
+    /*Fetches the Hydration by date
     * @Params: aDate*/
     getHydration(aDate) {
         preData = this.props.athlete.preWeightData;
         postData = this.props.athlete.postWeightData;
         hydration = null;
-        let pre = 0;
-        let post = 0;
+        var pre = 0;
+        var post = 0;
         for(i = 0; i < preData.length; i++)
         {
             if(preData[i] != undefined)
@@ -134,38 +136,38 @@ class AthleteReportTable extends Component{
                 elements[i].classList.add(aColor);
             }
         }
-    };
+    }
 
-    /*handleEditButtonClick function -- when button is pressed date is set to aDate and this.open function is run
-    * @params aDate*/
+    /* handleEditButtonClick function -- when button is pressed date is set to aDate and this.open function is run
+     * @params aDate*/
     handleEditButtonClick(aDate) {
         this.setState({
            date : aDate,
         });
         this.open();
-    };
-    /*handleOptionChange function -- sets prePost wight to e.target.value*/
+    }
+    /* handleOptionChange function -- sets prePost weight to e.target.value */
     handleOptionChange = (e) => {
         this.setState({prePost: e.target.value});
-    };
+    }
 
-    /*handleWeight function -- sets prePost wight to e.target.value*/
+    /* handleWeight function -- sets prePost weight to e.target.value */
     handleWeight = (e) => {
         this.setState({weight: e.target.value});
-    };
+    }
 
-    /*open function -- opens modal*/
+    /* open function -- opens modal */
     open() {
         this.setState({
             showModal: true,
         });
-    };
-    /*close function -- closes modal*/
+    }
+    /* close function -- closes modal */
     close() {
         this.setState({ showModal: false });
-    };
-    /*Edits entry and calls athlete.editWeight function on the server side passing through
-    @params pId, pDate pWeight, and pPrePost and closing modal upon finishing */
+    }
+    /* Edits entry and calls athlete.editWeight function on the server side passing through
+       @params pId, pDate pWeight, and pPrePost and closing modal upon finishing */
     editEntry() {
         event.preventDefault();
         const pId = this.props.athlete._id;
@@ -192,7 +194,7 @@ class AthleteReportTable extends Component{
         }
 
         this.close();
-    };
+    }
     /*Renders Dates, Weight Loss Percentage, PreWeights, and PostWeights for athletes*/
     render() {
         return(
@@ -231,7 +233,7 @@ class AthleteReportTable extends Component{
                         </tr>
                     </thead>
                     <tbody>
-                    {this.state.dates.map((date)=><tr key={date}><td>{date}</td><td>{this.getHydration(date)}</td><td>{this.getDatePreWeight(date)}</td><td>{this.getDatePostWeight(date)}</td><td><Button onClick={() => this.handleEditButtonClick(date)}><span className="glyphicon glyphicon-pencil"></span>Edit</Button></td></tr>)}
+                    {this.state.dates.map((date)=><tr key={date} keyprop={date}><td>{date}</td><td>{this.getHydration(date)}</td><td>{this.getDatePreWeight(date)}</td><td>{this.getDatePostWeight(date)}</td><td><Button onClick={() => this.handleEditButtonClick(date)}><span className="glyphicon glyphicon-pencil"></span>Edit</Button></td></tr>)}
                     </tbody>
                 </Table>
             </div>

@@ -28,6 +28,10 @@ import { withRouter } from 'react-router-dom';
 Profile not currently working, will get 404 errors when trying to logout from this page.
 -anthony
 */
+
+/* Presents the navigation sidebar with links to the Weight Entry, the Master Report,
+ * the Your Teams, and link to the Alerts Page. There is also a dropdown link to
+ * the Admin and a logout button. */
 const Navigation = props => (
     <div>
       <Navbar inverse collapseOnSelect>

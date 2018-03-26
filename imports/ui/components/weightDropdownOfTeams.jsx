@@ -4,6 +4,8 @@ import { MenuItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 
 
+/*The WeightDropdownOfTeams component can be found and is linked with the weightEntry page at location
+ * imports/ui/pages/weightEntry.jsx*/
 export default class WeightDropdownOfTeams extends Component {
 
 constructor(props) {

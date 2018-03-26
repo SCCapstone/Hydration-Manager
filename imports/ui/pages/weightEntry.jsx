@@ -6,7 +6,7 @@ import autoBind from 'react-autobind';
 import { Link } from 'react-router-dom'
 import { DropdownButton, MenuItem, Table } from 'react-bootstrap';
 
-// Custom File Imports
+// Collection(s) & Custom File(s) Imports
 import WeightDropdownOfTeams from '../components/weightDropdownOfTeams.jsx';
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 import TeamsCollection from '../../api/Teams/Teams.js';
@@ -32,26 +32,34 @@ class WeightEntry extends React.Component {
         });
     }
 
+    /* handleDebounce function --  prints the state of the selected option within the console log*/
     handleDebounce = () => {
         console.log('The selected option is:',this.state.selectedOption);
     };
 
+    /* handleOptionChange function -- sets selectedOption to e.target.value */
     handleOptionChange = (e) => {
         this.setState({selectedOption: e.target.value});
         this.handleDebounce();
     };
+
+    /* handleDataChange function -- sets selectedDate to e.target.value
+     * Also printed the data selected into the console log containing the selectDate (e.target.value) */
     handleDateChange = (e) => {
         e.preventDefault();
         this.setState({selectedDate: e.target.value});
         console.log('The date you selected is:', e.target.value);
     };
 
+    /* Teams component returns the team with matching user id */
     teams() {
         const curUser = this.props.name;  //CurrentUser.findOne();
         console.log(curUser);
         const id = this.props.userId;  //curUser.userID;
         return TeamsCollection.find({user:id}).fetch();
     };
+
+    /* Athletes component */
     athletes() {
         currentTeam = "";
         const curUser =  this.props.name;//CurrentUser.findOne();
@@ -66,29 +74,39 @@ class WeightEntry extends React.Component {
         }
     };
 
+    /* displayAthletes component */
     displayAthletes() {
+        /* If the athletes result is NOT null the athlete single is returned. */
         if(this.athletes() != null) {
             return (this.athletes().map((athlete) => {
                 return <AthleteEntryList key={athlete._id} athlete={athlete} selOp={this.state.selectedOption}
                                          dat={this.state.selectedDate}/>
             }))
         }
+        /* If nothing else, a tuple stating 'select a team' is returned. */
         else{
             return <li>Select a Team</li>
         }
         }
 
+    /* displayCurrentTeam constructor*/
     displayCurrentTeam() {
+        /* If this.props.match.params.teamId, this is set as the teamId. The currentTeam is
+         * set to the team of one of the team id. It is finally returns the currentTeam name
+         * and currentTeam season. */
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
             currentTeam = TeamsCollection.findOne({"_id": teamId});
             return ": " + currentTeam.name + " " + currentTeam.season;
         }
+        /* In other case, an empty string is returned. */
         else{
             return "";
         }
     }
 
+    /* Renders Weight Entry Lists of Athletes, dropdown buttons of teams,
+     * and forms for inputting athlete weights. */
     render() {
         const {props} = this;
         return (

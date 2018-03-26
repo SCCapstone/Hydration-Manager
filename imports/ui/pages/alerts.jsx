@@ -1,3 +1,5 @@
+/* TODO: WILL BE COMING BACK TO FINISH THE REST OF THE COMMENTS --Jaymel */
+
 // Package Imports
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -5,7 +7,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import autoBind from 'react-autobind';
 import { Table } from 'react-bootstrap';
 
-// Custom File Imports
+// Collection(s) & Custom File(s) Imports
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 import TeamsCollection from '../../api/Teams/Teams.js';
 import AthleteAlert from '../components/athleteAlert.jsx';
@@ -33,6 +35,7 @@ class Alerts extends React.Component {
             });
         }
 
+        /*Red Teams Athletes for athletes needing major attention.*/
         redAthletes() {
             allAthletes = AthletesCollection.find().fetch();
             redAthletes = [];
@@ -56,6 +59,7 @@ class Alerts extends React.Component {
             }
             return redAthletes;
         }
+        /*Yellow Team Athletes for athletes needing some attention. */
 
         yellowAthletes(){
             allAthletes = AthletesCollection.find().fetch();

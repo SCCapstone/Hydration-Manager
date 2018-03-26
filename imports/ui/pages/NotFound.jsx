@@ -2,6 +2,7 @@
 import React from 'react';
 import { Alert } from 'react-bootstrap';
 
+/* Page Not Found component*/
 const NotFound = () => (
   <div className="NotFound">
     <Alert bsStyle="danger">
