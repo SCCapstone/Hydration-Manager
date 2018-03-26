@@ -62,7 +62,7 @@ class WeightEntry extends React.Component {
     /* Athletes component */
     athletes() {
         currentTeam = "";
-        const curUser =  this.props.name;//CurrentUser.findOne();
+        const curUser =  this.props.name;//CurrentUser.findOne(); curUser never used -anthony
         const id = this.props.userId;  //curUser.userID;
         if(this.props.match.params.teamId) {
             teamId = this.props.match.params.teamId;
@@ -108,7 +108,7 @@ class WeightEntry extends React.Component {
     /* Renders Weight Entry Lists of Athletes, dropdown buttons of teams,
      * and forms for inputting athlete weights. */
     render() {
-        const {props} = this;
+        //const {props} = this;
         return (
             <div>
                 <div className="WeightHeader">

@@ -41,9 +41,9 @@ class Alerts extends React.Component {
             redAthletes = [];
             for (i = 0; i < allAthletes.length; i++)
             {
-                if(allAthletes[i].preWeightData[0] != undefined && allAthletes[i].postWeightData[0] != undefined)
+                if(allAthletes[i].preWeightData[0] !== undefined && allAthletes[i].postWeightData[0] !== undefined)
                 {
-                    if(allAthletes[i].preWeightData[0].date == allAthletes[i].postWeightData[0].date)
+                    if(allAthletes[i].preWeightData[0].date === allAthletes[i].postWeightData[0].date)
                     {
                         preWeight = allAthletes[i].preWeightData[0].weight;
                         postWeight = allAthletes[i].postWeightData[0].weight;
@@ -66,9 +66,9 @@ class Alerts extends React.Component {
             yellowAthletes = [];
             for (i = 0; i < allAthletes.length; i++)
             {
-                if(allAthletes[i].preWeightData[0] != undefined && allAthletes[i].postWeightData[0] != undefined)
+                if(allAthletes[i].preWeightData[0] !== undefined && allAthletes[i].postWeightData[0] !== undefined)
                 {
-                    if(allAthletes[i].preWeightData[0].date == allAthletes[i].postWeightData[0].date)
+                    if(allAthletes[i].preWeightData[0].date === allAthletes[i].postWeightData[0].date)
                     {
                         preWeight = allAthletes[i].preWeightData[0].weight;
                         postWeight = allAthletes[i].postWeightData[0].weight;

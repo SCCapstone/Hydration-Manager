@@ -21,7 +21,7 @@ export default class AthleteSingle extends Component {
     /**/
     render() {
         athlete = this.props.athlete;
-        var hydrate = "";
+        let hydrate = "";
         /* If the athlete's pre-weight data (preWeightData) at index zero is undefined -- OR --
          * If the athelete's post-weight data (postWeightData) at index zero is undefined
          * Then the hydrate variable would be set to null. */
@@ -48,9 +48,9 @@ export default class AthleteSingle extends Component {
             hydrate = 'No Data';
         }
 
-        var preWeightDate = null;
-        var postWeightDate = null;
-        var currentWeight = null;
+        let preWeightDate = null;
+        let postWeightDate = null;
+        let currentWeight = null;
         /* If the athlete's preWeightData at index zero is not undefined,
         *  then the preWeightData would be set to the date of the athlete's
         *  preWeightData at index zero and the preWeightData will be formatted

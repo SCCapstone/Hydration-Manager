@@ -76,7 +76,7 @@ class MasterReport extends React.Component {
         console.log(pTeamId);
         /*If one of the fields are left blank, then an alert window is generated
         * with message stating such.*/
-        if(pName == '' || pWeight == '' || pHeight == '' || pTeamId == '')
+        if(pName === '' || pWeight === '' || pHeight === '' || pTeamId === '')
         {
             window.alert("Make sure to complete all fields for player creation. If no teams are available, contact an admin to assign you a team.");
         }
@@ -101,8 +101,8 @@ class MasterReport extends React.Component {
     athletes() {
         currentTeam = "";
 
-        const curUser = this.props.name;  //CurrentUser.findOne();
-        const id = this.props.userId;  //curUser.userID;
+        const curUser = this.props.name;  //CurrentUser.findOne(); this curUser is never utilized -anthony
+        const id = this.props.userId;  //curUser.userID; this id is never utilized -anthony
         console.log(this.props.teamId);
         if(this.props.teamId !== '') {
             teamId = this.props.teamId;
@@ -123,7 +123,7 @@ class MasterReport extends React.Component {
             {
                 /*If the athletes list teamId is EQUAL TO the teamId,
                 then the increase athlete within the athletesList is pushed onto the currentAthletes array*/
-                if(this.props.athletesList[i].teamId == this.props.teamId)
+                if(this.props.athletesList[i].teamId === this.props.teamId)
                 {
                     currentAthletes.push(this.props.athletesList[i]);
                 }
@@ -175,7 +175,7 @@ class MasterReport extends React.Component {
                 /* If the teamsList id is EQUAL TO the teamId,
                  * then the Teams List name and the Teams List
                  * season are returned. */
-                if(this.props.teamsList[i]._id == teamId)
+                if(this.props.teamsList[i]._id === teamId)
                 {
                     return ": " + this.props.teamsList[i].name + " " + this.props.teamsList[i].season;
                 }
@@ -239,7 +239,7 @@ class MasterReport extends React.Component {
 
         /*If the teamsList at index zero is not undefined, the playerTeam id is set to the
         * id of the teamsList at index 0.  */
-        else if(this.props.teamsList[0] != undefined)
+        else if(this.props.teamsList[0] !== undefined)
         {
             this.setState({
                 playerTeamId : this.props.teamsList[0]._id
@@ -348,7 +348,8 @@ export default withTracker(({match}) => {
     const teamsList = !teamLoading ? TeamsCollection.find().fetch() : [];
     const athletesList = !athleteLoading ? AthletesCollection.find().fetch() : [];
     //const teamId = match.params.teamId;
-    const isTeamIdPassed = !match.params.teamId ? false : true;
+    //const isTeamIdPassed = !match.params.teamId ? false : true;
+    const isTeamIdPassed = !match.params.teamId;
     const teamId = isTeamIdPassed ? match.params.teamId : '';  //( (teamsList.length > 0) ? teamsList[0]._id : '');
 
     // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,

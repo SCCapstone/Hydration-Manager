@@ -40,13 +40,13 @@ class AthleteReport extends Component {
         /* Check #1: If the selected athlete's preWeightData with index 0 is NOT undefined,
            the preWeightDate is set to the athlete's preWeightData on the date that it was
            set.     */
-        if(this.athlete().preWeightData[0] != undefined) {
+        if(this.athlete().preWeightData[0] !== undefined) {
             preWeightDate = this.athlete().preWeightData[0].date;
         }
         /* Check #2: If the selected athlete's postWeightData with index 0 is NOT undefined,
            the postWeightDate is set to that particular athlete's postWeightData on the date
            that it was set.     */
-        if (this.athlete().postWeightData[0] != undefined) {
+        if (this.athlete().postWeightData[0] !== undefined) {
             postWeightDate = this.athlete().postWeightData[0].date;
         }
 
@@ -111,7 +111,7 @@ class AthleteReport extends Component {
                 // athlete = AthletesCollection.findOne({"_id": athleteId});
             /* The currentAthlete is set as an empty string. */
             currentAthlete = '';
-            console.log(this.props.athletesList)
+            console.log(this.props.athletesList);
 
         /* Finally the athletesLists is iterated through. While iterating through,
            the athleteList id attributes are checked to see if they are equal to
@@ -120,7 +120,7 @@ class AthleteReport extends Component {
             {
                 /* Finally, if this check passes as true, the currentAthlete
                 is now set as the list of athletes that have passed the check.*/
-                if(this.props.athletesList[i]._id == athleteId)
+                if(this.props.athletesList[i]._id === athleteId)
                 {
                     currentAthlete = (this.props.athletesList[i]);
                 }
@@ -183,7 +183,7 @@ class AthleteReport extends Component {
         }
         /* If the weightChange is equal to zero,
          * the weight change is returned as zero in decimal format with six precision points. */
-        else if (weightChange == 0)
+        else if (weightChange === 0)
         {
             return Number.parseFloat(weightChange).toPrecision(6);
         }
@@ -198,38 +198,38 @@ class AthleteReport extends Component {
             this.setState({
                 showModal: true,
             });
-        }
+        };
 
         //close method
         close() {
             this.setState({ showModal: false });
-        }
+        };
 
         /* handleName function -- sets the name equal to e.target.value */
         handleName = (e) => {
             this.setState({name: e.target.value});
-        }
+        };
 
         /* handleWeight function -- sets the base weight equal to e.target.value */
         handleWeight = (e) => {
             this.setState({base: e.target.value});
-        }
+        };
 
         /* handleHeight function -- sets the base height equal to e.target.value */
         handleHeight = (e) => {
             this.setState({height: e.target.value});
-        }
+        };
 
         /* handleTeam function -- sets the team equal to e.target.value */
         handleTeam = (e) => {
             this.setState({team: e.target.value});
-        }
+        };
 
         /* Upon firing, method will call the open function,
          * which in turn will open the modal window. */
         handleEditButtonClick() {
             this.open();
-        }
+        };
 
         /*Edit Entry method*/
         editEntry() {
@@ -239,7 +239,7 @@ class AthleteReport extends Component {
             const bw = this.state.base;
             const h = this.state.height;
             const t = this.state.team;
-            if(pId == '' || nm == '' || bw == '' || h == '' || t == '')
+            if(pId === '' || nm === '' || bw === '' || h === '' || t === '')
             {
                 window.alert("Make sure to complete all fields for editing.");
             }
@@ -256,13 +256,14 @@ class AthleteReport extends Component {
                         base: '',
                         height: '',
                         team: '',
-                    })
+                    });
+
                     this.close();
                 });
             }
 
             this.close();
-        }
+        };
     /* Render method -- contains the modal form for editing an athlete's information,
      * such as the name, height, weight, and the team to which that player relates to. */
     render() {
@@ -274,7 +275,7 @@ class AthleteReport extends Component {
         }
         for(i=0;i < this.props.athletesList.length;i++)
         {
-            if(this.props.athletesList[i]._id == this.props.athleteId)
+            if(this.props.athletesList[i]._id === this.props.athleteId)
             {
                 return (
                     <div>

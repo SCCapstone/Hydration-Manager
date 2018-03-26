@@ -37,7 +37,7 @@ class AthleteReportTable extends Component{
         }
         for(i=0; i< curAthlete.postWeightData.length; i++)
         {
-            if(curDates.indexOf(curAthlete.postWeightData[i].date) == -1) {
+            if(curDates.indexOf(curAthlete.postWeightData[i].date) === -1) {
                 curDates.push(curAthlete.postWeightData[i].date);
             }
         }
@@ -53,7 +53,7 @@ class AthleteReportTable extends Component{
         preData = this.props.athlete.preWeightData;
         for(i = 0; i < preData.length; i++)
         {
-            if(preData[i].date == aDate)
+            if(preData[i].date === aDate)
             {
                 return Number.parseFloat(preData[i].weight).toPrecision(6);
             }
@@ -65,7 +65,7 @@ class AthleteReportTable extends Component{
         postData = this.props.athlete.postWeightData;
         for(i = 0; i < postData.length; i++)
         {
-            if(postData[i].date == aDate)
+            if(postData[i].date === aDate)
             {
                 return Number.parseFloat(postData[i].weight).toPrecision(6);
             }
@@ -77,13 +77,13 @@ class AthleteReportTable extends Component{
         preData = this.props.athlete.preWeightData;
         postData = this.props.athlete.postWeightData;
         hydration = null;
-        var pre = 0;
-        var post = 0;
+        let pre = 0;
+        let post = 0;
         for(i = 0; i < preData.length; i++)
         {
-            if(preData[i] != undefined)
+            if(preData[i] !== undefined)
             {
-                if(preData[i].date == aDate)
+                if(preData[i].date === aDate)
                 {
                     pre = preData[i].weight;
                 }
@@ -91,9 +91,9 @@ class AthleteReportTable extends Component{
         }
         for(i = 0; i < postData.length; i++)
         {
-            if(postData[i] != undefined)
+            if(postData[i] !== undefined)
             {
-                if(postData[i].date == aDate)
+                if(postData[i].date === aDate)
                 {
                     post = postData[i].weight;
                 }
@@ -131,12 +131,12 @@ class AthleteReportTable extends Component{
         for(i=0;i<elements.length;i++)
         {
             console.log(elements[i].keyprop);
-            if(elements[i].getAttribute('keyprop') == aDate)
+            if(elements[i].getAttribute('keyprop') === aDate)
             {
                 elements[i].classList.add(aColor);
             }
         }
-    }
+    };
 
     /* handleEditButtonClick function -- when button is pressed date is set to aDate and this.open function is run
      * @params aDate*/
@@ -145,16 +145,17 @@ class AthleteReportTable extends Component{
            date : aDate,
         });
         this.open();
-    }
+    };
+
     /* handleOptionChange function -- sets prePost weight to e.target.value */
     handleOptionChange = (e) => {
         this.setState({prePost: e.target.value});
-    }
+    };
 
     /* handleWeight function -- sets prePost weight to e.target.value */
     handleWeight = (e) => {
         this.setState({weight: e.target.value});
-    }
+    };
 
     /* open function -- opens modal */
     open() {
@@ -175,7 +176,7 @@ class AthleteReportTable extends Component{
         const pDate = this.state.date;
         const pPrePost = this.state.prePost;
 
-        if(pId == '' || pWeight == '' || pDate == '' || pPrePost == '')
+        if(pId === '' || pWeight === '' || pDate === '' || pPrePost === '')
         {
             window.alert("Make sure to complete all fields for weight editing.");
         }
@@ -188,7 +189,8 @@ class AthleteReportTable extends Component{
                     date: "",
                     weight: "",
                     prePost: "",
-                })
+                });
+
                 this.close();
             });
         }
@@ -233,7 +235,7 @@ class AthleteReportTable extends Component{
                         </tr>
                     </thead>
                     <tbody>
-                    {this.state.dates.map((date)=><tr key={date} keyprop={date}><td>{date}</td><td>{this.getHydration(date)}</td><td>{this.getDatePreWeight(date)}</td><td>{this.getDatePostWeight(date)}</td><td><Button onClick={() => this.handleEditButtonClick(date)}><span className="glyphicon glyphicon-pencil"></span>Edit</Button></td></tr>)}
+                    {this.state.dates.map((date)=><tr key={date}><td>{date}</td><td>{this.getHydration(date)}</td><td>{this.getDatePreWeight(date)}</td><td>{this.getDatePostWeight(date)}</td><td><Button onClick={() => this.handleEditButtonClick(date)}><span className="glyphicon glyphicon-pencil"></span>Edit</Button></td></tr>)}
                     </tbody>
                 </Table>
             </div>

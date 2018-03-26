@@ -83,6 +83,7 @@ class AdminDash extends React.Component {
     )
   }
   /* Loading Progress Panel */
+  // This function is never used? -anthony
   showLoading() {
     if (!this.props.loading || 0 < _.size(this.props.usersList)) {
       return false;
