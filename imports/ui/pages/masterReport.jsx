@@ -348,8 +348,8 @@ export default withTracker(({match}) => {
     const teamsList = !teamLoading ? TeamsCollection.find().fetch() : [];
     const athletesList = !athleteLoading ? AthletesCollection.find().fetch() : [];
     //const teamId = match.params.teamId;
-    //const isTeamIdPassed = !match.params.teamId ? false : true;
-    const isTeamIdPassed = !match.params.teamId;
+    const isTeamIdPassed = !match.params.teamId ? false : true;
+    //const isTeamIdPassed = !match.params.teamId;
     const teamId = isTeamIdPassed ? match.params.teamId : '';  //( (teamsList.length > 0) ? teamsList[0]._id : '');
 
     // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
