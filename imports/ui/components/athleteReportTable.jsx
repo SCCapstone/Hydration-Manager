@@ -235,7 +235,7 @@ class AthleteReportTable extends Component{
                         </tr>
                     </thead>
                     <tbody>
-                    {this.state.dates.map((date)=><tr key={date}><td>{date}</td><td>{this.getHydration(date)}</td><td>{this.getDatePreWeight(date)}</td><td>{this.getDatePostWeight(date)}</td><td><Button onClick={() => this.handleEditButtonClick(date)}><span className="glyphicon glyphicon-pencil"></span>Edit</Button></td></tr>)}
+                    {this.state.dates.map((date)=><tr key={date} keyprop={date}><td>{date}</td><td>{this.getHydration(date)}</td><td>{this.getDatePreWeight(date)}</td><td>{this.getDatePostWeight(date)}</td><td><Button onClick={() => this.handleEditButtonClick(date)}><span className="glyphicon glyphicon-pencil"></span>Edit</Button></td></tr>)}
                     </tbody>
                 </Table>
             </div>

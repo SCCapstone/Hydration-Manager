@@ -166,6 +166,7 @@ class AthleteReport extends Component {
                 return this.props.teamsList[i].name + " " + this.props.teamsList[i].season;
             }
         }
+        return "undefined";
     }
 
     /*Loss calculation method
@@ -304,7 +305,7 @@ class AthleteReport extends Component {
                         <h3>Athlete Report</h3>
                         {/*TODO: Create component for the basic info*/}
                         <h4>{this.athlete().name} <Button bsSize="xsmall" onClick={() => this.handleEditButtonClick()}><span className="glyphicon glyphicon-pencil"></span></Button></h4>
-                        <h5>Team: {this.getTeam()}</h5>
+                        <h5>Team: {/*this.getTeam()*/}</h5>
                         <h5>Height: {this.athlete().height} in.</h5>
                         <h5>Base Weight: {this.athlete().baseWeight} lbs.</h5>
                         <h5>Current Weight: {this.showCurrentWeight()} lbs.</h5>
