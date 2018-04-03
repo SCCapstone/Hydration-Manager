@@ -20,7 +20,11 @@ a:hover{
 
 /* Nav CSS */
 .navbar{
-    margin-bottom: 0px;
+    margin-bottom: 0;
+}
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand{
+    color: #fff;
+    background-color: transparent;
 }
 
 
