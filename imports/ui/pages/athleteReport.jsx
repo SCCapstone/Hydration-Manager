@@ -124,35 +124,22 @@ class AthleteReport extends Component {
     }
 
     //team component
-    team() {
-        //playerTeamId = this.athlete().teamId;
-        //currentTeam = TeamsCollection.findOne({"_id": playerTeamId});
-        //console.log(playerTeamId + "," + currentTeam);
-        //return currentTeam;
-
+    teams() {
         /*The teamsList is returned here*/
         return this.props.teamsList;
     }
-
-    //teams component -- Fetches teams with user id and returns the list.
-    teams() {
-        const curUser = this.props.name;  //CurrentUser.findOne();
-        console.log(curUser);
-        const id = this.props.userId;  //curUser.userID;
-        return TeamsCollection.find({user:id}).fetch();
-    };
 
     /*getTeam function returns teams name and season*/
     getTeam() {
         for( let i=0; i<this.props.teamsList.length; i++)
         {
-            console.log("The length of the teams list is " + this.props.teamsList.length);
-            console.log("The id of the team at position " + i + " is " + this.props.teamsList[i]._id);
-            console.log("The teamid of the athlete is " + this.athlete().teamId);
-            console.log("The props object is " + this.props.teamsList);
-            console.log("The props object at position " + i + " is " + this.props.teamsList[i]);
-           // if(this.props.teamsList[i]._id.equals(this.athlete().teamId))
-           // if(this.props.teamsList[i]._id == (this.athlete().teamId))
+           // console.log("The length of the teams list is " + this.props.teamsList.length);
+           // console.log("The id of the team at position " + i + " is " + this.props.teamsList[i]._id);
+           // console.log("The teamid of the athlete is " + this.athlete().teamId);
+           // console.log("The props object is " + this.props.teamsList);
+           // console.log("The props object at position " + i + " is " + this.props.teamsList[i]);
+           // This will error. Do not uncomment. if(this.props.teamsList[i]._id.equals(this.athlete().teamId))
+           // This will error. Do not uncomment. if(this.props.teamsList[i]._id == (this.athlete().teamId))
             if(this.props.teamsList[i]._id === (this.athlete().teamId))
             {
                 // Can't set state from here. massive loop errors.
@@ -204,22 +191,26 @@ class AthleteReport extends Component {
 
         /* handleName function -- sets the name equal to e.target.value */
         handleName = (e) => {
+            e.persist();
             this.setState({name: e.target.value});
         };
 
         /* handleWeight function -- sets the base weight equal to e.target.value */
         handleWeight = (e) => {
+            e.persist();
             this.setState({base: e.target.value});
         };
 
         /* handleHeight function -- sets the base height equal to e.target.value */
         handleHeight = (e) => {
+            e.persist();
             this.setState({height: e.target.value});
         };
 
         /* handleTeam function -- sets the team equal to e.target.value */
         handleTeam = (e) => {
-            this.setState({team: e.target});
+            e.persist();
+            this.setState({team : e.target.value});
         };
 
         /* Upon firing, method will call the open function,
@@ -270,7 +261,7 @@ class AthleteReport extends Component {
         if(this.props.athleteLoading || this.props.teamLoading){
             return null;
         }
-        for(i=0;i < this.props.athletesList.length;i++)
+        for( let i=0; i < this.props.athletesList.length; i++ )
         {
             if(this.props.athletesList[i]._id === this.props.athleteId)
             {
@@ -286,9 +277,9 @@ class AthleteReport extends Component {
                                         <FormControl placeholder={this.athlete().name} label='Name' type='string' onChange={this.handleName}/>
                                         <FormControl placeholder={this.athlete().height} label='Height' type='number' onChange={this.handleHeight}/>
                                         <FormControl placeholder={this.athlete().baseWeight} label='Weight' type='number' onChange={this.handleWeight}/>
-                                        <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'default'} className = "DropDown" onChange={this.handleTeam}>
-                                            {this.team().map((team) => { return <ReportDropdownOfTeams key={team._id} team={team}/>})}
-                                        </DropdownButton>
+                                        <FormControl placeholder='Team' value={this.state.team} componentClass="select" label='Team' onChange={this.handleTeam}>
+                                            {this.teams().map((team) => <option value={team._id} key={team._id}>{team.name} {team.season}</option>)}
+                                        </FormControl>
                                     </FormGroup>
                                 </form>
                             </Modal.Body>
