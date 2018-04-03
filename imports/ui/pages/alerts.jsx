@@ -85,24 +85,7 @@ class Alerts extends React.Component {
             return yellowAthletes;
         }
 
-        teams() {
 
-            const curUser = this.props.name;  //CurrentUser.findOne();
-            console.log(curUser);
-            const id = this.props.userId;  //curUser.userID;
-            return TeamsCollection.find({user:id}).fetch();
-        };
-
-        displayCurrentTeam() {
-            if(this.props.match.params.teamId) {
-                teamId = this.props.match.params.teamId;
-                currentTeam = TeamsCollection.findOne({"_id": teamId});
-                return currentTeam.name + " " + currentTeam.season;
-            }
-            else{
-                return "";
-            }
-        };
         getCurrentTeam ()
         {
             currentTeam = this.props.match.params.teamId;

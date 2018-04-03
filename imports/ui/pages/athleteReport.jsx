@@ -52,36 +52,24 @@ class AthleteReport extends Component {
 
         /* Check #3: If the postWeightDate AND the preWeightDate are both NOT null,
            then the weight of the athlete's postWeightData with index 0,
-           will be returned as a number with 6 precision points, (i.e. 205.000)   */
+           will be returned as a number with 4 precision points, (i.e. 205.0)   */
         if(postWeightDate != null && preWeightDate != null)
         {
-            return Number.parseFloat(this.athlete().postWeightData[0].weight).toPrecision(6);
-   /*
-            If both weights do exist, current weight will be postWeight data. -anthony
-
-            if(postWeightDate > preWeightDate)
-            {
-                return this.athlete().postWeightData[0].weight;
-            }
-            else
-            {
-                return this.athlete().preWeightData[0].weight;
-            }
-   */
+            return Number.parseFloat(this.athlete().postWeightData[0].weight).toPrecision(4);
         }
         /* Check #4: If the postWeightDate is NOT null,
            then the weight of the athlete's postWeightData with index 0,
-           will be returned as a number with 6 precision points, (i.e. 205.000)   */
+           will be returned as a number with 4 precision points, (i.e. 205.0)   */
         else if(postWeightDate != null)
         {
-            return Number.parseFloat(this.athlete().postWeightData[0].weight).toPrecision(6);
+            return Number.parseFloat(this.athlete().postWeightData[0].weight).toPrecision(4);
         }
         /* Check #4: If the preWeightDate is NOT null,
            then the weight of the athlete's preWeightData with index 0,
-           will be returned as a number with 6 precision points, (i.e. 205.000)   */
+           will be returned as a number with 4 precision points, (i.e. 205.0)   */
         else if(preWeightDate != null)
         {
-            return Number.parseFloat(this.athlete().preWeightData[0].weight).toPrecision(6);
+            return Number.parseFloat(this.athlete().preWeightData[0].weight).toPrecision(4);
         }
         /* In any other instance the athlete's baseWeight will be returned*/
         else
@@ -111,7 +99,7 @@ class AthleteReport extends Component {
                 // athlete = AthletesCollection.findOne({"_id": athleteId});
             /* The currentAthlete is set as an empty string. */
             currentAthlete = '';
-            console.log(this.props.athletesList);
+            //console.log(this.props.athletesList);
 
         /* Finally the athletesLists is iterated through. While iterating through,
            the athleteList id attributes are checked to see if they are equal to
@@ -156,18 +144,26 @@ class AthleteReport extends Component {
 
     /*getTeam function returns teams name and season*/
     getTeam() {
-        //Increments through teamsList
-        for(i=0;i<this.props.teamsList.length;i++)
+        for( let i=0; i<this.props.teamsList.length; i++)
         {
-            /* Checks to see if teamsList generated id matchs the athlete's team id,
-             * if it passes the name of the team and season are returned. */
-            if(this.props.teamsList[i]._id === this.athlete().teamId)
+            console.log("The length of the teams list is " + this.props.teamsList.length);
+            console.log("The id of the team at position " + i + " is " + this.props.teamsList[i]._id);
+            console.log("The teamid of the athlete is " + this.athlete().teamId);
+            console.log("The props object is " + this.props.teamsList);
+            console.log("The props object at position " + i + " is " + this.props.teamsList[i]);
+           // if(this.props.teamsList[i]._id.equals(this.athlete().teamId))
+           // if(this.props.teamsList[i]._id == (this.athlete().teamId))
+            if(this.props.teamsList[i]._id === (this.athlete().teamId))
             {
+                // Can't set state from here. massive loop errors.
+                //console.log("The state team is " + this.state.team);
+                //this.handleTeam(this.athlete().teamId);
+                //console.log("The state team is now " + this.state.team);
                 return this.props.teamsList[i].name + " " + this.props.teamsList[i].season;
             }
         }
-        return "undefined";
     }
+
 
     /*Loss calculation method
      * Grabs and subtracts the showCurrentWeight by the baseWeight of the athlete */
@@ -177,21 +173,21 @@ class AthleteReport extends Component {
         weightChange = currentWeight - baseWeight;
         /*If the weightChange is greater than zero,
         * the weight change is returned along with the plus operator in front of the weight
-        * change with the decimal format of six precision points.*/
+        * change with the decimal format of four precision points.*/
         if(weightChange > 0)
         {
-            return "+" + Number.parseFloat(weightChange).toPrecision(6);
+            return "+" + Number.parseFloat(weightChange).toPrecision(4);
         }
         /* If the weightChange is equal to zero,
-         * the weight change is returned as zero in decimal format with six precision points. */
+         * the weight change is returned as zero in decimal format with four precision points. */
         else if (weightChange === 0)
         {
-            return Number.parseFloat(weightChange).toPrecision(6);
+            return Number.parseFloat(weightChange).toPrecision(4);
         }
         /* In any other case, the weight change is returned within parenthesis in decimal
-        * format with six precision points. */
+        * format with four precision points. */
         else {
-            return "(" + Number.parseFloat(weightChange).toPrecision(6) + ")";
+            return "(" + Number.parseFloat(weightChange).toPrecision(4) + ")";
         }
     }
         //open method
@@ -223,7 +219,7 @@ class AthleteReport extends Component {
 
         /* handleTeam function -- sets the team equal to e.target.value */
         handleTeam = (e) => {
-            this.setState({team: e.target.value});
+            this.setState({team: e.target});
         };
 
         /* Upon firing, method will call the open function,
@@ -301,11 +297,10 @@ class AthleteReport extends Component {
                                 <Button onClick={this.editEntry} bsStyle="primary">Edit Athlete</Button>
                             </Modal.Footer>
                         </Modal>
-                        <Link to = {"/app/masterReport/" + this.team()._id}><Button bsStyle="primary">&lt; Back to {this.team().name} {this.team().season}</Button></Link>
                         <h3>Athlete Report</h3>
                         {/*TODO: Create component for the basic info*/}
-                        <h4>{this.athlete().name} <Button bsSize="xsmall" onClick={() => this.handleEditButtonClick()}><span className="glyphicon glyphicon-pencil"></span></Button></h4>
-                        <h5>Team: {/*this.getTeam()*/}</h5>
+                        <h4>{this.athlete().name} <Button bsSize="xsmall" onClick={() => this.handleEditButtonClick()}><span className="glyphicon glyphicon-pencil">{}</span></Button></h4>
+                        <h5>Team: {this.getTeam()}</h5>
                         <h5>Height: {this.athlete().height} in.</h5>
                         <h5>Base Weight: {this.athlete().baseWeight} lbs.</h5>
                         <h5>Current Weight: {this.showCurrentWeight()} lbs.</h5>
@@ -341,9 +336,9 @@ export default withTracker(({match}) => {
     // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
     // match: PropTypes.object.isRequired,
     // history: PropTypes.object.isRequired,
-    console.log(teamsList);
-    console.log(athletesList);
-    console.log(athleteLoading);
+    //console.log(teamsList);
+    //console.log(athletesList);
+    //console.log(athleteLoading);
 
     return {
         subscriptions: [teamSubscription, athleteSubscription],

@@ -127,10 +127,10 @@ class AthleteReportTable extends Component{
     * @params aDate, aColor*/
     setColor(aDate,aColor) {
         elements = document.getElementsByTagName('tr');
-        console.log(aDate);
+        //console.log(aDate);
         for(i=0;i<elements.length;i++)
         {
-            console.log(elements[i].keyprop);
+            //console.log(elements[i].keyprop);
             if(elements[i].getAttribute('keyprop') === aDate)
             {
                 elements[i].classList.add(aColor);
