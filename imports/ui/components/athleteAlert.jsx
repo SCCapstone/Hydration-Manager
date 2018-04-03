@@ -33,7 +33,7 @@ export default class AthleteAlert extends Component {
         }
         else {
             hydrate = ((athlete.preWeightData[0].weight - athlete.postWeightData[0].weight) / athlete.preWeightData[0].weight) *100;
-            hydrate = Number.parseFloat(hydrate).toPrecision(6)
+            hydrate = Number.parseFloat(hydrate).toPrecision(4)
         }
         console.log(hydrate);
         if (hydrate == null || hydrate === undefined)

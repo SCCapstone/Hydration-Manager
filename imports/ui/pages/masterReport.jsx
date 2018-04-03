@@ -199,7 +199,7 @@ class MasterReport extends React.Component {
     /* handleHeight function -- sets the base height equal to e.target.value */
     handleHeight = (e) => {
         e.persist();
-        const num = Number.parseFloat(e.target.value).toPrecision(6);
+        const num = Number.parseFloat(e.target.value).toPrecision(4);
         this.setState({
             height : num
         });
@@ -208,7 +208,7 @@ class MasterReport extends React.Component {
     /* handleWeight function -- sets the base weight equal to e.target.value */
     handleWeight = (e) => {
         e.persist();
-        const num = Number.parseFloat(e.target.value).toPrecision(6);
+        const num = Number.parseFloat(e.target.value).toPrecision(4);
         this.setState({
             weight : num
         });

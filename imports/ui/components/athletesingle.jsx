@@ -32,10 +32,10 @@ export default class AthleteSingle extends Component {
         /* If the date of the update of the athlete's pre-weight data (preWeightData) at index zero
          * is EQUAL TO the date of the update of the athlete's post-weight data (postWeightData) at
          * index zero is undefined the calculation will take place and will be simplified to
-         * and resolved into decimal format and will provide six decimal points. */
+         * and resolved into decimal format and will provide four decimal points. */
         else if(athlete.preWeightData[0].date === athlete.postWeightData[0].date){
             hydrate = ((athlete.preWeightData[0].weight - athlete.postWeightData[0].weight) / athlete.preWeightData[0].weight) *100;
-            hydrate = Number.parseFloat(hydrate).toPrecision(6);
+            hydrate = Number.parseFloat(hydrate).toPrecision(4);
         }
         /*In any other scenario, as a safety protocol the hydrate variable will be set to null */
         else{
@@ -54,50 +54,50 @@ export default class AthleteSingle extends Component {
         /* If the athlete's preWeightData at index zero is not undefined,
         *  then the preWeightData would be set to the date of the athlete's
         *  preWeightData at index zero and the preWeightData will be formatted
-        *  into decimal format and given six precision points.*/
+        *  into decimal format and given four precision points.*/
         if(athlete.preWeightData[0] !== undefined)
         {
                preWeightDate = athlete.preWeightData[0].date;
-               preWeightDate = Number.parseFloat(preWeightDate).toPrecision(6);
+               preWeightDate = Number.parseFloat(preWeightDate).toPrecision(4);
         }
         /* If the athlete's postWeightData at index zero is not undefined,
         *  then the postWeightData would be set to the date of the athlete's
         *  postWeightData at index zero and the postWeightData will be formatted
-        *  into decimal format and given six precision points.*/
+        *  into decimal format and given four precision points.*/
         if (athlete.postWeightData[0] !== undefined) {
             postWeightDate = athlete.postWeightData[0].date;
-            postWeightDate = Number.parseFloat(postWeightDate).toPrecision(6);
+            postWeightDate = Number.parseFloat(postWeightDate).toPrecision(4);
         }
         /* If the athlete's postWeightDate at index zero is not equal to null -- AND --
          * If the athlete's preWeightDate at index zero is not equal to null
          * then the currentWeight would be set to the weight of the athlete's
          * postWeightData at index zero. The athlete's current weight will then be
-         * formatted into decimal format and given six precision points.*/
+         * formatted into decimal format and given four precision points.*/
         if(postWeightDate !== null && preWeightDate !== null)
         {
             currentWeight = athlete.postWeightData[0].weight;
-            currentWeight = Number.parseFloat(currentWeight).toPrecision(6);
+            currentWeight = Number.parseFloat(currentWeight).toPrecision(4);
 
         }
 
         /* If the postWeightDate is not equal to null,
          * then the currentWeight would be set to the weight of the postWeightData
          * at index zero. The athlete's current weight will then be
-         * formatted into decimal format and given six precision points.*/
+         * formatted into decimal format and given four precision points.*/
         else if(postWeightDate !== null)
         {
             currentWeight =  athlete.postWeightData[0].weight;
-            currentWeight = Number.parseFloat(currentWeight).toPrecision(6);
+            currentWeight = Number.parseFloat(currentWeight).toPrecision(4);
         }
 
         /* If the preWeightDate is not equal to null,
          * then the currentWeight would be set to the weight of the preWeightData
          * at index zero. The athlete's current weight will then be
-         * formatted into decimal format and given six precision points.*/
+         * formatted into decimal format and given four precision points.*/
         else if(preWeightDate !== null)
         {
             currentWeight =  athlete.preWeightData[0].weight;
-            currentWeight = Number.parseFloat(currentWeight).toPrecision(6);
+            currentWeight = Number.parseFloat(currentWeight).toPrecision(4);
         }
         /* As a safety precaution, in any other situation, the currentWeight would
          * set as the athlete's baseWeight */

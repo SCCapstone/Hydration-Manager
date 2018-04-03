@@ -55,7 +55,7 @@ class AthleteReportTable extends Component{
         {
             if(preData[i].date === aDate)
             {
-                return Number.parseFloat(preData[i].weight).toPrecision(6);
+                return Number.parseFloat(preData[i].weight).toPrecision(4);
             }
         }
     }
@@ -67,7 +67,7 @@ class AthleteReportTable extends Component{
         {
             if(postData[i].date === aDate)
             {
-                return Number.parseFloat(postData[i].weight).toPrecision(6);
+                return Number.parseFloat(postData[i].weight).toPrecision(4);
             }
         }
     }
@@ -116,7 +116,7 @@ class AthleteReportTable extends Component{
                 //red
                 this.setColor(aDate,'redStatus');
             }
-            return Number.parseFloat(hydration).toPrecision(6);
+            return Number.parseFloat(hydration).toPrecision(4);
         }
         else
         {
