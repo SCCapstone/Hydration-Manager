@@ -102,16 +102,21 @@ class AthleteReportTable extends Component{
         }
         if(pre > 0 && post > 0) {
             hydration = (((pre - post)) / pre) * 100;
-            if(hydration >= -2 && hydration <=3)
+            if(hydration >= -2 && hydration <= 3)
             {
                this.setColor(aDate,'greenStatus');
             }
-            else if(hydration >= -4 && hydration <-2)
+            else if(hydration > -4 && hydration <-3)
             {
                 //yellow
                 this.setColor(aDate,'yellowStatus');
             }
-            else if(hydration < -4 || hydration > 3)
+            else if(hydration > 3 && hydration < 4)
+            {
+                //yellow
+                this.setColor(aDate,'yellowStatus');
+            }
+            else if(hydration <= -4 || hydration >= 4)
             {
                 //red
                 this.setColor(aDate,'redStatus');

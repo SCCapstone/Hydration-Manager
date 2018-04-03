@@ -50,7 +50,7 @@ class Alerts extends React.Component {
                         hydration = (preWeight-postWeight)/preWeight*100;
                         //hydration2 = (allAthletes[i].baseWeight[i]-postWeight)/allAthletes[i].baseWeight[i]*100;
                         //if(hydration < -4 || hydration > 3 || hydration2 < -4 || hydration2 > 3)
-                        if(hydration < -4 || hydration > 3)
+                        if(hydration <= -4 || hydration >= 4)
                         {
                             redAthletes.push(allAthletes[i]);
                         }
@@ -75,7 +75,11 @@ class Alerts extends React.Component {
                         hydration = (preWeight-postWeight)/preWeight*100;
                         //hydration2 = (allAthletes[i].baseWeight[i]-postWeight)/allAthletes[i].baseWeight[i]*100;
                         //if(hydration >= -4 && hydration < -2 || hydration2 >= -4 || hydration2 < -2)
-                        if(hydration >= -4 && hydration < -2)
+                        if(hydration > -4 && hydration < -3)
+                        {
+                            yellowAthletes.push(allAthletes[i]);
+                        }
+                        if(hydration > 3 && hydration < 4)
                         {
                             yellowAthletes.push(allAthletes[i]);
                         }
