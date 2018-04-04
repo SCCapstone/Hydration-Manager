@@ -20,7 +20,6 @@ class Alerts extends React.Component {
                 showModal: false,
                 name: '',
                 weight: '',
-                height: '',
                 playerTeamId: '',
             };
             // this.teams = this.teams.bind(this);
@@ -114,7 +113,7 @@ class Alerts extends React.Component {
                             <tr>
                                 <th>Name</th>
                                 <th>Team</th>
-                                <th>Weight Loss %</th>
+                                <th>Weight Change %</th>
                             </tr>
                             </thead>
                             <tbody className="redBack">
@@ -130,7 +129,7 @@ class Alerts extends React.Component {
                             <tr>
                                 <th>Name</th>
                                 <th>Team</th>
-                                <th>Weight Loss %</th>
+                                <th>Weight Change %</th>
                             </tr>
                             </thead>
                             <tbody className="yellowBack">
