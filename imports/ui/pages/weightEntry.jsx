@@ -52,6 +52,12 @@ class WeightEntry extends React.Component {
     /* handleOptionChange function -- sets selectedOption to e.target.value */
     handleOptionChange = (e) => {
         this.setState({selectedOption: e.target.value});
+        weightElements = document.getElementsByClassName("weightEnterInput");
+        for(i=0; i<weightElements.length; i++)
+        {
+            weightElements[i].value = "";
+            console.log(weightElements[i]);
+        }
         this.handleDebounce();
     };
 

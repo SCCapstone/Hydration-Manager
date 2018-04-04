@@ -60,7 +60,7 @@ export default class AthleteEntryList extends Component {
                 <td>{this.props.athlete.name}</td>
                 <td>
                     <form>
-                        <input id='weight' type="number" value={this.state.weight} onChange={this.handleWeightChange} onKeyPress={this.onKeyPress}/>
+                        <input className='weightEnterInput' type="number" onChange={this.handleWeightChange} onKeyPress={this.onKeyPress}/>
                     </form>
                 </td>
             </tr>
