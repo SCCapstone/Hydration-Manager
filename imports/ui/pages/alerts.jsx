@@ -114,6 +114,7 @@ class Alerts extends React.Component {
                                 <th>Name</th>
                                 <th>Team</th>
                                 <th>Weight Change %</th>
+                                <th>Current Weight</th>
                             </tr>
                             </thead>
                             <tbody className="redBack">
@@ -130,6 +131,7 @@ class Alerts extends React.Component {
                                 <th>Name</th>
                                 <th>Team</th>
                                 <th>Weight Change %</th>
+                                <th>Current Weight</th>
                             </tr>
                             </thead>
                             <tbody className="yellowBack">
