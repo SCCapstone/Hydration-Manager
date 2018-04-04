@@ -32,6 +32,18 @@ class WeightEntry extends React.Component {
         });
     }
 
+    componentDidMount() {
+        now = new Date();
+        month = (now.getMonth() + 1);
+        day = now.getDate();
+        if (month < 10)
+            month = "0" + month;
+        if (day < 10)
+            day = "0" + day;
+        today = now.getFullYear() + '-' + month + '-' + day;
+        this.setState({selectedDate: today});
+    }
+
     /* handleDebounce function --  prints the state of the selected option within the console log*/
     handleDebounce = () => {
         console.log('The selected option is:',this.state.selectedOption);
