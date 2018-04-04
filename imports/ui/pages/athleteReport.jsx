@@ -19,7 +19,6 @@ class AthleteReport extends Component {
             showModal : false,
             name: '',
             base: '',
-            height: '',
             team: '',
         };
         autoBind(this);
@@ -201,12 +200,6 @@ class AthleteReport extends Component {
             this.setState({base: e.target.value});
         };
 
-        /* handleHeight function -- sets the base height equal to e.target.value */
-        handleHeight = (e) => {
-            e.persist();
-            this.setState({height: e.target.value});
-        };
-
         /* handleTeam function -- sets the team equal to e.target.value */
         handleTeam = (e) => {
             e.persist();
@@ -225,9 +218,8 @@ class AthleteReport extends Component {
             const pId = this.props.athleteId;
             const nm = this.state.name;
             const bw = this.state.base;
-            const h = this.state.height;
             const t = this.state.team;
-            if(pId === '' || nm === '' || bw === '' || h === '' || t === '')
+            if(pId === '' || nm === '' || bw === '' || t === '')
             {
                 window.alert("Make sure to complete all fields for editing.");
             }
@@ -235,14 +227,13 @@ class AthleteReport extends Component {
              * on the collections side will be called and an alert will be issued
              * stating that athlete was edited and that the edit was successful. '*/
             else {
-                Meteor.call('athletes.edit', pId, nm, h, bw, t, () => {
+                Meteor.call('athletes.edit', pId, nm, bw, t, () => {
                     Bert.defaults = {hideDelay: 4500};
                     Bert.alert('athlete edited', 'success', 'fixed-top', 'fa-check');
 
                     this.setState({
                         name: '',
                         base: '',
-                        height: '',
                         team: '',
                     });
 
@@ -253,7 +244,7 @@ class AthleteReport extends Component {
             this.close();
         };
     /* Render method -- contains the modal form for editing an athlete's information,
-     * such as the name, height, weight, and the team to which that player relates to. */
+     * such as the name, weight, and the team to which that player relates to. */
     render() {
         athlete = this.props.athlete;
         team = this.props.team;
@@ -275,7 +266,6 @@ class AthleteReport extends Component {
                                 <form>
                                     <FormGroup>
                                         <FormControl placeholder={this.athlete().name} label='Name' type='string' onChange={this.handleName}/>
-                                        <FormControl placeholder={this.athlete().height} label='Height' type='number' onChange={this.handleHeight}/>
                                         <FormControl placeholder={this.athlete().baseWeight} label='Weight' type='number' onChange={this.handleWeight}/>
                                         <FormControl placeholder='Team' value={this.state.team} componentClass="select" label='Team' onChange={this.handleTeam}>
                                             {this.teams().map((team) => <option value={team._id} key={team._id}>{team.name} {team.season}</option>)}
@@ -292,10 +282,9 @@ class AthleteReport extends Component {
                         {/*TODO: Create component for the basic info*/}
                         <h4>{this.athlete().name} <Button bsSize="xsmall" onClick={() => this.handleEditButtonClick()}><span className="glyphicon glyphicon-pencil">{}</span></Button></h4>
                         <h5>Team: {this.getTeam()}</h5>
-                        <h5>Height: {this.athlete().height} in.</h5>
-                        <h5>Base Weight: {this.athlete().baseWeight} lbs.</h5>
-                        <h5>Current Weight: {this.showCurrentWeight()} lbs.</h5>
-                        <h5>Total Weight Change: {this.calcLoss()} lbs.</h5>
+                        <h5>Base Weight: {this.athlete().baseWeight}</h5>
+                        <h5>Current Weight: {this.showCurrentWeight()}</h5>
+                        <h5>Total Weight Change: {this.calcLoss()}</h5>
                         <AthleteReportTable athlete={this.athlete()}/>
                     </div>
                 )

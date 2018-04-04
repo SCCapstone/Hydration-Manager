@@ -115,7 +115,6 @@ export default class AthleteSingle extends Component {
                 <td>{hydrate}</td>
                 <td>{currentWeight}</td>
                 <td>{Number.parseFloat(this.props.athlete.baseWeight).toPrecision(4)}</td>
-                <td>{Number.parseFloat(this.props.athlete.height).toPrecision(4)}</td>
             </tr>
         )
     }

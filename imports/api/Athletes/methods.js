@@ -7,15 +7,14 @@ import handleMethodException from '../../modules/handle-method-exception.js';
 
 Meteor.methods({
     /*Definition for athletes.insert (Server Side Method), will be called by client who will pass through attributes:
-    * @Params aName, aWeight, aHeight, aTeamId
+    * @Params aName, aWeight, aTeamId
     * This function will create and add a new Athlete to the database.*/
-    'athletes.insert': function athletesInsert(aName,aWeight,aHeight,aTeamId) {
+    'athletes.insert': function athletesInsert(aName,aWeight,aTeamId) {
         console.log(aName);
         try {
             return Athletes.insert({
                 name: aName,
                 baseWeight: aWeight,
-                height: aHeight,
                 teamId: aTeamId,
                 createdAt: new Date(),
                 preWeightData: [],
@@ -73,13 +72,13 @@ Meteor.methods({
         Athletes.remove(id);
     },
     /* Definition for athletes.edit (Server Side Method), will be called by client who will pass through attributes:
-    * @Params id, nm (name), h(height), bs(baseWeight), t(teamID)
-    * This function will update the name, height, baseWeight, and team of a particular athlete using the corresponding id. */
-    'athletes.edit': function editAthlete(id, nm, h, bs, t) {
+    * @Params id, nm (name), bs(baseWeight), t(teamID)
+    * This function will update the name, baseWeight, and team of a particular athlete using the corresponding id. */
+    'athletes.edit': function editAthlete(id, nm, bs, t) {
         Athletes.update(
             { _id: id },
             {
-                $set: { name: nm, height: h, baseWeight: bs, teamId: t}
+                $set: { name: nm, baseWeight: bs, teamId: t}
             }
         );
     },

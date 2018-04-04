@@ -21,7 +21,6 @@ class MasterReport extends React.Component {
             showModal: false,
             name: '',
             weight: '',
-            height: '',
             playerTeamId: '',
             teamSelected: '',
         };
@@ -66,17 +65,16 @@ class MasterReport extends React.Component {
         event.preventDefault();
         const pName = this.state.name;
         const pWeight = this.state.weight;
-        const pHeight = this.state.height;
         const pTeamId = this.state.playerTeamId;
 
 
         console.log(pName);
         console.log(pWeight);
-        console.log(pHeight);
+        // console.log(pHeight);
         console.log(pTeamId);
         /*If one of the fields are left blank, then an alert window is generated
         * with message stating such.*/
-        if(pName === '' || pWeight === '' || pHeight === '' || pTeamId === '')
+        if(pName === '' || pWeight === '' || pTeamId === '')
         {
             window.alert("Make sure to complete all fields for player creation. If no teams are available, contact an admin to assign you a team.");
         }
@@ -84,13 +82,12 @@ class MasterReport extends React.Component {
          * at location: imports/api/Athletes/methods.js; upon completion an alert message
          * will be printed stating the player has been creating and the action was successful.*/
         else {
-            Meteor.call('athletes.insert', pName, pWeight, pHeight, pTeamId, () => {
+            Meteor.call('athletes.insert', pName, pWeight, pTeamId, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Player Created', 'success', 'fixed-top', 'fa-check');
 
                 this.name = "";
                 this.weight = "";
-                this.height = "";
                 this.close();
             });
         }
@@ -196,15 +193,6 @@ class MasterReport extends React.Component {
         });
     };
 
-    /* handleHeight function -- sets the base height equal to e.target.value */
-    handleHeight = (e) => {
-        e.persist();
-        const num = Number.parseFloat(e.target.value).toPrecision(4);
-        this.setState({
-            height : num
-        });
-    };
-
     /* handleWeight function -- sets the base weight equal to e.target.value */
     handleWeight = (e) => {
         e.persist();
@@ -284,10 +272,8 @@ class MasterReport extends React.Component {
                                 <FormGroup>
                                     <FormControl placeholder='Player Name' label='Player Name' type='text'
                                                  onChange={this.handleName}/><br/>
-                                    <FormControl placeholder='Baseline Weight (lbs)' label='Base Weight' type='number'
+                                    <FormControl placeholder='Baseline Weight' label='Base Weight' type='number'
                                                  onChange={this.handleWeight}/><br/>
-                                    <FormControl placeholder='Height (in)' label='Height' type='number'
-                                                 onChange={this.handleHeight}/><br/>
                                     <FormControl placeholder='Team' value={this.state.playerTeamId}
                                                  componentClass="select" label='Team' onChange={this.handleTeam}>
                                         {this.teams().map((team) => <option value={team._id}
@@ -310,9 +296,8 @@ class MasterReport extends React.Component {
                         <tr>
                             <th>Name</th>
                             <th>Most Recent Weight Loss %</th>
-                            <th>Current Weight (lbs.)</th>
-                            <th>Base Weight (lbs.)</th>
-                            <th>Height (in.)</th>
+                            <th>Current Weight</th>
+                            <th>Base Weight</th>
                         </tr>
                         </thead>
                         <tbody>
