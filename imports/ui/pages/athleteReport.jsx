@@ -31,6 +31,21 @@ class AthleteReport extends Component {
         window.location = "/app/masterReport/";
     }
 
+    componentDidMount() {
+        this.getCurrentTeam();
+    }
+
+    componentWillUnmount() {
+        this.props.subscriptions.forEach((s) =>{
+            s.stop();
+        });
+
+    }
+
+    getCurrentTeam () {
+        this.setState({ team: this.props.teamId });
+    }
+
     /*showCurrentWeight method  */
     showCurrentWeight() {
         preWeightDate = null;
@@ -75,13 +90,6 @@ class AthleteReport extends Component {
         {
             return this.athlete().baseWeight;
         }
-    }
-
-    componentWillUnmount() {
-        this.props.subscriptions.forEach((s) =>{
-            s.stop();
-        });
-
     }
 
     /*deleteAthlete method, calls to method found on in the Athletes api,
@@ -177,72 +185,76 @@ class AthleteReport extends Component {
         }
     }
         //open method
-        open() {
+    open() {
+        this.setState({
+            showModal: true,
+        });
+    };
+
+    //close method
+    close() {
+        this.setState({ showModal: false });
+    };
+
+    /* handleName function -- sets the name equal to e.target.value */
+    handleName = (e) => {
+        e.persist();
+        this.setState({name: e.target.value});
+    };
+
+    /* handleWeight function -- sets the base weight equal to e.target.value */
+    handleWeight = (e) => {
+        e.persist();
+        this.setState({base: e.target.value});
+    };
+
+    /* handleTeam function -- sets the team equal to e.target.value */
+    handleTeam = (e) => {
+        e.persist();
+        this.setState({team : e.target.value});
+    };
+
+    /* Upon firing, method will call the open function, which in turn will open the modal window. */
+    handleEditButtonClick() {
+        this.open();
+    };
+
+    /*Edit Entry method*/
+    editEntry() {
+        event.preventDefault();
+        let pId = this.props.athleteId;
+        let nm = this.state.name;
+        let bw = this.state.base;
+        let t = this.state.team;
+        /* If any values are left blank, then accept the previous value in that athlete's information */
+        if (nm === '' )
+        {
+            nm = this.athlete().name;
+        }
+        if (bw === '' )
+        {
+            bw = this.athlete().baseWeight;
+        }
+        if (t === '' )
+        {
+            t = this.athlete().teamId;
+        }
+
+        /* Meteor method athletes.edit on the collections side will be called and an alert will be issued
+         * stating that athlete was edited and that the edit was successful. '*/
+        Meteor.call('athletes.edit', pId, nm, bw, t, () => {
+            Bert.defaults = {hideDelay: 4500};
+            Bert.alert('athlete edited', 'success', 'fixed-top', 'fa-check');
+
             this.setState({
-                showModal: true,
+                name: '',
+                base: '',
+                team: '',
             });
-        };
-
-        //close method
-        close() {
-            this.setState({ showModal: false });
-        };
-
-        /* handleName function -- sets the name equal to e.target.value */
-        handleName = (e) => {
-            e.persist();
-            this.setState({name: e.target.value});
-        };
-
-        /* handleWeight function -- sets the base weight equal to e.target.value */
-        handleWeight = (e) => {
-            e.persist();
-            this.setState({base: e.target.value});
-        };
-
-        /* handleTeam function -- sets the team equal to e.target.value */
-        handleTeam = (e) => {
-            e.persist();
-            this.setState({team : e.target.value});
-        };
-
-        /* Upon firing, method will call the open function,
-         * which in turn will open the modal window. */
-        handleEditButtonClick() {
-            this.open();
-        };
-
-        /*Edit Entry method*/
-        editEntry() {
-            event.preventDefault();
-            const pId = this.props.athleteId;
-            const nm = this.state.name;
-            const bw = this.state.base;
-            const t = this.state.team;
-            if(pId === '' || nm === '' || bw === '' || t === '')
-            {
-                window.alert("Make sure to complete all fields for editing.");
-            }
-            /* If any thing else happens, the meteor method athletes.edit
-             * on the collections side will be called and an alert will be issued
-             * stating that athlete was edited and that the edit was successful. '*/
-            else {
-                Meteor.call('athletes.edit', pId, nm, bw, t, () => {
-                    Bert.defaults = {hideDelay: 4500};
-                    Bert.alert('athlete edited', 'success', 'fixed-top', 'fa-check');
-
-                    this.setState({
-                        name: '',
-                        base: '',
-                        team: '',
-                    });
-
-                    this.close();
-                });
-            }
 
             this.close();
-        };
+        });
+    };
     /* Render method -- contains the modal form for editing an athlete's information,
      * such as the name, weight, and the team to which that player relates to. */
     render() {
@@ -267,7 +279,7 @@ class AthleteReport extends Component {
                                     <FormGroup>
                                         <FormControl placeholder={this.athlete().name} label='Name' type='string' onChange={this.handleName}/>
                                         <FormControl placeholder={this.athlete().baseWeight} label='Weight' type='number' onChange={this.handleWeight}/>
-                                        <FormControl placeholder='Team' value={this.state.team} componentClass="select" label='Team' onChange={this.handleTeam}>
+                                        <FormControl defaultValue={this.athlete().teamId} value={this.state.team} componentClass="select" label='Team' onChange={this.handleTeam}>
                                             {this.teams().map((team) => <option value={team._id} key={team._id}>{team.name} {team.season}</option>)}
                                         </FormControl>
                                     </FormGroup>
