@@ -7,10 +7,27 @@ import { Roles } from 'meteor/alanning:roles';
 import { _ } from 'meteor/underscore';
 
 // Custom File & Collection Imports
+if (!Meteor.isProduction) {
+  const users = [
+  { email: 'admin@admin.com', password: 'password',
+    profile: { name: { first: 'Admin', last: '' }, }, roles: ['ADMIN'], },
+  { email: 'admin1@admin1.com', password: 'password1',
+    profile: { name: { first: 'Jane', last: 'Doe' }, }, roles: ['PUB'], },
+  { email: 'hydration@usc.com', password: 'password',
+      profile: { name: { first: 'Hydration', last: 'Admin' }, }, roles: ['ADMIN'], },
+  ];
+  users.forEach(({ email, password, profile, roles }) => {
+    const userExists = Meteor.users.findOne({ 'emails.address': email });
+    if (!userExists) {
+      const userId = Accounts.createUser({ email, password, profile });
+      //Roles.addUsersToRoles(userId, roles);
+      //console.log(roles);
+      Roles.setUserRoles(userId, roles);
+    }
+  });
+}
 //import ROLES  from '../../api/Users/roles.js';
-
 // import seeder from '@cleverbeagle/seeder';
-//
 // seeder(Meteor.users, {
 //   environments: ['development', 'staging'],
 //   data: [{
@@ -32,52 +49,3 @@ import { _ } from 'meteor/underscore';
 //     roles: [ROLES.ADMIN],
 //   }],
 // });
-
-if (!Meteor.isProduction) {
-  const users = [{
-    email: 'admin@admin.com',
-    password: 'password',
-    profile: {
-      name: {
-        first: 'Admin',
-        last: ''
-      },
-    },
-    roles: ['ADMIN'],
-  },
-  {
-    email: 'admin1@admin1.com',
-    password: 'password1',
-    profile: {
-      name: {
-        first: 'Jane',
-        last: 'Doe'
-      },
-    },
-    roles: ['PUB'],
-  },
-    {
-    email: 'hydration@usc.com',
-      password: 'password',
-      profile: {
-      name: {
-          first: 'Hydration',
-          last: 'Admin'
-      },
-    },
-    roles: ['ADMIN'],
-},
-  ];
-
-  users.forEach(({ email, password, profile, roles }) => {
-    const userExists = Meteor.users.findOne({ 'emails.address': email });
-
-    if (!userExists) {
-      const userId = Accounts.createUser({ email, password, profile });
-      //Roles.addUsersToRoles(userId, roles);
-      console.log(roles);
-      Roles.setUserRoles(userId, roles);
-    }
-  });
-
-}

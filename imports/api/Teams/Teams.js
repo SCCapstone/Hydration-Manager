@@ -8,25 +8,21 @@ const Teams = new Mongo.Collection('teams');
 export default Teams;
 /* Section used for creating and modifying SimpleSchema for Teams Collection
      -Provides specifics for all Teams attributes. */
-
 // Teams.allow({
 //   insert: () => false,
 //   update: () => false,
 //   remove: () => false,
 // });
-//
 // Teams.deny({
 //   insert: () => true,
 //   update: () => true,
 //   remove: () => true,
 // });
-//
 // Teams.schema = new SimpleSchema({
 //   name: {
 //     type: String,
 //     label: 'The name of the team.',
 //   },
-//
 //   season: {
 //     type: String,
 //     label: 'The team\'s season .',
@@ -45,10 +41,6 @@ export default Teams;
 // });
 //
 // Teams.attachSchema(Teams.schema);
-
-
-
-
 // addNewTeam(teamName, teamSeason, id) {
 //   Teams.insert({
 //     name: teamName,
@@ -57,7 +49,6 @@ export default Teams;
 //     createdAt: new Date()
 //   });
 // },
-//
 // deleteTm(id) {
 //   Teams.remove(id);
 // },

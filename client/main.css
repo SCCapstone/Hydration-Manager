@@ -2,7 +2,6 @@
 
 /*Overall App CSS*/
 body{
-
 }
 hr{
     border: none;
@@ -13,9 +12,8 @@ a{
     text-decoration: none;
     color: #000;
 }
-/*Need to put something here, so they know its a link */
+/*TODO: Need to put something here, so they know its a link */
 a:hover{
-
 }
 
 /* Nav CSS */

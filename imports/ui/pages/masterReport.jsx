@@ -188,26 +188,20 @@ class MasterReport extends React.Component {
     /* handleName function -- sets the name equal to e.target.value */
     handleName = (e) => {
         e.persist();
-        this.setState({
-            name : e.target.value
-        });
+        this.setState({ name : e.target.value });
     };
 
     /* handleWeight function -- sets the base weight equal to e.target.value */
     handleWeight = (e) => {
         e.persist();
         const num = Number.parseFloat(e.target.value).toPrecision(4);
-        this.setState({
-            weight : num
-        });
+        this.setState({ weight : num });
     };
 
     /* handleTeam function -- sets the team equal to e.target.value */
     handleTeam = (e) => {
         e.persist();
-        this.setState({
-            playerTeamId : e.target.value
-        });
+        this.setState({ playerTeamId : e.target.value });
     };
 
     /* Gets current team so that the modal window automatically has the current team selected.
@@ -218,9 +212,7 @@ class MasterReport extends React.Component {
         if(this.props.teamId)
         {
             currentTeam = this.props.teamId;
-            this.setState({
-                playerTeamId : currentTeam
-            });
+            this.setState({ playerTeamId : currentTeam });
         }
 
         // CurrentUser.findOne().userID -> Alt. Ex: Meteor.users.findOne({ 'emails.address': email })
@@ -229,9 +221,7 @@ class MasterReport extends React.Component {
         * id of the teamsList at index 0.  */
         else if(this.props.teamsList[0] !== undefined)
         {
-            this.setState({
-                playerTeamId : this.props.teamsList[0]._id
-            });
+            this.setState({ playerTeamId : this.props.teamsList[0]._id });
         }
     }
 

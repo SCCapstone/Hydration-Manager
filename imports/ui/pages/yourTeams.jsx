@@ -37,11 +37,11 @@ class YourTeams extends React.Component {
     }
 
     open() {
-        this.setState({showModal: true});
+        this.setState({ showModal: true });
     };
 
     close() {
-        this.setState({showModal: false});
+        this.setState({ showModal: false });
     };
 
     addTeam() {
@@ -70,16 +70,12 @@ class YourTeams extends React.Component {
 
     handleTeam = (e) => {
         e.persist();
-        this.setState({
-            teamName: e.target.value
-        });
+        this.setState({ teamName: e.target.value });
     };
 
     handleSeason = (e) => {
         e.persist();
-        this.setState({
-            teamSeason: e.target.value
-        });
+        this.setState({ teamSeason: e.target.value });
     };
 
 

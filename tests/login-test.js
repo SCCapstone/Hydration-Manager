@@ -6,7 +6,7 @@ describe('Log In', function () {
     server.execute(function () {
       const { Meteor } = require('meteor/meteor');
       const user = Meteor.users.findOne({ 'emails.address': 'john.doe@site.com' });
-      if (user) {
+      if ( user ) {
         Meteor.users.remove(user._id);
       }
     });

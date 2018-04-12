@@ -51,7 +51,7 @@ class WeightEntry extends React.Component {
 
     /* handleOptionChange function -- sets selectedOption to e.target.value */
     handleOptionChange = (e) => {
-        this.setState({selectedOption: e.target.value});
+        this.setState({ selectedOption: e.target.value });
         weightElements = document.getElementsByClassName("weightEnterInput");
         for(i=0; i<weightElements.length; i++)
         {
@@ -65,7 +65,7 @@ class WeightEntry extends React.Component {
      * Also printed the data selected into the console log containing the selectDate (e.target.value) */
     handleDateChange = (e) => {
         e.preventDefault();
-        this.setState({selectedDate: e.target.value});
+        this.setState({ selectedDate: e.target.value });
         console.log('The date you selected is:', e.target.value);
     };
 

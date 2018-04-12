@@ -12,7 +12,11 @@ constructor(props) {
   render() {
     return (
         <div>
-            <MenuItem><Link to ={{pathname: "/app/alerts/" + this.props.team._id}}>{this.props.team.name} {this.props.team.season}</Link></MenuItem>
+            <MenuItem>
+                <Link to ={{pathname: "/app/alerts/" + this.props.team._id}}>
+                    {this.props.team.name} {this.props.team.season}
+                </Link>
+            </MenuItem>
         </div>
     )
   }

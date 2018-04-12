@@ -48,46 +48,42 @@ class AthleteReport extends Component {
 
     /*showCurrentWeight method  */
     showCurrentWeight() {
-        preWeightDate = null;
-        postWeightDate = null;
+        let preWeightDate = null;
+        let postWeightDate = null;
 
         /* Check #1: If the selected athlete's preWeightData with index 0 is NOT undefined,
            the preWeightDate is set to the athlete's preWeightData on the date that it was
            set.     */
-        if(this.athlete().preWeightData[0] !== undefined) {
+        if( this.athlete().preWeightData[0] !== undefined ) {
             preWeightDate = this.athlete().preWeightData[0].date;
         }
         /* Check #2: If the selected athlete's postWeightData with index 0 is NOT undefined,
            the postWeightDate is set to that particular athlete's postWeightData on the date
            that it was set.     */
-        if (this.athlete().postWeightData[0] !== undefined) {
+        if ( this.athlete().postWeightData[0] !== undefined ) {
             postWeightDate = this.athlete().postWeightData[0].date;
         }
 
         /* Check #3: If the postWeightDate AND the preWeightDate are both NOT null,
            then the weight of the athlete's postWeightData with index 0,
            will be returned as a number with 4 precision points, (i.e. 205.0)   */
-        if(postWeightDate != null && preWeightDate != null)
-        {
+        if( postWeightDate != null && preWeightDate != null ) {
             return Number.parseFloat(this.athlete().postWeightData[0].weight).toPrecision(4);
         }
         /* Check #4: If the postWeightDate is NOT null,
            then the weight of the athlete's postWeightData with index 0,
            will be returned as a number with 4 precision points, (i.e. 205.0)   */
-        else if(postWeightDate != null)
-        {
+        else if( postWeightDate != null ) {
             return Number.parseFloat(this.athlete().postWeightData[0].weight).toPrecision(4);
         }
         /* Check #4: If the preWeightDate is NOT null,
            then the weight of the athlete's preWeightData with index 0,
            will be returned as a number with 4 precision points, (i.e. 205.0)   */
-        else if(preWeightDate != null)
-        {
+        else if( preWeightDate !== null ) {
             return Number.parseFloat(this.athlete().preWeightData[0].weight).toPrecision(4);
         }
         /* In any other instance the athlete's baseWeight will be returned*/
-        else
-        {
+        else {
             return this.athlete().baseWeight;
         }
     }
@@ -101,22 +97,21 @@ class AthleteReport extends Component {
     /*athlete component*/
     athlete() {
         /* If this.props.athleteId, athleteId is set to this.props.athleteId.*/
-        if(this.props.athleteId) {
+        if( this.props.athleteId ) {
             athleteId = this.props.athleteId;
                 // athlete = AthletesCollection.findOne({"_id": athleteId});
             /* The currentAthlete is set as an empty string. */
-            currentAthlete = '';
+            let currentAthlete = '';
             //console.log(this.props.athletesList);
 
         /* Finally the athletesLists is iterated through. While iterating through,
            the athleteList id attributes are checked to see if they are equal to
            the athleteId attribute.*/
-            for(i=0;i<this.props.athletesList.length;i++)
+            for( let i=0; i<this.props.athletesList.length; i++ )
             {
                 /* Finally, if this check passes as true, the currentAthlete
                 is now set as the list of athletes that have passed the check.*/
-                if(this.props.athletesList[i]._id === athleteId)
-                {
+                if( this.props.athletesList[i]._id === athleteId ) {
                     currentAthlete = (this.props.athletesList[i]);
                 }
             }
@@ -147,8 +142,7 @@ class AthleteReport extends Component {
            // console.log("The props object at position " + i + " is " + this.props.teamsList[i]);
            // This will error. Do not uncomment. if(this.props.teamsList[i]._id.equals(this.athlete().teamId))
            // This will error. Do not uncomment. if(this.props.teamsList[i]._id == (this.athlete().teamId))
-            if(this.props.teamsList[i]._id === (this.athlete().teamId))
-            {
+            if( this.props.teamsList[i]._id === (this.athlete().teamId) ) {
                 // Can't set state from here. massive loop errors.
                 //console.log("The state team is " + this.state.team);
                 //this.handleTeam(this.athlete().teamId);
@@ -162,14 +156,13 @@ class AthleteReport extends Component {
     /*Loss calculation method
      * Grabs and subtracts the showCurrentWeight by the baseWeight of the athlete */
     calcLoss(){
-        currentWeight = this.showCurrentWeight();
-        baseWeight = this.athlete().baseWeight;
-        weightChange = currentWeight - baseWeight;
+        let currentWeight = this.showCurrentWeight();
+        let baseWeight = this.athlete().baseWeight;
+        let weightChange = currentWeight - baseWeight;
         /*If the weightChange is greater than zero,
         * the weight change is returned along with the plus operator in front of the weight
         * change with the decimal format of four precision points.*/
-        if(weightChange > 0)
-        {
+        if( weightChange > 0 ) {
             return "+" + Number.parseFloat(weightChange).toPrecision(4);
         }
         /* If the weightChange is equal to zero,
@@ -186,9 +179,7 @@ class AthleteReport extends Component {
     }
         //open method
     open() {
-        this.setState({
-            showModal: true,
-        });
+        this.setState({ showModal: true });
     };
 
     //close method
@@ -199,19 +190,19 @@ class AthleteReport extends Component {
     /* handleName function -- sets the name equal to e.target.value */
     handleName = (e) => {
         e.persist();
-        this.setState({name: e.target.value});
+        this.setState({ name: e.target.value });
     };
 
     /* handleWeight function -- sets the base weight equal to e.target.value */
     handleWeight = (e) => {
         e.persist();
-        this.setState({base: e.target.value});
+        this.setState({ base: e.target.value });
     };
 
     /* handleTeam function -- sets the team equal to e.target.value */
     handleTeam = (e) => {
         e.persist();
-        this.setState({team : e.target.value});
+        this.setState({ team : e.target.value });
     };
 
     /* Upon firing, method will call the open function, which in turn will open the modal window. */
@@ -245,13 +236,7 @@ class AthleteReport extends Component {
         Meteor.call('athletes.edit', pId, nm, bw, t, () => {
             Bert.defaults = {hideDelay: 4500};
             Bert.alert('athlete edited', 'success', 'fixed-top', 'fa-check');
-
-            this.setState({
-                name: '',
-                base: '',
-                team: '',
-            });
-
+            this.setState({ name: '', base: '', team: '' });
             this.close();
         });
     };
@@ -277,8 +262,8 @@ class AthleteReport extends Component {
                             <Modal.Body>
                                 <form>
                                     <FormGroup>
-                                        <FormControl placeholder={this.athlete().name} label='Name' type='string' onChange={this.handleName}/>
-                                        <FormControl placeholder={this.athlete().baseWeight} label='Weight' type='number' onChange={this.handleWeight}/>
+                                        <FormControl defaultValue={this.athlete().name} label='Name' type='string' onChange={this.handleName}/>
+                                        <FormControl defaultValue={this.athlete().baseWeight} label='Weight' type='number' onChange={this.handleWeight}/>
                                         <FormControl defaultValue={this.athlete().teamId} value={this.state.team} componentClass="select" label='Team' onChange={this.handleTeam}>
                                             {this.teams().map((team) => <option value={team._id} key={team._id}>{team.name} {team.season}</option>)}
                                         </FormControl>

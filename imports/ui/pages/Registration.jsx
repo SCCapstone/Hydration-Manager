@@ -65,10 +65,10 @@ class Registration extends React.Component {
   componentWillUnmount() {
     loggingIn = Meteor.loggingIn();
     newUserId = Meteor.userId();
-    if (!!newUserId) {
+    if ( !!newUserId ) {
       //Roles.setUserRoles(newUserId,['View']);
       Meteor.call('users.addNewRole', newUserId, ['View'], (error) => {
-        if (error) {
+        if ( error ) {
           console.log("FAILED: Role not added!!");
         } else {
           console.log(newUserId);
@@ -87,7 +87,7 @@ class Registration extends React.Component {
       email: form.emailAddress.value,
       password: form.password.value,
     }, (error) => {
-      if (error) {
+      if ( error ) {
           Bert.alert(error.reason, 'danger');
       } else {
         //Roles.addUsersToRoles(newId, ['ADMIN']);

@@ -3,7 +3,6 @@ import React from 'react';
 import { Grid } from 'react-bootstrap';
 
 const AppFooter = () => (
-
     /*
     <ul className="pull-right">
     <li><Link to="/terms">Terms of Service </Link></li>

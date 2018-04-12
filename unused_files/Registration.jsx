@@ -53,23 +53,17 @@ export default class Registration extends React.Component {
 
     handleEmail = (e) => {
         e.persist();
-        this.setState({
-            email: e.target.value
-        });
+        this.setState({ email: e.target.value });
     };
 
     handlePassword = (e) => {
         e.persist();
-        this.setState({
-            password: e.target.value
-        });
+        this.setState({ password: e.target.value });
     };
 
     handleConfirm = (e) => {
         e.persist();
-        this.setState({
-            passwordConfirm: e.target.value
-        });
+        this.setState({ passwordConfirm: e.target.value });
     };
 
 

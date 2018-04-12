@@ -25,23 +25,19 @@ Meteor.methods({
     }
   },
     /* Definition for teams.edit (Server Side Method), will be called by client who will pass through attributes:
-    * @Params id, nm (name), s(season)
-    * This function will update the name and season of a particular team using the corresponding id. */
+    * @Params id, nm (name), s(season) ; This function updates the name and season of a particular team using the corresponding id. */
     'teams.edit': function editTeams(id, nm, s) {
         Teams.update(
-            { _id: id },
-            {
+            { _id: id }, {
                 $set: { name: nm, season: s }
             }
         );
     },
     /* Definition for teams.remove (Server Side Method), will be called by client who will pass through attributes:
-    * @Params id
-    * This function will remove the team with the corresponding id passed through. */
+    * @Params id ; This function will remove the team with the corresponding id passed through. */
   'teams.remove': function removeTeam(id) {
     Teams.remove(id);
   }
-
 });
 
 // rateLimit({
@@ -53,8 +49,6 @@ Meteor.methods({
 //   limit: 5,
 //   timeRange: 1000,
 // });
-
-
 // addNewTeam(teamName, teamSeason, id) {
 //   Teams.insert({
 //     name: teamName,

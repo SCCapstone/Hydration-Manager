@@ -76,22 +76,16 @@ export default class ListOfTeams extends Component {
         const pID = this.props.team._id;
         const nm = this.state.teamEditName;
         const s = this.state.editSeason;
-        if(pID == '' || nm == '' || s == '')
-        {
-            window.alert("Make sure to complete all fields for editing.");
-        }
-        else {
+       /* if(pID == '' || nm == '' || s == '') { window.alert("Make sure to complete all fields for editing."); }
+        else { This if else is redundant and not necessary since we're not using defaultValue for all editing functions. -anthony */
             Meteor.call('teams.edit', pID, nm, s, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('team edited', 'success', 'fixed-top', 'fa-check');
 
-                this.setState({
-                    teamEditName: '',
-                    editSeason: '',
-                });
+                this.setState({ teamEditName: '', editSeason: ''});
                 this.closeEdit();
             });
-        }
+        //} end else
 
         this.close();
     };
@@ -140,8 +134,8 @@ export default class ListOfTeams extends Component {
                         <Modal.Body>
                             <form>
                                 <FormGroup>
-                                    <FormControl placeholder={this.props.team.name} label='name' type='text' onChange={this.handleEditName}/><br/>
-                                    <FormControl placeholder={this.props.team.season} label='season' type='text' onChange={this.handleSeason}/>
+                                    <FormControl defaultValue={this.props.team.name} label='name' type='text' onChange={this.handleEditName}/><br/>
+                                    <FormControl defaultValue={this.props.team.season} label='season' type='text' onChange={this.handleSeason}/>
                                 </FormGroup>
                             </form>
                         </Modal.Body>

@@ -92,9 +92,7 @@ class Alerts extends React.Component {
         getCurrentTeam ()
         {
             currentTeam = this.props.match.params.teamId;
-            this.setState({
-                playerTeamId : currentTeam
-            });
+            this.setState({ playerTeamId : currentTeam });
         }
 
 

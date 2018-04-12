@@ -3,13 +3,11 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { _ } from 'meteor/underscore';
 import { Accounts } from 'meteor/accounts-base';
-
 /*
 ADMIN: 'ADMIN',    // Administrator - complete access
 PUB: 'PUB',        // Publisher - CRUD data, but No Admin Tasks, e.g. cannot create/authorize new users
 VIEW: 'VIEW',      // Viewer - can only view information
 */
-
 // const defaultRoles = ['ADMIN', 'PUB', 'VIEW']; // This could be tied to its own admin :)
 //
 // defaultRoles.forEach((role) => {
@@ -17,8 +15,6 @@ VIEW: 'VIEW',      // Viewer - can only view information
 //   const roleExists = existingRoles.indexOf(role) > -1;
 //   if (!roleExists) Roles.createRole(role);
 // });
-
-
 // Serve Hook - called w/ options from Accounts.createUser()
 //
 // Accounts.onCreateUser(function(options, user) {
@@ -29,9 +25,7 @@ VIEW: 'VIEW',      // Viewer - can only view information
 //    // user.profile.lastName = options.lastName;
 //    // // Returns the user object
 //    // return user;
-//
 //   user.roles = ['ADMIN']
-//
 //   !!options.roles ? Roles.addUsersToRoles( options._id, ['ADMIN'] ) : '' ;
 //   return user;
 // });
