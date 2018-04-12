@@ -123,6 +123,9 @@ a:hover{
 .Registration #password-error{
     font-size: 75%;
 }
+.Registration #PhoneNumber-error{
+    font-size: 75%;
+}
 
 
 

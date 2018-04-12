@@ -296,7 +296,9 @@ class MasterReport extends React.Component {
                         <tr>
                             <th>Name</th>
                             <th>Most Recent Weight Loss %</th>
-                            <th>Current Weight</th>
+                            <th>Post Weight</th>
+                            <th>Pre Weight</th>
+                            <th>Date</th>
                             <th>Base Weight</th>
                         </tr>
                         </thead>
