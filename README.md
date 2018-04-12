@@ -1,5 +1,10 @@
 "# Hydration-Manager" 
 
+Please check out our wiki for information regarding this application!
+
+https://github.com/SCCapstone/Hydration-Manager/wiki
+
+
 "#Testing"
 
 Behavioral Tests run with chimp by using following command:
