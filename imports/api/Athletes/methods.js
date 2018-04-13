@@ -1,5 +1,5 @@
 // Package Imports
-import { Meteor } from 'meteor/meteor';
+import {Meteor} from 'meteor/meteor';
 
 // Custom Files and Collections Imports
 import Athletes from './Athletes.js';
@@ -24,7 +24,6 @@ Meteor.methods({
             handleMethodException(exception);
         }
     },
-
     /* Definition for athletes.addPreWeight (Server Side Method), will be called by client who will pass through attributes:
     * @Params id, date, weight
     * This function will pull the current date of the data change and will update the PreWeight of a particular athlete. */
@@ -32,10 +31,8 @@ Meteor.methods({
         Athletes.update(
             { _id: id },
             { $pull: {preWeightData: {date:date} }});
-
         Athletes.update(
-            { _id: id },
-            {
+            { _id: id }, {
                 $push: {
                     preWeightData: {
                         $each: [{date: date, weight: weight}],
@@ -52,10 +49,8 @@ Meteor.methods({
         Athletes.update(
             { _id: id },
             { $pull: {postWeightData: {date:date} }});
-
         Athletes.update(
-            { _id: id },
-            {
+            { _id: id }, {
                 $push: {
                     postWeightData: {
                         $each: [{date: date, weight: weight}],
@@ -76,8 +71,7 @@ Meteor.methods({
     * This function will update the name, baseWeight, and team of a particular athlete using the corresponding id. */
     'athletes.edit': function editAthlete(id, nm, bs, t) {
         Athletes.update(
-            { _id: id },
-            {
+            { _id: id }, {
                 $set: { name: nm, baseWeight: bs, teamId: t}
             }
         );
@@ -91,16 +85,13 @@ Meteor.methods({
     *   - Anything else happens an error message is sent to the console. */
     'athletes.editWeight': function editAthleteWeight(id, date, weight, prePost)
     {
-        if(prePost == 'PreWeight')
-        {
+        if(prePost === 'PreWeight') {
             Meteor.call('athletes.addPreWeight', id, date, weight);
         }
-        else if(prePost == 'PostWeight')
-        {
+        else if(prePost === 'PostWeight') {
             Meteor.call('athletes.addPostWeight', id, date, weight);
         }
-        else
-        {
+        else {
             console.log('Error in weight data editing');
         }
     },

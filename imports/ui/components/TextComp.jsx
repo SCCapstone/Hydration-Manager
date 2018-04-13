@@ -7,9 +7,7 @@ const TextComp = ({ children }) => (
     {children}
   </div>
 );
-
 TextComp.propTypes = {
   children: PropTypes.node.isRequired,
 };
-
 export default TextComp;

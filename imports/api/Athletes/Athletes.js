@@ -1,5 +1,5 @@
 // Package Imports
-import { Mongo } from 'meteor/mongo';
+import {Mongo} from 'meteor/mongo';
 /*import SimpleSchema from 'simpl-schema';*/
 // Custom File and Collection Imports
 
@@ -15,14 +15,11 @@ Athletes.allow({
     update: () => false,
     remove: () => false
 });
-
-
 Athletes.deny({
     insert: () => true,
     update: () => true,
     remove: () => true
 });
-
 Athletes.schema = new SimpleSchema({
     name: {
         type: String,

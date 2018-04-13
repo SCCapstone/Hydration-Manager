@@ -24,13 +24,13 @@ class MasterReport extends React.Component {
             playerTeamId: '',
             teamSelected: '',
         };
-        // this.routeToReport = this.routeToReport.bind(this);
-        // this.open = this.open.bind(this);
-        // this.close = this.close.bind(this);
-        // this.addPlayer = this.addPlayer.bind(this);
-        // this.teams = this.teams.bind(this);
-        // this.athletes = this.athletes.bind(this);
-        // this.getCurrentTeam = this.getCurrentTeam.bind(this);
+    /*   this.routeToReport = this.routeToReport.bind(this);
+         this.open = this.open.bind(this);
+         this.close = this.close.bind(this);
+         this.addPlayer = this.addPlayer.bind(this);
+         this.teams = this.teams.bind(this);
+         this.athletes = this.athletes.bind(this);
+         this.getCurrentTeam = this.getCurrentTeam.bind(this); */
         autoBind(this);
     }
 
@@ -38,44 +38,34 @@ class MasterReport extends React.Component {
         this.props.subscriptions.forEach((s) =>{
             s.stop();
         });
-    }
-
+    };
     componentDidMount() {
         this.getCurrentTeam();
-    }
-
+    };
     /*Link to athleteReport page */
     routeToReport () {
         window.location ='/app/athleteReport';
-    }
-
+    };
     /*Opens Modal and returns information on the current team*/
     open() {
         this.setState({ showModal: true });
         this.getCurrentTeam();
-    }
-
+    };
     /*Closes Modal*/
     close() {
         this.setState({ showModal: false });
-    }
-
+    };
     /*addPlayer method*/
     addPlayer() {
         event.preventDefault();
-        const pName = this.state.name;
-        const pWeight = this.state.weight;
-        const pTeamId = this.state.playerTeamId;
-
-
-        console.log(pName);
+        const pName = this.state.name, pWeight = this.state.weight, pTeamId = this.state.playerTeamId;
+    /*  console.log(pName);
         console.log(pWeight);
-        // console.log(pHeight);
-        console.log(pTeamId);
+        console.log(pHeight);
+        console.log(pTeamId);*/
         /*If one of the fields are left blank, then an alert window is generated
         * with message stating such.*/
-        if(pName === '' || pWeight === '' || pTeamId === '')
-        {
+        if(pName === '' || pWeight === '' || pTeamId === '') {
             window.alert("Make sure to complete all fields for player creation. If no teams are available, contact an admin to assign you a team.");
         }
         /* Meteor calls the method from the Athlete API Collection which can be found
@@ -85,24 +75,19 @@ class MasterReport extends React.Component {
             Meteor.call('athletes.insert', pName, pWeight, pTeamId, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Player Created', 'success', 'fixed-top', 'fa-check');
-
                 this.name = "";
                 this.weight = "";
                 this.close();
             });
         }
-
         this.close();
-    }
+    };
     /* Athletes component*/
     athletes() {
-        currentTeam = "";
-
-        const curUser = this.props.name;  //CurrentUser.findOne(); this curUser is never utilized -anthony
-        const id = this.props.userId;  //curUser.userID; this id is never utilized -anthony
-        console.log(this.props.teamId);
+        let currentTeam = "", curUser = this.props.name, id = this.props.userId;
+        //console.log(this.props.teamId);
         if(this.props.teamId !== '') {
-            teamId = this.props.teamId;
+            let teamId = this.props.teamId, currentAthletes = [];
             // currentTeam = '';
             // // currentTeam = TeamsCollection.findOne({"_id": teamId});
             // for(i=0;i<this.props.teamsList.length; i++)
@@ -112,16 +97,12 @@ class MasterReport extends React.Component {
             //         currentTeam = this.props.teamsList[i];
             //     }
             // }
-
-            /*The currentAthletes is set as an empty array*/
-            currentAthletes = [];
             /* The athletes list is iterated through, */
-            for(i=0;i<this.props.athletesList.length;i++)
+            for(let i=0;i<this.props.athletesList.length;i++)
             {
                 /*If the athletes list teamId is EQUAL TO the teamId,
                 then the increase athlete within the athletesList is pushed onto the currentAthletes array*/
-                if(this.props.athletesList[i].teamId === this.props.teamId)
-                {
+                if(this.props.athletesList[i].teamId === this.props.teamId) {
                     currentAthletes.push(this.props.athletesList[i]);
                 }
                 /*TODO: Pushing Isn't The Best Data Structure To Use For This Guys! -Jaymel*/
@@ -134,9 +115,7 @@ class MasterReport extends React.Component {
         else{
             return this.props.athletesList;
         }
-
-    }
-
+    };
     /* The Teams component simply returns the teamsList */
     teams() {
         // const curUser = this.props.name;  //CurrentUser.findOne();
@@ -146,7 +125,6 @@ class MasterReport extends React.Component {
         // return TeamsCollection.find({user:id}).fetch();
         return this.props.teamsList;
     };
-
     /* displayAthletes component */
     displayAthletes() {
         /* If the athletes result is NOT null the athlete single is returned.*/
@@ -159,21 +137,19 @@ class MasterReport extends React.Component {
         else{
             return <li>Select a Team</li>
         }
-    }
-
+    };
     /* displayCurrentTeam constructor*/
     displayCurrentTeam() {
         /* If current teamId, teamId is set as the current TeamId */
         if(this.props.teamId) {
-            teamId = this.props.teamId;
+            let teamId = this.props.teamId;
             /* Increments through teamsList*/
-            for(i=0;i<this.props.teamsList.length;i++)
+            for(let i=0;i<this.props.teamsList.length;i++)
             {
                 /* If the teamsList id is EQUAL TO the teamId,
                  * then the Teams List name and the Teams List
                  * season are returned. */
-                if(this.props.teamsList[i]._id === teamId)
-                {
+                if(this.props.teamsList[i]._id === teamId) {
                     return ": " + this.props.teamsList[i].name + " " + this.props.teamsList[i].season;
                 }
             }
@@ -184,66 +160,44 @@ class MasterReport extends React.Component {
             return "";
         }
     };
-
+    /* Gets current team so that the modal window automatically has the current team selected.
+    * If this.props.teamId, currentTeam is set to this.props.teamId. And the playerTeamId is
+    * set to the currentTeam, which is the teamId. */
+    getCurrentTeam () {
+        if(this.props.teamId) {
+            let currentTeam = this.props.teamId;
+            this.setState({ playerTeamId : currentTeam });
+        }
+        /*If the teamsList at index zero is not undefined, the playerTeam id is set to the
+        * id of the teamsList at index 0.  */
+        else if(this.props.teamsList[0] !== undefined) {
+            this.setState({ playerTeamId : this.props.teamsList[0]._id });
+        }
+    };
+// Handlers
     /* handleName function -- sets the name equal to e.target.value */
     handleName = (e) => {
         e.persist();
-        this.setState({
-            name : e.target.value
-        });
+        this.setState({ name : e.target.value });
     };
-
     /* handleWeight function -- sets the base weight equal to e.target.value */
     handleWeight = (e) => {
         e.persist();
-        const num = Number.parseFloat(e.target.value).toPrecision(4);
-        this.setState({
-            weight : num
-        });
+        let num = Number.parseFloat(e.target.value).toPrecision(4);
+        this.setState({ weight : num });
     };
-
     /* handleTeam function -- sets the team equal to e.target.value */
     handleTeam = (e) => {
         e.persist();
-        this.setState({
-            playerTeamId : e.target.value
-        });
+        this.setState({ playerTeamId : e.target.value });
     };
-
-    /* Gets current team so that the modal window automatically has the current team selected.
-     * If this.props.teamId, currentTeam is set to this.props.teamId. And the playerTeamId is
-     * set to the currentTeam, which is the teamId. */
-    getCurrentTeam ()
-    {
-        if(this.props.teamId)
-        {
-            currentTeam = this.props.teamId;
-            this.setState({
-                playerTeamId : currentTeam
-            });
-        }
-
-        // CurrentUser.findOne().userID -> Alt. Ex: Meteor.users.findOne({ 'emails.address': email })
-
-        /*If the teamsList at index zero is not undefined, the playerTeam id is set to the
-        * id of the teamsList at index 0.  */
-        else if(this.props.teamsList[0] !== undefined)
-        {
-            this.setState({
-                playerTeamId : this.props.teamsList[0]._id
-            });
-        }
-    }
-
     /* Render */
     render() {
-        athletes = this.athletes;
-
+        let athletes = this.athletes;
         /* When the athlete or team are loading, null will be returned. */
         if(this.props.athleteLoading || this.props.teamLoading){
             return null;
         }
-
         /* Returns the Master Report with athlete information */
         return (
             <div>
@@ -270,15 +224,10 @@ class MasterReport extends React.Component {
                         <Modal.Body>
                             <form>
                                 <FormGroup>
-                                    <FormControl placeholder='Player Name' label='Player Name' type='text'
-                                                 onChange={this.handleName}/><br/>
-                                    <FormControl placeholder='Baseline Weight' label='Base Weight' type='number'
-                                                 onChange={this.handleWeight}/><br/>
-                                    <FormControl placeholder='Team' value={this.state.playerTeamId}
-                                                 componentClass="select" label='Team' onChange={this.handleTeam}>
-                                        {this.teams().map((team) => <option value={team._id}
-                                                                            key={team._id}>{team.name} {team.season}</option>)}
-                                    </FormControl>
+                                    <FormControl placeholder='Player Name' label='Player Name' type='text' onChange={this.handleName}/><br/>
+                                    <FormControl placeholder='Baseline Weight' label='Base Weight' type='number' onChange={this.handleWeight}/><br/>
+                                    <FormControl placeholder='Team' value={this.state.playerTeamId} componentClass="select" label='Team' onChange={this.handleTeam}>
+                                        {this.teams().map((team) => <option value={team._id}key={team._id}>{team.name} {team.season}</option>)}</FormControl>
                                 </FormGroup>
                             </form>
                         </Modal.Body>
@@ -310,9 +259,8 @@ class MasterReport extends React.Component {
                 </div>
             </div>
         )
-    }
-}
-
+    }//End Render
+}//End Class
 MasterReport.propTypes = {
     subscriptions: PropTypes.array,
     teamLoading: PropTypes.bool,
@@ -325,7 +273,6 @@ MasterReport.propTypes = {
     // curTeamToDisplay: PropTypes.object,
     //-->{!this.props.curTeamToDisplay ? 'Team Select' : this.props.curTeamToDisplay}
 };
-
 // Retrieves data from server and puts it into client's minimongo
 export default withTracker(({match}) => {
     const teamSubscription = Meteor.subscribe('teams.all');
@@ -342,12 +289,11 @@ export default withTracker(({match}) => {
     // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
     // match: PropTypes.object.isRequired,
     // history: PropTypes.object.isRequired,
-    console.log(teamsList);
-    console.log(athletesList);
-    console.log(athleteLoading);
-    console.log('teamId');
-    console.log(teamId);
-
+    //console.log(teamsList);
+    //console.log(athletesList);
+    //console.log(athleteLoading);
+    //console.log('teamId');
+    //console.log(teamId);
     return {
         subscriptions: [teamSubscription, athleteSubscription],
         teamLoading,

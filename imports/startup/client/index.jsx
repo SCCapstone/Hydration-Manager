@@ -7,8 +7,8 @@
 // })
 // Package Imports
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { render } from 'react-dom';
+import {Meteor} from 'meteor/meteor';
+import {render} from 'react-dom';
 
 // Custom File & Collections Imports
 import App from '../../ui/layouts/App/App';

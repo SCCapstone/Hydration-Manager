@@ -8,9 +8,7 @@ const GenericFooter = ({ children }) => (
     {children}
   </div>
 );
-
 GenericFooter.propTypes = {
   children: PropTypes.node.isRequired,
 };
-
 export default GenericFooter;

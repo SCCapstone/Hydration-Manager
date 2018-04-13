@@ -1,6 +1,6 @@
 // Package Imports
-import React, { Component } from 'react';
-import { debounce } from 'throttle-debounce';
+import React, {Component} from 'react';
+import {debounce} from 'throttle-debounce';
 
 export default class AthleteEntryList extends Component {
     constructor(props) {
@@ -14,18 +14,18 @@ export default class AthleteEntryList extends Component {
         this.handleWeightChange = this.handleWeightChange.bind(this);
     }
 
+// Handler Functions
     /*handleDebounce function provides checks and alerts*/
     handleDebounce = (e) => {
         e.persist();
-        console.log('You have selected:', this.props.selOp);
-        console.log('The weight stored is:', e.target.value);
-        console.log('The athlete you selected is', this.props.athlete.name);
-        if (this.props.dat === '')
-        {
-            alert('Please ensure you have selected a Date');
+        //console.log('You have selected:', this.props.selOp);
+        //console.log('The weight stored is:', e.target.value);
+        //console.log('The athlete you selected is', this.props.athlete.name);
+        if (this.props.dat === '') {
+            Bert.alert('Please ensure you have selected a Date', 'danger', 'fixed-top', 'fa-check');
         }
         else if (this.props.selOp === 'Default') {
-            alert('Please ensure you have selected Pre or Post Weight');
+            Bert.alert('Please ensure you have selected Pre or Post Weight', 'danger', 'fixed-top', 'fa-check');
         }
         else if (this.props.selOp === 'PreWeight') {
             Meteor.call('athletes.addPreWeight', this.props.athlete._id, this.props.dat, this.state.weight, () => {
@@ -46,13 +46,12 @@ export default class AthleteEntryList extends Component {
         this.setState({weight: e.target.value});
         this.handleDebounce(e);
     };
-
     /*When Enter/Return button is press, it will run event.preventDefault function*/
     onKeyPress(event) {
         if(event.which === 13 /* Enter */) {
             event.preventDefault();
         }
-    }
+    };
 /*Render weights and allows changes*/
     render() {
         return (

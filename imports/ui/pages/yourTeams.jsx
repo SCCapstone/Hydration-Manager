@@ -2,8 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
-import { withTracker } from 'meteor/react-meteor-data';
-import { Button, FormControl, FormGroup, Modal} from 'react-bootstrap';
+import {withTracker} from 'meteor/react-meteor-data';
+import {Button, FormControl, FormGroup, Modal} from 'react-bootstrap';
 
 // Custom File Imports
 import TeamsCollection from '../../api/Teams/Teams.js';
@@ -28,61 +28,45 @@ class YourTeams extends React.Component {
 
     // componentWillMount() {
     //   Roles.userIsInRole(user, ["ADMIN"]);
-    // }
-
+    // };
     componentWillUnmount() {
       this.props.subscriptions.forEach((s) =>{
         s.stop();
       });
-    }
-
+    };
     open() {
         this.setState({showModal: true});
     };
-
     close() {
         this.setState({showModal: false});
     };
-
     addTeam() {
         event.preventDefault();
         const teamName = this.state.teamName;
         const teamSeason = this.state.teamSeason;
 
-        if (teamName != "") {
-
+        if (teamName !== "") {
             const curUser = this.props.name;  //CurrentUser.findOne();
             const id = this.props.userId;  //curUser.userID;
-            console.log(curUser);
-            console.log(id);
-
+            //console.log(curUser);
+            //console.log(id);
             Meteor.call('teams.insert', teamName, teamSeason, id, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Team Created', 'success', 'fixed-top', 'fa-check');
-
                 this.team = "";
                 this.season = "";
                 this.close();
             });
         }
     };
-
-
     handleTeam = (e) => {
         e.persist();
-        this.setState({
-            teamName: e.target.value
-        });
+        this.setState({ teamName: e.target.value });
     };
-
     handleSeason = (e) => {
         e.persist();
-        this.setState({
-            teamSeason: e.target.value
-        });
+        this.setState({ teamSeason: e.target.value });
     };
-
-
     render() {
         return (
             <div>
@@ -99,10 +83,8 @@ class YourTeams extends React.Component {
                         <Modal.Body>
                             <form>
                                 <FormGroup>
-                                    <FormControl placeholder='Team Name' label='Team Name' type='text'
-                                                 onChange={this.handleTeam}/><br/>
-                                    <FormControl placeholder='Season' label='Season' type='text'
-                                                 onChange={this.handleSeason}/>
+                                    <FormControl placeholder='Team Name' label='Team Name' type='text' onChange={this.handleTeam}/><br/>
+                                    <FormControl placeholder='Season' label='Season' type='text' onChange={this.handleSeason}/>
                                 </FormGroup>
                             </form>
                         </Modal.Body>
@@ -114,9 +96,7 @@ class YourTeams extends React.Component {
                 </div>
                 <br/>
                 <ul className="ListOfTeams">
-                    {this.props.teamsList.map((team) => {
-                        return <ListOfTeams key={team._id} team={team}/>
-                    })}
+                    {this.props.teamsList.map((team) => {return <ListOfTeams key={team._id} team={team}/>})}
                 </ul>
             </div>
         )
@@ -137,7 +117,7 @@ export default withTracker(() => {
   // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
   // match: PropTypes.object.isRequired,
   // history: PropTypes.object.isRequired,
-  console.log(teamsList);
+  //console.log(teamsList);
 
   return {
     subscriptions: [subscription],

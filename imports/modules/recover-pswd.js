@@ -1,2 +1,2 @@
 // Package Imports
-import { Accounts } from 'meteor/accounts-base';
+import {Accounts} from 'meteor/accounts-base';

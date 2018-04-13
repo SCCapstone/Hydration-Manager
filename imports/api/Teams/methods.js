@@ -1,23 +1,21 @@
 // Package Imports
-import { Meteor } from 'meteor/meteor';
+import {Meteor} from 'meteor/meteor';
 
 // Custom File & Collections Imports
 import Teams from './Teams.js';
 import handleMethodException from '../../modules/handle-method-exception.js';
-import Athletes from "../Athletes/Athletes.js";
-
 
 Meteor.methods({
     /*Definition for athletes.insert (Server Side Method), will be called by client who will pass through attributes:
     * @Params aName, aWeight, aHeight, aTeamId
     * This function will create and add a new Athlete to the database.*/
-  'teams.insert': function teamsInsert(tname, tseason, tid) {
-    console.log(tname);
+  'teams.insert': function teamsInsert(tName, tSeason, tId) {
+    //console.log(tName);
     try {
       return Teams.insert({
-        name: tname,
-        season: tseason,
-        user: tid,
+        name: tName,
+        season: tSeason,
+        user: tId,
         createdAt: new Date(),
       });
     } catch (exception) {
@@ -29,8 +27,7 @@ Meteor.methods({
     * This function will update the name and season of a particular team using the corresponding id. */
     'teams.edit': function editTeams(id, nm, s) {
         Teams.update(
-            { _id: id },
-            {
+            { _id: id }, {
                 $set: { name: nm, season: s }
             }
         );
@@ -41,20 +38,16 @@ Meteor.methods({
   'teams.remove': function removeTeam(id) {
     Teams.remove(id);
   }
-
 });
 
 // rateLimit({
 //   methods: [
 //     'documents.insert',
 //     'documents.update',
-//     'documents.remove',
-//   ],
+//     'documents.remove', ],
 //   limit: 5,
 //   timeRange: 1000,
 // });
-
-
 // addNewTeam(teamName, teamSeason, id) {
 //   Teams.insert({
 //     name: teamName,
@@ -63,7 +56,6 @@ Meteor.methods({
 //     createdAt: new Date()
 //   });
 // },
-//
 // deleteTm(id) {
 //   Teams.remove(id);
 // },

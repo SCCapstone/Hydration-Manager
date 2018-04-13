@@ -1,33 +1,9 @@
 // Package Imports
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
-
-
-
-
-// show AdminDash??
-// Note: Roles.userIsInRole(Meteor.user(), ROLES.ADMIN) - for assignment of users to roles
-// ES2016- Array.prototype.includes() - props.userRoles.includes(ROLES.ADMIN
-// {props.userRoles[0] === null ? <....> : ''
-
-// Logout User - redirect user to Login ???
-// () => history.push('/login')
-
-// {/*LinkContainer: makes next comp. behave as React-Router <Link>*/}
-
-// <Link to="">Hydration Manager</Link>  //Link to nowhere for Navbar typical styling
-
-// ({ name, history })
-
-/*    <LinkContainer to="/profile">
-      <NavItem eventKey={5.1} href="/profile">Profile</NavItem>
-    </LinkContainer>
-Profile not currently working, will get 404 errors when trying to logout from this page.
--anthony
-*/
+import {LinkContainer } from 'react-router-bootstrap';
+import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
+import {withRouter } from 'react-router-dom';
 
 /* Presents the navigation sidebar with links to the Weight Entry, the Master Report,
  * the Your Teams, and link to the Alerts Page. There is also a dropdown link to
@@ -71,17 +47,13 @@ const Navigation = props => (
     </div>
 );
 
-//props.userRoles[0]
-
 Navigation.defaultProps = {
   name: '',
 };
-
 Navigation.propTypes = {
   userRoles: PropTypes.array.isRequired,
   //isAuthorized: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   history: PropTypes.object.isRequired,  // from withRouter()
 };
-
 export default withRouter(Navigation);

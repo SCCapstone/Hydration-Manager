@@ -14,11 +14,9 @@ export default class LoginAlt extends React.Component {
     constructor(props) {
         super(props);
         autoBind(this);
-    }
-
+    };
     componentDidMount() {
         const component = this;
-
         $(component.form).validate({
             rules: {
                 emailAddress: {
@@ -42,8 +40,7 @@ export default class LoginAlt extends React.Component {
                 component.handleSubmit(component.form);
             },
         });
-    }
-
+    };
     handleSubmit(form) {
         Meteor.loginWithPassword(form.emailAddress.value, form.password.value, (error) => {
             if (error) {
@@ -52,12 +49,10 @@ export default class LoginAlt extends React.Component {
                 Bert.alert('Welcome back!', 'success');
             }
         });
-    }
-
+    };
     routeToRegistration() {
         window.location = '/registration';
-    }
-
+    };
     render() {
         return (
             <div className="LoginBackGround">
