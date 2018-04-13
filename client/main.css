@@ -321,16 +321,17 @@ a:hover{
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        margin-top: 10px;
+        width: 100%;
     }
     .WeightHeader #DatePicker{
         float: none;
         width: 120px;
         vertical-align: middle;
-        margin-left: 5%;
+        margin-top: 10px;
     }
     .WeightHeader #RadioButtons{
         vertical-align: middle;
+        margin-top: 10px;
     }
     #TeamSelect{
         margin-top: 10px;
