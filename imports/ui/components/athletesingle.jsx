@@ -13,11 +13,13 @@ export default class AthleteSingle extends Component {
         super(props);
         autoBind(this);
     }
-/*A link to the window: /app/weightEntry */
-/*   routeToWE () {
-        window.location ='/app/weightEntry';
-    };
-*/
+
+    /*A link to the window: /app/weightEntry */
+
+    /*   routeToWE () {
+            window.location ='/app/weightEntry';
+        };
+    */
     render() {
         let athlete = this.props.athlete;
         let hydrate = "No Data";
@@ -27,8 +29,8 @@ export default class AthleteSingle extends Component {
         let preWeightDate = "No Data";
         let postWeightDate = "No Data";
         //Get athletes hydration
-        if ( (athlete.preWeightData[0] !== undefined && athlete.postWeightData[0] !== undefined) && (athlete.preWeightData[0].date === athlete.postWeightData[0].date) ){
-            hydrate = ((athlete.preWeightData[0].weight - athlete.postWeightData[0].weight) / athlete.preWeightData[0].weight) *100;
+        if ((athlete.preWeightData[0] !== undefined && athlete.postWeightData[0] !== undefined) && (athlete.preWeightData[0].date === athlete.postWeightData[0].date)) {
+            hydrate = ((athlete.preWeightData[0].weight - athlete.postWeightData[0].weight) / athlete.preWeightData[0].weight) * 100;
             hydrate = Number.parseFloat(hydrate).toPrecision(4);
         }
         //Get the athlete's pre and post weight data
@@ -54,11 +56,11 @@ export default class AthleteSingle extends Component {
             PreWeight = "No Data"
         }
         //if the athlete has records but has missed a pre or post weight
-        else if(preWeightDate !== "No Data" && postWeightDate !== "No Data" && preWeightDate > postWeightDate){
+        else if (preWeightDate !== "No Data" && postWeightDate !== "No Data" && preWeightDate > postWeightDate) {
             Date = preWeightDate;
             PostWeight = "No Data"
         }
-        else if(preWeightDate !== "No Data" && postWeightDate !== "No Data" && preWeightDate < postWeightDate){
+        else if (preWeightDate !== "No Data" && postWeightDate !== "No Data" && preWeightDate < postWeightDate) {
             Date = postWeightDate;
             PreWeight = "No Data"
         }

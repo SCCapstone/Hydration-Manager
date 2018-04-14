@@ -16,7 +16,7 @@ import '../both/api';
 
 // Note:  <div id="react-root"></div> element defined in /client/main.html
 //           -- called on client side of Meteor startup
-Meteor.startup( () => {
+Meteor.startup(() => {
     render(<App/>, document.getElementById('react-root'))
 });
 

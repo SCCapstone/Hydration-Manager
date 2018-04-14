@@ -20,19 +20,23 @@ export default class ListOfTeams extends Component {
         };
         autoBind(this);
     }
-/*  //routeToReport Method -- sends the user to the masterReport page for the selected team
-    routeToReport() {
-        window.location = '/app/masterReport/' + this.props.team._id;
-    }
-*/
+
+    /*  //routeToReport Method -- sends the user to the masterReport page for the selected team
+        routeToReport() {
+            window.location = '/app/masterReport/' + this.props.team._id;
+        }
+    */
+
     //Edit teams method that calls to the Meteor server established method passing through the team._id
     editTeam() {
         Meteor.call('teams.edit', this.props.team._id)
     }
+
     //deleteTeam Method -- makes call to Teams Collection to remove the selected team
     deleteTeam() {
         Meteor.call('teams.remove', this.props.team._id)
     };
+
     /* editEntry method -- edits the team
      - Takes in inputs: teamEditName and editSeason
      - Alerts the editor to complete all fields when editing
@@ -45,35 +49,40 @@ export default class ListOfTeams extends Component {
         const pID = this.props.team._id;
         const nm = this.state.teamEditName;
         const s = this.state.editSeason;
-        if(pID === '' || nm === '' || s === '') {
+        if (pID === '' || nm === '' || s === '') {
             window.alert("Make sure to complete all fields for editing.");
         }
         else {
             Meteor.call('teams.edit', pID, nm, s, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('team edited', 'success', 'fixed-top', 'fa-check');
-                this.setState({ teamEditName: '', editSeason: '' });
+                this.setState({teamEditName: '', editSeason: ''});
                 this.closeEdit();
             });
         }
         this.close();
     };
+
     //open Method -- open the modal for the Team Deletion Confirmation Modal
     open() {
         this.setState({showModal: true});
     };
+
     //close Method -- closes the modal for the Team Deletion Confirmation Modal
     close() {
         this.setState({showModal: false});
     };
+
     //openEdit Method -- opens the modal for the Team Edit Modal
     openEdit() {
         this.setState({showEditModal: true})
     };
+
     //closeEdit Method -- closes the modal for the Team Edit Modal
     closeEdit() {
         this.setState({showEditModal: false})
     };
+
     //handleEditName method that sets the teamEditName state
     handleEditName = (e) => {
         this.setState({teamEditName: e.target.value});
@@ -82,6 +91,7 @@ export default class ListOfTeams extends Component {
     handleSeason = (e) => {
         this.setState({editSeason: e.target.value});
     };
+
     render() {
         return (
             <div className="CardContainer">
@@ -117,15 +127,17 @@ export default class ListOfTeams extends Component {
                 {/*Ending of Deleting Modal Confirmation*/}
                 {/*Beginning of Edit Teams Modal */}
                 <div>
-                    <Modal show={this.state.showEditModal} onHide={this.closeEdit} >
+                    <Modal show={this.state.showEditModal} onHide={this.closeEdit}>
                         <Modal.Header>
                             <Modal.Title>Team Edit</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <form>
                                 <FormGroup>
-                                    <FormControl placeholder={this.props.team.name} label='name' type='text' onChange={this.handleEditName}/><br/>
-                                    <FormControl placeholder={this.props.team.season} label='season' type='text' onChange={this.handleSeason}/>
+                                    <FormControl placeholder={this.props.team.name} label='name' type='text'
+                                                 onChange={this.handleEditName}/><br/>
+                                    <FormControl placeholder={this.props.team.season} label='season' type='text'
+                                                 onChange={this.handleSeason}/>
                                 </FormGroup>
                             </form>
                         </Modal.Body>
@@ -157,4 +169,3 @@ export default class ListOfTeams extends Component {
         )
     }
 }
-

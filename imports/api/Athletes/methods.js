@@ -9,7 +9,7 @@ Meteor.methods({
     /*Definition for athletes.insert (Server Side Method), will be called by client who will pass through attributes:
     * @Params aName, aWeight, aTeamId
     * This function will create and add a new Athlete to the database.*/
-    'athletes.insert': function athletesInsert(aName,aWeight,aTeamId) {
+    'athletes.insert': function athletesInsert(aName, aWeight, aTeamId) {
         console.log(aName);
         try {
             return Athletes.insert({
@@ -29,10 +29,10 @@ Meteor.methods({
     * This function will pull the current date of the data change and will update the PreWeight of a particular athlete. */
     'athletes.addPreWeight': function addPreWeight(id, date, weight) {
         Athletes.update(
-            { _id: id },
-            { $pull: {preWeightData: {date:date} }});
+            {_id: id},
+            {$pull: {preWeightData: {date: date}}});
         Athletes.update(
-            { _id: id }, {
+            {_id: id}, {
                 $push: {
                     preWeightData: {
                         $each: [{date: date, weight: weight}],
@@ -47,10 +47,10 @@ Meteor.methods({
     * This function will pull the current date of the data change and will update the PostWeight of a particular athlete. */
     'athletes.addPostWeight': function addPostWeight(id, date, weight) {
         Athletes.update(
-            { _id: id },
-            { $pull: {postWeightData: {date:date} }});
+            {_id: id},
+            {$pull: {postWeightData: {date: date}}});
         Athletes.update(
-            { _id: id }, {
+            {_id: id}, {
                 $push: {
                     postWeightData: {
                         $each: [{date: date, weight: weight}],
@@ -71,8 +71,8 @@ Meteor.methods({
     * This function will update the name, baseWeight, and team of a particular athlete using the corresponding id. */
     'athletes.edit': function editAthlete(id, nm, bs, t) {
         Athletes.update(
-            { _id: id }, {
-                $set: { name: nm, baseWeight: bs, teamId: t}
+            {_id: id}, {
+                $set: {name: nm, baseWeight: bs, teamId: t}
             }
         );
     },
@@ -83,12 +83,11 @@ Meteor.methods({
     *   - If prePost is equal to PreWeight, 'athletes.addPreWeight' function is called.
     *   - If prePost is equal to PostWeight, 'athletes.addPostWeight' function is called.
     *   - Anything else happens an error message is sent to the console. */
-    'athletes.editWeight': function editAthleteWeight(id, date, weight, prePost)
-    {
-        if(prePost === 'PreWeight') {
+    'athletes.editWeight': function editAthleteWeight(id, date, weight, prePost) {
+        if (prePost === 'PreWeight') {
             Meteor.call('athletes.addPreWeight', id, date, weight);
         }
-        else if(prePost === 'PostWeight') {
+        else if (prePost === 'PostWeight') {
             Meteor.call('athletes.addPostWeight', id, date, weight);
         }
         else {

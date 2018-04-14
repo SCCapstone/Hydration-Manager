@@ -15,7 +15,7 @@ class AthleteReport extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showModal : false,
+            showModal: false,
             name: '',
             base: '',
             team: '',
@@ -25,31 +25,34 @@ class AthleteReport extends Component {
         // this.deleteAthlete = this.deleteAthlete.bind(this);
         // this.athlete = this.athlete.bind(this);
     };
+
     componentDidMount() {
         this.getCurrentTeam();
     };
+
     componentWillUnmount() {
-        this.props.subscriptions.forEach((s) =>{
+        this.props.subscriptions.forEach((s) => {
             s.stop();
         });
     };
+
     /*deleteAthlete method, calls to method found on in the Athletes api,
     * located at imports/api/Athletes/methods.js */
     deleteAthlete() {
-        Meteor.call('deleteAthlete',this.props.athlete._id);
+        Meteor.call('deleteAthlete', this.props.athlete._id);
     };
+
     /*athlete component*/
     athlete() {
         /* If this.props.athleteId, athleteId is set to this.props.athleteId.*/
-        if(this.props.athleteId) {
+        if (this.props.athleteId) {
             let athleteId = this.props.athleteId, currentAthlete = '';
             /* Finally the athletesLists is iterated through. While iterating through,
                the athleteList id attributes are checked to see if they are equal to
                the athleteId attribute.*/
-            for(let i=0;i<this.props.athletesList.length;i++)
-            {   /* Finally, if this check passes as true, the currentAthlete
+            for (let i = 0; i < this.props.athletesList.length; i++) {   /* Finally, if this check passes as true, the currentAthlete
                 is now set as the list of athletes that have passed the check.*/
-                if(this.props.athletesList[i]._id === athleteId) {
+                if (this.props.athletesList[i]._id === athleteId) {
                     currentAthlete = (this.props.athletesList[i]);
                 }
             }
@@ -61,28 +64,33 @@ class AthleteReport extends Component {
             return "";
         }
     };
+
     //team component
     teams() {
         /*The teamsList is returned here*/
         return this.props.teamsList;
     }
+
     routeToMaster() {
         window.location = "/app/masterReport/";
     };
+
     open() {
-        this.setState({ showModal: true });
+        this.setState({showModal: true});
     };
+
     //close method
     close() {
-        this.setState({ showModal: false });
+        this.setState({showModal: false});
     };
-    getCurrentTeam () {
-        this.setState({ team: this.props.teamId });
+
+    getCurrentTeam() {
+        this.setState({team: this.props.teamId});
     }
+
     /*getTeam function returns teams name and season*/
     getTeam() {
-        for( let i=0;i<this.props.teamsList.length;i++)
-        {
+        for (let i = 0; i < this.props.teamsList.length; i++) {
             // console.log("The length of the teams list is " + this.props.teamsList.length);
             // console.log("The id of the team at position " + i + " is " + this.props.teamsList[i]._id);
             // console.log("The teamid of the athlete is " + this.athlete().teamId);
@@ -90,7 +98,7 @@ class AthleteReport extends Component {
             // console.log("The props object at position " + i + " is " + this.props.teamsList[i]);
             // This will error. Do not uncomment. if(this.props.teamsList[i]._id.equals(this.athlete().teamId))
             // This will error. Do not uncomment. if(this.props.teamsList[i]._id == (this.athlete().teamId))
-            if(this.props.teamsList[i]._id === (this.athlete().teamId)) {
+            if (this.props.teamsList[i]._id === (this.athlete().teamId)) {
                 // Can't set state from here. massive loop errors.
                 //console.log("The state team is " + this.state.team);
                 //this.handleTeam(this.athlete().teamId);
@@ -99,6 +107,7 @@ class AthleteReport extends Component {
             }
         }
     };
+
     /*showCurrentWeight method  */
     showCurrentWeight() {
         let preWeightDate = null;
@@ -106,7 +115,7 @@ class AthleteReport extends Component {
         /* Check #1: If the selected athlete's preWeightData with index 0 is NOT undefined,
            the preWeightDate is set to the athlete's preWeightData on the date that it was
            set.     */
-        if(this.athlete().preWeightData[0] !== undefined) {
+        if (this.athlete().preWeightData[0] !== undefined) {
             preWeightDate = this.athlete().preWeightData[0].date;
         }
         /* Check #2: If the selected athlete's postWeightData with index 0 is NOT undefined,
@@ -118,19 +127,19 @@ class AthleteReport extends Component {
         /* Check #3: If the postWeightDate AND the preWeightDate are both NOT null,
            then the weight of the athlete's postWeightData with index 0,
            will be returned as a number with 4 precision points, (i.e. 205.0)   */
-        if(postWeightDate != null && preWeightDate != null) {
+        if (postWeightDate != null && preWeightDate != null) {
             return Number.parseFloat(this.athlete().postWeightData[0].weight).toPrecision(4);
         }
         /* Check #4: If the postWeightDate is NOT null,
            then the weight of the athlete's postWeightData with index 0,
            will be returned as a number with 4 precision points, (i.e. 205.0)   */
-        else if(postWeightDate != null) {
+        else if (postWeightDate != null) {
             return Number.parseFloat(this.athlete().postWeightData[0].weight).toPrecision(4);
         }
         /* Check #4: If the preWeightDate is NOT null,
            then the weight of the athlete's preWeightData with index 0,
            will be returned as a number with 4 precision points, (i.e. 205.0)   */
-        else if(preWeightDate != null) {
+        else if (preWeightDate != null) {
             return Number.parseFloat(this.athlete().preWeightData[0].weight).toPrecision(4);
         }
         /* In any other instance the athlete's baseWeight will be returned*/
@@ -138,16 +147,17 @@ class AthleteReport extends Component {
             return this.athlete().baseWeight;
         }
     };
+
     /*Loss calculation method
      * Grabs and subtracts the showCurrentWeight by the baseWeight of the athlete */
-    calcLoss(){
+    calcLoss() {
         let currentWeight = this.showCurrentWeight();
         let baseWeight = this.athlete().baseWeight;
         let weightChange = currentWeight - baseWeight;
         /*If the weightChange is greater than zero,
         * the weight change is returned along with the plus operator in front of the weight
         * change with the decimal format of four precision points.*/
-        if(weightChange > 0) {
+        if (weightChange > 0) {
             return "+" + Number.parseFloat(weightChange).toPrecision(4);
         }
         /* If the weightChange is equal to zero,
@@ -161,6 +171,7 @@ class AthleteReport extends Component {
             return "(" + Number.parseFloat(weightChange).toPrecision(4) + ")";
         }
     }
+
     /*Edit Entry method*/
     editEntry() {
         event.preventDefault();
@@ -169,13 +180,13 @@ class AthleteReport extends Component {
         let bw = this.state.base;
         let t = this.state.team;
         /* If any values are left blank, then accept the previous value in that athlete's information */
-        if (nm === '' ) {
+        if (nm === '') {
             nm = this.athlete().name;
         }
-        if (bw === '' ) {
+        if (bw === '') {
             bw = this.athlete().baseWeight;
         }
-        if (t === '' ) {
+        if (t === '') {
             t = this.athlete().teamId;
         }
         /* Meteor method athletes.edit on the collections side will be called and an alert will be issued
@@ -191,6 +202,7 @@ class AthleteReport extends Component {
             this.close();
         });
     };
+
 // Handlers
     /* handleName function -- sets the name equal to e.target.value */
     handleName = (e) => {
@@ -205,36 +217,41 @@ class AthleteReport extends Component {
     /* handleTeam function -- sets the team equal to e.target.value */
     handleTeam = (e) => {
         e.persist();
-        this.setState({team : e.target.value});
+        this.setState({team: e.target.value});
     };
+
     /* Upon firing, method will call the open function, which in turn will open the modal window. */
     handleEditButtonClick() {
         this.open();
     };
+
     /* Render method -- contains the modal form for editing an athlete's information,
      * such as the name, weight, and the team to which that player relates to. */
     render() {
         let athlete = this.props.athlete;
         let team = this.props.team;
-        if(this.props.athleteLoading || this.props.teamLoading){
+        if (this.props.athleteLoading || this.props.teamLoading) {
             return null;
         }
-        for( let i=0; i < this.props.athletesList.length; i++ )
-        {
-            if(this.props.athletesList[i]._id === this.props.athleteId) {
+        for (let i = 0; i < this.props.athletesList.length; i++) {
+            if (this.props.athletesList[i]._id === this.props.athleteId) {
                 return (
                     <div>
-                        <Modal show={this.state.showModal} onHide={this.close} >
+                        <Modal show={this.state.showModal} onHide={this.close}>
                             <Modal.Header>
                                 <Modal.Title>Athlete Edit</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                 <form>
                                     <FormGroup>
-                                        <FormControl placeholder={this.athlete().name} label='Name' type='string' onChange={this.handleName}/>
-                                        <FormControl placeholder={this.athlete().baseWeight} label='Weight' type='number' onChange={this.handleWeight}/>
-                                        <FormControl defaultValue={this.athlete().teamId} value={this.state.team} componentClass="select" label='Team' onChange={this.handleTeam}>
-                                            {this.teams().map((team) => <option value={team._id} key={team._id}>{team.name} {team.season}</option>)}
+                                        <FormControl placeholder={this.athlete().name} label='Name' type='string'
+                                                     onChange={this.handleName}/>
+                                        <FormControl placeholder={this.athlete().baseWeight} label='Weight'
+                                                     type='number' onChange={this.handleWeight}/>
+                                        <FormControl defaultValue={this.athlete().teamId} value={this.state.team}
+                                                     componentClass="select" label='Team' onChange={this.handleTeam}>
+                                            {this.teams().map((team) => <option value={team._id}
+                                                                                key={team._id}>{team.name} {team.season}</option>)}
                                         </FormControl>
                                     </FormGroup>
                                 </form>
@@ -246,7 +263,9 @@ class AthleteReport extends Component {
                         </Modal>
                         <h3>Athlete Report</h3>
                         {/*TODO: Create component for the basic info*/}
-                        <h4>{this.athlete().name} <Button bsSize="xsmall" onClick={() => this.handleEditButtonClick()}><span className="glyphicon glyphicon-pencil">{}</span></Button></h4>
+                        <h4>{this.athlete().name} <Button bsSize="xsmall"
+                                                          onClick={() => this.handleEditButtonClick()}><span
+                            className="glyphicon glyphicon-pencil">{}</span></Button></h4>
                         <h5>Team: {this.getTeam()}</h5>
                         <h5>Base Weight: {this.athlete().baseWeight}</h5>
                         <h5>Current Weight: {this.showCurrentWeight()}</h5>

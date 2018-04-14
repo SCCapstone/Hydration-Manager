@@ -9,7 +9,8 @@ export default class AthleteEntryList extends Component {
             date: '',
             weight: ''
         };
-        {/*TODO: add onKeyPress enter key(13 */}
+        {/*TODO: add onKeyPress enter key(13 */
+        }
         this.handleDebounce = debounce(1000, this.handleDebounce);
         this.handleWeightChange = this.handleWeightChange.bind(this);
     }
@@ -46,20 +47,23 @@ export default class AthleteEntryList extends Component {
         this.setState({weight: e.target.value});
         this.handleDebounce(e);
     };
+
     /*When Enter/Return button is press, it will run event.preventDefault function*/
     onKeyPress(event) {
-        if(event.which === 13 /* Enter */) {
+        if (event.which === 13 /* Enter */) {
             event.preventDefault();
         }
     };
-/*Render weights and allows changes*/
+
+    /*Render weights and allows changes*/
     render() {
         return (
             <tr>
                 <td>{this.props.athlete.name}</td>
                 <td>
                     <form>
-                        <input className='weightEnterInput' type="number" onChange={this.handleWeightChange} onKeyPress={this.onKeyPress}/>
+                        <input className='weightEnterInput' type="number" onChange={this.handleWeightChange}
+                               onKeyPress={this.onKeyPress}/>
                     </form>
                 </td>
             </tr>

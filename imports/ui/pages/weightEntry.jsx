@@ -26,6 +26,7 @@ class WeightEntry extends React.Component {
         // this.handleDebounce = debounce(1000, this.handleDebounce);
         autoBind(this);
     };
+
     componentDidMount() {
         let now = new Date();
         let month = (now.getMonth() + 1);
@@ -37,13 +38,15 @@ class WeightEntry extends React.Component {
             day = "0" + day;
         }
         let today = now.getFullYear() + '-' + month + '-' + day;
-        this.setState({ selectedDate: today });
+        this.setState({selectedDate: today});
     };
+
     componentWillUnmount() {
         this.props.subscriptions.forEach((s) => {
             s.stop();
         });
     };
+
     /* Teams component returns the team with matching user id */
     teams() {
         const curUser = this.props.name;  //CurrentUser.findOne();
@@ -51,6 +54,7 @@ class WeightEntry extends React.Component {
         const id = this.props.userId;  //curUser.userID;
         return TeamsCollection.find({user: id}).fetch();
     };
+
     /* Athletes component */
     athletes() {
         let currentTeam = "";
@@ -65,12 +69,14 @@ class WeightEntry extends React.Component {
             return AthletesCollection.find().fetch();
         }
     };
+
     /* displayAthletes component */
     displayAthletes() {
         /* If the athletes result is NOT null the athlete single is returned. */
         if (this.athletes() != null) {
             return (this.athletes().map((athlete) => {
-                return <AthleteEntryList key={athlete._id} athlete={athlete} selOp={this.state.selectedOption} sess={this.state.selectedSession}
+                return <AthleteEntryList key={athlete._id} athlete={athlete} selOp={this.state.selectedOption}
+                                         sess={this.state.selectedSession}
                                          dat={this.state.selectedDate}/>
             }));
         }
@@ -79,6 +85,7 @@ class WeightEntry extends React.Component {
             return <li>Select a Team</li>
         }
     };
+
     /* displayCurrentTeam constructor*/
     displayCurrentTeam() {
         /* If this.props.match.params.teamId, this is set as the teamId. The currentTeam is
@@ -94,32 +101,35 @@ class WeightEntry extends React.Component {
             return "";
         }
     };
+
 // Handlers
     /* handleOptionChange function -- sets selectedOption to e.target.value */
-    handleChange(value){
-        this.setState({ selectedOption: value });
+    handleChange(value) {
+        this.setState({selectedOption: value});
         let weightElements = document.getElementsByClassName("weightEnterInput");
-        for(let i=0;i<weightElements.length;i++)
-        {
+        for (let i = 0; i < weightElements.length; i++) {
             weightElements[i].value = "";
             //console.log(weightElements[i]);
         }
     };
-    handleSessionChange(session){
-        this.setState({ selectedSession: session });
+
+    handleSessionChange(session) {
+        this.setState({selectedSession: session});
         let sessionElements = document.getElementsByClassName("sessionEnterInput");
-        for(let i=0;i< sessionElements.length;i++){
+        for (let i = 0; i < sessionElements.length; i++) {
             sessionElements[i].value = "";
             //console.log(sessionElements[i]);
         }
     };
+
     /* handleDataChange function -- sets selectedDate to e.target.value
      * Also printed the data selected into the console log containing the selectDate (e.target.value) */
     handleDateChange = (e) => {
         e.preventDefault();
-        this.setState({ selectedDate: e.target.value });
+        this.setState({selectedDate: e.target.value});
         //console.log('The date you selected is:', e.target.value);
     };
+
     /* Renders Weight Entry Lists of Athletes, dropdown buttons of teams,
      * and forms for inputting athlete weights. */
     render() {
@@ -129,20 +139,23 @@ class WeightEntry extends React.Component {
                 <div className="WeightHeader">
                     <h3>Weight Entry {this.displayCurrentTeam()}</h3>
                     <div className="WeightButtons">
-                        <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange} id="DatePicker"/>
+                        <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange}
+                               id="DatePicker"/>
                         <ToggleButtonGroup type="radio" name="options" id="RadioButtons" defaultValue={"PreWeight"}>
-                            <ToggleButton value={"PreWeight"}  onClick={() => this.handleChange("PreWeight")}>PreWeight</ToggleButton>
+                            <ToggleButton value={"PreWeight"} onClick={() => this.handleChange("PreWeight")}>PreWeight</ToggleButton>
                             <ToggleButton value={"PostWeight"} onClick={() => this.handleChange("PostWeight")}>PostWeight</ToggleButton>
                         </ToggleButtonGroup>
 
                         <ToggleButtonGroup type="radio" name="options" id="RadioButtons" defaultValue={"1"}>
-                            <ToggleButton value={"1"}  onClick={() => this.handleSessionChange("1")}>1</ToggleButton>
+                            <ToggleButton value={"1"} onClick={() => this.handleSessionChange("1")}>1</ToggleButton>
                             <ToggleButton value={"2"} onClick={() => this.handleSessionChange("2")}>2</ToggleButton>
-                            <ToggleButton value={"3"}  onClick={() => this.handleSessionChange("3")}>3</ToggleButton>
+                            <ToggleButton value={"3"} onClick={() => this.handleSessionChange("3")}>3</ToggleButton>
                         </ToggleButtonGroup>
 
                         <DropdownButton id={'TeamSelect'} title={'Team Select'} key={null} bsStyle={'default'}>
-                            {this.teams().map((team) => {return <WeightDropdownOfTeams key={team._id} team={team}/> })}
+                            {this.teams().map((team) => {
+                                return <WeightDropdownOfTeams key={team._id} team={team}/>
+                            })}
                             <MenuItem>
                                 <Link to={{pathname: "/app/weightEntry/"}}> All Athletes </Link>
                             </MenuItem>

@@ -26,30 +26,31 @@ class Alerts extends React.Component {
         // this.getCurrentTeam = this.getCurrentTeam.bind(this);
         autoBind(this);
     };
+
     componentWillUnmount() {
-        this.props.subscriptions.forEach((s) =>{
+        this.props.subscriptions.forEach((s) => {
             s.stop();
         });
     }
-    getCurrentTeam () {
+
+    getCurrentTeam() {
         let currentTeam = this.props.match.params.teamId;
-        this.setState({ playerTeamId : currentTeam });
+        this.setState({playerTeamId: currentTeam});
     }
 
     /*Red Teams Athletes for athletes needing major attention.*/
     redAthletes() {
         let allAthletes = AthletesCollection.find().fetch(), redAthletes = [];
         let preWeight, postWeight, hydration = '';
-        for (let i=0;i< allAthletes.length;i++)
-        {
-            if(allAthletes[i].preWeightData[0] !== undefined && allAthletes[i].postWeightData[0] !== undefined) {
-                if(allAthletes[i].preWeightData[0].date === allAthletes[i].postWeightData[0].date) {
+        for (let i = 0; i < allAthletes.length; i++) {
+            if (allAthletes[i].preWeightData[0] !== undefined && allAthletes[i].postWeightData[0] !== undefined) {
+                if (allAthletes[i].preWeightData[0].date === allAthletes[i].postWeightData[0].date) {
                     preWeight = allAthletes[i].preWeightData[0].weight;
                     postWeight = allAthletes[i].postWeightData[0].weight;
-                    hydration = (preWeight-postWeight)/preWeight*100;
+                    hydration = (preWeight - postWeight) / preWeight * 100;
                     //hydration2 = (allAthletes[i].baseWeight[i]-postWeight)/allAthletes[i].baseWeight[i]*100;
                     //if(hydration < -4 || hydration > 3 || hydration2 < -4 || hydration2 > 3)
-                    if(hydration <= -4 || hydration >= 4) {
+                    if (hydration <= -4 || hydration >= 4) {
                         redAthletes.push(allAthletes[i]);
                     }
                 }
@@ -57,23 +58,23 @@ class Alerts extends React.Component {
         }
         return redAthletes;
     }
+
     /*Yellow Team Athletes for athletes needing some attention. */
-    yellowAthletes(){
+    yellowAthletes() {
         let allAthletes = AthletesCollection.find().fetch(), yellowAthletes = [];
         let preWeight, postWeight, hydration = '';
-        for (let i=0;i< allAthletes.length;i++)
-        {
-            if(allAthletes[i].preWeightData[0] !== undefined && allAthletes[i].postWeightData[0] !== undefined) {
-                if(allAthletes[i].preWeightData[0].date === allAthletes[i].postWeightData[0].date) {
+        for (let i = 0; i < allAthletes.length; i++) {
+            if (allAthletes[i].preWeightData[0] !== undefined && allAthletes[i].postWeightData[0] !== undefined) {
+                if (allAthletes[i].preWeightData[0].date === allAthletes[i].postWeightData[0].date) {
                     preWeight = allAthletes[i].preWeightData[0].weight;
                     postWeight = allAthletes[i].postWeightData[0].weight;
-                    hydration = (preWeight-postWeight)/preWeight*100;
+                    hydration = (preWeight - postWeight) / preWeight * 100;
                     //hydration2 = (allAthletes[i].baseWeight[i]-postWeight)/allAthletes[i].baseWeight[i]*100;
                     //if(hydration >= -4 && hydration < -2 || hydration2 >= -4 || hydration2 < -2)
-                    if(hydration > -4 && hydration < -3) {
+                    if (hydration > -4 && hydration < -3) {
                         yellowAthletes.push(allAthletes[i]);
                     }
-                    if(hydration > 3 && hydration < 4) {
+                    if (hydration > 3 && hydration < 4) {
                         yellowAthletes.push(allAthletes[i]);
                     }
                 }
@@ -81,6 +82,7 @@ class Alerts extends React.Component {
         }
         return yellowAthletes;
     }
+
     render() {
         return (
             <div>
@@ -88,42 +90,48 @@ class Alerts extends React.Component {
                 <hr/>
                 <div>
                     <div>
-                    <br/>
-                    <h4>Red Athletes</h4>
-                    <Table bordered condensed responsive>
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Team</th>
-                            <th>Weight Change %</th>
-                            <th>Current Weight</th>
-                        </tr>
-                        </thead>
-                        <tbody className="redBack">
-                        {this.redAthletes().map((athlete)=>{return <AthleteAlert key={athlete._id} athlete={athlete} teamsList={this.props.teamsList}/>})}
-                        </tbody>
-                    </Table>
+                        <br/>
+                        <h4>Red Athletes</h4>
+                        <Table bordered condensed responsive>
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Team</th>
+                                <th>Weight Change %</th>
+                                <th>Current Weight</th>
+                            </tr>
+                            </thead>
+                            <tbody className="redBack">
+                            {this.redAthletes().map((athlete) => {
+                                return <AthleteAlert key={athlete._id} athlete={athlete}
+                                                     teamsList={this.props.teamsList}/>
+                            })}
+                            </tbody>
+                        </Table>
                     </div>
                     <br/><br/>
                     <div>
-                    <h4>Yellow Athletes</h4>
-                    <Table bordered condensed responsive>
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Team</th>
-                            <th>Weight Change %</th>
-                            <th>Current Weight</th>
-                        </tr>
-                        </thead>
-                        <tbody className="yellowBack">
-                        {this.yellowAthletes().map((athlete)=>{return <AthleteAlert key={athlete._id} athlete={athlete} teamsList={this.props.teamsList}/>})}
-                        </tbody>
-                    </Table>
+                        <h4>Yellow Athletes</h4>
+                        <Table bordered condensed responsive>
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Team</th>
+                                <th>Weight Change %</th>
+                                <th>Current Weight</th>
+                            </tr>
+                            </thead>
+                            <tbody className="yellowBack">
+                            {this.yellowAthletes().map((athlete) => {
+                                return <AthleteAlert key={athlete._id} athlete={athlete}
+                                                     teamsList={this.props.teamsList}/>
+                            })}
+                            </tbody>
+                        </Table>
                     </div>
                 </div>
             </div>
-            )//End Return
+        )//End Return
     }//End Render
 }//End Class
 Alerts.propTypes = {

@@ -8,6 +8,7 @@ class ReportDropdownOfTeams extends Component {
     constructor(props) {
         super(props);
     };
+
     /*Renders the team name and team season*/
     render() {
         return (
@@ -15,4 +16,5 @@ class ReportDropdownOfTeams extends Component {
         )
     }
 }
+
 export default ReportDropdownOfTeams;

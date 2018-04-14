@@ -25,35 +25,36 @@ import AdminDash from '../../pages/adminDash.jsx';
 
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    // this.state = { curTeamToDisplay: null };
-    autoBind(this);  //binds class methods to the component instance
-  };
-  render() {
-      const { props, state, setCurTeamToDisplay } = this;
-      return (
-          <BrowserRouter>
-              {!props.loading ? (
-                  <div className="">{props.isAuthorized ? <Navigation {...props} /> : ''}
-                    <Switch>
-                      <Public exact path="/" component={LoginAlt} {...props} />
-                      <Public exact path="/login" component={LoginAlt} {...props} />
-                      <Public exact path="/registration" component={Registration} {...props} />
-                      <Grid className = "AppContent">
-                        <Authorized exact path="/app" component={WeightEntry} {...props} />
-                        <Authorized exact path='/app/weightEntry' component={WeightEntry} {...props} />
-                        <Authorized path='/app/weightEntry/:teamId' component={WeightEntry} {...props} />
-                        <Authorized exact path='/app/masterReport/' component={MasterReport} {...props} />
-                        <Authorized path='/app/masterReport/:teamId' component={MasterReport} {...props} />
-                        <Authorized path='/app/athlete/:athleteId' component={AthleteReport} {...props} />
-                        <Authorized exact path='/app/yourTeams' component={YourTeams} {...props} />
-                        <Authorized exact path='/app/alerts' component={Alerts} {...props} />
+    constructor(props) {
+        super(props);
+        // this.state = { curTeamToDisplay: null };
+        autoBind(this);  //binds class methods to the component instance
+    };
 
-                        <Authorized exact path='/app/adminDash' component={AdminDash} {...props} />
-                      </Grid>
-                      <Route component={NotFound}/>
-{/*
+    render() {
+        const {props, state, setCurTeamToDisplay} = this;
+        return (
+            <BrowserRouter>
+                {!props.loading ? (
+                    <div className="">{props.isAuthorized ? <Navigation {...props} /> : ''}
+                        <Switch>
+                            <Public exact path="/" component={LoginAlt} {...props} />
+                            <Public exact path="/login" component={LoginAlt} {...props} />
+                            <Public exact path="/registration" component={Registration} {...props} />
+                            <Grid className="AppContent">
+                                <Authorized exact path="/app" component={WeightEntry} {...props} />
+                                <Authorized exact path='/app/weightEntry' component={WeightEntry} {...props} />
+                                <Authorized path='/app/weightEntry/:teamId' component={WeightEntry} {...props} />
+                                <Authorized exact path='/app/masterReport/' component={MasterReport} {...props} />
+                                <Authorized path='/app/masterReport/:teamId' component={MasterReport} {...props} />
+                                <Authorized path='/app/athlete/:athleteId' component={AthleteReport} {...props} />
+                                <Authorized exact path='/app/yourTeams' component={YourTeams} {...props} />
+                                <Authorized exact path='/app/alerts' component={Alerts} {...props} />
+
+                                <Authorized exact path='/app/adminDash' component={AdminDash} {...props} />
+                            </Grid>
+                            <Route component={NotFound}/>
+                            {/*
 <Route exact path="/" component={LoginAlt} />
 <Route exact path="/login" component={LoginAlt} />
 <Route exact path="/registration" component={Registration} />
@@ -74,44 +75,44 @@ class App extends React.Component {
 <Route name="privacy" path="/privacy" component={Privacy} />
 <Route component={NotFound} />
 */}
-                    </Switch>
-                  </div>
-              ) : ''}
-          </BrowserRouter>
-      );
-  }//End Render
+                        </Switch>
+                    </div>
+                ) : ''}
+            </BrowserRouter>
+        );
+    }//End Render
 }//End Class
 App.defaultProps = {
-  userId: '',
-  emailAddress: '',
+    userId: '',
+    emailAddress: '',
 };
 // Type checking props pushed to component
 App.propTypes = {
-  userId: PropTypes.string,
-  emailAddress: PropTypes.string,
-  emailVerified: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired,
-  isAuthorized: PropTypes.bool.isRequired,
-  userRoles: PropTypes.array
+    userId: PropTypes.string,
+    emailAddress: PropTypes.string,
+    emailVerified: PropTypes.bool.isRequired,
+    loading: PropTypes.bool.isRequired,
+    isAuthorized: PropTypes.bool.isRequired,
+    userRoles: PropTypes.array
 };
 // Data from the server pushed to main app component
 export default withTracker(() => {
-  const loggingIn = Meteor.loggingIn();
-  const user = Meteor.user();
-  const userId = Meteor.userId();
-  const loading = !Roles.subscription.ready();
-  // &&'s below - > returns furthest right "truthy" value
-  const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
-  const emailAddress = user && user.emails && user.emails[0].address;
+    const loggingIn = Meteor.loggingIn();
+    const user = Meteor.user();
+    const userId = Meteor.userId();
+    const loading = !Roles.subscription.ready();
+    // &&'s below - > returns furthest right "truthy" value
+    const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
+    const emailAddress = user && user.emails && user.emails[0].address;
 
-  return {
-    loading,
-    loggingIn,
-    isAuthorized: !loggingIn && !!userId,
-    name: name || emailAddress,
-    userId,
-    emailAddress,
-    emailVerified: user && user.emails ? user && user.emails && user.emails[0].verified : true,
-    userRoles: !loading ? Roles.getRolesForUser(userId) : [] , //!loading && Roles.getRolesForUser(userId),
-  };
+    return {
+        loading,
+        loggingIn,
+        isAuthorized: !loggingIn && !!userId,
+        name: name || emailAddress,
+        userId,
+        emailAddress,
+        emailVerified: user && user.emails ? user && user.emails && user.emails[0].verified : true,
+        userRoles: !loading ? Roles.getRolesForUser(userId) : [], //!loading && Roles.getRolesForUser(userId),
+    };
 })(App);

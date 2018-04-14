@@ -30,16 +30,19 @@ class YourTeams extends React.Component {
     //   Roles.userIsInRole(user, ["ADMIN"]);
     // };
     componentWillUnmount() {
-      this.props.subscriptions.forEach((s) =>{
-        s.stop();
-      });
+        this.props.subscriptions.forEach((s) => {
+            s.stop();
+        });
     };
+
     open() {
         this.setState({showModal: true});
     };
+
     close() {
         this.setState({showModal: false});
     };
+
     addTeam() {
         event.preventDefault();
         const teamName = this.state.teamName;
@@ -59,14 +62,16 @@ class YourTeams extends React.Component {
             });
         }
     };
+
     handleTeam = (e) => {
         e.persist();
-        this.setState({ teamName: e.target.value });
+        this.setState({teamName: e.target.value});
     };
     handleSeason = (e) => {
         e.persist();
-        this.setState({ teamSeason: e.target.value });
+        this.setState({teamSeason: e.target.value});
     };
+
     render() {
         return (
             <div>
@@ -96,7 +101,9 @@ class YourTeams extends React.Component {
                 </div>
                 <br/>
                 <ul className="ListOfTeams">
-                    {this.props.teamsList.map((team) => {return <ListOfTeams key={team._id} team={team}/>})}
+                    {this.props.teamsList.map((team) => {
+                        return <ListOfTeams key={team._id} team={team}/>
+                    })}
                 </ul>
             </div>
         )
@@ -104,24 +111,24 @@ class YourTeams extends React.Component {
 }
 
 YourTeams.propTypes = {
-  subscriptions: PropTypes.array,
-  loading: PropTypes.bool,
-  teamsList: PropTypes.array
+    subscriptions: PropTypes.array,
+    loading: PropTypes.bool,
+    teamsList: PropTypes.array
 };
 
 // Retrieves data from server and puts it into client's minimongo
 export default withTracker(() => {
-  const subscription = Meteor.subscribe('teams.all');
-  const loading = !subscription.ready();
-  const teamsList = !loading ? TeamsCollection.find().fetch() : [];
-  // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // match: PropTypes.object.isRequired,
-  // history: PropTypes.object.isRequired,
-  //console.log(teamsList);
+    const subscription = Meteor.subscribe('teams.all');
+    const loading = !subscription.ready();
+    const teamsList = !loading ? TeamsCollection.find().fetch() : [];
+    // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+    // match: PropTypes.object.isRequired,
+    // history: PropTypes.object.isRequired,
+    //console.log(teamsList);
 
-  return {
-    subscriptions: [subscription],
-    loading,
-    teamsList,
-  };
+    return {
+        subscriptions: [subscription],
+        loading,
+        teamsList,
+    };
 })(YourTeams);

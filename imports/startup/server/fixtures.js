@@ -4,7 +4,7 @@
 import {Meteor} from 'meteor/meteor';
 import {Accounts} from 'meteor/accounts-base';
 import {Roles} from 'meteor/alanning:roles';
-import { _ } from 'meteor/underscore';
+import {_} from 'meteor/underscore';
 
 // Custom File & Collection Imports
 //import ROLES  from '../../api/Users/roles.js';
@@ -33,47 +33,38 @@ import { _ } from 'meteor/underscore';
   });
 */
 if (!Meteor.isProduction) {
-  const users = [{
-    email: 'admin@admin.com',
-    password: 'password',
-    profile: {
-      name: {
-        first: 'Admin',
-        last: ''
-      },
+    const users = [{
+        email: 'admin@admin.com',
+        password: 'password',
+        profile: {
+            name: {first: 'Admin', last: ''},
+        },
+        roles: ['ADMIN'],
     },
-    roles: ['ADMIN'],
-  },
-  {
-    email: 'admin1@admin1.com',
-    password: 'password1',
-    profile: {
-      name: {
-        first: 'Jane',
-        last: 'Doe'
-      },
-    },
-    roles: ['PUB'],
-  },
-    {
-    email: 'hydration@usc.com',
-      password: 'password',
-      profile: {
-      name: {
-          first: 'Hydration',
-          last: 'Admin'
-      },
-    },
-    roles: ['ADMIN'],
-},
-  ];
-  users.forEach(({ email, password, profile, roles }) => {
-    const userExists = Meteor.users.findOne({ 'emails.address': email });
-    if (!userExists) {
-      const userId = Accounts.createUser({ email, password, profile });
-      //Roles.addUsersToRoles(userId, roles);
-      console.log(roles);
-      Roles.setUserRoles(userId, roles);
-    }
-  });
+        {
+            email: 'admin1@admin1.com',
+            password: 'password1',
+            profile: {
+                name: {first: 'Jane', last: 'Doe'},
+            },
+            roles: ['PUB'],
+        },
+        {
+            email: 'hydration@usc.com',
+            password: 'password',
+            profile: {
+                name: {first: 'Hydration', last: 'Admin'},
+            },
+            roles: ['ADMIN'],
+        },
+    ];
+    users.forEach(({email, password, profile, roles}) => {
+        const userExists = Meteor.users.findOne({'emails.address': email});
+        if (!userExists) {
+            const userId = Accounts.createUser({email, password, profile});
+            //Roles.addUsersToRoles(userId, roles);
+            console.log(roles);
+            Roles.setUserRoles(userId, roles);
+        }
+    });
 }

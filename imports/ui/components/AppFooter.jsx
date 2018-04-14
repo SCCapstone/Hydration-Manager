@@ -3,11 +3,11 @@ import React from 'react';
 import {Grid} from 'react-bootstrap';
 
 const AppFooter = () => (
-  <div className="AppFooter">
-    <Grid>
-      <p className="pull-left">&copy; Hydration Manager</p>
-    </Grid>
-  </div>
+    <div className="AppFooter">
+        <Grid>
+            <p className="pull-left">&copy; Hydration Manager</p>
+        </Grid>
+    </div>
 );
 AppFooter.propTypes = {};
 export default AppFooter;

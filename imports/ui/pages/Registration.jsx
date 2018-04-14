@@ -19,28 +19,33 @@ class Registration extends React.Component {
         super(props);
         autoBind(this);
     };
+
     componentDidMount() {
         const component = this;
         $(component.form).validate({
             rules: {
-               firstName: { required: false },
-               lastName: { required: false },
-                emailAddress: { required: true, email: true },
-                PhoneNumber: { required: false, minlength: 10 },
-                password: { required: true, minlength: 6 },
-                password_confirm: { equalTo: '[name="password"]' }
+                firstName: {required: false},
+                lastName: {required: false},
+                emailAddress: {required: true, email: true},
+                PhoneNumber: {required: false, minlength: 10},
+                password: {required: true, minlength: 6},
+                password_confirm: {equalTo: '[name="password"]'}
             },
             messages: {
-                emailAddress: { required: 'Please enter your email address.', email: 'Is this email address correct?' },
-                PhoneNumber: { required: 'Please enter a phone number.', minlength: 'Minimum of at least 10 characters' },
-                password: { required: 'Please enter a password.', minlength: 'Minimum of at least six characters.' },
-                password_confirm: { required: 'Repeat previous password.', minlength: 'Minimum of at least six characters.' },
+                emailAddress: {required: 'Please enter your email address.', email: 'Is this email address correct?'},
+                PhoneNumber: {required: 'Please enter a phone number.', minlength: 'Minimum of at least 10 characters'},
+                password: {required: 'Please enter a password.', minlength: 'Minimum of at least six characters.'},
+                password_confirm: {
+                    required: 'Repeat previous password.',
+                    minlength: 'Minimum of at least six characters.'
+                },
             },
             submitHandler() {
                 component.handleSubmit(component.form);
             },
         });
     };
+
     componentWillUnmount() {
         let loggingIn = Meteor.loggingIn();
         let newUserId = Meteor.userId();
@@ -56,10 +61,12 @@ class Registration extends React.Component {
             });
         }
     };
+
     /* Routes to Login window */
     routeToLogin() {
         window.location = '/login';
     };
+
     /* Submits form */
     handleSubmit(form) {
         const {history} = this.props;
@@ -84,6 +91,7 @@ class Registration extends React.Component {
         // newUserId = Meteor.userId();
         // !loggingIn ? Roles.addUsersToRoles(newUserId, ['ADMIN']) : console.log("Role not added!!");
     };
+
     /* Renders Registration form */
     render() {
         return (
@@ -93,7 +101,8 @@ class Registration extends React.Component {
                     <br/>
                     <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
                         <FormGroup>
-                            <input type="email" name="emailAddress" className="form-control" placeholder="Email Address"/>
+                            <input type="email" name="emailAddress" className="form-control"
+                                   placeholder="Email Address"/>
                         </FormGroup>
                         <FormGroup>
                             <input type="phone" name="PhoneNumber" className="form-control" placeholder="Phone Number"/>
@@ -102,7 +111,8 @@ class Registration extends React.Component {
                             <input type="password" name="password" className="form-control" placeholder="Password"/>
                         </FormGroup>
                         <FormGroup>
-                            <input type="password" name="password_conform" className="form-control" placeholder="Confirm Password"/>
+                            <input type="password" name="password_conform" className="form-control"
+                                   placeholder="Confirm Password"/>
                         </FormGroup>
                         <FormGroup>
                             <br/>
@@ -115,6 +125,7 @@ class Registration extends React.Component {
         );
     }
 }
+
 Registration.propTypes = {
     history: PropTypes.object.isRequired,
 };
