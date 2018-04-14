@@ -28,7 +28,7 @@ Meteor.methods({
     /* Definition for athletes.addPreWeight (Server Side Method), will be called by client who will pass through attributes:
     * @Params id, date, weight
     * This function will pull the current date of the data change and will update the PreWeight of a particular athlete. */
-    'athletes.addPreWeight': function addPreWeight(id, date, weight) {
+    'athletes.addPreWeight': function addPreWeight(id, date, weight, sess) {
         Athletes.update(
             { _id: id },
             { $pull: {preWeightData: {date:date} }});
@@ -38,7 +38,7 @@ Meteor.methods({
             {
                 $push: {
                     preWeightData: {
-                        $each: [{date: date, weight: weight}],
+                        $each: [{date: date, weight: weight, session: sess}],
                         $sort: {date: -1}
                     }
                 }
@@ -48,7 +48,7 @@ Meteor.methods({
     /* Definition for athletes.addPostWeight (Server Side Method), will be called by client who will pass through attributes:
     * @Params id, date, weight
     * This function will pull the current date of the data change and will update the PostWeight of a particular athlete. */
-    'athletes.addPostWeight': function addPostWeight(id, date, weight) {
+    'athletes.addPostWeight': function addPostWeight(id, date, weight, sess) {
         Athletes.update(
             { _id: id },
             { $pull: {postWeightData: {date:date} }});
@@ -58,7 +58,7 @@ Meteor.methods({
             {
                 $push: {
                     postWeightData: {
-                        $each: [{date: date, weight: weight}],
+                        $each: [{date: date, weight: weight, session: sess}],
                         $sort: {date: -1}
                     }
                 }

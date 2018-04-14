@@ -56,14 +56,13 @@ class WeightEntry extends React.Component {
         }
     };
 
-    handleSessionChange(session){
-        this.setState({selectedSession: session});
+    handleSessionChange(value){
+        this.setState({selectedSession: value});
         sessionElements = document.getElementsByClassName("sessionEnterInput");
         for(i=0; i< sessionElements.length; i++){
             sessionElements[i].value = "";
             console.log(sessionElements[i]);
         }
-
     }
 
     /* handleDataChange function -- sets selectedDate to e.target.value
@@ -77,7 +76,7 @@ class WeightEntry extends React.Component {
     /* Teams component returns the team with matching user id */
     teams() {
         const curUser = this.props.name;  //CurrentUser.findOne();
-        console.log(curUser);
+        // console.log(curUser);
         const id = this.props.userId;  //curUser.userID;
         return TeamsCollection.find({user: id}).fetch();
     };
@@ -102,8 +101,8 @@ class WeightEntry extends React.Component {
         /* If the athletes result is NOT null the athlete single is returned. */
         if (this.athletes() != null) {
             return (this.athletes().map((athlete) => {
-                return <AthleteEntryList key={athlete._id} athlete={athlete} selOp={this.state.selectedOption} sess={this.state.selectedSession}
-                                         dat={this.state.selectedDate}/>
+                return <AthleteEntryList key={athlete._id} athlete={athlete} selOp={this.state.selectedOption}
+                                         dat={this.state.selectedDate} sessNum={this.state.selectedSession}/>
             }));
         }
         /* If nothing else, a tuple stating 'select a team' is returned. */
@@ -142,7 +141,6 @@ class WeightEntry extends React.Component {
                             type="radio"
                             name="options"
                             id="RadioButtons"
-                            defaultValue={"PreWeight"}
                         >
                             <ToggleButton value={"PreWeight"}  onClick={() => this.handleChange("PreWeight")}>PreWeight</ToggleButton>
                             <ToggleButton value={"PostWeight"} onClick={() => this.handleChange("PostWeight")}>PostWeight</ToggleButton>
@@ -152,7 +150,6 @@ class WeightEntry extends React.Component {
                             type="radio"
                             name="options"
                             id="RadioButtons"
-                            defaultValue={"1"}
                         >
                             <ToggleButton value={"1"}  onClick={() => this.handleSessionChange("1")}>1</ToggleButton>
                             <ToggleButton value={"2"} onClick={() => this.handleSessionChange("2")}>2</ToggleButton>
@@ -176,7 +173,7 @@ class WeightEntry extends React.Component {
                         <thead>
                         <tr>
                             <th>Name</th>
-                            <th>{this.state.selectedOption} Entry #{this.state.selectedSession}</th>
+                            <th>{this.state.selectedOption} Weight Entry {this.state.selectedSession}</th>
                         </tr>
                         </thead>
                         <tbody>
