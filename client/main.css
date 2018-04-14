@@ -1,251 +1,299 @@
 /* CSS declarations go here */
 
 /*Overall App CSS*/
-body{
+body {
+
 }
-hr{
+
+hr {
     border: none;
     height: 1px;
     background-color: #333;
 }
-a{
+
+a {
     text-decoration: none;
     color: #000;
 }
-/*TODO: Need to put something here, so they know its a link */
-a:hover{
+
+/*Need to put something here, so they know its a link */
+a:hover {
+
 }
 
 /* Nav CSS */
-.navbar{
+.navbar {
     margin-bottom: 0;
 }
-.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand{
+
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand {
     color: #fff;
     background-color: transparent;
 }
 
-
 /*Login Page CSS*/
-.LoginBackGround{
+.LoginBackGround {
     background-image: linear-gradient(to left bottom, #414141, #393939, #313131, #292929, #212121);
     height: 100vh;
 }
-.Login{
+
+.Login {
     background-color: whitesmoke;
     border: 10px solid whitesmoke;
     border-radius: 15px;
-    box-shadow: 7px 8px 13px 2px rgba(0,0,0,0.5);
+    box-shadow: 7px 8px 13px 2px rgba(0, 0, 0, 0.5);
 
     /*Center the inside div */
     width: 500px;
     height: 375px;
     position: fixed; /*it can be absolute too*/
-    left:0; right:0;
-    top:-20%; bottom:0;
+    left: 0;
+    right: 0;
+    top: -20%;
+    bottom: 0;
     margin: auto;
     padding: 15px;
 
     /*this to solve "the content will not be cut when the window is smaller than the content": */
-    max-width:100%;
-    max-height:100%;
-    overflow:hidden;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
 }
+
 .Login h1 {
     text-align: center;
 }
-.Login p{
+
+.Login p {
     position: relative;
     font-size: 75%;
     text-align: center;
 }
-.Login #LoginButtonContainer{
+
+.Login #LoginButtonContainer {
     margin-top: 12.5%;
 }
+
 .Login #LoginButton {
     width: 100%;
     text-align: center;
 }
-.Login #password{
+
+.Login #password {
     float: right;
 }
+
 /*not the way this should be done */
-.Login #emailAddress-error{
-    font-size: 75%;
-}
-.Login #password-error{
+.Login #emailAddress-error {
     font-size: 75%;
 }
 
-
+.Login #password-error {
+    font-size: 75%;
+}
 
 /*Registration Page CSS*/
-.RegistrationBackGround{
+.RegistrationBackGround {
     background-image: linear-gradient(to left bottom, #414141, #393939, #313131, #292929, #212121);
     height: 100vh;
 }
-.Registration{
+
+.Registration {
     background-color: whitesmoke;
     border: 10px solid whitesmoke;
     border-radius: 15px;
-    box-shadow: 7px 8px 13px 2px rgba(0,0,0,0.5);
+    box-shadow: 7px 8px 13px 2px rgba(0, 0, 0, 0.5);
 
     /*Center the inside div */
     width: 600px;
     height: 425px;
     position: fixed; /*it can be absolute too*/
-    left:0; right:0;
-    top:-20%; bottom:0;
+    left: 0;
+    right: 0;
+    top: -20%;
+    bottom: 0;
     margin: auto;
     padding: 15px;
 
     /*this to solve "the content will not be cut when the window is smaller than the content": */
-    max-width:100%;
-    max-height:100%;
-    overflow:auto;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
 }
-.Registration p{
+
+.Registration p {
     position: relative;
     font-size: 75%;
 }
+
 .Registration #SubmitButton {
     float: right;
     width: 25%;
 }
+
 .Registration #BackButton {
     float: left;
 }
-.Registration #emailAddress-error{
+
+.Registration #emailAddress-error {
     font-size: 75%;
 }
-.Registration #password-error{
+
+.Registration #password-error {
     font-size: 75%;
 }
 
-
-
+.Registration #PhoneNumber-error {
+    font-size: 75%;
+}
 
 /*Weight Entry Page CSS */
-.WeightHeader{
+.WeightHeader {
     margin-top: 2%;
     display: inline-block;
     width: 100%;
 }
-.WeightHeader h3{
+
+.WeightHeader h3 {
     float: left;
     margin: 0;
     line-height: 1.42857;
 }
-.WeightHeader .dropdown{
+
+.WeightButtons {
     float: right;
     vertical-align: middle;
 }
-.WeightHeader .dropdown a{
+
+.WeightHeader .dropdown a {
     text-decoration: none;
     color: #000;
 }
-.WeightHeader .dropdown a:hover{
+
+.WeightHeader .dropdown a:hover {
     text-decoration: none;
     color: #000;
 }
-.WeightRadioButtons label{
-    margin: 5px;
+
+#DatePicker {
+    height: 30px;
+}
+
+#RadioButtons {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 /*Master Report Page CSS */
-.MasterHeader{
+.MasterHeader {
     margin-top: 2%;
     display: inline-block;
     width: 100%;
 }
-.MasterHeader h3{
+
+.MasterHeader h3 {
     float: left;
     margin: 0;
     line-height: 1.42857;
 }
-.MasterHeader .dropdown{
+
+.MasterHeader .dropdown {
     float: right;
     vertical-align: middle;
 }
-.MasterHeader .dropdown a{
+
+.MasterHeader .dropdown a {
     text-decoration: none;
     color: #000;
 }
-.MasterHeader .dropdown a:hover{
+
+.MasterHeader .dropdown a:hover {
     text-decoration: none;
     color: #000;
 }
-.MasterHeader button{
-    float:right;
+
+.MasterHeader button {
+    float: right;
     vertical-align: middle;
     margin-left: 10px;
 }
 
 /*Your Team's Page CSS */
-.YourTeamHeader{
+.YourTeamHeader {
     margin-top: 2%;
     display: inline-block;
     width: 100%;
 }
-.YourTeamHeader h3{
+
+.YourTeamHeader h3 {
     float: left;
     margin: 0;
     line-height: 1.42857;
 }
-.YourTeamHeader button{
-    float:right;
+
+.YourTeamHeader button {
+    float: right;
     vertical-align: middle;
 }
-.ListOfTeams{
+
+.ListOfTeams {
     padding: 0;
     display: inline;
-    list-style:none;
+    list-style: none;
 }
-.CardContainer{
+
+.CardContainer {
     width: 50%;
     float: left;
 }
 
-    /*CSS for the cards in Your teams */
-    .card{
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-        transition: 0.3s;
-        width: 225px;
-        height: 125px;
-        position: relative;
-        display: inline-block;
-        margin: 0 15px 30px 15px;
-        border-radius: 10px;
-    }
-    .card:hover{
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    }
-    .card .InnerCard{
-        position: relative;
-        margin: 5% 7.5% 7.5%;
-        padding: 7.5%;
-    }
-    .card a{
-        text-decoration : none;
-    }
-    .card h4{
-        color: #414141;
-        vertical-align: middle;
-    }
-    .card p{
-        color: #414141;
-        vertical-align: middle;
-    }
-    .card .dropdown{
-        float: right;
-    }
-    .card #close{
-        border-color: white;
-    }
-    .card #close:hover{
-        background-color: white;
-    }
+/*CSS for the cards in Your teams */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    width: 225px;
+    height: 125px;
+    position: relative;
+    display: inline-block;
+    margin: 0 15px 30px 15px;
+    border-radius: 10px;
+}
 
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card .InnerCard {
+    position: relative;
+    margin: 5% 7.5% 7.5%;
+    padding: 7.5%;
+}
+
+.card a {
+    text-decoration: none;
+}
+
+.card h4 {
+    color: #414141;
+    vertical-align: middle;
+}
+
+.card p {
+    color: #414141;
+    vertical-align: middle;
+}
+
+.card .dropdown {
+    float: right;
+}
+
+.card #close {
+    border-color: white;
+}
+
+.card #close:hover {
+    background-color: white;
+}
 
 /*Alerts Page CSS */
 .yellowBack {
@@ -270,39 +318,73 @@ a:hover{
 }
 
 /*Mobile View CSS */
-@media (max-width: 826px){
+@media (max-width: 826px) {
 
 }
+
 @media only screen and (max-width: 826px) {
-    .CardContainer{
+    .CardContainer {
         width: 100%;
         float: left;
     }
-    .MasterHeader h3{
+
+    .MasterHeader h3 {
         float: none;
         text-align: center;
         margin: 0;
         line-height: 1.42857;
     }
-    .MasterHeader .MasterButtons{
+
+    .MasterHeader .MasterButtons {
         display: flex;
         align-items: center;
         justify-content: center;
         margin-top: 10px;
     }
-    .MasterHeader .dropdown{
+
+    .MasterHeader .dropdown {
         float: none;
         vertical-align: middle;
         margin-left: 10px;
     }
-    .MasterHeader button{
+
+    .MasterHeader button {
         float: none;
         vertical-align: middle;
     }
-    .WeightRadioButtons label{
-        margin-left: 7.5px;
+
+    .WeightHeader h3 {
+        float: none;
+        text-align: center;
+        margin: 0;
+        line-height: 1.42857;
+    }
+
+    .WeightHeader .WeightButtons {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .WeightHeader #DatePicker {
+        float: none;
+        width: 120px;
+        vertical-align: middle;
+        margin-top: 10px;
+    }
+
+    .WeightHeader #RadioButtons {
+        vertical-align: middle;
+        margin-top: 10px;
+    }
+
+    #TeamSelect {
+        margin-top: 10px;
     }
 }
-@media only screen and (min-width: 827px){
+
+@media only screen and (min-width: 827px) {
 
 }
