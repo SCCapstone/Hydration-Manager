@@ -23,9 +23,9 @@ class Registration extends React.Component {
         const component = this;
         $(component.form).validate({
             rules: {
-               firstName: { required: false, },
-               lastName: { required: false, },
-                emailAddress: { required: true, email: true, },
+               firstName: { required: false },
+               lastName: { required: false },
+                emailAddress: { required: true, email: true },
                 PhoneNumber: { required: false, minlength: 10 },
                 password: { required: true, minlength: 6 },
                 password_confirm: { equalTo: '[name="password"]' }

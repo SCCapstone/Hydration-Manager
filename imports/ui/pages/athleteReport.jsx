@@ -101,7 +101,8 @@ class AthleteReport extends Component {
     };
     /*showCurrentWeight method  */
     showCurrentWeight() {
-        let preWeightDate, postWeightDate = null;
+        let preWeightDate = null;
+        let postWeightDate = null;
         /* Check #1: If the selected athlete's preWeightData with index 0 is NOT undefined,
            the preWeightDate is set to the athlete's preWeightData on the date that it was
            set.     */
@@ -140,7 +141,8 @@ class AthleteReport extends Component {
     /*Loss calculation method
      * Grabs and subtracts the showCurrentWeight by the baseWeight of the athlete */
     calcLoss(){
-        let currentWeight = this.showCurrentWeight(), baseWeight = this.athlete().baseWeight;
+        let currentWeight = this.showCurrentWeight();
+        let baseWeight = this.athlete().baseWeight;
         let weightChange = currentWeight - baseWeight;
         /*If the weightChange is greater than zero,
         * the weight change is returned along with the plus operator in front of the weight
@@ -162,7 +164,10 @@ class AthleteReport extends Component {
     /*Edit Entry method*/
     editEntry() {
         event.preventDefault();
-        let pId = this.props.athleteId, nm = this.state.name, bw = this.state.base, t = this.state.team;
+        let pId = this.props.athleteId;
+        let nm = this.state.name;
+        let bw = this.state.base;
+        let t = this.state.team;
         /* If any values are left blank, then accept the previous value in that athlete's information */
         if (nm === '' ) {
             nm = this.athlete().name;
@@ -209,7 +214,8 @@ class AthleteReport extends Component {
     /* Render method -- contains the modal form for editing an athlete's information,
      * such as the name, weight, and the team to which that player relates to. */
     render() {
-        let athlete = this.props.athlete, team = this.props.team;
+        let athlete = this.props.athlete;
+        let team = this.props.team;
         if(this.props.athleteLoading || this.props.teamLoading){
             return null;
         }

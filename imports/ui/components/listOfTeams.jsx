@@ -42,7 +42,9 @@ export default class ListOfTeams extends Component {
     */
     editEntry() {
         event.preventDefault();
-        const pID = this.props.team._id, nm = this.state.teamEditName, s = this.state.editSeason;
+        const pID = this.props.team._id;
+        const nm = this.state.teamEditName;
+        const s = this.state.editSeason;
         if(pID === '' || nm === '' || s === '') {
             window.alert("Make sure to complete all fields for editing.");
         }
@@ -50,10 +52,7 @@ export default class ListOfTeams extends Component {
             Meteor.call('teams.edit', pID, nm, s, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('team edited', 'success', 'fixed-top', 'fa-check');
-                this.setState({
-                    teamEditName: '',
-                    editSeason: '',
-                });
+                this.setState({ teamEditName: '', editSeason: '' });
                 this.closeEdit();
             });
         }

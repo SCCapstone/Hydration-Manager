@@ -22,9 +22,9 @@ class Profile extends React.Component {
     const component = this;
     $(component.form).validate( {
       rules: {
-        firstName: { required: true, },
-        lastName: { required: true, },
-        emailAddress: { required: true, email: true, },
+        firstName: { required: true },
+        lastName: { required: true },
+        emailAddress: { required: true, email: true },
         currentPassword: {
           required() {
           // Only required if newPassword field has a value.
@@ -35,11 +35,11 @@ class Profile extends React.Component {
             return component.form.currentPassword.value.length > 0; }, },
       },
       messages: {
-        firstName: { required: 'What\'s your first name?', },
-        lastName: { required: 'What\'s your last name?', },
-        emailAddress: { required: 'Need an email address here.', email: 'Is this email address correct?', },
-        currentPassword: { required: 'Need your current password if changing.', },
-        newPassword: { required: 'Need your new password if changing.', },
+        firstName: { required: 'What\'s your first name?' },
+        lastName: { required: 'What\'s your last name?' },
+        emailAddress: { required: 'Need an email address here.', email: 'Is this email address correct?' },
+        currentPassword: { required: 'Need your current password if changing.' },
+        newPassword: { required: 'Need your new password if changing.' },
       },
       submitHandler() { component.handleSubmit(component.form); },
     });

@@ -20,7 +20,12 @@ export default class AthleteSingle extends Component {
 */
     render() {
         let athlete = this.props.athlete;
-        let hydrate, PreWeight, PostWeight, Date, preWeightDate, postWeightDate = "No Data";
+        let hydrate = "No Data";
+        let PreWeight = "No Data";
+        let PostWeight = "No Data";
+        let Date = "No Data";
+        let preWeightDate = "No Data";
+        let postWeightDate = "No Data";
         //Get athletes hydration
         if ( (athlete.preWeightData[0] !== undefined && athlete.postWeightData[0] !== undefined) && (athlete.preWeightData[0].date === athlete.postWeightData[0].date) ){
             hydrate = ((athlete.preWeightData[0].weight - athlete.postWeightData[0].weight) / athlete.preWeightData[0].weight) *100;

@@ -19,7 +19,8 @@ export default class AthleteAlert extends Component {
     };
     /*Renders alert data -- Provides checks and does math using if else statements*/
     render() {
-        let athlete = this.props.athlete, hydrate = '';
+        let athlete = this.props.athlete;
+        let hydrate = '';
         if(athlete.preWeightData[0] === undefined || athlete.postWeightData[0] === undefined) {
             hydrate = null;
         }
@@ -34,7 +35,9 @@ export default class AthleteAlert extends Component {
         if (hydrate == null || hydrate === undefined) {
             hydrate = null;
         }
-        let preWeightDate, postWeightDate, currentWeight = null;
+        let preWeightDate = null;
+        let postWeightDate = null;
+        let currentWeight = null;
         /* If the athlete's preWeightData at index zero is not undefined, then preWeightData set to the date of the
         * athlete's preWeightData at index zero and the data is formatted in decimal form and given four precision points.*/
         if(athlete.preWeightData[0] !== undefined) {

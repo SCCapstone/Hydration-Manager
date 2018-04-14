@@ -38,7 +38,10 @@ class AthleteReportTable extends Component{
     @params pId, pDate pWeight, and pPrePost and closing modal upon finishing */
     editEntry() {
         event.preventDefault();
-        const pId = this.props.athlete._id, pWeight = this.state.weight, pDate = this.state.date, pPrePost = this.state.prePost;
+        const pId = this.props.athlete._id;
+        const pWeight = this.state.weight;
+        const pDate = this.state.date;
+        const pPrePost = this.state.prePost;
         if(pId === '' || pWeight === '' || pDate === '' || pPrePost === '') {
             window.alert("Make sure to complete all fields for weight editing.");
         }
@@ -60,7 +63,8 @@ class AthleteReportTable extends Component{
     /*Fetches the list of dates for postWeight and preWeight data and sorts the data by date
     * @Params: none*/
     getListofDates() {
-        let curAthlete = this.props.athlete, curDates = [];
+        let curAthlete = this.props.athlete;
+        let curDates = [];
         for(let i=0;i<curAthlete.preWeightData.length;i++)
         {
             curDates.push(curAthlete.preWeightData[i].date);
@@ -99,7 +103,8 @@ class AthleteReportTable extends Component{
     /*Fetches the Hydration by date
     * @Params: aDate*/
     getHydration(aDate) {
-        let preData = this.props.athlete.preWeightData, postData = this.props.athlete.postWeightData;
+        let preData = this.props.athlete.preWeightData;
+        let postData = this.props.athlete.postWeightData;
         let hydration = '', pre = 0, post = 0;
         for(let i=0;i<preData.length;i++)
         {

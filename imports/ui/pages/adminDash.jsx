@@ -39,7 +39,8 @@ class AdminDash extends React.Component {
   };
   /* Gathers and displays the user data */
   showUsersList() {
-    const users = this.props.usersList, selectRoles = ROLES;
+    const users = this.props.usersList;
+    const selectRoles = ROLES;
     //console.log(selectRoles);
     return (
       <tbody> {

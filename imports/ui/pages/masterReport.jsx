@@ -58,7 +58,9 @@ class MasterReport extends React.Component {
     /*addPlayer method*/
     addPlayer() {
         event.preventDefault();
-        const pName = this.state.name, pWeight = this.state.weight, pTeamId = this.state.playerTeamId;
+        const pName = this.state.name;
+        const pWeight = this.state.weight;
+        const pTeamId = this.state.playerTeamId;
     /*  console.log(pName);
         console.log(pWeight);
         console.log(pHeight);
@@ -84,10 +86,13 @@ class MasterReport extends React.Component {
     };
     /* Athletes component*/
     athletes() {
-        let currentTeam = "", curUser = this.props.name, id = this.props.userId;
+        let currentTeam = "";
+        let curUser = this.props.name;
+        let id = this.props.userId;
         //console.log(this.props.teamId);
         if(this.props.teamId !== '') {
-            let teamId = this.props.teamId, currentAthletes = [];
+            let teamId = this.props.teamId;
+            let currentAthletes = [];
             // currentTeam = '';
             // // currentTeam = TeamsCollection.findOne({"_id": teamId});
             // for(i=0;i<this.props.teamsList.length; i++)

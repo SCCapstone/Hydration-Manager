@@ -19,22 +19,12 @@ export default class LoginAlt extends React.Component {
         const component = this;
         $(component.form).validate({
             rules: {
-                emailAddress: {
-                    required: true,
-                    email: true,
-                },
-                password: {
-                    required: true,
-                },
+                emailAddress: { required: true,  email: true },
+                password: { required: true },
             },
             messages: {
-                emailAddress: {
-                    required: 'Enter email address here.',
-                    email: 'Is this email address correct?',
-                },
-                password: {
-                    required: 'Enter password here.',
-                },
+                emailAddress: { required: 'Enter email address here.',  email: 'Is this email address correct?' },
+                password: { required: 'Enter password here.' },
             },
             submitHandler() {
                 component.handleSubmit(component.form);

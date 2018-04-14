@@ -53,7 +53,9 @@ class WeightEntry extends React.Component {
     };
     /* Athletes component */
     athletes() {
-        let currentTeam = "", curUser = this.props.name, id = this.props.userId;
+        let currentTeam = "";
+        let curUser = this.props.name;
+        let id = this.props.userId;
         if (this.props.match.params.teamId) {
             let teamId = this.props.match.params.teamId;
             currentTeam = TeamsCollection.findOne({"_id": teamId, user: id});
