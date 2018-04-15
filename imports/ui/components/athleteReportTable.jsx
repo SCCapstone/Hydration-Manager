@@ -109,7 +109,9 @@ class AthleteReportTable extends Component {
     getHydration(aDate) {
         let preData = this.props.athlete.preWeightData;
         let postData = this.props.athlete.postWeightData;
-        let hydration = '', pre = 0, post = 0;
+        let hydration = '';
+        let pre = 0;
+        let post = 0;
         for (let i = 0; i < preData.length; i++) {
             if (preData[i] !== undefined) {
                 if (preData[i].date === aDate) {
@@ -183,7 +185,7 @@ class AthleteReportTable extends Component {
                 <div>
                     <Modal show={this.state.showModal} onHide={this.close}>
                         <Modal.Header>
-                            <Modal.Title>Athlete Entry Form</Modal.Title>
+                            <Modal.Title>Athlete Edit Weight</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <form>

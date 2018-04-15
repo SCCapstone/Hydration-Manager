@@ -9,12 +9,45 @@ export default class AthleteEntryList extends Component {
             date: '',
             weight: ''
         };
-        {/*TODO: add onKeyPress enter key(13 */
-        }
         this.handleDebounce = debounce(1000, this.handleDebounce);
         this.handleWeightChange = this.handleWeightChange.bind(this);
     }
 
+    // The purpose of this function is to generate an alert if an athlete is in the 'red' alert status
+    // The only time this function should be called is if the athlete has just had a weight entered via weight entry,
+    // hopefully avoiding spamming of alerts.
+    handleAlerts(aDate){
+        let preData = this.props.athlete.preWeightData;
+        let postData = this.props.athlete.postWeightData;
+        let pre = 0;
+        let post = 0;
+        console.log("We're in the handleAlerts function");
+        const delayInMilliseconds = 3000; // Three second delay
+        setTimeout(function() {
+            for (let i = 0; i < preData.length + 1; i++) {
+                if (preData[i] !== undefined) {
+                    if (preData[i].date === aDate) {
+                        pre = preData[i].weight;
+                        console.log("Pre value is : " + pre);
+                    }
+                }
+            }
+            for (let i = 0; i < postData.length + 1; i++) {
+                if (postData[i] !== undefined) {
+                    if (postData[i].date === aDate) {
+                        post = postData[i].weight;
+                        console.log("Post value is : " + post);
+                    }
+                }
+            }
+            let hydration = (((pre - post)) / pre) * 100;
+            if (hydration <= -4 || hydration >= 4) {
+                Meteor.call('athletes.generateSMS', () => {
+                    console.log("We're calling the SMS alert");
+                });
+            }
+        }, delayInMilliseconds);
+    };
 // Handler Functions
     /*handleDebounce function provides checks and alerts*/
     handleDebounce = (e) => {
@@ -32,13 +65,15 @@ export default class AthleteEntryList extends Component {
             Meteor.call('athletes.addPreWeight', this.props.athlete._id, this.props.dat, this.state.weight, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
-            })
+            });
+            this.handleAlerts(this.props.dat);
         }
         else if (this.props.selOp === 'PostWeight') {
             Meteor.call('athletes.addPostWeight', this.props.athlete._id, this.props.dat, this.state.weight, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
-            })
+            });
+            this.handleAlerts(this.props.dat);
         }
     };
     /*handleWeightChange Function will set weight to e.target.value*/

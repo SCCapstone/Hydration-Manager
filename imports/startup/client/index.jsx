@@ -17,6 +17,10 @@ import '../both/api';
 // Note:  <div id="react-root"></div> element defined in /client/main.html
 //           -- called on client side of Meteor startup
 Meteor.startup(() => {
-    render(<App/>, document.getElementById('react-root'))
+    render(<App/>, document.getElementById('react-root'));
+    process.env.TWILIO_ACCOUNT_SID = '';
+    process.env.TWILIO_AUTH_TOKEN = '';
+    process.env.TWILIO_NUMBER = '';
+
 });
 

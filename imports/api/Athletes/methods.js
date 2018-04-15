@@ -36,7 +36,15 @@ Meteor.methods({
                 $push: {
                     preWeightData: {
                         $each: [{date: date, weight: weight, session: sess}],
-                        $sort: {date: -1}
+                        $sort: {date: -1},
+                        $slice: 3 /* To use sort in a push function, you MUST use a %slice (per the 4 errors that popped up)
+                                   *
+                                   * $slice: <num> ; Where the <num> can be:
+                                   * Zero ;	To update the array <field> to an empty array.
+                                   * Negative ; To update the array <field> to contain only the last <num> elements.
+                                   * Positive ; To update the array <field> contain only the first <num> elements.
+                                   *    -anthony
+                                  */
                     }
                 }
             }
@@ -54,7 +62,8 @@ Meteor.methods({
                 $push: {
                     postWeightData: {
                         $each: [{date: date, weight: weight, session: sess}],
-                        $sort: {date: -1}
+                        $sort: {date: -1},
+                        $slice: 3 // Must use as $slice when using $each AND $sort
                     }
                 }
             }
@@ -93,5 +102,26 @@ Meteor.methods({
         else {
             console.log('Error in weight data editing');
         }
+    },
+    'athlete.generateSMS': function sendSMS() {
+        // These are testing credentials only, not real credentials -anthony
+        //twilio = Twilio(ACcaad0f31e3a34aac5f13636556bcc746, b56f47d16915b1947c64cdec964b914a);
+        let twilio = require('twilio');
+        let client = new twilio(ACcaad0f31e3a34aac5f13636556bcc746, b56f47d16915b1947c64cdec964b914a);
+        console.log("This should generate an SMS alert");
+        //twilio.sendSms({
+        client.messages.create({
+            body: 'Hello from Node',
+            to: '+18039606328',  // Text this number
+            from: '+15005550006' // From a valid Twilio number
+        }, function (err, responseData) { //this function is executed when a response is received from Twilio
+            if (!err) { // "err" is an error received during the request, if any
+                // "responseData" is a JavaScript object containing data received from Twilio.
+                // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
+                // http://www.twilio.com/docs/api/rest/sending-sms#example-1
+                console.log(responseData.from); // outputs "from phone number"
+                console.log(responseData.body); // outputs "body of message"
+            }
+        });
     },
 });
