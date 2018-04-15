@@ -20,6 +20,22 @@ export default class AthleteEntryList extends Component {
         console.log('You have selected:', this.props.selOp);
         console.log('The weight stored is:', e.target.value);
         console.log('The athlete you selected is', this.props.athlete.name);
+        if (this.props.session === '1')
+        {
+            sessionDate = this.props.dat + "T01:00:00";
+            this.setState({date: sessionDate})
+        }
+        else if (this.props.session === '2')
+        {
+            sessionDate = this.props.dat + "T02:00:00";
+            this.setState({date: sessionDate})
+        }
+        else if (this.props.session === '3')
+        {
+            sessionDate = this.props.dat + "T03:00:00";
+            this.setState({date: sessionDate})
+        }
+
         if (this.props.dat === '')
         {
             alert('Please ensure you have selected a Date');
@@ -28,13 +44,13 @@ export default class AthleteEntryList extends Component {
             alert('Please ensure you have selected Pre or Post Weight');
         }
         else if (this.props.selOp === 'PreWeight') {
-            Meteor.call('athletes.addPreWeight', this.props.athlete._id, this.props.dat, this.state.weight, () => {
+            Meteor.call('athletes.addPreWeight', this.props.athlete._id, this.state.date, this.state.weight, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
             })
         }
         else if (this.props.selOp === 'PostWeight') {
-            Meteor.call('athletes.addPostWeight', this.props.athlete._id, this.props.dat, this.state.weight, () => {
+            Meteor.call('athletes.addPostWeight', this.props.athlete._id, this.state.date, this.state.weight, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
             })
