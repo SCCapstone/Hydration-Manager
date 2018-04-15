@@ -16,14 +16,14 @@ export default class AthleteEntryList extends Component {
     // The purpose of this function is to generate an alert if an athlete is in the 'red' alert status
     // The only time this function should be called is if the athlete has just had a weight entered via weight entry,
     // hopefully avoiding spamming of alerts.
-    handleAlerts(aDate){
+    handleAlerts(aDate) {
         let preData = this.props.athlete.preWeightData;
         let postData = this.props.athlete.postWeightData;
         let pre = 0;
         let post = 0;
         console.log("We're in the handleAlerts function");
         const delayInMilliseconds = 3000; // Three second delay
-        setTimeout(function() {
+        setTimeout(function () {
             for (let i = 0; i < preData.length + 1; i++) {
                 if (preData[i] !== undefined) {
                     if (preData[i].date === aDate) {
@@ -48,6 +48,7 @@ export default class AthleteEntryList extends Component {
             }
         }, delayInMilliseconds);
     };
+
 // Handler Functions
     /*handleDebounce function provides checks and alerts*/
     handleDebounce = (e) => {
@@ -55,24 +56,20 @@ export default class AthleteEntryList extends Component {
         console.log('You have selected:', this.props.selOp);
         console.log('The weight stored is:', e.target.value);
         console.log('The athlete you selected is', this.props.athlete.name);
-        if (this.props.session === '1')
-        {
+        if (this.props.session === '1') {
             let sessionDate = this.props.dat + "T01:00:00";
             this.setState({date: sessionDate})
         }
-        else if (this.props.session === '2')
-        {
+        else if (this.props.session === '2') {
             let sessionDate = this.props.dat + "T02:00:00";
             this.setState({date: sessionDate})
         }
-        else if (this.props.session === '3')
-        {
+        else if (this.props.session === '3') {
             let sessionDate = this.props.dat + "T03:00:00";
             this.setState({date: sessionDate})
         }
 
-        if (this.props.dat === '')
-        {
+        if (this.props.dat === '') {
             alert('Please ensure you have selected a Date');
         }
         else if (this.props.selOp === 'Default') {
