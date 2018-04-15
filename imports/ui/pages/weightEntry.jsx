@@ -144,6 +144,11 @@ class WeightEntry extends React.Component {
                     <div className="WeightButtons">
                         <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange}
                                id="DatePicker"/>
+                        <select onChange={this.handleSessionChange.bind(this)}>
+                            <option value="1">Session 1</option>
+                            <option value="2">Session 2</option>
+                            <option value="3">Session 3</option>
+                        </select>
                         <ToggleButtonGroup type="radio" name="options" id="RadioButtons"
                                            value={this.state.selectedOption}>
                             <ToggleButton value={"PreWeight"}
@@ -160,16 +165,10 @@ class WeightEntry extends React.Component {
                             </MenuItem>
                         </DropdownButton>
                     </div>
+                </div>
                     <hr/>
                     <form>
                         <br/>
-                        <div>
-                            <select onChange={this.handleSessionChange.bind(this)}>
-                                <option value="1">Session 1</option>
-                                <option value="2">Session 2</option>
-                                <option value="3">Session 3</option>
-                            </select>
-                        </div>
                         <br/><br/>
                         <Table striped bordered condensed hover className="teams">
                             <thead>
@@ -185,7 +184,6 @@ class WeightEntry extends React.Component {
                         </Table>
                     </form>
                 </div>
-            </div>
         )
     }
 }
