@@ -34,14 +34,14 @@ class WeightEntry extends React.Component {
     }
 
     componentDidMount() {
-        now = new Date();
-        month = (now.getMonth() + 1);
-        day = now.getDate();
+        let now = new Date();
+        let month = (now.getMonth() + 1);
+        let day = now.getDate();
         if (month < 10)
             month = "0" + month;
         if (day < 10)
             day = "0" + day;
-        today = now.getFullYear() + '-' + month + '-' + day;
+        let today = now.getFullYear() + '-' + month + '-' + day;
         this.setState({selectedDate: today, selectedSession: '1'});
     }
 
@@ -53,8 +53,8 @@ class WeightEntry extends React.Component {
     /* handleOptionChange function -- sets selectedOption to e.target.value */
     handleOptionChange = (e) => {
         this.setState({selectedOption: e.target.value});
-        weightElements = document.getElementsByClassName("weightEnterInput");
-        for(i=0; i<weightElements.length; i++)
+        let weightElements = document.getElementsByClassName("weightEnterInput");
+        for(let i=0; i<weightElements.length; i++)
         {
             weightElements[i].value = "";
             console.log(weightElements[i]);
@@ -64,8 +64,8 @@ class WeightEntry extends React.Component {
 
     handleSessionChange = (e) => {
         this.setState({selectedSession: e.target.value});
-        weightElements = document.getElementsByClassName("weightEnterInput");
-        for(i=0; i<weightElements.length; i++)
+        let weightElements = document.getElementsByClassName("weightEnterInput");
+        for(let i=0; i<weightElements.length; i++)
         {
             weightElements[i].value = "";
             console.log(weightElements[i]);
@@ -91,11 +91,11 @@ class WeightEntry extends React.Component {
 
     /* Athletes component */
     athletes() {
-        currentTeam = "";
+        let currentTeam = "";
         const curUser =  this.props.name;//CurrentUser.findOne(); curUser never used -anthony
         const id = this.props.userId;  //curUser.userID;
         if(this.props.match.params.teamId) {
-            teamId = this.props.match.params.teamId;
+            let teamId = this.props.match.params.teamId;
             currentTeam = TeamsCollection.findOne({"_id": teamId, user:id});
             return AthletesCollection.find({teamId: currentTeam._id}).fetch();
         }
@@ -125,8 +125,8 @@ class WeightEntry extends React.Component {
          * set to the team of one of the team id. It is finally returns the currentTeam name
          * and currentTeam season. */
         if(this.props.match.params.teamId) {
-            teamId = this.props.match.params.teamId;
-            currentTeam = TeamsCollection.findOne({"_id": teamId});
+            let teamId = this.props.match.params.teamId;
+            let currentTeam = TeamsCollection.findOne({"_id": teamId});
             return ": " + currentTeam.name + " " + currentTeam.season;
         }
         /* In other case, an empty string is returned. */

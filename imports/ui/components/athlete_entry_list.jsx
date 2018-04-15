@@ -57,17 +57,17 @@ export default class AthleteEntryList extends Component {
         console.log('The athlete you selected is', this.props.athlete.name);
         if (this.props.session === '1')
         {
-            sessionDate = this.props.dat + "T01:00:00";
+            let sessionDate = this.props.dat + "T01:00:00";
             this.setState({date: sessionDate})
         }
         else if (this.props.session === '2')
         {
-            sessionDate = this.props.dat + "T02:00:00";
+            let sessionDate = this.props.dat + "T02:00:00";
             this.setState({date: sessionDate})
         }
         else if (this.props.session === '3')
         {
-            sessionDate = this.props.dat + "T03:00:00";
+            let sessionDate = this.props.dat + "T03:00:00";
             this.setState({date: sessionDate})
         }
 
