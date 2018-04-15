@@ -27,7 +27,7 @@ Meteor.methods({
     /* Definition for athletes.addPreWeight (Server Side Method), will be called by client who will pass through attributes:
     * @Params id, date, weight
     * This function will pull the current date of the data change and will update the PreWeight of a particular athlete. */
-    'athletes.addPreWeight': function addPreWeight(id, date, weight, sess) {
+    'athletes.addPreWeight': function addPreWeight(id, date, weight) {
         Athletes.update(
             {_id: id},
             {$pull: {preWeightData: {date: date}}});
@@ -35,9 +35,9 @@ Meteor.methods({
             {_id: id}, {
                 $push: {
                     preWeightData: {
-                        $each: [{date: date, weight: weight, session: sess}],
+                        $each: [{date: date, weight: weight}],
                         $sort: {date: -1},
-                        $slice: 3 /* To use sort in a push function, you MUST use a %slice (per the 4 errors that popped up)
+                        /*$slice: 3 /* To use sort in a push function, you MUST use a %slice (per the 4 errors that popped up)
                                    *
                                    * $slice: <num> ; Where the <num> can be:
                                    * Zero ;	To update the array <field> to an empty array.
@@ -53,7 +53,7 @@ Meteor.methods({
     /* Definition for athletes.addPostWeight (Server Side Method), will be called by client who will pass through attributes:
     * @Params id, date, weight
     * This function will pull the current date of the data change and will update the PostWeight of a particular athlete. */
-    'athletes.addPostWeight': function addPostWeight(id, date, weight, sess) {
+    'athletes.addPostWeight': function addPostWeight(id, date, weight) {
         Athletes.update(
             {_id: id},
             {$pull: {postWeightData: {date: date}}});
@@ -61,9 +61,9 @@ Meteor.methods({
             {_id: id}, {
                 $push: {
                     postWeightData: {
-                        $each: [{date: date, weight: weight, session: sess}],
+                        $each: [{date: date, weight: weight}],
                         $sort: {date: -1},
-                        $slice: 3 // Must use as $slice when using $each AND $sort
+                        //$slice: 3 // Must use as $slice when using $each AND $sort
                     }
                 }
             }
