@@ -1,6 +1,6 @@
 // Package Imports
-import React, { Component } from 'react';
-import { debounce } from 'throttle-debounce';
+import React, {Component} from 'react';
+import {debounce} from 'throttle-debounce';
 
 export default class AthleteEntryList extends Component {
     constructor(props) {
@@ -9,11 +9,13 @@ export default class AthleteEntryList extends Component {
             date: '',
             weight: ''
         };
-        {/*TODO: add onKeyPress enter key(13 */}
+        {/*TODO: add onKeyPress enter key(13 */
+        }
         this.handleDebounce = debounce(1000, this.handleDebounce);
         this.handleWeightChange = this.handleWeightChange.bind(this);
     }
 
+// Handler Functions
     /*handleDebounce function provides checks and alerts*/
     handleDebounce = (e) => {
         e.persist();
@@ -41,7 +43,7 @@ export default class AthleteEntryList extends Component {
             alert('Please ensure you have selected a Date');
         }
         else if (this.props.selOp === 'Default') {
-            alert('Please ensure you have selected Pre or Post Weight');
+            Bert.alert('Please ensure you have selected Pre or Post Weight', 'danger', 'fixed-top', 'fa-check');
         }
         else if (this.props.selOp === 'PreWeight') {
             Meteor.call('athletes.addPreWeight', this.props.athlete._id, this.state.date, this.state.weight, () => {
@@ -65,18 +67,20 @@ export default class AthleteEntryList extends Component {
 
     /*When Enter/Return button is press, it will run event.preventDefault function*/
     onKeyPress(event) {
-        if(event.which === 13 /* Enter */) {
+        if (event.which === 13 /* Enter */) {
             event.preventDefault();
         }
-    }
-/*Render weights and allows changes*/
+    };
+
+    /*Render weights and allows changes*/
     render() {
         return (
             <tr>
                 <td>{this.props.athlete.name}</td>
                 <td>
                     <form>
-                        <input className='weightEnterInput' type="number" onChange={this.handleWeightChange} onKeyPress={this.onKeyPress}/>
+                        <input className='weightEnterInput' type="number" onChange={this.handleWeightChange}
+                               onKeyPress={this.onKeyPress}/>
                     </form>
                 </td>
             </tr>
