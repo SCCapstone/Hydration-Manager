@@ -3,7 +3,7 @@ import {Meteor} from 'meteor/meteor';
 import {check, Match} from 'meteor/check';
 import {Accounts} from 'meteor/accounts-base';
 import {Roles} from 'meteor/alanning:roles';
-import _ from 'lodash';
+/*import _ from 'lodash';*/
 
 // Custom File Imports
 import ROLES from '../roles';
@@ -12,6 +12,13 @@ import ROLES from '../roles';
 
 //TODO: Add error handling (in virtually all methods)
 //TODO: Remove this process.env variable and move this to a non public file or setting)
+
+/*After 15 Minutes of Inactivity User Will Be Automatically Logged Out!*/
+Accounts.config({
+    /* ( 15 minutes / 1440 minutes in a day ) = 0.0104 */
+    loginExpirationInDays: 0.0104
+});
+
 Meteor.startup(function () {
     process.env.MAIL_URL = "smtps://postmaster%40.sandbox2128a703612c4650830c88f0cb89b932.mailgun.org:127c6297173d29c775e482dc6a500b5c-833f99c3-fe2c07f1@smtp.mailgun.org:587";
     Accounts.emailTemplates.from = "hydrationmanager@gmail.com";
