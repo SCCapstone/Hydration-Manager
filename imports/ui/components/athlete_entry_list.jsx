@@ -25,37 +25,41 @@ export default class AthleteEntryList extends Component {
         let pre = 0;
         let post = 0;
         console.log("We're in the handleAlerts function");
-        const delayInMilliseconds = 8000; // Eight second delay ; Trying to delay to give the arrays enough time to populate.
-        setTimeout(function () {
-            console.log("The preDatalength is " + preData.length);
-            for (let i = 0; i < preData.length; i++) {
-                console.log("The preData[" + i + "] is " + preData[i].date + " " + preData[i].weight + " " + preData[i].session);
-                console.log("The state:date data is " + d);
-                if (preData[i] !== undefined) {
-                    if (preData[i].date === d) {
-                        pre = preData[i].weight;
-                        console.log("Pre value is : " + pre);
-                    }
+        const delayInMilliseconds = 5000; // Five second delay ; Trying to delay to give the arrays enough time to populate.
+        //setTimeout(function () {
+        console.log("The preDatalength is " + preData.length);
+        for (let i = 0; i < preData.length; i++) {
+            //console.log("The preData[" + i + "] is " + preData[i].date + " " + preData[i].weight + " " + preData[i].session);
+            //console.log("The state:date data is " + d);
+            if (preData[i] !== undefined) {
+                if (preData[i].date === d) {
+                    pre = preData[i].weight;
+                    console.log("Pre value is : " + pre);
                 }
             }
-            console.log("The postDatalength is " + postData.length);
-            for (let i = 0; i < postData.length; i++) {
-                console.log("The postData[" + i + "] is " + postData[i]);
-                if (postData[i] !== undefined) {
-                    if (postData[i].date === d) {
-                        post = postData[i].weight;
-                        console.log("Post value is : " + post);
-                    }
+        }
+        console.log("The postDatalength is " + postData.length);
+        for (let i = 0; i < postData.length; i++) {
+            //console.log("The postData[" + i + "] is " + postData[i]);
+            if (postData[i] !== undefined) {
+                if (postData[i].date === d) {
+                    post = postData[i].weight;
+                    console.log("Post value is : " + post);
                 }
             }
-            let hydration = (((pre - post)) / pre) * 100;
-            console.log("The hydration % is "+hydration);
-            if (hydration <= -4 || hydration >= 4) {
-                Meteor.call('athletes.generateSMS', name, hydration, () => {
-                    console.log("We're calling the SMS alert");
-                });
-            }
-        }, delayInMilliseconds);
+        }
+        let hydration = 0;
+        if (pre > 0 && post > 0) {
+            hydration = (((pre - post)) / pre) * 100;
+        }
+        //console.log("The hydration % is "+hydration);
+        // This generates an alert for an athlete entering 'red' status based on the most recent pre/post.
+        if (hydration <= -4 || hydration >= 4) {
+            Meteor.call('athletes.generateSMS', name, hydration, "red", () => {
+                //console.log("We're calling the SMS alert");
+            });
+        }
+        //}, delayInMilliseconds);
     };
 
 // Handler Functions
@@ -67,17 +71,17 @@ export default class AthleteEntryList extends Component {
         console.log('The athlete you selected is', this.props.athlete.name);
         if (this.props.session === '1') {
             let sessionDate = this.props.dat + "T01:00:00";
-            this.setState({date: sessionDate})
+            this.setState({date: sessionDate});
             console.log("The state.date has been set to " + this.state.date);
         }
         else if (this.props.session === '2') {
             let sessionDate = this.props.dat + "T02:00:00";
-            this.setState({date: sessionDate})
+            this.setState({date: sessionDate});
             console.log("The state.date has been set to " + this.state.date);
         }
         else if (this.props.session === '3') {
             let sessionDate = this.props.dat + "T03:00:00";
-            this.setState({date: sessionDate})
+            this.setState({date: sessionDate});
             console.log("The state.date has been set to " + this.state.date);
         }
 
@@ -110,7 +114,7 @@ export default class AthleteEntryList extends Component {
     };
 
     /*When Enter/Return button is press, it will run event.preventDefault function*/
-    onKeyPress(event) {
+    onKeyPress(event){
         if (event.which === 13 /* Enter */) {
             event.preventDefault();
         }
