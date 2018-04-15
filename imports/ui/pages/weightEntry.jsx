@@ -1,10 +1,10 @@
 // Package Imports
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withTracker} from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import autoBind from 'react-autobind';
-import {Link} from 'react-router-dom'
-import {DropdownButton, MenuItem, Table, ToggleButtonGroup, ToggleButton} from 'react-bootstrap';
+import { Link } from 'react-router-dom'
+import { DropdownButton, MenuItem, Table } from 'react-bootstrap';
 
 // Collection(s) & Custom File(s) Imports
 import WeightDropdownOfTeams from '../components/weightDropdownOfTeams.jsx';
@@ -14,10 +14,10 @@ import AthleteEntryList from '../components/athlete_entry_list.jsx';
 
 
 class WeightEntry extends React.Component {
-    constructor(props, context) {
-        super(props, context);
+    constructor(props) {
+        super(props);
         this.state = {
-            selectedOption: '',
+            selectedOption: 'Default',
             selectedDate: '',
             selectedSession: '',
         };
@@ -27,16 +27,20 @@ class WeightEntry extends React.Component {
         autoBind(this);
     };
 
+    componentWillUnmount() {
+        this.props.subscriptions.forEach((s) =>{
+            s.stop();
+        });
+    }
+
     componentDidMount() {
-        let now = new Date();
-        let month = (now.getMonth() + 1);
-        let day = now.getDate();
-        if (month < 10) {
+        now = new Date();
+        month = (now.getMonth() + 1);
+        day = now.getDate();
+        if (month < 10)
             month = "0" + month;
-        }
-        if (day < 10) {
+        if (day < 10)
             day = "0" + day;
-<<<<<<< HEAD
         today = now.getFullYear() + '-' + month + '-' + day;
         this.setState({selectedDate: today, selectedSession: '1'});
     }
@@ -54,14 +58,10 @@ class WeightEntry extends React.Component {
         {
             weightElements[i].value = "";
             console.log(weightElements[i]);
-=======
->>>>>>> ed756dc8baaafa043e2d40d9d1492cd89ddb6129
         }
-        let today = now.getFullYear() + '-' + month + '-' + day;
-        this.setState({selectedDate: today});
+        this.handleDebounce();
     };
 
-<<<<<<< HEAD
     handleSessionChange = (e) => {
         this.setState({selectedSession: e.target.value});
         weightElements = document.getElementsByClassName("weightEnterInput");
@@ -79,33 +79,27 @@ class WeightEntry extends React.Component {
         e.preventDefault();
         this.setState({selectedDate: e.target.value});
         console.log('The date you selected is:', e.target.value);
-=======
-    componentWillUnmount() {
-        this.props.subscriptions.forEach((s) => {
-            s.stop();
-        });
->>>>>>> ed756dc8baaafa043e2d40d9d1492cd89ddb6129
     };
 
     /* Teams component returns the team with matching user id */
     teams() {
         const curUser = this.props.name;  //CurrentUser.findOne();
-        // console.log(curUser);
+        console.log(curUser);
         const id = this.props.userId;  //curUser.userID;
-        return TeamsCollection.find({user: id}).fetch();
+        return TeamsCollection.find({user:id}).fetch();
     };
 
     /* Athletes component */
     athletes() {
-        let currentTeam = "";
-        let curUser = this.props.name;
-        let id = this.props.userId;
-        if (this.props.match.params.teamId) {
-            let teamId = this.props.match.params.teamId;
-            currentTeam = TeamsCollection.findOne({"_id": teamId, user: id});
+        currentTeam = "";
+        const curUser =  this.props.name;//CurrentUser.findOne(); curUser never used -anthony
+        const id = this.props.userId;  //curUser.userID;
+        if(this.props.match.params.teamId) {
+            teamId = this.props.match.params.teamId;
+            currentTeam = TeamsCollection.findOne({"_id": teamId, user:id});
             return AthletesCollection.find({teamId: currentTeam._id}).fetch();
         }
-        else {
+        else{
             return AthletesCollection.find().fetch();
         }
     };
@@ -113,67 +107,33 @@ class WeightEntry extends React.Component {
     /* displayAthletes component */
     displayAthletes() {
         /* If the athletes result is NOT null the athlete single is returned. */
-        if (this.athletes() != null) {
+        if(this.athletes() != null) {
             return (this.athletes().map((athlete) => {
                 return <AthleteEntryList key={athlete._id} athlete={athlete} selOp={this.state.selectedOption}
-<<<<<<< HEAD
                                          session = {this.state.selectedSession} dat={this.state.selectedDate}/>
             }))
-=======
-                                         sessNum={this.state.selectedSession} dat={this.state.selectedDate}/>
-            }));
->>>>>>> ed756dc8baaafa043e2d40d9d1492cd89ddb6129
         }
         /* If nothing else, a tuple stating 'select a team' is returned. */
-        else {
+        else{
             return <li>Select a Team</li>
         }
-    };
+    }
 
     /* displayCurrentTeam constructor*/
     displayCurrentTeam() {
         /* If this.props.match.params.teamId, this is set as the teamId. The currentTeam is
          * set to the team of one of the team id. It is finally returns the currentTeam name
          * and currentTeam season. */
-        if (this.props.match.params.teamId) {
-            let teamId = this.props.match.params.teamId;
-            let currentTeam = TeamsCollection.findOne({"_id": teamId});
+        if(this.props.match.params.teamId) {
+            teamId = this.props.match.params.teamId;
+            currentTeam = TeamsCollection.findOne({"_id": teamId});
             return ": " + currentTeam.name + " " + currentTeam.season;
         }
         /* In other case, an empty string is returned. */
-        else {
+        else{
             return "";
         }
-    };
-
-// Handlers
-    /* handleOptionChange function -- sets selectedOption to e.target.value */
-    handleChange(value) {
-        this.setState({selectedOption: value});
-        let weightElements = document.getElementsByClassName("weightEnterInput");
-        for (let i = 0; i < weightElements.length; i++) {
-            weightElements[i].value = "";
-            //console.log(weightElements[i]);
-        }
-    };
-
-    handleSessionChange(session) {
-        this.setState({selectedSession: session});
-        let sessionElements = document.getElementsByClassName("sessionEnterInput");
-        for (let i = 0; i < sessionElements.length; i++) {
-            sessionElements[i].value = "";
-            //console.log(sessionElements[i]);
-        }
-        //console.log(session)
-    };
-
-    /* handleDataChange function -- sets selectedDate to e.target.value
-     * Also printed the data selected into the console log containing the selectDate (e.target.value) */
-    handleDateChange = (e) => {
-        e.preventDefault();
-        this.setState({selectedDate: e.target.value});
-        //console.log('The date you selected is:', e.target.value);
-    };
+    }
 
     /* Renders Weight Entry Lists of Athletes, dropdown buttons of teams,
      * and forms for inputting athlete weights. */
@@ -183,29 +143,14 @@ class WeightEntry extends React.Component {
             <div>
                 <div className="WeightHeader">
                     <h3>Weight Entry {this.displayCurrentTeam()}</h3>
-                    <div className="WeightButtons">
-                        <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange}
-                               id="DatePicker"/>
-                        <ToggleButtonGroup type="radio" name="options" id="RadioButtons">
-                            <ToggleButton value={"PreWeight"} onClick={() => this.handleChange("PreWeight")}>PreWeight</ToggleButton>
-                            <ToggleButton value={"PostWeight"} onClick={() => this.handleChange("PostWeight")}>PostWeight</ToggleButton>
-                        </ToggleButtonGroup>
-
-                        <ToggleButtonGroup type="radio" name="options" id="RadioButtons">
-                            <ToggleButton value={"1"} onClick={() => this.handleSessionChange("1")}>1</ToggleButton>
-                            <ToggleButton value={"2"} onClick={() => this.handleSessionChange("2")}>2</ToggleButton>
-                            <ToggleButton value={"3"} onClick={() => this.handleSessionChange("3")}>3</ToggleButton>
-                        </ToggleButtonGroup>
-
-                        <DropdownButton id={'TeamSelect'} title={'Team Select'} key={null} bsStyle={'default'}>
-                            {this.teams().map((team) => {
-                                return <WeightDropdownOfTeams key={team._id} team={team}/>
-                            })}
-                            <MenuItem>
-                                <Link to={{pathname: "/app/weightEntry/"}}> All Athletes </Link>
-                            </MenuItem>
-                        </DropdownButton>
-                    </div>
+                    <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'default'}>
+                        {this.teams().map((team) => {
+                            return <WeightDropdownOfTeams key={team._id} team={team}/>
+                        })}
+                        <MenuItem>
+                            <Link to ={ {pathname: "/app/weightEntry/"} }> All Athletes </Link>
+                        </MenuItem>
+                    </DropdownButton>
                 </div>
                 <hr/>
                 <form>
@@ -237,7 +182,7 @@ class WeightEntry extends React.Component {
                         <thead>
                         <tr>
                             <th>Name</th>
-                            <th>{this.state.selectedOption} Weight Entry {this.state.selectedSession}</th>
+                            <th>Weight Entry</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -270,8 +215,8 @@ export default withTracker(() => {
     // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
     // match: PropTypes.object.isRequired,
     // history: PropTypes.object.isRequired,
-    //console.log(teamsList);
-    //console.log(athletesList);
+    console.log(teamsList);
+    console.log(athletesList);
 
     return {
         subscriptions: [teamSubscription, athleteSubscription],
