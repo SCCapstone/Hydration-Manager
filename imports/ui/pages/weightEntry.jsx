@@ -36,15 +36,55 @@ class WeightEntry extends React.Component {
         }
         if (day < 10) {
             day = "0" + day;
+<<<<<<< HEAD
+        today = now.getFullYear() + '-' + month + '-' + day;
+        this.setState({selectedDate: today, selectedSession: '1'});
+    }
+
+    /* handleDebounce function --  prints the state of the selected option within the console log*/
+    handleDebounce = () => {
+        console.log('The selected option is:',this.state.selectedOption);
+    };
+
+    /* handleOptionChange function -- sets selectedOption to e.target.value */
+    handleOptionChange = (e) => {
+        this.setState({selectedOption: e.target.value});
+        weightElements = document.getElementsByClassName("weightEnterInput");
+        for(i=0; i<weightElements.length; i++)
+        {
+            weightElements[i].value = "";
+            console.log(weightElements[i]);
+=======
+>>>>>>> ed756dc8baaafa043e2d40d9d1492cd89ddb6129
         }
         let today = now.getFullYear() + '-' + month + '-' + day;
         this.setState({selectedDate: today});
     };
 
+<<<<<<< HEAD
+    handleSessionChange = (e) => {
+        this.setState({selectedSession: e.target.value});
+        weightElements = document.getElementsByClassName("weightEnterInput");
+        for(i=0; i<weightElements.length; i++)
+        {
+            weightElements[i].value = "";
+            console.log(weightElements[i]);
+        }
+        this.handleDebounce();
+    };
+
+    /* handleDataChange function -- sets selectedDate to e.target.value
+     * Also printed the data selected into the console log containing the selectDate (e.target.value) */
+    handleDateChange = (e) => {
+        e.preventDefault();
+        this.setState({selectedDate: e.target.value});
+        console.log('The date you selected is:', e.target.value);
+=======
     componentWillUnmount() {
         this.props.subscriptions.forEach((s) => {
             s.stop();
         });
+>>>>>>> ed756dc8baaafa043e2d40d9d1492cd89ddb6129
     };
 
     /* Teams component returns the team with matching user id */
@@ -76,8 +116,13 @@ class WeightEntry extends React.Component {
         if (this.athletes() != null) {
             return (this.athletes().map((athlete) => {
                 return <AthleteEntryList key={athlete._id} athlete={athlete} selOp={this.state.selectedOption}
+<<<<<<< HEAD
+                                         session = {this.state.selectedSession} dat={this.state.selectedDate}/>
+            }))
+=======
                                          sessNum={this.state.selectedSession} dat={this.state.selectedDate}/>
             }));
+>>>>>>> ed756dc8baaafa043e2d40d9d1492cd89ddb6129
         }
         /* If nothing else, a tuple stating 'select a team' is returned. */
         else {
@@ -165,6 +210,29 @@ class WeightEntry extends React.Component {
                 <hr/>
                 <form>
                     <br/>
+                    <div className="WeightRadioButtons">
+                        <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange}/>
+                        <label>
+                            <input type="radio" value="PreWeight"
+                                   checked={this.state.selectedOption === 'PreWeight'}
+                                   onChange={this.handleOptionChange}/>
+                            PreWeight
+                        </label>
+                        <label>
+                            <input type="radio" value="PostWeight"
+                                   checked={this.state.selectedOption === 'PostWeight'}
+                                   onChange={this.handleOptionChange.bind(this)}/>
+                            PostWeight
+                        </label>
+                    </div>
+                    <div>
+                        <select onChange={this.handleSessionChange.bind(this)}>
+                            <option value = "1">Session 1</option>
+                            <option value = "2">Session 2</option>
+                            <option value = "3">Session 3</option>
+                        </select>
+                    </div>
+                    <br/><br/>
                     <Table striped bordered condensed hover className="teams">
                         <thead>
                         <tr>
