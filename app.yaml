@@ -1,0 +1,17 @@
+env: flex
+runtime: custom
+threadsafe: true
+automatic_scaling:
+  max_num_instances: 1
+env_variables:
+  ROOT_URL: 'https://hydration-manager-rc.appspot.com'
+  MONGO_URL: 'mongodb://10.142.0.2:27017/mongodb-1-server-1'
+  METEOR_SETTINGS: '{}'
+  DISABLE_WEBSOCKETS: "1"
+skip_files:
+- ^(.*/)?\.dockerignore$
+- ^(.*/)?\npm-debug.log$
+- ^(.*/)?\yarn-error.log$
+- ^(.*/)?\.git$
+- ^(.*/)?\.hg$
+- ^(.*/)?\.svn$

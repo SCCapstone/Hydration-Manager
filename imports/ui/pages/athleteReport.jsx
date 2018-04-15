@@ -244,9 +244,9 @@ class AthleteReport extends Component {
                             <Modal.Body>
                                 <form>
                                     <FormGroup>
-                                        <FormControl placeholder={this.athlete().name} label='Name' type='string'
+                                        <FormControl defaultValue={this.athlete().name} label='Name' type='string'
                                                      onChange={this.handleName}/>
-                                        <FormControl placeholder={this.athlete().baseWeight} label='Weight'
+                                        <FormControl defaultValue={this.athlete().baseWeight} label='Weight'
                                                      type='number' onChange={this.handleWeight}/>
                                         <FormControl defaultValue={this.athlete().teamId} value={this.state.team}
                                                      componentClass="select" label='Team' onChange={this.handleTeam}>
