@@ -76,8 +76,7 @@ class WeightEntry extends React.Component {
         if (this.athletes() != null) {
             return (this.athletes().map((athlete) => {
                 return <AthleteEntryList key={athlete._id} athlete={athlete} selOp={this.state.selectedOption}
-                                         sess={this.state.selectedSession}
-                                         dat={this.state.selectedDate}/>
+                                         sessNum={this.state.selectedSession} dat={this.state.selectedDate}/>
             }));
         }
         /* If nothing else, a tuple stating 'select a team' is returned. */
@@ -120,6 +119,7 @@ class WeightEntry extends React.Component {
             sessionElements[i].value = "";
             //console.log(sessionElements[i]);
         }
+        //console.log(session)
     };
 
     /* handleDataChange function -- sets selectedDate to e.target.value
