@@ -47,11 +47,11 @@ class WeightEntry extends React.Component {
 
     /* handleDebounce function --  prints the state of the selected option within the console log*/
     handleDebounce = () => {
-        console.log('The selected option is:', this.state.selectedOption);
+        //console.log('The selected option is:', this.state.selectedOption);
     };
 
     /* handleOptionChange function -- sets selectedOption to e.target.value */
-    handleOptionChange(value){
+    handleOptionChange(value) {
         this.setState({selectedOption: value});
         let weightElements = document.getElementsByClassName("weightEnterInput");
         for (let i = 0; i < weightElements.length; i++) {
@@ -66,7 +66,7 @@ class WeightEntry extends React.Component {
         let weightElements = document.getElementsByClassName("weightEnterInput");
         for (let i = 0; i < weightElements.length; i++) {
             weightElements[i].value = "";
-            console.log(weightElements[i]);
+            //console.log(weightElements[i]);
         }
         this.handleDebounce();
     };
@@ -76,13 +76,13 @@ class WeightEntry extends React.Component {
     handleDateChange = (e) => {
         e.preventDefault();
         this.setState({selectedDate: e.target.value});
-        console.log('The date you selected is:', e.target.value);
+        //console.log('The date you selected is:', e.target.value);
     };
 
     /* Teams component returns the team with matching user id */
     teams() {
         const curUser = this.props.name;  //CurrentUser.findOne();
-        console.log(curUser);
+        //console.log(curUser);
         const id = this.props.userId;  //curUser.userID;
         return TeamsCollection.find({user: id}).fetch();
     };
@@ -207,8 +207,8 @@ export default withTracker(() => {
     // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
     // match: PropTypes.object.isRequired,
     // history: PropTypes.object.isRequired,
-    console.log(teamsList);
-    console.log(athletesList);
+    //console.log(teamsList);
+    //console.log(athletesList);
 
     return {
         subscriptions: [teamSubscription, athleteSubscription],

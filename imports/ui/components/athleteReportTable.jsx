@@ -224,7 +224,8 @@ class AthleteReportTable extends Component {
                         <td>{this.getHydration(date)}</td>
                         <td>{this.getDatePreWeight(date)}</td>
                         <td>{this.getDatePostWeight(date)}</td>
-                        <td><Button onClick={() => this.handleEditButtonClick(date)}><span className="glyphicon glyphicon-pencil"></span>Edit</Button></td>
+                        <td><Button onClick={() => this.handleEditButtonClick(date)}><span
+                            className="glyphicon glyphicon-pencil"></span>Edit</Button></td>
                     </tr>)}
                     </tbody>
                 </Table>
