@@ -10,7 +10,7 @@ Meteor.methods({
     * @Params aName, aWeight, aTeamId
     * This function will create and add a new Athlete to the database.*/
     'athletes.insert': function athletesInsert(aName, aWeight, aTeamId) {
-        console.log(aName);
+        //console.log("Athlete created: "+aName);
         try {
             return Athletes.insert({
                 name: aName,
@@ -103,15 +103,17 @@ Meteor.methods({
             console.log('Error in weight data editing');
         }
     },
-    'athlete.generateSMS': function sendSMS() {
+    'athletes.generateSMS': function sendSMS(athName, hydrate) {
         // These are testing credentials only, not real credentials -anthony
         //twilio = Twilio(ACcaad0f31e3a34aac5f13636556bcc746, b56f47d16915b1947c64cdec964b914a);
         let twilio = require('twilio');
-        let client = new twilio(ACcaad0f31e3a34aac5f13636556bcc746, b56f47d16915b1947c64cdec964b914a);
+        let ACCOUNT_SID = 'ACcaad0f31e3a34aac5f13636556bcc746';
+        let AUTH_TOKEN = 'b56f47d16915b1947c64cdec964b914a';
+        let client = new twilio(ACCOUNT_SID, AUTH_TOKEN);
         console.log("This should generate an SMS alert");
         //twilio.sendSms({
         client.messages.create({
-            body: 'Hello from Node',
+            body: athName+' has generated a `red` alert status with a hydration value of '+hydrate,
             to: '+18039606328',  // Text this number
             from: '+15005550006' // From a valid Twilio number
         }, function (err, responseData) { //this function is executed when a response is received from Twilio
