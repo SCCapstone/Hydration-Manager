@@ -24,7 +24,9 @@ export default class AthleteEntryList extends Component {
         console.log("We're in the handleAlerts function");
         const delayInMilliseconds = 3000; // Three second delay
         setTimeout(function () {
-            for (let i = 0; i < preData.length + 1; i++) {
+            console.log("The preDatalength is "+preData.length);
+            for (let i = 0; i < preData.length; i++) {
+                console.log("The preData["+i+"] is "+preData[i]);
                 if (preData[i] !== undefined) {
                     if (preData[i].date === aDate) {
                         pre = preData[i].weight;
@@ -32,7 +34,9 @@ export default class AthleteEntryList extends Component {
                     }
                 }
             }
-            for (let i = 0; i < postData.length + 1; i++) {
+            console.log("The postDatalength is "+postData.length);
+            for (let i = 0; i < postData.length; i++) {
+                console.log("The postData["+i+"] is "+postData[i]);
                 if (postData[i] !== undefined) {
                     if (postData[i].date === aDate) {
                         post = postData[i].weight;
