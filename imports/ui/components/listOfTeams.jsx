@@ -134,9 +134,9 @@ export default class ListOfTeams extends Component {
                         <Modal.Body>
                             <form>
                                 <FormGroup>
-                                    <FormControl placeholder={this.props.team.name} label='name' type='text'
+                                    <FormControl defaultValue={this.props.team.name} label='name' type='text'
                                                  onChange={this.handleEditName}/><br/>
-                                    <FormControl placeholder={this.props.team.season} label='season' type='text'
+                                    <FormControl defaultValue={this.props.team.season} label='season' type='text'
                                                  onChange={this.handleSeason}/>
                                 </FormGroup>
                             </form>
