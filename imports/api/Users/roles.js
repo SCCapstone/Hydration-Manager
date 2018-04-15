@@ -6,7 +6,5 @@
 // };
 //
 // export default ROLES;
-
-
 const ROLES = ['ADMIN', 'PUB', 'VIEW'];
 export default ROLES;
