@@ -66,23 +66,23 @@ export default class AthleteEntryList extends Component {
     /*handleDebounce function provides checks and alerts*/
     handleDebounce = (e) => {
         e.persist();
-        console.log('You have selected:', this.props.selOp);
-        console.log('The weight stored is:', e.target.value);
-        console.log('The athlete you selected is', this.props.athlete.name);
+        //console.log('You have selected:', this.props.selOp);
+        //console.log('The weight stored is:', e.target.value);
+        //console.log('The athlete you selected is', this.props.athlete.name);
         if (this.props.session === '1') {
             let sessionDate = this.props.dat + "T01:00:00";
             this.setState({date: sessionDate});
-            console.log("The state.date has been set to " + this.state.date);
+            //console.log("The state.date has been set to " + this.state.date);
         }
         else if (this.props.session === '2') {
             let sessionDate = this.props.dat + "T02:00:00";
             this.setState({date: sessionDate});
-            console.log("The state.date has been set to " + this.state.date);
+            //console.log("The state.date has been set to " + this.state.date);
         }
         else if (this.props.session === '3') {
             let sessionDate = this.props.dat + "T03:00:00";
             this.setState({date: sessionDate});
-            console.log("The state.date has been set to " + this.state.date);
+            //console.log("The state.date has been set to " + this.state.date);
         }
 
         if (this.props.dat === '') {

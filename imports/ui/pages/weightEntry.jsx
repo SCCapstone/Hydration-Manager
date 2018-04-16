@@ -56,7 +56,7 @@ class WeightEntry extends React.Component {
         let weightElements = document.getElementsByClassName("weightEnterInput");
         for (let i = 0; i < weightElements.length; i++) {
             weightElements[i].value = "";
-            console.log(weightElements[i]);
+            //console.log(weightElements[i]);
         }
         this.handleDebounce();
     };
