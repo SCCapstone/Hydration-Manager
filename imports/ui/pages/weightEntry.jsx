@@ -166,24 +166,24 @@ class WeightEntry extends React.Component {
                         </DropdownButton>
                     </div>
                 </div>
-                    <hr/>
-                    <form>
-                        <br/>
-                        <br/><br/>
-                        <Table striped bordered condensed hover className="teams">
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Weight Entry</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.displayAthletes()}
-                            {/*{this.athletes().map((athlete)=>{return <AthleteEntryList key={athlete._id} athlete={athlete} selOp={this.state.selectedOption} dat={this.state.selectedDate}/>})}*/}
-                            </tbody>
-                        </Table>
-                    </form>
-                </div>
+                <hr/>
+                <form>
+                    <br/>
+                    <br/><br/>
+                    <Table striped bordered condensed hover className="teams">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Weight Entry</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {this.displayAthletes()}
+                        {/*{this.athletes().map((athlete)=>{return <AthleteEntryList key={athlete._id} athlete={athlete} selOp={this.state.selectedOption} dat={this.state.selectedDate}/>})}*/}
+                        </tbody>
+                    </Table>
+                </form>
+            </div>
         )
     }
 }

@@ -20,6 +20,7 @@ export default class AthleteSingle extends Component {
             window.location ='/app/weightEntry';
         };
     */
+
     //Formatting for date
     getDateFormat(Date1) {
         let now = new Date(Date1);
@@ -30,17 +31,17 @@ export default class AthleteSingle extends Component {
         if (day < 10)
             day = "0" + day;
         let today = now.getFullYear() + '-' + month + '-' + day;
-        if(now.getHours()===1) {
-            return today+'-session one';
+        if (now.getHours() === 1) {
+            return today + '-session one';
         }
-        else if(now.getHours()===2){
-            return today+'-session two';
+        else if (now.getHours() === 2) {
+            return today + '-session two';
         }
-        else if(now.getHours()===3){
-            return today+'-session three';
+        else if (now.getHours() === 3) {
+            return today + '-session three';
         }
-        else{
-            return today+'-noSessionData';
+        else {
+            return today + '-noSessionData';
         }
     };
 

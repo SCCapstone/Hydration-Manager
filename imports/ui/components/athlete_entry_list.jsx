@@ -115,7 +115,7 @@ export default class AthleteEntryList extends Component {
     };
 
     /*When Enter/Return button is press, it will run event.preventDefault function*/
-    onKeyPress(event){
+    onKeyPress(event) {
         if (event.which === 13 /* Enter */) {
             event.preventDefault();
         }
