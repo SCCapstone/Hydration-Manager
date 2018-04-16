@@ -17,7 +17,7 @@ export default class AthleteEntryList extends Component {
     // The only time this function should be called is if the athlete has just had a weight entered via weight entry,
     // hopefully avoiding spamming of alerts.
     handleAlerts(e) {
-        e.persist();
+        //e.persist();
         let preData = this.props.athlete.preWeightData;
         let postData = this.props.athlete.postWeightData;
         let d = this.state.date;
@@ -105,7 +105,7 @@ export default class AthleteEntryList extends Component {
             });
             this.handleAlerts(e);
         }
-        this.handleAlerts(e);
+        //this.handleAlerts(e);
     };
     /*handleWeightChange Function will set weight to e.target.value*/
     handleWeightChange = (e) => {
