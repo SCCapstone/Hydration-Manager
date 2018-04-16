@@ -89,8 +89,10 @@ class YourTeams extends React.Component {
                         <Modal.Body>
                             <form>
                                 <FormGroup>
-                                    <FormControl placeholder='Team Name' label='Team Name' type='text' onChange={this.handleTeam}/><br/>
-                                    <FormControl placeholder='Season' label='Season' type='text' onChange={this.handleSeason}/>
+                                    <FormControl placeholder='Team Name' label='Team Name' type='text'
+                                                 onChange={this.handleTeam}/><br/>
+                                    <FormControl placeholder='Season' label='Season' type='text'
+                                                 onChange={this.handleSeason}/>
                                 </FormGroup>
                             </form>
                         </Modal.Body>

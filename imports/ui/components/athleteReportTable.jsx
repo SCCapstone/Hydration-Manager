@@ -5,6 +5,7 @@ import autoBind from 'react-autobind';
 import {withTracker} from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 
+
 /*AthleteReportTable component can be found and is linked with the athleteReport page at location
  * imports/ui/pages/athleteReport.jsx */
 class AthleteReportTable extends Component {
@@ -36,6 +37,30 @@ class AthleteReportTable extends Component {
     /* close function -- closes modal */
     close() {
         this.setState({showModal: false});
+    };
+
+    //Formatting for date
+    getDateFormat(Date1) {
+        let now = new Date(Date1);
+        let month = (now.getMonth() + 1);
+        let day = now.getDate();
+        if (month < 10)
+            month = "0" + month;
+        if (day < 10)
+            day = "0" + day;
+        let today = now.getFullYear() + '-' + month + '-' + day;
+        if (now.getHours() === 1) {
+            return today + '-session one';
+        }
+        else if (now.getHours() === 2) {
+            return today + '-session two';
+        }
+        else if (now.getHours() === 3) {
+            return today + '-session three';
+        }
+        else {
+            return today + '-noSessionData';
+        }
     };
 
     /* Edits entry and calls athlete.editWeight function on the server side passing through
@@ -109,7 +134,9 @@ class AthleteReportTable extends Component {
     getHydration(aDate) {
         let preData = this.props.athlete.preWeightData;
         let postData = this.props.athlete.postWeightData;
-        let hydration = '', pre = 0, post = 0;
+        let hydration = '';
+        let pre = 0;
+        let post = 0;
         for (let i = 0; i < preData.length; i++) {
             if (preData[i] !== undefined) {
                 if (preData[i].date === aDate) {
@@ -183,7 +210,7 @@ class AthleteReportTable extends Component {
                 <div>
                     <Modal show={this.state.showModal} onHide={this.close}>
                         <Modal.Header>
-                            <Modal.Title>Athlete Entry Form</Modal.Title>
+                            <Modal.Title>Athlete Edit Weight</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <form>
@@ -218,11 +245,12 @@ class AthleteReportTable extends Component {
                     </thead>
                     <tbody>
                     {this.state.dates.map((date) => <tr key={date} keyprop={date}>
-                        <td>{date}</td>
+                        <td>{this.getDateFormat(date)}</td>
                         <td>{this.getHydration(date)}</td>
                         <td>{this.getDatePreWeight(date)}</td>
                         <td>{this.getDatePostWeight(date)}</td>
-                        <td><Button onClick={() => this.handleEditButtonClick(date)}><span className="glyphicon glyphicon-pencil"></span>Edit</Button></td>
+                        <td><Button onClick={() => this.handleEditButtonClick(date)}><span
+                            className="glyphicon glyphicon-pencil"></span>Edit</Button></td>
                     </tr>)}
                     </tbody>
                 </Table>

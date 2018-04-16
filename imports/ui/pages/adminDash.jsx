@@ -30,6 +30,7 @@ class AdminDash extends React.Component {
     };
 
     /* Loading Progress Panel */
+
     // This function is never used? -anthony
     showLoading() {
         if (!this.props.loading || 0 < _.size(this.props.usersList)) {
@@ -60,7 +61,9 @@ class AdminDash extends React.Component {
                             <td width="5%">{!!isCurrentUser ? <Glyphicon glyph="ok"/> : ''}</td>
                             <td>{user.emails[0].address}</td>
                             <td width="5%"><Checkbox onChange={() => console.log("Hello")}/></td>
-                            <td><select className="form-control" value={userRole[0]} onChange={(event) => {this.handleRoleChange({_id: user._id, role: event.target.value});}}>
+                            <td><select className="form-control" value={userRole[0]} onChange={(event) => {
+                                this.handleRoleChange({_id: user._id, role: event.target.value});
+                            }}>
                                 {selectRoles.map((role) => (<option key={role} value={role}>{role}</option>))}</select>
                             </td>
                         </tr>
