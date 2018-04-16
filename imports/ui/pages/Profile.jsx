@@ -75,9 +75,9 @@ class Profile extends React.Component {
     handleSubmit(form) {
         const id = this.props.userId;
         const email = form.emailAddress.value;
-        const profile = {name: {first: form.firstName.value, last: form.lastName.value}};
+        const phone = form.phone.value;
 
-        Meteor.call('users.editProfile', id, email, phone, profile, (error) => {
+        Meteor.call('users.editProfile', id, email, phone, (error) => {
             if (error) {
                 Bert.alert(error.reason, 'danger');
             } else {

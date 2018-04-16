@@ -27,7 +27,7 @@ class Registration extends React.Component {
                 firstName: {required: false},
                 lastName: {required: false},
                 emailAddress: {required: true, email: true},
-                PhoneNumber: {required: false, minlength: 10},
+                PhoneNumber: {required: true, minlength: 10},
                 password: {required: true, minlength: 6},
                 password_confirm: {equalTo: '[name="password"]'}
             },
@@ -82,7 +82,7 @@ class Registration extends React.Component {
                 Bert.alert(error.reason, 'danger');
             } else {
                 //Roles.addUsersToRoles(newId, ['ADMIN']);
-                Meteor.call('users.sendVerificationEmail');
+                //Meteor.call('users.sendVerificationEmail');
                 Bert.alert('Welcome!', 'success');
                 history.push('/login');  //push(path, [state]) - (function) Pushes a new entry onto the history stack
             }

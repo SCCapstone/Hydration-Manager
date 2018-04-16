@@ -93,7 +93,7 @@ class AdminDash extends React.Component {
                           </td>
                           <td>
                             <select className="form-control" value={users[0]} onChange={ (event) => {this.handleRemoveUserAccess({id:team._id, usrEmail:event.target.value});} }>
-                              {users.map((user) => (<option key={user._id} value={user.emails[0].address}>{user.emails[0].address}, </option>))}
+                              {users.map((user) => (<option key={user._id} value={user.emails[0].address}>{user.emails[0].address}</option>))}
                             </select>
                           </td>
 

@@ -137,7 +137,7 @@ Meteor.methods({
         Meteor.users.update({_id: id}, {
             $set: {
                 profile: {
-                    name: {first: user_obj.name, last: user_obj.lastName},
+                    //name: {first: user_obj.name, last: user_obj.lastName},
                     phone: {phone: user_obj.phone}
                 }
             }
