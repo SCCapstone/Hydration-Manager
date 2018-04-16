@@ -9,13 +9,14 @@ Meteor.methods({
     /*Definition for athletes.insert (Server Side Method), will be called by client who will pass through attributes:
     * @Params aName, aWeight, aHeight, aTeamId
     * This function will create and add a new Athlete to the database.*/
-    'teams.insert': function teamsInsert(tName, tSeason, tId) {
+    'teams.insert': function teamsInsert(tName, tSeason, tId, usrEmail) {
         //console.log(tName);
         try {
             return Teams.insert({
                 name: tName,
                 season: tSeason,
                 user: tId,
+                usersAccess: [usrEmail],
                 createdAt: new Date(),
             });
         } catch (exception) {
@@ -37,7 +38,28 @@ Meteor.methods({
     * This function will remove the team with the corresponding id passed through. */
     'teams.remove': function removeTeam(id) {
         Teams.remove(id);
-    }
+    },
+
+    'teams.addUserAccess': function addUserAccess(id,usrEmail) {
+      Teams.update(
+          {_id: id}, {
+              $push: {
+                  usersAccess: [usrEmail]
+              }
+          }
+      );
+    },
+
+    'teams.removeUserAccess': function addUserAccess(id,usrEmail) {
+      Teams.update(
+          {_id: id}, {
+              $pull: {
+                  usersAccess: [usrEmail]
+              }
+          }
+      );
+    },
+
 });
 
 // rateLimit({

@@ -142,8 +142,26 @@ Meteor.methods({
     /* Definition for users.deleteAccount (Server Side Method), will be called by client who will pass through attributes:
     * @Params userID
     * This function will remove the user's account with the corresponding id passed through. */
-    'users.deleteAccount': function usersDeleteAccount(userID) {
+    'users.deleteAccount': function usersDeleteAccount(userId) {
         //TODO: Add error handling
         Meteor.users.remove(userId);
+    },
+
+    'users.editProfile': function usersEditProfile(userId, emailAddress, newProfile) {
+
+        const currentUser = Meteor.users.findOne({ _id: userId });
+        const currentEmail = _.get(currentUser, 'emails.0.address', '');
+
+        if (currentEmail !== emailAddress) {
+          Accounts.addEmail(userId, emailAddress);
+          Accounts.removeEmail(userId, currentEmail);
+        }
+
+        Meteor.users.update(userId, {
+          $set: {
+            profile: newProfile,
+          },
+        });
+
     },
 });

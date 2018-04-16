@@ -23,6 +23,8 @@ import Public from '../../components/Public.jsx';
 import Authorized from '../../components/Authorized.jsx';
 import AdminDash from '../../pages/adminDash.jsx';
 
+import Profile from '../../pages/Profile.jsx';
+
 
 class App extends React.Component {
     constructor(props) {
@@ -52,6 +54,7 @@ class App extends React.Component {
                                 <Authorized exact path='/app/alerts' component={Alerts} {...props} />
 
                                 <Authorized exact path='/app/adminDash' component={AdminDash} {...props} />
+                                <Authorized exact path='/app/profile' component={Profile} {...props} />
                             </Grid>
                             <Route component={NotFound}/>
                             {/*
