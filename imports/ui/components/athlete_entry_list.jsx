@@ -7,7 +7,9 @@ export default class AthleteEntryList extends Component {
         super(props);
         this.state = {
             date: '',
-            weight: ''
+            weight: '',
+            preDataState: '',
+            postDataState:'',
         };
         this.handleDebounce = debounce(1000, this.handleDebounce);
         this.handleWeightChange = this.handleWeightChange.bind(this);
@@ -18,6 +20,7 @@ export default class AthleteEntryList extends Component {
     // hopefully avoiding spamming of alerts.
     handleAlerts(e) {
         //e.persist();
+        //this.forceUpdate();
         let preData = this.props.athlete.preWeightData;
         let postData = this.props.athlete.postWeightData;
         let d = this.state.date;
@@ -96,16 +99,30 @@ export default class AthleteEntryList extends Component {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
             });
-            this.handleAlerts(e);
+            //this.handlePreChange();
+            //this.forceUpdate();
+            //let preData = this.props.athlete.preWeightData; // Maybe if I just access the data here it will update; Update. NOPE.
+            //this.handleAlerts(e);
         }
         else if (this.props.selOp === 'PostWeight') {
             Meteor.call('athletes.addPostWeight', this.props.athlete._id, this.state.date, this.state.weight, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
             });
-            this.handleAlerts(e);
+            //this.handlePostChange();
+            //this.forceUpdate();
+            //let postData = this.props.athlete.postWeightData;
+            //this.handleAlerts(e);
         }
-        //this.handleAlerts(e);
+        this.handleAlerts(e);
+    };
+    /*handleWeightChange Function will set weight to e.target.value*/
+    handlePreChange(){
+        this.setState({preDataState: this.props.athlete.preWeightData});
+    };
+    /*handleWeightChange Function will set weight to e.target.value*/
+    handlePostChange(){
+        this.setState({postDataState: this.props.athlete.postWeightData});
     };
     /*handleWeightChange Function will set weight to e.target.value*/
     handleWeightChange = (e) => {

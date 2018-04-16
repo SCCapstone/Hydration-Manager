@@ -9,7 +9,9 @@ import {Button, FormControl, FormGroup, Modal} from 'react-bootstrap';
 import TeamsCollection from '../../api/Teams/Teams.js';
 import ListOfTeams from '../components/listOfTeams.jsx';
 
-{/*TODO Conditional Rendering of Create a Team button iff user is an admin: See line #82 in this file*/}
+{/*TODO Conditional Rendering of Create a Team button iff user is an admin: See line #82 in this file*/
+}
+
 class YourTeams extends React.Component {
     constructor(props) {
         super(props);
@@ -72,15 +74,17 @@ class YourTeams extends React.Component {
         e.persist();
         this.setState({teamSeason: e.target.value});
     };
+
     render() {
         return (
             <div>
                 <div className="YourTeamHeader">
                     <h3>Your Teams</h3>
 
-                    {props.userRoles[0] === "ADMIN" ?
-                    <Button onClick={this.open} bsStyle="primary">&#43; Create a Team</Button>
-                    : ''}
+                    {/*props.userRoles[0] === "ADMIN" ?*/
+                        <Button onClick={this.open} bsStyle="primary">&#43; Create a Team</Button>
+                    //    : ''
+                    }
                 </div>
                 <hr/>
                 <div>
