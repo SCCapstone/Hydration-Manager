@@ -23,8 +23,8 @@ class Profile extends React.Component {
         const component = this;
         $(component.form).validate({
             rules: {
-                firstName: {required: true},
-                lastName: {required: true},
+                firstName: {required: false},
+                lastName: {required: false},
                 emailAddress: {required: true, email: true},
                 currentPassword: {
                     required() {
@@ -77,7 +77,7 @@ class Profile extends React.Component {
         const email = form.emailAddress.value;
         const profile = {name: {first: form.firstName.value, last: form.lastName.value}};
 
-        Meteor.call('users.editProfile', id, email, profile, (error) => {
+        Meteor.call('users.editProfile', id, email, phone, profile, (error) => {
             if (error) {
                 Bert.alert(error.reason, 'danger');
             } else {
@@ -100,25 +100,14 @@ class Profile extends React.Component {
     renderPasswordUser(loading, user) {
         return !loading ? (
             <div>
-                <Row>
-                    <Col xs={6}>
-                        <FormGroup>
-                            <ControlLabel>First Name</ControlLabel>
-                            <input type="text" name="firstName" defaultValue={user.profile.name.first}
-                                   className="form-control"/>
-                        </FormGroup>
-                    </Col>
-                    <Col xs={6}>
-                        <FormGroup>
-                            <ControlLabel>Last Name</ControlLabel>
-                            <input type="text" name="lastName" defaultValue={user.profile.name.last}
-                                   className="form-control"/>
-                        </FormGroup>
-                    </Col>
-                </Row>
                 <FormGroup>
                     <ControlLabel>Email Address</ControlLabel>
                     <input type="email" name="emailAddress" defaultValue={user.emails[0].address}
+                           className="form-control"/>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel>Phone</ControlLabel>
+                    <input type="phone" name="phone" defaultValue={user.profile.phone}
                            className="form-control"/>
                 </FormGroup>
                 <FormGroup>
