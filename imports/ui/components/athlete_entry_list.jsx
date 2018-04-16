@@ -25,7 +25,7 @@ export default class AthleteEntryList extends Component {
         let pre = 0;
         let post = 0;
         console.log("We're in the handleAlerts function");
-        const delayInMilliseconds = 5000; // Five second delay ; Trying to delay to give the arrays enough time to populate.
+        const delayInMilliseconds = 5000; // Five second delay ; Trying to delay to give the arrays enough time to populate. **Update: Delay doesn't seem to help the array to populate. Unsure.
         //setTimeout(function () {
         console.log("The preDatalength is " + preData.length);
         for (let i = 0; i < preData.length; i++) {
@@ -105,6 +105,7 @@ export default class AthleteEntryList extends Component {
             });
             this.handleAlerts(e);
         }
+        this.handleAlerts(e);
     };
     /*handleWeightChange Function will set weight to e.target.value*/
     handleWeightChange = (e) => {
