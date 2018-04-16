@@ -40,24 +40,24 @@ Meteor.methods({
         Teams.remove(id);
     },
 
-    'teams.addUserAccess': function addUserAccess(id,usrEmail) {
-      Teams.update(
-          {_id: id}, {
-              $push: {
-                  usersAccess: [usrEmail]
-              }
-          }
-      );
+    'teams.addUserAccess': function addUserAccess(id, usrEmail) {
+        Teams.update(
+            {_id: id}, {
+                $push: {
+                    usersAccess: [usrEmail]
+                }
+            }
+        );
     },
 
-    'teams.removeUserAccess': function addUserAccess(id,usrEmail) {
-      Teams.update(
-          {_id: id}, {
-              $pull: {
-                  usersAccess: [usrEmail]
-              }
-          }
-      );
+    'teams.removeUserAccess': function addUserAccess(id, usrEmail) {
+        Teams.update(
+            {_id: id}, {
+                $pull: {
+                    usersAccess: [usrEmail]
+                }
+            }
+        );
     },
 
 });

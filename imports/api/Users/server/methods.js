@@ -158,18 +158,18 @@ Meteor.methods({
 
     'users.editProfile': function usersEditProfile(userId, emailAddress, newProfile) {
 
-        const currentUser = Meteor.users.findOne({ _id: userId });
+        const currentUser = Meteor.users.findOne({_id: userId});
         const currentEmail = _.get(currentUser, 'emails.0.address', '');
 
         if (currentEmail !== emailAddress) {
-          Accounts.addEmail(userId, emailAddress);
-          Accounts.removeEmail(userId, currentEmail);
+            Accounts.addEmail(userId, emailAddress);
+            Accounts.removeEmail(userId, currentEmail);
         }
 
         Meteor.users.update(userId, {
-          $set: {
-            profile: newProfile,
-          },
+            $set: {
+                profile: newProfile,
+            },
         });
 
     },
