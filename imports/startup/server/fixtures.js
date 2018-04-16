@@ -32,12 +32,11 @@ import {_} from 'meteor/underscore';
    }],
   });
 */
-if (!Meteor.isProduction) {
+//if (!Meteor.isProduction) {
     const users = [{
         email: 'admin@admin.com',
         password: 'password',
         profile: {
-            name: {first: 'Admin', last: ''},
         },
         roles: ['ADMIN'],
     },
@@ -45,7 +44,6 @@ if (!Meteor.isProduction) {
             email: 'admin1@admin1.com',
             password: 'password1',
             profile: {
-                name: {first: 'Jane', last: 'Doe'},
             },
             roles: ['PUB'],
         },
@@ -53,7 +51,6 @@ if (!Meteor.isProduction) {
             email: 'hydration@usc.com',
             password: 'password',
             profile: {
-                name: {first: 'Hydration', last: 'Admin'},
             },
             roles: ['ADMIN'],
         },
@@ -67,4 +64,4 @@ if (!Meteor.isProduction) {
             Roles.setUserRoles(userId, roles);
         }
     });
-}
+//}
