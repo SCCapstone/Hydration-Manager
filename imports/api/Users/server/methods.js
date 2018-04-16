@@ -3,7 +3,7 @@ import {Meteor} from 'meteor/meteor';
 import {check, Match} from 'meteor/check';
 import {Accounts} from 'meteor/accounts-base';
 import {Roles} from 'meteor/alanning:roles';
-/*import _ from 'lodash';*/
+import _ from 'lodash';
 
 // Custom File Imports
 import ROLES from '../roles';
