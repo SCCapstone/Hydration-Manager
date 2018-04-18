@@ -1,6 +1,10 @@
 // Package Imports
 import React, {Component} from 'react';
 import {debounce} from 'throttle-debounce';
+import autoBind from 'react-autobind';
+import {Tracker} from 'meteor/tracker';
+
+import AthletesCollection from '../../api/Athletes/Athletes.js';
 
 export default class AthleteEntryList extends Component {
     constructor(props) {
@@ -9,15 +13,22 @@ export default class AthleteEntryList extends Component {
             date: '',
             weight: '',
             preDataState: '',
-            postDataState:'',
+            postDataState: '',
+            pre: '',
+            post: '',
         };
         this.handleDebounce = debounce(1000, this.handleDebounce);
         this.handleWeightChange = this.handleWeightChange.bind(this);
-    }
+        autoBind(this);
+    };
 
     // The purpose of this function is to generate an alert if an athlete is in the 'red' alert status
     // The only time this function should be called is if the athlete has just had a weight entered via weight entry,
     // hopefully avoiding spamming of alerts.
+    /* So, I was having a problem with alerts here. To make a long story short, the client would not update the lengths of the prop arrays until another update had
+    *    been pushed to the prop. In other words, the length of the preWeightArray wouldn't update until you had also updated the postWeightArray in the athlete.prop.
+    *    To get around this, I'm now checking for cases where a prop I need does exist, and then using states for the other end. Alternatively,
+    *    if someone is typing data (both pre and post) in the same session (not correct workflow), it will still catch the alert. -anthony*/
     handleAlerts(e) {
         //e.persist();
         //this.forceUpdate();
@@ -25,10 +36,11 @@ export default class AthleteEntryList extends Component {
         let postData = this.props.athlete.postWeightData;
         let d = this.state.date;
         let name = this.props.athlete.name;
-        let pre = 0;
-        let post = 0;
-        console.log("We're in the handleAlerts function");
-        const delayInMilliseconds = 5000; // Five second delay ; Trying to delay to give the arrays enough time to populate. **Update: Delay doesn't seem to help the array to populate. Unsure.
+        let pre = -1;
+        let post = -1;
+        //Meteor.call('athletes.editName', this.props.athlete._id, this.props.athlete.name, () => {});
+        //console.log("We're in the handleAlerts function");
+        //const delayInMilliseconds = 5000; // Five second delay ; Trying to delay to give the arrays enough time to populate. **Update: Delay doesn't seem to help the array to populate. Unsure.
         //setTimeout(function () {
         console.log("The preDatalength is " + preData.length);
         for (let i = 0; i < preData.length; i++) {
@@ -41,7 +53,12 @@ export default class AthleteEntryList extends Component {
                 }
             }
         }
-        console.log("The postDatalength is " + postData.length);
+        if (pre === -1) {
+            pre = this.state.pre;
+        }
+        //console.log("This is the props value " + this.props.athlete._id);
+        //console.log(AthletesCollection.find({_id: this.props.athlete._id}).fetch());
+        //console.log("The postDatalength is " + postData.length);
         for (let i = 0; i < postData.length; i++) {
             //console.log("The postData[" + i + "] is " + postData[i]);
             if (postData[i] !== undefined) {
@@ -51,15 +68,18 @@ export default class AthleteEntryList extends Component {
                 }
             }
         }
+        if (post === -1) {
+            post = this.state.post;
+        }
         let hydration = 0;
         if (pre > 0 && post > 0) {
             hydration = (((pre - post)) / pre) * 100;
+            console.log("The hydration % is " + hydration);
         }
-        //console.log("The hydration % is "+hydration);
         // This generates an alert for an athlete entering 'red' status based on the most recent pre/post.
         if (hydration <= -4 || hydration >= 4) {
             Meteor.call('athletes.generateSMS', name, hydration, "red", () => {
-                //console.log("We're calling the SMS alert");
+                console.log("We're calling the OLE-SMS alert");
             });
         }
         //}, delayInMilliseconds);
@@ -72,6 +92,7 @@ export default class AthleteEntryList extends Component {
         //console.log('You have selected:', this.props.selOp);
         //console.log('The weight stored is:', e.target.value);
         //console.log('The athlete you selected is', this.props.athlete.name);
+        let tempWeight = 0;
         if (this.props.session === '1') {
             let sessionDate = this.props.dat + "T01:00:00";
             this.setState({date: sessionDate});
@@ -95,35 +116,56 @@ export default class AthleteEntryList extends Component {
             Bert.alert('Please ensure you have selected Pre or Post Weight', 'danger', 'fixed-top', 'fa-check');
         }
         else if (this.props.selOp === 'PreWeight') {
+            /*tempWeight = this.state.weight + 1;
+            Meteor.call('athletes.addPreWeight', this.props.athlete._id, this.state.date, tempWeight, () => {
+                Bert.defaults = {hideDelay: 4500};
+                Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
+            });*/
             Meteor.call('athletes.addPreWeight', this.props.athlete._id, this.state.date, this.state.weight, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
             });
+            this.setState({pre: this.state.weight});
             //this.handlePreChange();
             //this.forceUpdate();
             //let preData = this.props.athlete.preWeightData; // Maybe if I just access the data here it will update; Update. NOPE.
             //this.handleAlerts(e);
         }
         else if (this.props.selOp === 'PostWeight') {
+            /*tempWeight = this.state.weight + 1;
+            Meteor.call('athletes.addPostWeight', this.props.athlete._id, this.state.date, tempWeight, () => {
+                Bert.defaults = {hideDelay: 4500};
+                Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
+            });*/
             Meteor.call('athletes.addPostWeight', this.props.athlete._id, this.state.date, this.state.weight, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
             });
+            this.setState({post: this.state.weight});
             //this.handlePostChange();
             //this.forceUpdate();
             //let postData = this.props.athlete.postWeightData;
             //this.handleAlerts(e);
         }
         this.handleAlerts(e);
+        //Tracker.flush();
+        //console.log("This is the object for preWeight" + this.props.athlete.preWeightData);
+        //console.log("This is the object for postWeight" + this.props.athlete.postWeightData);
+        //console.log("This is before we flush.");
+        //Tracker.afterFlush(this.handleAlerts(e));
+        //console.log("This is after we flush.");
     };
+
     /*handleWeightChange Function will set weight to e.target.value*/
-    handlePreChange(){
+    handlePreChange() {
         this.setState({preDataState: this.props.athlete.preWeightData});
     };
+
     /*handleWeightChange Function will set weight to e.target.value*/
-    handlePostChange(){
+    handlePostChange() {
         this.setState({postDataState: this.props.athlete.postWeightData});
     };
+
     /*handleWeightChange Function will set weight to e.target.value*/
     handleWeightChange = (e) => {
         e.persist();

@@ -85,6 +85,14 @@ Meteor.methods({
             }
         );
     },
+    /* Using this to try to force a workaround for alerts*/
+    'athletes.editName': function editAthlete(id, nm) {
+        Athletes.update(
+            {_id: id}, {
+                $set: {name: nm}
+            }
+        );
+    },
     /* Definition for athletes.editWeight (Server Side Method), will be called by client who will pass through attributes:
     * @Params id, date, weight, prePost
     * This function will edit a particular athlete's weight according to his/her corresponding weight.
@@ -119,7 +127,7 @@ Meteor.methods({
         //const ACCOUNT_SID = 'AC531f960278ec72ecacc6851e928857c3';
         //const AUTH_TOKEN = '8264c6876d21e70d9d27b93316ac1313';
         let client = new twilio(ACCOUNT_SID, AUTH_TOKEN);
-        //console.log("This should generate an SMS alert");
+        console.log("This should generate an SMS alert");
         //twilio.sendSms({
         client.messages.create({
             body: athName + ' has generated a `' + color + '` alert status with a hydration value of ' + hydrate,
