@@ -39,7 +39,7 @@ Athletes that are dehydrated to various degrees will appear on the `alerts` page
 
 
 
-"#Testing Information"
+**Testing Information**
 
 Behavioral Tests run with chimp by using following command:
 `chimp --ddp=http://localhost:3000 --mocha --path=tests`
