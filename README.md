@@ -20,7 +20,7 @@ https://github.com/SCCapstone/Hydration-Manager/wiki
 5. Using a command prompt, in the project directory, run the command `meteor npm install` to install the related meteor and npm packages for the app.
 6. Then, run the command `meteor` to start the app.
 
-Hydration Manager may be access from `http://localhost:3000/` on your local machine.
+Hydration Manager may be accessed from `http://localhost:3000/` on your local machine.
 
 **Use of the Application**
 
