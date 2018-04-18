@@ -12,13 +12,13 @@ https://github.com/SCCapstone/Hydration-Manager/wiki
 
 **Installing Locally**
 
-Download the git file from https://github.com/SCCapstone/Hydration-Manager/archive/master.zip ,
-Install node and npm from https://www.npmjs.com/get-npm ,
-Install chocolatey from https://chocolatey.org/install#installing-chocolatey ,
-Install meteor from https://www.meteor.com/install ,
+1. Download the git file from https://github.com/SCCapstone/Hydration-Manager/archive/master.zip ,
+2. Install node and npm from https://www.npmjs.com/get-npm ,
+3. Install chocolatey from https://chocolatey.org/install#installing-chocolatey ,
+4. Install meteor from https://www.meteor.com/install ,
 
-Using a command prompt, in the project directory, run the command `meteor npm install` to install the related meteor and npm packages for the app.
-Then, run the command `meteor` to start the app.
+5. Using a command prompt, in the project directory, run the command `meteor npm install` to install the related meteor and npm packages for the app.
+6. Then, run the command `meteor` to start the app.
 
 Hydration Manager may be access from `http://localhost:3000/` on your local machine.
 
