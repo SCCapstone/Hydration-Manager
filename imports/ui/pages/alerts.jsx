@@ -62,7 +62,9 @@ class Alerts extends React.Component {
     /*Yellow Team Athletes for athletes needing some attention. */
     yellowAthletes() {
         let allAthletes = AthletesCollection.find().fetch(), yellowAthletes = [];
-        let preWeight, postWeight, hydration = '';
+        let preWeight = '';
+        let postWeight = '';
+        let hydration = '';
         for (let i = 0; i < allAthletes.length; i++) {
             if (allAthletes[i].preWeightData[0] !== undefined && allAthletes[i].postWeightData[0] !== undefined) {
                 if (allAthletes[i].preWeightData[0].date === allAthletes[i].postWeightData[0].date) {

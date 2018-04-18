@@ -12,6 +12,13 @@ import ROLES from '../roles';
 
 //TODO: Add error handling (in virtually all methods)
 //TODO: Remove this process.env variable and move this to a non public file or setting)
+
+/*After 15 Minutes of Inactivity User Will Be Automatically Logged Out!*/
+Accounts.config({
+    /* ( 15 minutes / 1440 minutes in a day ) = 0.0104 */
+    loginExpirationInDays: 0.0104
+});
+
 Meteor.startup(function () {
     process.env.MAIL_URL = "smtps://postmaster%40.sandbox2128a703612c4650830c88f0cb89b932.mailgun.org:127c6297173d29c775e482dc6a500b5c-833f99c3-fe2c07f1@smtp.mailgun.org:587";
     Accounts.emailTemplates.from = "hydrationmanager@gmail.com";
@@ -112,7 +119,8 @@ Meteor.methods({
         Meteor.users.update({_id: id}, {
             $set: {
                 profile: {
-                    name: {first: user_obj.name, last: user_obj.lastName}
+                    name: {first: user_obj.name, last: user_obj.lastName},
+                    phone: {phone: user_obj.phone}
                 }
             }
         });
@@ -129,7 +137,8 @@ Meteor.methods({
         Meteor.users.update({_id: id}, {
             $set: {
                 profile: {
-                    name: {first: user_obj.name, last: user_obj.lastName}
+                    //name: {first: user_obj.name, last: user_obj.lastName},
+                    phone: {phone: user_obj.phone}
                 }
             }
         });
@@ -142,8 +151,26 @@ Meteor.methods({
     /* Definition for users.deleteAccount (Server Side Method), will be called by client who will pass through attributes:
     * @Params userID
     * This function will remove the user's account with the corresponding id passed through. */
-    'users.deleteAccount': function usersDeleteAccount(userID) {
+    'users.deleteAccount': function usersDeleteAccount(userId) {
         //TODO: Add error handling
         Meteor.users.remove(userId);
+    },
+
+    'users.editProfile': function usersEditProfile(userId, emailAddress, newProfile) {
+
+        const currentUser = Meteor.users.findOne({_id: userId});
+        const currentEmail = _.get(currentUser, 'emails.0.address', '');
+
+        if (currentEmail !== emailAddress) {
+            Accounts.addEmail(userId, emailAddress);
+            Accounts.removeEmail(userId, currentEmail);
+        }
+
+        Meteor.users.update(userId, {
+            $set: {
+                profile: newProfile,
+            },
+        });
+
     },
 });

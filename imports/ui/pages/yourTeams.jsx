@@ -9,6 +9,8 @@ import {Button, FormControl, FormGroup, Modal} from 'react-bootstrap';
 import TeamsCollection from '../../api/Teams/Teams.js';
 import ListOfTeams from '../components/listOfTeams.jsx';
 
+{/*TODO Conditional Rendering of Create a Team button iff user is an admin: See line #82 in this file*/
+}
 
 class YourTeams extends React.Component {
     constructor(props) {
@@ -51,9 +53,10 @@ class YourTeams extends React.Component {
         if (teamName !== "") {
             const curUser = this.props.name;  //CurrentUser.findOne();
             const id = this.props.userId;  //curUser.userID;
+            const user = this.props.emailAddress;
             //console.log(curUser);
             //console.log(id);
-            Meteor.call('teams.insert', teamName, teamSeason, id, () => {
+            Meteor.call('teams.insert', teamName, teamSeason, id, user, () => {
                 Bert.defaults = {hideDelay: 4500};
                 Bert.alert('Team Created', 'success', 'fixed-top', 'fa-check');
                 this.team = "";
@@ -77,7 +80,11 @@ class YourTeams extends React.Component {
             <div>
                 <div className="YourTeamHeader">
                     <h3>Your Teams</h3>
-                    <Button onClick={this.open} bsStyle="primary">&#43; Create a Team</Button>
+
+                    {/*props.userRoles[0] === "ADMIN" ?*/
+                        <Button onClick={this.open} bsStyle="primary">&#43; Create a Team</Button>
+                    //    : ''
+                    }
                 </div>
                 <hr/>
                 <div>
@@ -88,8 +95,10 @@ class YourTeams extends React.Component {
                         <Modal.Body>
                             <form>
                                 <FormGroup>
-                                    <FormControl placeholder='Team Name' label='Team Name' type='text' onChange={this.handleTeam}/><br/>
-                                    <FormControl placeholder='Season' label='Season' type='text' onChange={this.handleSeason}/>
+                                    <FormControl placeholder='Team Name' label='Team Name' type='text'
+                                                 onChange={this.handleTeam}/><br/>
+                                    <FormControl placeholder='Season' label='Season' type='text'
+                                                 onChange={this.handleSeason}/>
                                 </FormGroup>
                             </form>
                         </Modal.Body>
@@ -111,6 +120,7 @@ class YourTeams extends React.Component {
 }
 
 YourTeams.propTypes = {
+    userRoles: PropTypes.array.isRequired,
     subscriptions: PropTypes.array,
     loading: PropTypes.bool,
     teamsList: PropTypes.array

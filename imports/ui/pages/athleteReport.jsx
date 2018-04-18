@@ -46,7 +46,8 @@ class AthleteReport extends Component {
     athlete() {
         /* If this.props.athleteId, athleteId is set to this.props.athleteId.*/
         if (this.props.athleteId) {
-            let athleteId = this.props.athleteId, currentAthlete = '';
+            let athleteId = this.props.athleteId;
+            let currentAthlete = '';
             /* Finally the athletesLists is iterated through. While iterating through,
                the athleteList id attributes are checked to see if they are equal to
                the athleteId attribute.*/
@@ -244,9 +245,9 @@ class AthleteReport extends Component {
                             <Modal.Body>
                                 <form>
                                     <FormGroup>
-                                        <FormControl placeholder={this.athlete().name} label='Name' type='string'
+                                        <FormControl defaultValue={this.athlete().name} label='Name' type='string'
                                                      onChange={this.handleName}/>
-                                        <FormControl placeholder={this.athlete().baseWeight} label='Weight'
+                                        <FormControl defaultValue={this.athlete().baseWeight} label='Weight'
                                                      type='number' onChange={this.handleWeight}/>
                                         <FormControl defaultValue={this.athlete().teamId} value={this.state.team}
                                                      componentClass="select" label='Team' onChange={this.handleTeam}>

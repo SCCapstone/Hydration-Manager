@@ -14,10 +14,10 @@ import AthleteEntryList from '../components/athlete_entry_list.jsx';
 
 
 class WeightEntry extends React.Component {
-    constructor(props, context) {
-        super(props, context);
+    constructor(props) {
+        super(props);
         this.state = {
-            selectedOption: '',
+            selectedOption: 'Default',
             selectedDate: '',
             selectedSession: '',
         };
@@ -27,30 +27,62 @@ class WeightEntry extends React.Component {
         autoBind(this);
     };
 
-    componentDidMount() {
-        let now = new Date();
-        let month = (now.getMonth() + 1);
-        let day = now.getDate();
-        if (month < 10) {
-            month = "0" + month;
-        }
-        if (day < 10) {
-            day = "0" + day;
-        }
-        let today = now.getFullYear() + '-' + month + '-' + day;
-        this.setState({selectedDate: today});
-    };
-
     componentWillUnmount() {
         this.props.subscriptions.forEach((s) => {
             s.stop();
         });
+    }
+
+    componentDidMount() {
+        let now = new Date();
+        let month = (now.getMonth() + 1);
+        let day = now.getDate();
+        if (month < 10)
+            month = "0" + month;
+        if (day < 10)
+            day = "0" + day;
+        let today = now.getFullYear() + '-' + month + '-' + day;
+        this.setState({selectedDate: today, selectedSession: '1'});
+    }
+
+    /* handleDebounce function --  prints the state of the selected option within the console log*/
+    handleDebounce = () => {
+        //console.log('The selected option is:', this.state.selectedOption);
+    };
+
+    /* handleOptionChange function -- sets selectedOption to e.target.value */
+    handleOptionChange(value) {
+        this.setState({selectedOption: value});
+        let weightElements = document.getElementsByClassName("weightEnterInput");
+        for (let i = 0; i < weightElements.length; i++) {
+            weightElements[i].value = "";
+            //console.log(weightElements[i]);
+        }
+        this.handleDebounce();
+    };
+
+    handleSessionChange = (e) => {
+        this.setState({selectedSession: e.target.value});
+        let weightElements = document.getElementsByClassName("weightEnterInput");
+        for (let i = 0; i < weightElements.length; i++) {
+            weightElements[i].value = "";
+            //console.log(weightElements[i]);
+        }
+        this.handleDebounce();
+    };
+
+    /* handleDataChange function -- sets selectedDate to e.target.value
+     * Also printed the data selected into the console log containing the selectDate (e.target.value) */
+    handleDateChange = (e) => {
+        e.preventDefault();
+        this.setState({selectedDate: e.target.value});
+        //console.log('The date you selected is:', e.target.value);
     };
 
     /* Teams component returns the team with matching user id */
     teams() {
         const curUser = this.props.name;  //CurrentUser.findOne();
-        console.log(curUser);
+        //console.log(curUser);
         const id = this.props.userId;  //curUser.userID;
         return TeamsCollection.find({user: id}).fetch();
     };
@@ -58,8 +90,8 @@ class WeightEntry extends React.Component {
     /* Athletes component */
     athletes() {
         let currentTeam = "";
-        let curUser = this.props.name;
-        let id = this.props.userId;
+        const curUser = this.props.name;//CurrentUser.findOne(); curUser never used -anthony
+        const id = this.props.userId;  //curUser.userID;
         if (this.props.match.params.teamId) {
             let teamId = this.props.match.params.teamId;
             currentTeam = TeamsCollection.findOne({"_id": teamId, user: id});
@@ -76,15 +108,14 @@ class WeightEntry extends React.Component {
         if (this.athletes() != null) {
             return (this.athletes().map((athlete) => {
                 return <AthleteEntryList key={athlete._id} athlete={athlete} selOp={this.state.selectedOption}
-                                         sess={this.state.selectedSession}
-                                         dat={this.state.selectedDate}/>
-            }));
+                                         session={this.state.selectedSession} dat={this.state.selectedDate}/>
+            }))
         }
         /* If nothing else, a tuple stating 'select a team' is returned. */
         else {
             return <li>Select a Team</li>
         }
-    };
+    }
 
     /* displayCurrentTeam constructor*/
     displayCurrentTeam() {
@@ -100,35 +131,7 @@ class WeightEntry extends React.Component {
         else {
             return "";
         }
-    };
-
-// Handlers
-    /* handleOptionChange function -- sets selectedOption to e.target.value */
-    handleChange(value) {
-        this.setState({selectedOption: value});
-        let weightElements = document.getElementsByClassName("weightEnterInput");
-        for (let i = 0; i < weightElements.length; i++) {
-            weightElements[i].value = "";
-            //console.log(weightElements[i]);
-        }
-    };
-
-    handleSessionChange(session) {
-        this.setState({selectedSession: session});
-        let sessionElements = document.getElementsByClassName("sessionEnterInput");
-        for (let i = 0; i < sessionElements.length; i++) {
-            sessionElements[i].value = "";
-            //console.log(sessionElements[i]);
-        }
-    };
-
-    /* handleDataChange function -- sets selectedDate to e.target.value
-     * Also printed the data selected into the console log containing the selectDate (e.target.value) */
-    handleDateChange = (e) => {
-        e.preventDefault();
-        this.setState({selectedDate: e.target.value});
-        //console.log('The date you selected is:', e.target.value);
-    };
+    }
 
     /* Renders Weight Entry Lists of Athletes, dropdown buttons of teams,
      * and forms for inputting athlete weights. */
@@ -141,18 +144,19 @@ class WeightEntry extends React.Component {
                     <div className="WeightButtons">
                         <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange}
                                id="DatePicker"/>
-                        <ToggleButtonGroup type="radio" name="options" id="RadioButtons" defaultValue={"PreWeight"}>
-                            <ToggleButton value={"PreWeight"} onClick={() => this.handleChange("PreWeight")}>PreWeight</ToggleButton>
-                            <ToggleButton value={"PostWeight"} onClick={() => this.handleChange("PostWeight")}>PostWeight</ToggleButton>
+                        <select onChange={this.handleSessionChange.bind(this)}>
+                            <option value="1">Session 1</option>
+                            <option value="2">Session 2</option>
+                            <option value="3">Session 3</option>
+                        </select>
+                        <ToggleButtonGroup type="radio" name="options" id="RadioButtons"
+                                           value={this.state.selectedOption}>
+                            <ToggleButton value={"PreWeight"}
+                                          onClick={() => this.handleOptionChange("PreWeight")}>PreWeight</ToggleButton>
+                            <ToggleButton value={"PostWeight"}
+                                          onClick={() => this.handleOptionChange("PostWeight")}>PostWeight</ToggleButton>
                         </ToggleButtonGroup>
-
-                        <ToggleButtonGroup type="radio" name="options" id="RadioButtons" defaultValue={"1"}>
-                            <ToggleButton value={"1"} onClick={() => this.handleSessionChange("1")}>1</ToggleButton>
-                            <ToggleButton value={"2"} onClick={() => this.handleSessionChange("2")}>2</ToggleButton>
-                            <ToggleButton value={"3"} onClick={() => this.handleSessionChange("3")}>3</ToggleButton>
-                        </ToggleButtonGroup>
-
-                        <DropdownButton id={'TeamSelect'} title={'Team Select'} key={null} bsStyle={'default'}>
+                        <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'default'}>
                             {this.teams().map((team) => {
                                 return <WeightDropdownOfTeams key={team._id} team={team}/>
                             })}
@@ -165,11 +169,12 @@ class WeightEntry extends React.Component {
                 <hr/>
                 <form>
                     <br/>
+                    <br/><br/>
                     <Table striped bordered condensed hover className="teams">
                         <thead>
                         <tr>
                             <th>Name</th>
-                            <th>{this.state.selectedOption} Entry #{this.state.selectedSession}</th>
+                            <th>Weight Entry</th>
                         </tr>
                         </thead>
                         <tbody>

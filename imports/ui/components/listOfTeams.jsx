@@ -47,19 +47,25 @@ export default class ListOfTeams extends Component {
     editEntry() {
         event.preventDefault();
         const pID = this.props.team._id;
-        const nm = this.state.teamEditName;
-        const s = this.state.editSeason;
-        if (pID === '' || nm === '' || s === '') {
+        let nm = this.state.teamEditName;
+        let s = this.state.editSeason;
+        /*if (pID === '' || nm === '' || s === '') {
             window.alert("Make sure to complete all fields for editing.");
+        }*/
+        if (nm === '') {
+            nm = this.props.team.name;
         }
-        else {
-            Meteor.call('teams.edit', pID, nm, s, () => {
-                Bert.defaults = {hideDelay: 4500};
-                Bert.alert('team edited', 'success', 'fixed-top', 'fa-check');
-                this.setState({teamEditName: '', editSeason: ''});
-                this.closeEdit();
-            });
+        if (s === '') {
+            s = this.props.team.season;
         }
+        //else {
+        Meteor.call('teams.edit', pID, nm, s, () => {
+            Bert.defaults = {hideDelay: 4500};
+            Bert.alert('team edited', 'success', 'fixed-top', 'fa-check');
+            this.setState({teamEditName: '', editSeason: ''});
+            this.closeEdit();
+        });
+        //}
         this.close();
     };
 
@@ -134,9 +140,9 @@ export default class ListOfTeams extends Component {
                         <Modal.Body>
                             <form>
                                 <FormGroup>
-                                    <FormControl placeholder={this.props.team.name} label='name' type='text'
+                                    <FormControl defaultValue={this.props.team.name} label='name' type='text'
                                                  onChange={this.handleEditName}/><br/>
-                                    <FormControl placeholder={this.props.team.season} label='season' type='text'
+                                    <FormControl defaultValue={this.props.team.season} label='season' type='text'
                                                  onChange={this.handleSeason}/>
                                 </FormGroup>
                             </form>

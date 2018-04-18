@@ -23,8 +23,8 @@ class Profile extends React.Component {
         const component = this;
         $(component.form).validate({
             rules: {
-                firstName: {required: true},
-                lastName: {required: true},
+                firstName: {required: false},
+                lastName: {required: false},
                 emailAddress: {required: true, email: true},
                 currentPassword: {
                     required() {
@@ -60,8 +60,9 @@ class Profile extends React.Component {
     };
 
     handleDeleteAccount() {
+        const id = this.props.userId;
         if (confirm('Are you sure? This will permanently delete your account and all of its data.')) {
-            Meteor.call('users.deleteAccount', (error) => {
+            Meteor.call('users.deleteAccount', id, (error) => {
                 if (error) {
                     Bert.alert(error.reason, 'danger');
                 } else {
@@ -72,14 +73,11 @@ class Profile extends React.Component {
     };
 
     handleSubmit(form) {
-        const profile = {
-            emailAddress: form.emailAddress.value,
-            profile: {
-                name: {first: form.firstName.value, last: form.lastName.value},
-            },
-        };
+        const id = this.props.userId;
+        const email = form.emailAddress.value;
+        const phone = form.phone.value;
 
-        Meteor.call('users.editProfile', profile, (error) => {
+        Meteor.call('users.editProfile', id, email, phone, (error) => {
             if (error) {
                 Bert.alert(error.reason, 'danger');
             } else {
@@ -102,25 +100,14 @@ class Profile extends React.Component {
     renderPasswordUser(loading, user) {
         return !loading ? (
             <div>
-                <Row>
-                    <Col xs={6}>
-                        <FormGroup>
-                            <ControlLabel>First Name</ControlLabel>
-                            <input type="text" name="firstName" defaultValue={user.profile.name.first}
-                                   className="form-control"/>
-                        </FormGroup>
-                    </Col>
-                    <Col xs={6}>
-                        <FormGroup>
-                            <ControlLabel>Last Name</ControlLabel>
-                            <input type="text" name="lastName" defaultValue={user.profile.name.last}
-                                   className="form-control"/>
-                        </FormGroup>
-                    </Col>
-                </Row>
                 <FormGroup>
                     <ControlLabel>Email Address</ControlLabel>
                     <input type="email" name="emailAddress" defaultValue={user.emails[0].address}
+                           className="form-control"/>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel>Phone</ControlLabel>
+                    <input type="phone" name="phone" defaultValue={user.profile.phone}
                            className="form-control"/>
                 </FormGroup>
                 <FormGroup>
@@ -129,8 +116,7 @@ class Profile extends React.Component {
                 </FormGroup>
                 <FormGroup>
                     <ControlLabel>New Password</ControlLabel>
-                    <input type="password" name="newPassword" className="form-control"/><InputHint>Use at least six
-                    characters.</InputHint>
+                    <input type="password" name="newPassword" className="form-control"/>
                 </FormGroup>
                 <Button type="submit" bsStyle="success">Save Profile</Button>
             </div>
@@ -140,7 +126,7 @@ class Profile extends React.Component {
     renderProfileForm(loading, user) {
         return !loading ? ({
             password: this.renderPasswordUser,
-            //oauth: this.renderOAuthUser,
+            //Insert OAuth Here
         }[this.getUserType(user)])(loading, user) : <div/>;
     };
 
@@ -169,7 +155,7 @@ Profile.propTypes = {
 };
 
 export default withTracker(() => {
-    const subscription = Meteor.subscribe('users.editProfile');
+    const subscription = Meteor.subscribe('users.all');
 
     return {
         loading: !subscription.ready(),

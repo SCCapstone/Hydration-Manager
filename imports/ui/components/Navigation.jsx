@@ -39,6 +39,9 @@ const Navigation = props => (
                             <LinkContainer to={"/app/adminDash"}>
                                 <NavItem eventKey={5.1} href="/app/adminDash">Admin</NavItem>
                             </LinkContainer> : ''}
+                        <LinkContainer to={"/app/profile"}>
+                            <NavItem eventKey={4} href="/app/profile">Profile</NavItem>
+                        </LinkContainer>
                         <MenuItem eventKey={5.2} onClick={() => Meteor.logout()}>Logout</MenuItem>
                     </NavDropdown>
                 </Nav>
