@@ -251,6 +251,7 @@ class AthleteReport extends Component {
         let athlete = this.props.athlete;
         let team = this.props.team;
         const props = this.props;
+        const users = this.props.usersList;
         if (this.props.athleteLoading || this.props.teamLoading) {
             return null;
         }
@@ -324,9 +325,12 @@ AthleteReport.propTypes = {
     teamsList: PropTypes.array,
     athletesList: PropTypes.array,
     athleteId: PropTypes.string,
+    usersList: PropTypes.array,
+    loading: PropTypes.bool,
 };
 // Retrieves data from server and puts it into client's minimongo
 export default withTracker(({match}) => {
+    const subscription = Meteor.subscribe('users.all');
     const teamSubscription = Meteor.subscribe('teams.all');
     const athleteSubscription = Meteor.subscribe('athletes.all');
     const teamLoading = !teamSubscription.ready();
@@ -334,6 +338,8 @@ export default withTracker(({match}) => {
     const teamsList = !teamLoading ? TeamsCollection.find().fetch() : [];
     const athletesList = !athleteLoading ? AthletesCollection.find().fetch() : [];
     const athleteId = match.params.athleteId;
+    const usersList = !loading ? Meteor.users.find().fetch() : [];
+    const loading = !subscription.ready();
     // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
     // match: PropTypes.object.isRequired,
     // history: PropTypes.object.isRequired,

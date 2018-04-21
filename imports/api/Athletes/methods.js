@@ -117,28 +117,25 @@ Meteor.methods({
      * an athlete triggers a 'red' alert status based on the latest pre/post weight entered,
      * ....
      * */
-    'athletes.generateSMS': function sendSMS(athName, hydrate, color) {
+    'athletes.generateSMS': function sendSMS(athName, hydrate, color, phone) {
         // These are TESTING CREDENTIALS only, not real credentials;
         // We would need to change these values to the real credentials once we set up billing.  -anthony
         let twilio = require('twilio');
-        const ACCOUNT_SID = 'ACcaad0f31e3a34aac5f13636556bcc746';
-        const AUTH_TOKEN = 'b56f47d16915b1947c64cdec964b914a';
+        //const ACCOUNT_SID = 'ACcaad0f31e3a34aac5f13636556bcc746'; // Test Credentials
+        //const AUTH_TOKEN = 'b56f47d16915b1947c64cdec964b914a';    // Test Credentials
 
-        //const ACCOUNT_SID = 'AC531f960278ec72ecacc6851e928857c3';
-        //const AUTH_TOKEN = '8264c6876d21e70d9d27b93316ac1313';
+        const ACCOUNT_SID = 'AC531f960278ec72ecacc6851e928857c3';
+        const AUTH_TOKEN = '8264c6876d21e70d9d27b93316ac1313';
         let client = new twilio(ACCOUNT_SID, AUTH_TOKEN);
         console.log("This should generate an SMS alert");
         //twilio.sendSms({
         client.messages.create({
             body: athName + ' has generated a `' + color + '` alert status with a hydration value of ' + Number.parseFloat(hydrate).toPrecision(4),
-            to: '+18039606328',  // Text this number ; We will need to transition this to a variable that contains the 'head-admin's phone #'
-            //from: '+18036368598' // this is OUR twilio number. $1.00 a month. This will need to stay this hardcoded value.
-            from: '+15005550006' // This is a twilio test number
+            to: phone,  // Text this number;
+            from: '+18036368598' // this is OUR twilio number. $1.00 a month. This will need to stay this hardcoded value.
+            //from: '+15005550006' // This is a twilio TEST number
         }, function (err, responseData) { //this function is executed when a response is received from Twilio
-            if (!err) { // "err" is an error received during the request, if any
-                // "responseData" is a JavaScript object containing data received from Twilio.
-                // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
-                // http://www.twilio.com/docs/api/rest/sending-sms#example-1
+            if (!err) {
                 console.log(responseData.from); // outputs "from phone number"
                 console.log(responseData.body); // outputs "body of message"
             }

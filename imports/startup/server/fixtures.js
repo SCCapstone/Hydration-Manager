@@ -33,12 +33,13 @@ import {_} from 'meteor/underscore';
   });
 */
 //if (!Meteor.isProduction) {
-const users = [{
-    email: 'admin@admin.com',
-    password: 'password',
-    profile: {},
-    roles: ['ADMIN'],
-},
+const users = [
+    {
+        email: 'admin@admin.com',
+        password: 'password',
+        profile: {},
+        roles: ['ADMIN'],
+    },
     {
         email: 'admin1@admin1.com',
         password: 'password1',
@@ -46,9 +47,12 @@ const users = [{
         roles: ['PUB'],
     },
     {
+        // Head Admin Account.
         email: 'hydration@usc.com',
         password: 'password',
-        profile: {},
+        profile: {
+            head: true
+        },
         roles: ['ADMIN'],
     },
 ];

@@ -5,6 +5,8 @@ import autoBind from 'react-autobind';
 import {Tracker} from 'meteor/tracker';
 
 import AthletesCollection from '../../api/Athletes/Athletes.js';
+import {Meteor} from "meteor/meteor";
+import _ from "lodash";
 
 export default class AthleteEntryList extends Component {
     constructor(props) {
@@ -78,12 +80,40 @@ export default class AthleteEntryList extends Component {
         }
         // This generates an alert for an athlete entering 'red' status based on the most recent pre/post.
         if (hydration <= -4 || hydration >= 4) {
-            Meteor.call('athletes.generateSMS', name, hydration, "red", () => {
-                console.log("We're calling the OLE-SMS alert");
+            //let list = this.listofAlerts;
+            /*for (let i = 0; i < list.length; i++)
+            {
+                Meteor.call('athletes.generateSMS', name, hydration, "red", *phoneNumberVarFromUserObject*, () => {
+                console.log("We're calling the SMS alert");
+            });
+            }*/
+            const subscription = Meteor.subscribe('users.all');
+            const loading = !subscription.ready();
+            const usersList = !loading ? Meteor.users.find().fetch() : [];
+            const users = usersList;
+            let headAdmin = null;
+            console.log(headAdmin);
+            for (let i = 0; i < users.length; i++)
+            {
+                if (users[i].profile.head ==='true')
+                {
+                    headAdmin = users[i];
+                }
+            }
+            console.log(headAdmin);
+            const currentPhone = "+"+headAdmin.profile.phone;
+            console.log(currentPhone);
+            Meteor.call('athletes.generateSMS', name, hydration, "red", currentPhone, () => { // currently a hardcoded value. Need to talk to client about list of users for alerts.
+                console.log("We're calling the SMS alert");
             });
         }
         //}, delayInMilliseconds);
     };
+
+    listOfAlerts(e) {
+        // Generate a list of admin accounts that head admin wants to text and pass this list back to handleAlerts
+        //return [];
+    }
 
 // Handler Functions
     /*handleDebounce function provides checks and alerts*/
