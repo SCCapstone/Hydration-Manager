@@ -1,4 +1,4 @@
-"# Hydration-Manager" 
+**Hydration-Manager**
 
 This project seeks to aid the athletic training staff at the University of South Carolina.
 Currently, the training staff is using pencil and paper method of tracking water weight loss, weighing athletes before and after practice.
@@ -10,7 +10,19 @@ Please check out our wiki for information regarding this application!
 
 https://github.com/SCCapstone/Hydration-Manager/wiki
 
-"#Use of the Application"
+**Installing Locally**
+
+1. Download the git file from https://github.com/SCCapstone/Hydration-Manager/archive/master.zip ,
+2. Install node and npm from https://www.npmjs.com/get-npm ,
+3. Install chocolatey from https://chocolatey.org/install#installing-chocolatey ,
+4. Install meteor from https://www.meteor.com/install ,
+
+5. Using a command prompt, in the project directory, run the command `meteor npm install` to install the related meteor and npm packages for the app.
+6. Then, run the command `meteor` to start the app.
+
+Hydration Manager may be accessed from `http://localhost:3000/` on your local machine.
+
+**Use of the Application**
 
 To use Hydration Manger, one will generally need to `create a team` first on the `yourTeams` page.
 Once you have a team, you may edit this team or delete it via the modal pop up window. 
@@ -27,7 +39,7 @@ Athletes that are dehydrated to various degrees will appear on the `alerts` page
 
 
 
-"#Testing Information"
+**Testing Information**
 
 Behavioral Tests run with chimp by using following command:
 `chimp --ddp=http://localhost:3000 --mocha --path=tests`
