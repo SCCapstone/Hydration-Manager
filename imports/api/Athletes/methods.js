@@ -130,8 +130,8 @@ Meteor.methods({
         console.log("This should generate an SMS alert");
         //twilio.sendSms({
         client.messages.create({
-            body: athName + ' has generated a `' + color + '` alert status with a hydration value of ' + hydrate,
-            to: '+18038602200',  // Text this number ; We will need to transition this to a variable that contains the 'head-admin's phone #'
+            body: athName + ' has generated a `' + color + '` alert status with a hydration value of ' + Number.parseFloat(hydrate).toPrecision(4),
+            to: '+18039606328',  // Text this number ; We will need to transition this to a variable that contains the 'head-admin's phone #'
             //from: '+18036368598' // this is OUR twilio number. $1.00 a month. This will need to stay this hardcoded value.
             from: '+15005550006' // This is a twilio test number
         }, function (err, responseData) { //this function is executed when a response is received from Twilio

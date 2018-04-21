@@ -156,7 +156,7 @@ Meteor.methods({
         Meteor.users.remove(userId);
     },
 
-    'users.editProfile': function usersEditProfile(userId, emailAddress, newProfile) {
+    'users.editProfile': function usersEditProfile(userId, emailAddress, phoneNumber) {
 
         const currentUser = Meteor.users.findOne({_id: userId});
         const currentEmail = _.get(currentUser, 'emails.0.address', '');
@@ -168,7 +168,7 @@ Meteor.methods({
 
         Meteor.users.update(userId, {
             $set: {
-                profile: newProfile,
+                profile: {phone: phoneNumber},
             },
         });
 
