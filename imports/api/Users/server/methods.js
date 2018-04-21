@@ -16,7 +16,7 @@ import ROLES from '../roles';
 /*After 15 Minutes of Inactivity User Will Be Automatically Logged Out!*/
 Accounts.config({
     /* ( 15 minutes / 1440 minutes in a day ) = 0.0104 */
-    loginExpirationInDays: 0.0104
+    //loginExpirationInDays: 0.0104
 });
 
 Meteor.startup(function () {

@@ -16,6 +16,7 @@ class AthleteReport extends Component {
         super(props);
         this.state = {
             showModal: false,
+            showModalDelete: false,
             name: '',
             base: '',
             team: '',
@@ -39,7 +40,16 @@ class AthleteReport extends Component {
     /*deleteAthlete method, calls to method found on in the Athletes api,
     * located at imports/api/Athletes/methods.js */
     deleteAthlete() {
-        Meteor.call('deleteAthlete', this.props.athlete._id);
+        Meteor.call('athletes.remove', this.athlete()._id);
+        Bert.defaults = {hideDelay: 4500};
+        Bert.alert('Athlete Deleted', 'success', 'fixed-top', 'fa-check');
+        this.closeDelete();
+        this.routeToMaster();
+
+    };
+
+    routeToMaster() {
+        window.location = '/app/masterReport';
     };
 
     /*athlete component*/
@@ -83,6 +93,15 @@ class AthleteReport extends Component {
     //close method
     close() {
         this.setState({showModal: false});
+    };
+
+    openDelete() {
+        this.setState({showModalDelete: true});
+    };
+
+    //close method
+    closeDelete() {
+        this.setState({showModalDelete: false});
     };
 
     getCurrentTeam() {
@@ -231,6 +250,7 @@ class AthleteReport extends Component {
     render() {
         let athlete = this.props.athlete;
         let team = this.props.team;
+        const props = this.props;
         if (this.props.athleteLoading || this.props.teamLoading) {
             return null;
         }
@@ -238,6 +258,22 @@ class AthleteReport extends Component {
             if (this.props.athletesList[i]._id === this.props.athleteId) {
                 return (
                     <div>
+                        {/*Beginning of Deleting Modal Confirmation*/}
+                        <div>
+                            <Modal show={this.state.showModalDelete} onHide={this.closeDelete}>
+                                <Modal.Header>
+                                    <Modal.Title>Deleting an Athlete</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <p>Are you sure you want to delete this Athlete?</p>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button onClick={this.closeDelete}> Close </Button>
+                                    <Button onClick={this.deleteAthlete} bsStyle="danger">Delete Athlete</Button>
+                                </Modal.Footer>
+                            </Modal>
+                        </div>
+                        {/*Ending of Deleting Modal Confirmation*/}
                         <Modal show={this.state.showModal} onHide={this.close}>
                             <Modal.Header>
                                 <Modal.Title>Athlete Edit</Modal.Title>
@@ -258,6 +294,8 @@ class AthleteReport extends Component {
                                 </form>
                             </Modal.Body>
                             <Modal.Footer>
+                                {props.userRoles[0] === "ADMIN" ?
+                                    <Button onClick={this.openDelete} bsStyle="danger">Delete Athlete</Button> : ''}
                                 <Button onClick={this.close} bsStyle="danger">Close</Button>
                                 <Button onClick={this.editEntry} bsStyle="primary">Edit Athlete</Button>
                             </Modal.Footer>

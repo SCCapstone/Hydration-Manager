@@ -26,7 +26,7 @@ class YourTeams extends React.Component {
         // this.addTeam = this.addTeam.bind(this);
         // this.showTeamsList = this.showTeamsList.bind(this);
         autoBind(this);  //binds class methods to the component instance
-    }
+    };
 
     // componentWillMount() {
     //   Roles.userIsInRole(user, ["ADMIN"]);
@@ -76,15 +76,13 @@ class YourTeams extends React.Component {
     };
 
     render() {
+        const props = this.props;
         return (
             <div>
                 <div className="YourTeamHeader">
                     <h3>Your Teams</h3>
-
-                    {/*props.userRoles[0] === "ADMIN" ?*/
-                        <Button onClick={this.open} bsStyle="primary">&#43; Create a Team</Button>
-                    //    : ''
-                    }
+                    {props.userRoles[0] === "ADMIN" ?
+                        <Button onClick={this.open} bsStyle="primary">&#43; Create a Team</Button> : ''}
                 </div>
                 <hr/>
                 <div>
