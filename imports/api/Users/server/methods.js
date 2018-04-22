@@ -62,56 +62,13 @@ Meteor.methods({
     'users.sendResetPasswordEmail': function usersSendResetPasswordEmail() {
         return Accounts.sendResetPasswordEmail(this.userId);
     },
-    /* 'users.editProfile': function usersEditProfile(profile) {
-        check(
-        profile, {
-         emailAddress: String,
-         profile: {
-           name: {
-             first: String,
-             last: String,
-           },
-         },
-       });
-       return editProfile({ userId: this.userId, profile })
-     },
-    // Replaces - users.editProfile
-    'users.update': function usersUpdate(user_obj) {
-        check(user_obj, Match.Any);
-        const currentProfile = Meteor.users.findOne({_id: user_obj.id});
-        const currentEmail = _.get(currentProfile, 'emails.0.address', '');
-        //Update Accounts emails info
-        if (currentEmail.toLowerCase() !== user_obj.email.toLowerCase()) {
-            Accounts.addEmail(user_obj.id, user_obj.email);
-            Accounts.removeEmail(user_obj.id, currentEmail);
-        }
-        Meteor.users.update(user_obj.id, {
-            $set: {
-                'emails.0.address': user_obj.email,
-                'profile.name.first': user_obj.firstName,
-                'profile.name.last': user_obj.lastName
-            }
-        });
-        Roles.setUserRoles(user_obj.id, user_obj.roles);
-    },
-        |--> Example Usage of 'users.update':
-        const user_obj = {
-          id: this.state.id,
-          email: this.state.email,
-          firstName: this.state.firstName,
-          lastName: this.state.lastName,
-          roles: this.state.roles,
-        };
-        Meteor.call('updateUser', user_obj, (error) =>{..........
-    */
 
     // Password required
     'users.createNew_WithPswd': function usersCreateNewWithPswd(user_obj) {
-        check(user_obj, {email: String, phone: String, password: String, role: String, name: String, lastName: String});
+        check(user_obj, {email: String, password: String, role: String, name: String, lastName: String});
         const user_info = {
             email: user_obj.email,
-            phone: user_obj.phone,
-            password: user_obj.password
+            password: user_obj.password,
         };
         // on server: returns id if
         // on client(see Registration.jsx): logs in newly created user, has callback
@@ -119,8 +76,9 @@ Meteor.methods({
         Meteor.users.update({_id: id}, {
             $set: {
                 profile: {
-                    name: {first: user_obj.name, last: user_obj.lastName},
-                    phone: {phone: user_obj.phone}
+                    phone: {phone: user_obj.phone},
+                    head: false,
+
                 }
             }
         });
@@ -131,14 +89,15 @@ Meteor.methods({
     'users.createNew_NoPswd': function usersCreateNewNoPswd(user_obj) {
         check(user_obj, {email: String, role: String, name: String, lastName: String});
         const user_info = {
-            email: user_obj.email
+            email: user_obj.email,
         };
         const id = Accounts.createUser(user_info);
         Meteor.users.update({_id: id}, {
             $set: {
                 profile: {
                     //name: {first: user_obj.name, last: user_obj.lastName},
-                    phone: {phone: user_obj.phone}
+                    phone: {phone: user_obj.phone},
+                    head: "f",
                 }
             }
         });
@@ -168,7 +127,7 @@ Meteor.methods({
 
         Meteor.users.update(userId, {
             $set: {
-                profile: {phone: phoneNumber},
+                profile: {phone: phoneNumber, head: currentUser.profile.head.valueOf()},
             },
         });
 

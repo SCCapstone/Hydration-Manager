@@ -87,21 +87,16 @@ export default class AthleteEntryList extends Component {
                 console.log("We're calling the SMS alert");
             });
             }*/
-            const subscription = Meteor.subscribe('users.all');
-            const loading = !subscription.ready();
-            const usersList = !loading ? Meteor.users.find().fetch() : [];
-            const users = usersList;
+            const users = Meteor.users.find({}).fetch();
             let headAdmin = null;
-            console.log(headAdmin);
-            for (let i = 0; i < users.length; i++)
-            {
-                if (users[i].profile.head ==='true')
-                {
+            for (let i = 0; i < users.length; i++) {
+                console.log(users[i].profile);
+                if (users[i].profile.head === true) {
                     headAdmin = users[i];
                 }
             }
             console.log(headAdmin);
-            const currentPhone = "+"+headAdmin.profile.phone;
+            const currentPhone = "+" + headAdmin.profile.phone;
             console.log(currentPhone);
             Meteor.call('athletes.generateSMS', name, hydration, "red", currentPhone, () => { // currently a hardcoded value. Need to talk to client about list of users for alerts.
                 console.log("We're calling the SMS alert");

@@ -131,13 +131,14 @@ Meteor.methods({
         //twilio.sendSms({
         client.messages.create({
             body: athName + ' has generated a `' + color + '` alert status with a hydration value of ' + Number.parseFloat(hydrate).toPrecision(4),
-            to: phone,  // Text this number;
+            to: "+"+phone,  // Text this number;
             from: '+18036368598' // this is OUR twilio number. $1.00 a month. This will need to stay this hardcoded value.
             //from: '+15005550006' // This is a twilio TEST number
         }, function (err, responseData) { //this function is executed when a response is received from Twilio
             if (!err) {
-                console.log(responseData.from); // outputs "from phone number"
-                console.log(responseData.body); // outputs "body of message"
+                console.log("Texting a message from "+responseData.from); // outputs "from phone number"
+                console.log("To "+responseData.to);
+                console.log("The message "+responseData.body); // outputs "body of message"
             }
         });
     },

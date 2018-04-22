@@ -27,13 +27,13 @@ class Registration extends React.Component {
                 firstName: {required: false},
                 lastName: {required: false},
                 emailAddress: {required: true, email: true},
-                PhoneNumber: {required: true, minlength: 10},
+                PhoneNumber: {required: true, minlength: 11},
                 password: {required: true, minlength: 6},
                 password_confirm: {equalTo: '[name="password"]'}
             },
             messages: {
                 emailAddress: {required: 'Please enter your email address.', email: 'Is this email address correct?'},
-                PhoneNumber: {required: 'Please enter a phone number.', minlength: 'Minimum of at least 10 characters'},
+                PhoneNumber: {required: 'Please enter a phone number.', minlength: 'Minimum of at least 11 digits'},
                 password: {required: 'Please enter a password.', minlength: 'Minimum of at least six characters.'},
                 password_confirm: {
                     required: 'Repeat previous password.',
@@ -55,8 +55,8 @@ class Registration extends React.Component {
                 if (error) {
                     //console.log("FAILED: Role not added!!");
                 } else {
-                   // console.log(newUserId);
-                   // console.log("SUCCESS: Role added!!");
+                    // console.log(newUserId);
+                    // console.log("SUCCESS: Role added!!");
                 }
             });
         }
@@ -75,7 +75,8 @@ class Registration extends React.Component {
             email: form.emailAddress.value,
             password: form.password.value,
             profile: {
-                phone: form.PhoneNumber.value
+                phone: form.PhoneNumber.value,
+                head: false
             }
         }, (error) => {
             if (error) {
@@ -105,10 +106,12 @@ class Registration extends React.Component {
                                    placeholder="Email Address"/>
                         </FormGroup>
                         <FormGroup>
-                            <input type="phone" name="PhoneNumber" className="form-control" placeholder="Phone Number"/>
+                            <input type="phone" name="PhoneNumber" className="form-control"
+                                   placeholder="Phone Number - 11 Digits"/>
                         </FormGroup>
                         <FormGroup>
-                            <input type="password" name="password" className="form-control" placeholder="Password"/>
+                            <input type="password" name="password" className="form-control"
+                                   placeholder="Password - Minimum 6 characters"/>
                         </FormGroup>
                         <FormGroup>
                             <input type="password" name="password_conform" className="form-control"

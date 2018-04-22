@@ -74,54 +74,60 @@ class AdminDash extends React.Component {
     }
 
     showTeamsList() {
-      const teams = this.props.teamsList;
-      const users = this.props.usersList;
+        const teams = this.props.teamsList;
+        const users = this.props.usersList;
 
-      return (
-          <tbody> {
-              teams.map((team) => {
-                  return (
-                      <tr key={team._id}>
-                          <td width="20%">{team.name} {team.season}</td>
-                          <td>
-                            {team.usersAccess}
-                          </td>
-                          <td>
-                            <select className="form-control" value={users[0]} onChange={ (event) => {this.handleAddUserAccess({id:team._id, usrEmail:event.target.value});} }>
-                              {users.map((user) => (<option key={user._id} value={user.emails[0].address}>{user.emails[0].address}</option>))}
-                            </select>
-                          </td>
-                          <td>
-                            <select className="form-control" value={users[0]} onChange={ (event) => {this.handleRemoveUserAccess({id:team._id, usrEmail:event.target.value});} }>
-                              {users.map((user) => (<option key={user._id} value={user.emails[0].address}>{user.emails[0].address}</option>))}
-                            </select>
-                          </td>
+        return (
+            <tbody> {
+                teams.map((team) => {
+                    return (
+                        <tr key={team._id}>
+                            <td width="20%">{team.name} {team.season}</td>
+                            <td>
+                                {team.usersAccess}
+                            </td>
+                            <td>
+                                <select className="form-control" value={users[0]} onChange={(event) => {
+                                    this.handleAddUserAccess({id: team._id, usrEmail: event.target.value});
+                                }}>
+                                    {users.map((user) => (<option key={user._id}
+                                                                  value={user.emails[0].address}>{user.emails[0].address}</option>))}
+                                </select>
+                            </td>
+                            <td>
+                                <select className="form-control" value={users[0]} onChange={(event) => {
+                                    this.handleRemoveUserAccess({id: team._id, usrEmail: event.target.value});
+                                }}>
+                                    {users.map((user) => (<option key={user._id}
+                                                                  value={user.emails[0].address}>{user.emails[0].address}</option>))}
+                                </select>
+                            </td>
 
-                      </tr>
-                  )
-              })
-          } </tbody>
-      )
+                        </tr>
+                    )
+                })
+            } </tbody>
+        )
     }
 
     handleAddUserAccess(update_obj) {
-      Meteor.call('teams.addUserAccess', update_obj.id, update_obj.usrEmail, (error) => {
-          if (error) {
-              Bert.alert(error.reason, 'danger');
-          } else {
-              Bert.alert('Added User Access!', 'success');
-          }
-      });
+        Meteor.call('teams.addUserAccess', update_obj.id, update_obj.usrEmail, (error) => {
+            if (error) {
+                Bert.alert(error.reason, 'danger');
+            } else {
+                Bert.alert('Added User Access!', 'success');
+            }
+        });
     };
 
     handleRemoveUserAccess(update_obj) {
-      Meteor.call('teams.removeUserAccess', update_obj.id, update_obj.usrEmail, (error) => {
-          if (error) {
-              Bert.alert(error.reason, 'danger');
-          } else {
-              Bert.alert('Removed User Access!', 'success');
-          }
-      });
+        Meteor.call('teams.removeUserAccess', update_obj.id, update_obj.usrEmail, (error) => {
+            if (error) {
+                Bert.alert(error.reason, 'danger');
+            } else {
+                Bert.alert('Removed User Access!', 'success');
+            }
+        });
     };
 
     /* Method for changing the role of a user */
@@ -155,12 +161,12 @@ class AdminDash extends React.Component {
                 <h3>Users Allowed Access Per Team</h3>
                 <Table className="ViewableTeams" striped bordered condensed hover responsive>
                     <thead>
-                      <tr>
+                    <tr>
                         <th>Team:</th>
                         <th>Users With Access:</th>
                         <th>Add User Access</th>
                         <th>Remove User Access</th>
-                      </tr>
+                    </tr>
                     </thead>
                     {this.showTeamsList()}
                 </Table>
