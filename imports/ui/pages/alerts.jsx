@@ -11,6 +11,7 @@ import {Table} from 'react-bootstrap';
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 import TeamsCollection from '../../api/Teams/Teams.js';
 import AthleteAlert from '../components/athleteAlert.jsx';
+import LongTermAthleteAlert from '../components/longTermAthleteAlert';
 
 class Alerts extends React.Component {
     constructor(props) {
@@ -59,6 +60,36 @@ class Alerts extends React.Component {
         return redAthletes;
     }
 
+    longTermRedAthletes() {
+        let allAthletes = AthletesCollection.find().fetch(), longTermRedAthletes = [];
+        let preWeight, postWeight, baseWeight, hydration = '';
+        for (let i = 0; i < allAthletes.length; i++) {
+            if (allAthletes[i].preWeightData[0] !== undefined && allAthletes[i].postWeightData[0] !== undefined) {
+                if (allAthletes[i].preWeightData[0].date === allAthletes[i].postWeightData[0].date) {
+                    preWeight = allAthletes[i].preWeightData[0];
+                    postWeight = allAthletes[i].postWeightData[0];
+                    baseWeight = allAthletes[i].baseWeight;
+                    let mostRecentWeight = '';
+                    if(preWeight.date <= postWeight.date)
+                    {
+                        mostRecentWeight = postWeight.weight;
+                    }
+                    else
+                    {
+                        mostRecentWeight = preWeight.weight;
+                    }
+                    hydration = (baseWeight - mostRecentWeight) / baseWeight * 100;
+                    //hydration2 = (allAthletes[i].baseWeight[i]-postWeight)/allAthletes[i].baseWeight[i]*100;
+                    //if(hydration < -4 || hydration > 3 || hydration2 < -4 || hydration2 > 3)
+                    if (hydration <= -4 || hydration >= 4) {
+                        longTermRedAthletes.push(allAthletes[i]);
+                    }
+                }
+            }
+        }
+        return longTermRedAthletes;
+    }
+
     /*Yellow Team Athletes for athletes needing some attention. */
     yellowAthletes() {
         let allAthletes = AthletesCollection.find().fetch(), yellowAthletes = [];
@@ -83,6 +114,39 @@ class Alerts extends React.Component {
             }
         }
         return yellowAthletes;
+    }
+
+    longTermYellowAthletes() {
+        let allAthletes = AthletesCollection.find().fetch(), longTermYellowAthletes = [];
+        let preWeight, postWeight, baseWeight, hydration = '';
+        for (let i = 0; i < allAthletes.length; i++) {
+            if (allAthletes[i].preWeightData[0] !== undefined && allAthletes[i].postWeightData[0] !== undefined) {
+                if (allAthletes[i].preWeightData[0].date === allAthletes[i].postWeightData[0].date) {
+                    preWeight = allAthletes[i].preWeightData[0];
+                    postWeight = allAthletes[i].postWeightData[0];
+                    baseWeight = allAthletes[i].baseWeight;
+                    let mostRecentWeight = '';
+                    if(preWeight.date <= postWeight.date)
+                    {
+                        mostRecentWeight = postWeight.weight;
+                    }
+                    else
+                    {
+                        mostRecentWeight = preWeight.weight;
+                    }
+                    hydration = (baseWeight - mostRecentWeight) / baseWeight * 100;
+                    //hydration2 = (allAthletes[i].baseWeight[i]-postWeight)/allAthletes[i].baseWeight[i]*100;
+                    //if(hydration < -4 || hydration > 3 || hydration2 < -4 || hydration2 > 3)
+                    if (hydration > -4 && hydration < -3) {
+                        longTermYellowAthletes.push(allAthletes[i]);
+                    }
+                    if (hydration > 3 && hydration < 4) {
+                        longTermYellowAthletes.push(allAthletes[i]);
+                    }
+                }
+            }
+        }
+        return longTermYellowAthletes;
     }
 
     render() {
@@ -111,6 +175,26 @@ class Alerts extends React.Component {
                             </tbody>
                         </Table>
                     </div>
+                    <div>
+                        <br/>
+                        <h4>Long Term Red Athletes</h4>
+                        <Table bordered condensed responsive>
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Team</th>
+                                <th>Weight Change %</th>
+                                <th>Current Weight</th>
+                            </tr>
+                            </thead>
+                            <tbody className="redBack">
+                            {this.longTermRedAthletes().map((athlete) => {
+                                return <LongTermAthleteAlert key={athlete._id} athlete={athlete}
+                                                     teamsList={this.props.teamsList}/>
+                            })}
+                            </tbody>
+                        </Table>
+                    </div>
                     <br/><br/>
                     <div>
                         <h4>Yellow Athletes</h4>
@@ -127,6 +211,26 @@ class Alerts extends React.Component {
                             {this.yellowAthletes().map((athlete) => {
                                 return <AthleteAlert key={athlete._id} athlete={athlete}
                                                      teamsList={this.props.teamsList}/>
+                            })}
+                            </tbody>
+                        </Table>
+                    </div>
+                    <div>
+                        <br/>
+                        <h4>Long Term Yellow Athletes</h4>
+                        <Table bordered condensed responsive>
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Team</th>
+                                <th>Weight Change %</th>
+                                <th>Current Weight</th>
+                            </tr>
+                            </thead>
+                            <tbody className="yellowBack">
+                            {this.longTermYellowAthletes().map((athlete) => {
+                                return <LongTermAthleteAlert key={athlete._id} athlete={athlete}
+                                                             teamsList={this.props.teamsList}/>
                             })}
                             </tbody>
                         </Table>
