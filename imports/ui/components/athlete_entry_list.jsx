@@ -199,8 +199,10 @@ export default class AthleteEntryList extends Component {
             Bert.defaults = {hideDelay: 3500};
             Bert.alert('Weight should be non-negative', 'warning', 'growl-top-left', 'fa-warning');
         }
-        this.setState({weight: e.target.value});
-        this.handleDebounce(e);
+        else {
+            this.setState({weight: e.target.value});
+            this.handleDebounce(e);
+        }
     };
 
     /*When Enter/Return button is press, it will run event.preventDefault function*/
