@@ -16,6 +16,7 @@ class AthleteReport extends Component {
         super(props);
         this.state = {
             showModal: false,
+            showModalDelete: false,
             name: '',
             base: '',
             team: '',
@@ -39,7 +40,16 @@ class AthleteReport extends Component {
     /*deleteAthlete method, calls to method found on in the Athletes api,
     * located at imports/api/Athletes/methods.js */
     deleteAthlete() {
-        Meteor.call('deleteAthlete', this.props.athlete._id);
+        Meteor.call('athletes.remove', this.athlete()._id);
+        Bert.defaults = {hideDelay: 3500};
+        Bert.alert('Athlete Deleted', 'success', 'growl-top-left', 'fa-info');
+        this.closeDelete();
+        this.routeToMaster();
+
+    };
+
+    routeToMaster() {
+        window.location = '/app/masterReport';
     };
 
     /*athlete component*/
@@ -83,6 +93,15 @@ class AthleteReport extends Component {
     //close method
     close() {
         this.setState({showModal: false});
+    };
+
+    openDelete() {
+        this.setState({showModalDelete: true});
+    };
+
+    //close method
+    closeDelete() {
+        this.setState({showModalDelete: false});
     };
 
     getCurrentTeam() {
@@ -193,8 +212,8 @@ class AthleteReport extends Component {
         /* Meteor method athletes.edit on the collections side will be called and an alert will be issued
          * stating that athlete was edited and that the edit was successful. '*/
         Meteor.call('athletes.edit', pId, nm, bw, t, () => {
-            Bert.defaults = {hideDelay: 4500};
-            Bert.alert('athlete edited', 'success', 'fixed-top', 'fa-check');
+            Bert.defaults = {hideDelay: 3500};
+            Bert.alert('athlete edited', 'success', 'growl-top-left', 'fa-check');
             this.setState({
                 name: '',
                 base: '',
@@ -231,6 +250,8 @@ class AthleteReport extends Component {
     render() {
         let athlete = this.props.athlete;
         let team = this.props.team;
+        const props = this.props;
+        const users = this.props.usersList;
         if (this.props.athleteLoading || this.props.teamLoading) {
             return null;
         }
@@ -238,6 +259,22 @@ class AthleteReport extends Component {
             if (this.props.athletesList[i]._id === this.props.athleteId) {
                 return (
                     <div>
+                        {/*Beginning of Deleting Modal Confirmation*/}
+                        <div>
+                            <Modal show={this.state.showModalDelete} onHide={this.closeDelete}>
+                                <Modal.Header>
+                                    <Modal.Title>Deleting an Athlete</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <p>Are you sure you want to delete this Athlete?</p>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button onClick={this.closeDelete}> Close </Button>
+                                    <Button onClick={this.deleteAthlete} bsStyle="danger">Delete Athlete</Button>
+                                </Modal.Footer>
+                            </Modal>
+                        </div>
+                        {/*Ending of Deleting Modal Confirmation*/}
                         <Modal show={this.state.showModal} onHide={this.close}>
                             <Modal.Header>
                                 <Modal.Title>Athlete Edit</Modal.Title>
@@ -258,6 +295,8 @@ class AthleteReport extends Component {
                                 </form>
                             </Modal.Body>
                             <Modal.Footer>
+                                {props.userRoles[0] === "ADMIN" ?
+                                    <Button onClick={this.openDelete} bsStyle="danger">Delete Athlete</Button> : ''}
                                 <Button onClick={this.close} bsStyle="danger">Close</Button>
                                 <Button onClick={this.editEntry} bsStyle="primary">Edit Athlete</Button>
                             </Modal.Footer>
@@ -286,9 +325,12 @@ AthleteReport.propTypes = {
     teamsList: PropTypes.array,
     athletesList: PropTypes.array,
     athleteId: PropTypes.string,
+    usersList: PropTypes.array,
+    loading: PropTypes.bool,
 };
 // Retrieves data from server and puts it into client's minimongo
 export default withTracker(({match}) => {
+    const subscription = Meteor.subscribe('users.all');
     const teamSubscription = Meteor.subscribe('teams.all');
     const athleteSubscription = Meteor.subscribe('athletes.all');
     const teamLoading = !teamSubscription.ready();
@@ -296,6 +338,8 @@ export default withTracker(({match}) => {
     const teamsList = !teamLoading ? TeamsCollection.find().fetch() : [];
     const athletesList = !athleteLoading ? AthletesCollection.find().fetch() : [];
     const athleteId = match.params.athleteId;
+    const usersList = !loading ? Meteor.users.find().fetch() : [];
+    const loading = !subscription.ready();
     // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
     // match: PropTypes.object.isRequired,
     // history: PropTypes.object.isRequired,

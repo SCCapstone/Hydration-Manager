@@ -36,9 +36,9 @@ export default class LoginAlt extends React.Component {
     handleSubmit(form) {
         Meteor.loginWithPassword(form.emailAddress.value, form.password.value, (error) => {
             if (error) {
-                Bert.alert(error.reason, 'danger');
+                Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
             } else {
-                Bert.alert('Welcome back!', 'success');
+                Bert.alert('Welcome back!', 'success', 'growl-top-left', 'fa-check');
             }
         });
     };

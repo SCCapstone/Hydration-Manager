@@ -5,6 +5,8 @@ import autoBind from 'react-autobind';
 import {Tracker} from 'meteor/tracker';
 
 import AthletesCollection from '../../api/Athletes/Athletes.js';
+import {Meteor} from "meteor/meteor";
+import _ from "lodash";
 
 export default class AthleteEntryList extends Component {
     constructor(props) {
@@ -78,12 +80,35 @@ export default class AthleteEntryList extends Component {
         }
         // This generates an alert for an athlete entering 'red' status based on the most recent pre/post.
         if (hydration <= -4 || hydration >= 4) {
-            Meteor.call('athletes.generateSMS', name, hydration, "red", () => {
-                console.log("We're calling the OLE-SMS alert");
+            //let list = this.listofAlerts;
+            /*for (let i = 0; i < list.length; i++)
+            {
+                Meteor.call('athletes.generateSMS', name, hydration, "red", *phoneNumberVarFromUserObject*, () => {
+                console.log("We're calling the SMS alert");
+            });
+            }*/
+            const users = Meteor.users.find({}).fetch();
+            let headAdmin = null;
+            for (let i = 0; i < users.length; i++) {
+                console.log(users[i].profile);
+                if (users[i].profile.head === true) {
+                    headAdmin = users[i];
+                }
+            }
+            console.log(headAdmin);
+            const currentPhone = "+" + headAdmin.profile.phone;
+            console.log(currentPhone);
+            Meteor.call('athletes.generateSMS', name, hydration, "red", currentPhone, () => { // currently a hardcoded value. Need to talk to client about list of users for alerts.
+                console.log("We're calling the SMS alert");
             });
         }
         //}, delayInMilliseconds);
     };
+
+    listOfAlerts(e) {
+        // Generate a list of admin accounts that head admin wants to text and pass this list back to handleAlerts
+        //return [];
+    }
 
 // Handler Functions
     /*handleDebounce function provides checks and alerts*/
@@ -113,17 +138,18 @@ export default class AthleteEntryList extends Component {
             alert('Please ensure you have selected a Date');
         }
         else if (this.props.selOp === 'Default') {
-            Bert.alert('Please ensure you have selected Pre or Post Weight', 'danger', 'fixed-top', 'fa-check');
+            Bert.defaults = {hideDelay: 3500};
+            Bert.alert('Please ensure you have selected Pre/Post Weight.', 'warning', 'growl-top-left', 'fa-warning');
         }
         else if (this.props.selOp === 'PreWeight') {
             /*tempWeight = this.state.weight + 1;
             Meteor.call('athletes.addPreWeight', this.props.athlete._id, this.state.date, tempWeight, () => {
-                Bert.defaults = {hideDelay: 4500};
-                Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
+                Bert.defaults = {hideDelay: 3500};
+                Bert.alert('Weight Added!', 'success', 'growl-top-left', 'fa-check');
             });*/
             Meteor.call('athletes.addPreWeight', this.props.athlete._id, this.state.date, this.state.weight, () => {
-                Bert.defaults = {hideDelay: 4500};
-                Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
+                Bert.defaults = {hideDelay: 3500};
+                Bert.alert('Weight Added!', 'success', 'growl-top-left', 'fa-check');
             });
             this.setState({pre: this.state.weight});
             //this.handlePreChange();
@@ -134,12 +160,12 @@ export default class AthleteEntryList extends Component {
         else if (this.props.selOp === 'PostWeight') {
             /*tempWeight = this.state.weight + 1;
             Meteor.call('athletes.addPostWeight', this.props.athlete._id, this.state.date, tempWeight, () => {
-                Bert.defaults = {hideDelay: 4500};
-                Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
+                Bert.defaults = {hideDelay: 3500};
+                Bert.alert('Weight Added', 'success', 'growl-top-left', 'fa-check');
             });*/
             Meteor.call('athletes.addPostWeight', this.props.athlete._id, this.state.date, this.state.weight, () => {
-                Bert.defaults = {hideDelay: 4500};
-                Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
+                Bert.defaults = {hideDelay: 3500};
+                Bert.alert('Weight Added!', 'success', 'growl-top-left', 'fa-check');
             });
             this.setState({post: this.state.weight});
             //this.handlePostChange();
@@ -169,6 +195,10 @@ export default class AthleteEntryList extends Component {
     /*handleWeightChange Function will set weight to e.target.value*/
     handleWeightChange = (e) => {
         e.persist();
+        if (e.target.value < 0) {
+            Bert.defaults = {hideDelay: 3500};
+            Bert.alert('Weight should be non-negative', 'warning', 'growl-top-left', 'fa-warning');
+        }
         this.setState({weight: e.target.value});
         this.handleDebounce(e);
     };

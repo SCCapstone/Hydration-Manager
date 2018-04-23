@@ -76,8 +76,8 @@ class AthleteReportTable extends Component {
         }
         else {
             Meteor.call('athletes.editWeight', pId, pDate, pWeight, pPrePost, () => {
-                Bert.defaults = {hideDelay: 4500};
-                Bert.alert('Weight edited', 'success', 'fixed-top', 'fa-check');
+                Bert.defaults = {hideDelay: 3500};
+                Bert.alert('Weight edited!', 'success', 'growl-top-left', 'fa-check');
                 this.setState({
                     date: "",
                     weight: "",
