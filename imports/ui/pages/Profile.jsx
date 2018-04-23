@@ -64,9 +64,9 @@ class Profile extends React.Component {
         if (confirm('Are you sure? This will permanently delete your account and all of its data.')) {
             Meteor.call('users.deleteAccount', id, (error) => {
                 if (error) {
-                    Bert.alert(error.reason, 'danger');
+                    Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
                 } else {
-                    Bert.alert('Account deleted!', 'success');
+                    Bert.alert('Account deleted!', 'success', 'growl-top-left', 'fa-check');
                 }
             });
         }
@@ -79,16 +79,16 @@ class Profile extends React.Component {
 
         Meteor.call('users.editProfile', id, email, phone, (error) => {
             if (error) {
-                Bert.alert(error.reason, 'danger');
+                Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
             } else {
-                Bert.alert('Profile updated!', 'success');
+                Bert.alert('Profile updated!', 'success', 'growl-top-left', 'fa-check');
             }
         });
 
         if (form.newPassword.value) {
             Accounts.changePassword(form.currentPassword.value, form.newPassword.value, (error) => {
                 if (error) {
-                    Bert.alert(error.reason, 'danger');
+                    Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
                 } else {
                     form.currentPassword.value = '';
                     form.newPassword.value = '';

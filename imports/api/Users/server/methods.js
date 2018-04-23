@@ -64,11 +64,12 @@ Meteor.methods({
     },
 
     // Password required
-    'users.createNew_WithPswd': function usersCreateNewWithPswd(user_obj) {
-        check(user_obj, {email: String, password: String, role: String, name: String, lastName: String});
+    'users.createNew_WithPswd': function usersCreateNewWithPswd(eM, pass, fone) {
         const user_info = {
-            email: user_obj.email,
-            password: user_obj.password,
+            //email: user_obj.email,
+            //password: user_obj.password,
+            email: eM,
+            password: pass
         };
         // on server: returns id if
         // on client(see Registration.jsx): logs in newly created user, has callback
@@ -76,13 +77,12 @@ Meteor.methods({
         Meteor.users.update({_id: id}, {
             $set: {
                 profile: {
-                    phone: {phone: user_obj.phone},
+                    phone: {phone: fone},
                     head: false,
-
                 }
             }
         });
-        Roles.setUserRoles(id, [user_obj.role]);
+        Roles.setUserRoles(id, ['PUB']);
     },
     // For Creating New User w/No Password (pswd selected later by user, possibly thru email)
     // -- User cannot log in until password set (eg, with Accounts.setPassword)
@@ -97,7 +97,6 @@ Meteor.methods({
                 profile: {
                     //name: {first: user_obj.name, last: user_obj.lastName},
                     phone: {phone: user_obj.phone},
-                    head: "f",
                 }
             }
         });

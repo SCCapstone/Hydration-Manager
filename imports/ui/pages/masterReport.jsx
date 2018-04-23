@@ -73,15 +73,20 @@ class MasterReport extends React.Component {
         /*If one of the fields are left blank, then an alert window is generated
         * with message stating such.*/
         if (pName === '' || pWeight === '' || pTeamId === '') {
-            window.alert("Make sure to complete all fields for player creation. If no teams are available, contact an admin to assign you a team.");
+            Bert.defaults = {hideDelay: 3500};
+            Bert.alert('Make sure to complete all fields for player creation. If no teams are available, contact an admin.', 'warning', 'growl-top-left', 'fa-warning');
+        }
+        if (pWeight < 0) {
+            Bert.defaults = {hideDelay: 3500};
+            Bert.alert('Weights should be non-negative!', 'warning', 'growl-top-left', 'fa-warning');
         }
         /* Meteor calls the method from the Athlete API Collection which can be found
          * at location: imports/api/Athletes/methods.js; upon completion an alert message
          * will be printed stating the player has been creating and the action was successful.*/
         else {
             Meteor.call('athletes.insert', pName, pWeight, pTeamId, () => {
-                Bert.defaults = {hideDelay: 4500};
-                Bert.alert('Player Created', 'success', 'fixed-top', 'fa-check');
+                Bert.defaults = {hideDelay: 3500};
+                Bert.alert('Player Created', 'success', 'growl-top-left', 'fa-check');
                 this.name = "";
                 this.weight = "";
                 this.close();

@@ -138,17 +138,18 @@ export default class AthleteEntryList extends Component {
             alert('Please ensure you have selected a Date');
         }
         else if (this.props.selOp === 'Default') {
-            Bert.alert('Please ensure you have selected Pre or Post Weight', 'danger', 'fixed-top', 'fa-check');
+            Bert.defaults = {hideDelay: 3500};
+            Bert.alert('Please ensure you have selected Pre/Post Weight.', 'warning', 'growl-top-left', 'fa-warning');
         }
         else if (this.props.selOp === 'PreWeight') {
             /*tempWeight = this.state.weight + 1;
             Meteor.call('athletes.addPreWeight', this.props.athlete._id, this.state.date, tempWeight, () => {
-                Bert.defaults = {hideDelay: 4500};
-                Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
+                Bert.defaults = {hideDelay: 3500};
+                Bert.alert('Weight Added!', 'success', 'growl-top-left', 'fa-check');
             });*/
             Meteor.call('athletes.addPreWeight', this.props.athlete._id, this.state.date, this.state.weight, () => {
-                Bert.defaults = {hideDelay: 4500};
-                Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
+                Bert.defaults = {hideDelay: 3500};
+                Bert.alert('Weight Added!', 'success', 'growl-top-left', 'fa-check');
             });
             this.setState({pre: this.state.weight});
             //this.handlePreChange();
@@ -159,12 +160,12 @@ export default class AthleteEntryList extends Component {
         else if (this.props.selOp === 'PostWeight') {
             /*tempWeight = this.state.weight + 1;
             Meteor.call('athletes.addPostWeight', this.props.athlete._id, this.state.date, tempWeight, () => {
-                Bert.defaults = {hideDelay: 4500};
-                Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
+                Bert.defaults = {hideDelay: 3500};
+                Bert.alert('Weight Added', 'success', 'growl-top-left', 'fa-check');
             });*/
             Meteor.call('athletes.addPostWeight', this.props.athlete._id, this.state.date, this.state.weight, () => {
-                Bert.defaults = {hideDelay: 4500};
-                Bert.alert('Weight Added', 'success', 'fixed-top', 'fa-check');
+                Bert.defaults = {hideDelay: 3500};
+                Bert.alert('Weight Added!', 'success', 'growl-top-left', 'fa-check');
             });
             this.setState({post: this.state.weight});
             //this.handlePostChange();
@@ -194,6 +195,10 @@ export default class AthleteEntryList extends Component {
     /*handleWeightChange Function will set weight to e.target.value*/
     handleWeightChange = (e) => {
         e.persist();
+        if (e.target.value < 0) {
+            Bert.defaults = {hideDelay: 3500};
+            Bert.alert('Weight should be non-negative', 'warning', 'growl-top-left', 'fa-warning');
+        }
         this.setState({weight: e.target.value});
         this.handleDebounce(e);
     };

@@ -113,9 +113,9 @@ class AdminDash extends React.Component {
     handleAddUserAccess(update_obj) {
         Meteor.call('teams.addUserAccess', update_obj.id, update_obj.usrEmail, (error) => {
             if (error) {
-                Bert.alert(error.reason, 'danger');
+                Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
             } else {
-                Bert.alert('Added User Access!', 'success');
+                Bert.alert('Added User Access!', 'success', 'growl-top-left', 'fa-check');
             }
         });
     };
@@ -123,9 +123,9 @@ class AdminDash extends React.Component {
     handleRemoveUserAccess(update_obj) {
         Meteor.call('teams.removeUserAccess', update_obj.id, update_obj.usrEmail, (error) => {
             if (error) {
-                Bert.alert(error.reason, 'danger');
+                Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
             } else {
-                Bert.alert('Removed User Access!', 'success');
+                Bert.alert('Removed User Access!', 'success', 'growl-top-left', 'fa-check');
             }
         });
     };
@@ -134,9 +134,9 @@ class AdminDash extends React.Component {
     handleRoleChange(update_obj) {
         Meteor.call('users.changeRole', update_obj, (error) => {
             if (error) {
-                Bert.alert(error.reason, 'danger');
+                Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
             } else {
-                Bert.alert('Role updated!', 'success');
+                Bert.alert('Role updated!', 'success', 'growl-top-left', 'fa-check');
             }
         });
     };

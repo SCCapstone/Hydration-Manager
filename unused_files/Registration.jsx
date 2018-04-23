@@ -34,17 +34,17 @@ export default class Registration extends React.Component {
             {/* addNewSiteUser --> Meteor.method in /server/methods
                                Inserts data into SiteUser collection  -- Jacob  */}
             Meteor.call('addNewUser', emailAddr,pswd, ()=> {
-                Bert.defaults = {hideDelay: 4500};
-                Bert.alert('Account Created','success', 'fixed-top', 'fa-check');
+                Bert.defaults = {hideDelay: 3500};
+                Bert.alert('Account Created!','success', 'growl-top-left', 'fa-check');
                 this.routeToLogin();
             });
         } else if(emailAddr == '') {
-            Bert.defaults = {hideDelay: 6500};
-            Bert.alert('Email field must contain a valid email','danger', 'fixed-top', 'fa-frown-o');
+            Bert.defaults = {hideDelay: 3500};
+            Bert.alert('Email field must contain a valid email', 'warning', 'growl-top-left', 'fa-warning');
             }
         else{
-            Bert.defaults = {hideDelay: 6500};
-            Bert.alert('Password Entries Do NOT Match','danger', 'fixed-top', 'fa-frown-o');
+            Bert.defaults = {hideDelay: 3500};
+            Bert.alert('Password Entries Do NOT Match', 'warning', 'growl-top-left', 'fa-warning');
             {/* clear pswd entries */}
             this.state.password = "";
             this.state.passwordConfirm = ""

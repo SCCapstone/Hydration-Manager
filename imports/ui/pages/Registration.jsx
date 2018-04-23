@@ -70,27 +70,10 @@ class Registration extends React.Component {
     /* Submits form */
     handleSubmit(form) {
         const {history} = this.props;
-        //TODO: move to proper format
-        Accounts.createUser({
-            email: form.emailAddress.value,
-            password: form.password.value,
-            profile: {
-                phone: form.PhoneNumber.value,
-                head: false
-            }
-        }, (error) => {
-            if (error) {
-                Bert.alert(error.reason, 'danger');
-            } else {
-                //Roles.addUsersToRoles(newId, ['ADMIN']);
-                //Meteor.call('users.sendVerificationEmail');
-                Bert.alert('Welcome!', 'success');
-                history.push('/login');  //push(path, [state]) - (function) Pushes a new entry onto the history stack
-            }
-        });
-        // loggingIn = Meteor.loggingIn();
-        // newUserId = Meteor.userId();
-        // !loggingIn ? Roles.addUsersToRoles(newUserId, ['ADMIN']) : console.log("Role not added!!");
+        Meteor.call('users.createNew_WithPswd', form.emailAddress.value, form.password.value, form.PhoneNumber.value);
+        Bert.defaults = {hideDelay: 3500};
+        Bert.alert('User Created', 'success', 'growl-top-left', 'fa-info');
+        history.push('/login');  //push(path, [state]) - (function) Pushes a new entry onto the history stack
     };
 
     /* Renders Registration form */

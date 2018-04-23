@@ -43,8 +43,8 @@ export default class Login extends React.Component {
             if(data) {
                 this.routeToApp();
             } else {
-                Bert.defaults = {hideDelay: 6500};
-                Bert.alert('Invalid Email And/Or Password','warning', 'fixed-top', 'fa-warning');
+                Bert.defaults = {hideDelay: 3500};
+                Bert.alert('Invalid Email And/Or Password', 'warning', 'growl-top-left', 'fa-warning');
             }
         });
     };

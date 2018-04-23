@@ -41,8 +41,8 @@ class AthleteReport extends Component {
     * located at imports/api/Athletes/methods.js */
     deleteAthlete() {
         Meteor.call('athletes.remove', this.athlete()._id);
-        Bert.defaults = {hideDelay: 4500};
-        Bert.alert('Athlete Deleted', 'success', 'fixed-top', 'fa-check');
+        Bert.defaults = {hideDelay: 3500};
+        Bert.alert('Athlete Deleted', 'success', 'growl-top-left', 'fa-info');
         this.closeDelete();
         this.routeToMaster();
 
@@ -212,8 +212,8 @@ class AthleteReport extends Component {
         /* Meteor method athletes.edit on the collections side will be called and an alert will be issued
          * stating that athlete was edited and that the edit was successful. '*/
         Meteor.call('athletes.edit', pId, nm, bw, t, () => {
-            Bert.defaults = {hideDelay: 4500};
-            Bert.alert('athlete edited', 'success', 'fixed-top', 'fa-check');
+            Bert.defaults = {hideDelay: 3500};
+            Bert.alert('athlete edited', 'success', 'growl-top-left', 'fa-check');
             this.setState({
                 name: '',
                 base: '',

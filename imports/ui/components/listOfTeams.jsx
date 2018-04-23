@@ -2,6 +2,7 @@
 import React, {Component} from 'react'
 import {Button, FormControl, FormGroup, Modal, DropdownButton, MenuItem} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
 
 
@@ -60,8 +61,8 @@ export default class ListOfTeams extends Component {
         }
         //else {
         Meteor.call('teams.edit', pID, nm, s, () => {
-            Bert.defaults = {hideDelay: 4500};
-            Bert.alert('team edited', 'success', 'fixed-top', 'fa-check');
+            Bert.defaults = {hideDelay: 3500};
+            Bert.alert('Team edited', 'success', 'growl-top-left', 'fa-check');
             this.setState({teamEditName: '', editSeason: ''});
             this.closeEdit();
         });
@@ -155,23 +156,6 @@ export default class ListOfTeams extends Component {
                 </div>
                 {/*Ending of Edit Teams Modal */}
             </div>
-            /*---Confirm Edit Section Beginning---*/
-            /*
-                          <div>
-                              <Modal show={this.state.showConfirmEditModal} onHide={this.closeConfirmEdit}>
-                                  <Modal.Header>
-                                      <Modal.Title>Edit Team</Modal.Title>
-                                  </Modal.Header>
-                                  <Modal.Body>
-                                      <p>Are you sure you would like to edit this team?</p>
-                                  </Modal.Body>
-                                  <Modal.Footer>
-                                      <Button onClick={this.closeConfirmEdit}> Close </Button>
-                                      <Button onClick={this.confirmEdit} bsStyle="warning"> Confirm Team Edit </Button>
-                                  </Modal.Footer>
-                              </Modal>
-                          </div>*/
-            /*---Confirm Edit Section Ending---*/
         )
     }
 }
