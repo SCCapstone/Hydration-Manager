@@ -29,7 +29,7 @@ export default class AthleteAlert extends Component {
             hydrate = ((athlete.preWeightData[0].weight - athlete.postWeightData[0].weight) / athlete.preWeightData[0].weight) * 100;
             hydrate = Number.parseFloat(hydrate).toPrecision(4);
             if (hydrate > 0) {
-                hydrate = "+" + hydrate;
+                hydrate = "-" + hydrate; // A positive hydration level actually represents a negative weight change.
             }
         }
         //console.log(hydrate);

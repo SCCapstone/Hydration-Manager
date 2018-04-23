@@ -27,20 +27,20 @@ export default class LongTermAthleteAlert extends Component {
             hydrate = null;
         }
         else {
-            if(athlete.postWeightData[0].weight != undefined)
+            if(athlete.postWeightData[0].weight !== undefined)
             {
                 currentWeight = athlete.postWeightData[0].weight;
                 currentWeight = Number.parseFloat(currentWeight).toPrecision(4);
             }
-            else if (athlete.preWeightData[0].weight != undefined)
+            else if (athlete.preWeightData[0].weight !== undefined)
             {
                 currentWeight = athlete.preWeightData[0].weight;
                 currentWeight = Number.parseFloat(currentWeight).toPrecision(4);
             }
             hydrate = ((athlete.baseWeight - currentWeight) / athlete.baseWeight) * 100;
             hydrate = Number.parseFloat(hydrate).toPrecision(4);
-            if (hydrate > 0) {
-                hydrate = "+" + hydrate;
+            if (hydrate > 0) { // A positive hydration level actually represents a negative weight change.
+                hydrate = "-" + hydrate;
             }
         }
 
