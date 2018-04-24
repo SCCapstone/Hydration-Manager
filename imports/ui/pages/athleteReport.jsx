@@ -303,8 +303,14 @@ class AthleteReport extends Component {
                         </Modal>
                         <h3>Athlete Report</h3>
                         <h4>{this.athlete().name} - {this.getTeam()} - {this.athlete().baseWeight} <Button bsSize="xsmall" onClick={() => this.handleEditButtonClick()}><span className="glyphicon glyphicon-pencil">{}</span></Button></h4><br/>
-                        <AthleteChart athlete={this.athlete()}/><br/><br/>
-                        <AthleteReportTable athlete={this.athlete()}/>
+                        <div>
+                            <div className="col-md-8 col-sm-10">
+                                <AthleteChart athlete={this.athlete()}/><br/><br/>
+                            </div>
+                            <div className="col-md-10 col-sm-11">
+                                <AthleteReportTable athlete={this.athlete()}/>
+                            </div>
+                        </div>
                     </div>
                 )
             }
