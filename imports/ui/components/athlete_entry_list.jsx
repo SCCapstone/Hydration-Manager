@@ -77,6 +77,12 @@ export default class AthleteEntryList extends Component {
         if (pre > 0 && post > 0) {
             hydration = (((pre - post)) / pre) * 100;
             console.log("The hydration % is " + hydration);
+            if (hydration > 0) { // Positive hydration represents a weight loss.
+                hydration = "-" + hydration;
+            }
+            if (hydration < 0) { // Negative hydration represents a weight gain.
+                hydration = -hydration;
+            }
         }
         // This generates an alert for an athlete entering 'red' status based on the most recent pre/post.
         if (hydration <= -4 || hydration >= 4) {

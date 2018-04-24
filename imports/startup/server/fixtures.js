@@ -9,13 +9,21 @@ import {_} from 'meteor/underscore';
 // Custom File & Collection Imports
 
 const users = [
-    {
-        // Head Admin Account.
+    {   // Head Admin Account.
         email: 'hydration@usc.com',
         password: 'password',
         profile: {
             phone: '18031234567',
             head: true,
+        },
+        roles: ['ADMIN'],
+    },
+    {   // Head Dev Account.
+        email: 'dev_hydration@usc.com',
+        password: 'capstone',
+        profile: {
+            phone: '18039606328',
+            head: false,
         },
         roles: ['ADMIN'],
     },

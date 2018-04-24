@@ -58,6 +58,12 @@ export default class AthleteSingle extends Component {
         if ((athlete.preWeightData[0] !== undefined && athlete.postWeightData[0] !== undefined) && (athlete.preWeightData[0].date === athlete.postWeightData[0].date)) {
             hydrate = ((athlete.preWeightData[0].weight - athlete.postWeightData[0].weight) / athlete.preWeightData[0].weight) * 100;
             hydrate = Number.parseFloat(hydrate).toPrecision(4);
+            if (hydrate > 0) { // Positive hydration represents a weight loss.
+                hydrate = "-" + hydrate;
+            }
+            if (hydrate < 0) { // Negative hydration represents a weight gain.
+                hydrate = -hydrate;
+            }
         }
         //Get the athlete's pre and post weight data
         if (athlete.preWeightData[0] !== undefined && athlete.preWeightData[0].weight !== undefined && athlete.preWeightData[0].date !== undefined) {

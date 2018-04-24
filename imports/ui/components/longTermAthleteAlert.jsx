@@ -42,6 +42,9 @@ export default class LongTermAthleteAlert extends Component {
             if (hydrate > 0) { // A positive hydration level actually represents a negative weight change.
                 hydrate = "-" + hydrate;
             }
+            if (hydrate < 0) { // Negative hydration represents a weight gain.
+                hydrate = -hydrate;
+            }
         }
 
         return (

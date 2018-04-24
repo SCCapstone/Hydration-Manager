@@ -31,6 +31,9 @@ export default class AthleteAlert extends Component {
             if (hydrate > 0) {
                 hydrate = "-" + hydrate; // A positive hydration level actually represents a negative weight change.
             }
+            if (hydrate < 0) { // Negative hydration represents a weight gain.
+                hydrate = -hydrate;
+            }
         }
         //console.log(hydrate);
         if (hydrate == null || hydrate === undefined) {
