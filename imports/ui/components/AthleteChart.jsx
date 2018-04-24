@@ -59,7 +59,7 @@ export default class App extends Component {
         }
         for (let i = 0; i < n; i++) {
             let now = new Date(athlete.postWeightData[n - 1 - i].date);
-            let day = now.getDay();
+            let day = now.getDate();
             let month = (now.getMonth() + 1);
             if (month < 10)
                 month = "0" + month;
@@ -80,7 +80,7 @@ export default class App extends Component {
             n = athlete.postWeightData.length;
         }
         for (let i = 0; i < n; i++) {
-            data[i] = athlete.preWeightData[n - 1 - i].weight;
+            data[i] = athlete.postWeightData[n - 1 - i].weight;
         }
         return data;
     }
