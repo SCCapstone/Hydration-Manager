@@ -1,10 +1,16 @@
 // Package Imports
 import React, {Component} from 'react';
-import {Table, FormControl, FormGroup, Modal, Button, Radio} from 'react-bootstrap';
+import {Table, FormControl, FormGroup, Modal, Button, Radio, Popover, OverlayTrigger} from 'react-bootstrap';
 import autoBind from 'react-autobind';
 import {withTracker} from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 
+
+const popoverRight = (
+    <Popover id="popover-positioned-right" title="Click to Edit">
+        Click on a row to edit an athlete.
+    </Popover>
+);
 
 /*AthleteReportTable component can be found and is linked with the athleteReport page at location
  * imports/ui/pages/athleteReport.jsx */
@@ -244,12 +250,17 @@ class AthleteReportTable extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.state.dates.map((date) => <tr key={date} keyprop={date} onClick={() => this.handleEditButtonClick(date)}>
-                        <td>{this.getDateFormat(date)}</td>
-                        <td>{this.getHydration(date)}</td>
-                        <td>{this.getDatePreWeight(date)}</td>
-                        <td>{this.getDatePostWeight(date)}</td>
-                    </tr>)}
+
+                    {this.state.dates.map((date) => <OverlayTrigger trigger="hover" placement="right"
+                                                                    overlay={popoverRight}>
+                        <tr key={date} keyprop={date} onClick={() => this.handleEditButtonClick(date)}>
+                            <td>{this.getDateFormat(date)}</td>
+                            <td>{this.getHydration(date)}</td>
+                            <td>{this.getDatePreWeight(date)}</td>
+                            <td>{this.getDatePostWeight(date)}</td>
+                        </tr>
+                    </OverlayTrigger>)}
+
                     </tbody>
                 </Table>
             </div>
