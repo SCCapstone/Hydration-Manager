@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hydration-Manager</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script type="text/javascript" src="index.js"></script>
+</head>
+<body>
+<header>
+    <img id="logo" src="images/logo.png" alt="Hydration-Manager logo">
+    <h1>Hydration-Manager</h1>
+    <p>
+        <a href="https://github.com/Justin-Schneider" target="_blank">by Justin Schneider</a>
+        <a href="https://github.com/afraznein" target="_blank">by Tony Frazier</a>
+        <a href="https://github.com/george-clayton" target="_blank">by George Clayton</a><br><br>
+        <a href="https://github.com/Jacob Huffstetler" target="_blank">by Jacob Huffstetler</a>
+        <a href="https://github.com/Jaymel Dash" target="_blank">by Jaymel Dash</a>
+    </p>
+</header>
+<main>
+    <h2>About</h2>
+    <p>This project seeks to aid the athletic training staff at the University of South Carolina. Currently, the
+        training staff is using pencil and paper method of tracking water weight loss, weighing athletes before and
+        after practice. They then plug in this data into an excel spreadsheet, which calculates hydration statuses of
+        the athletes. The purpose of Hydration-Manager is to move this process into an online, web-based application
+        that will alert the staff immediately if athletes are dehydrated, thus improving their response time to cases of
+        severe dehydration and promoting the overall health and capacity of the student athletes.</p>
+    <h2>How to Install</h2>
+    <ol>
+        <li>
+            <p>Download the Git Repo from</p>
+            <pre>https://github.com/SCCapstone/Hydration-Manager</pre>
+        </li>
+        <li>
+            <p>Install Node.js and Meteor from </p><pre>https://nodejs.org/en/<br>https://www.meteor.com/</pre>
+        </li>
+        <li>
+            <p>Install the nesscary npm and meteor packages</p>
+            <pre>$ cd .\Hydration-Manager\<br>$ meteor npm install</pre>
+        </li>
+        <li>
+            <p>To run the App locally</p>
+            <pre>$ meteor</pre>
+
+        </li>
+        <li>
+            <p>and the app will be running at</p>
+            <pre>http://localhost:3000/</pre>
+        </li>
+    </ol>
+
+    <h2>Video</h2>
+    <p>
+        <iframe width="1903" height="480" src="https://www.youtube.com/embed/QpyHrQYeoIE" frameborder="0" allowfullscreen></iframe>
+    </p>
+
+    <h2>Images</h2>
+    <div class="slideshow-container">
+
+        <div class="mySlides fade" style="display: block">
+            <div class="numbertext">1 / 3</div>
+            <img src="images/img1.png" style="width:100%">
+            <div class="text">Login Page</div>
+        </div>
+
+        <div class="mySlides fade">
+            <div class="numbertext">2 / 3</div>
+            <img src="images/img2.png" style="width:100%">
+            <div class="text">Weight Entry Page</div>
+        </div>
+
+        <div class="mySlides fade">
+            <div class="numbertext">3 / 3</div>
+            <img src="images/img3.png" style="width:100%">
+            <div class="text">Your Teams Page</div>
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    </div>
+    <br>
+    <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+
+</main>
+
+<footer>
+    <p>USC Capstone Project: Hydration-Manager</p>
+</footer>
+</body>
+</html>
