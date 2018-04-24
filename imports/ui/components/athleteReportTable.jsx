@@ -229,7 +229,7 @@ class AthleteReportTable extends Component {
                             </form>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button onClick={this.close} bsStyle="danger"> Close </Button>
+                            <Button onClick={this.close}> Close </Button>
                             <Button onClick={this.editEntry} bsStyle="primary"> Edit Weight </Button>
                         </Modal.Footer>
                     </Modal>
@@ -244,13 +244,11 @@ class AthleteReportTable extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.state.dates.map((date) => <tr key={date} keyprop={date}>
+                    {this.state.dates.map((date) => <tr key={date} keyprop={date} onClick={() => this.handleEditButtonClick(date)}>
                         <td>{this.getDateFormat(date)}</td>
                         <td>{this.getHydration(date)}</td>
                         <td>{this.getDatePreWeight(date)}</td>
                         <td>{this.getDatePostWeight(date)}</td>
-                        <td><Button onClick={() => this.handleEditButtonClick(date)}><span
-                            className="glyphicon glyphicon-pencil"></span>Edit</Button></td>
                     </tr>)}
                     </tbody>
                 </Table>
