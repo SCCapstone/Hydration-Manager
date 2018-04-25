@@ -147,7 +147,7 @@ export default class AthleteEntryList extends Component {
             Bert.defaults = {hideDelay: 3500};
             Bert.alert('Please ensure you have selected Pre/Post Weight.', 'warning', 'growl-top-left', 'fa-warning');
         }
-        else if (this.props.selOp === 'PreWeight') {
+        else if (this.props.selOp === 'PreWeight' /*&& this.validateWeight === true*/) {
             /*tempWeight = this.state.weight + 1;
             Meteor.call('athletes.addPreWeight', this.props.athlete._id, this.state.date, tempWeight, () => {
                 Bert.defaults = {hideDelay: 3500};
@@ -198,13 +198,44 @@ export default class AthleteEntryList extends Component {
         this.setState({postDataState: this.props.athlete.postWeightData});
     };
 
+/*    //validateWeight function for entry list
+    validateWeight = (e) => {
+        //Regex for athlete entry list
+        let rx = /(\d*[.])?\d+/;
+
+        /!*****
+         These logs do NOT appear in console, when uncommented:
+             console.log(rx.test(e));
+             console.log(e);
+         *********!/
+
+        /!*
+         This code looks as if it should catch the errors, being that
+         if the result of the regex test is false or if the val
+        I don't know the reason behind why it isn't throwing the error.
+         *!/
+
+        if(rx.test(e) === false /!*|| e.isNaN() === true || this.props.athlete.preWeightData.isNaN() === true
+            || this.props.athlete.postWeightData.isNaN() === true*!/){
+            Bert.defaults = {hideDelay: 3500};
+            Bert.alert('Invalid Input: Please re-evaluate input', 'warning', 'growl-top-left', 'fa-warning');
+        }
+
+        else {
+            this.setState({weight: e.target.value});
+            this.handleDebounce(e);
+        }
+    };*/
+
     /*handleWeightChange Function will set weight to e.target.value*/
     handleWeightChange = (e) => {
         e.persist();
+        /* If input is negative, the check does NOT pass and a resulting error is thrown. */
         if (e.target.value < 0) {
             Bert.defaults = {hideDelay: 3500};
             Bert.alert('Weight should be non-negative', 'warning', 'growl-top-left', 'fa-warning');
         }
+        /* If else, pass the value */
         else {
             this.setState({weight: e.target.value});
             this.handleDebounce(e);
@@ -226,10 +257,12 @@ export default class AthleteEntryList extends Component {
                 <td>
                     <form>
                         <input className='weightEnterInput' type="number" onChange={this.handleWeightChange}
-                               onKeyPress={this.onKeyPress}/>
+                               onKeyPress={this.onKeyPress} /*weightValidated={this.validateWeight}*//>
                     </form>
                 </td>
             </tr>
         )
     }
+
+
 }
