@@ -120,7 +120,9 @@ class MasterReport extends React.Component {
                 if (this.props.athletesList[i].teamId === this.props.teamId) {
                     currentAthletes.push(this.props.athletesList[i]);
                 }
-                /*TODO: Pushing Isn't The Best Data Structure To Use For This Guys! -Jaymel*/
+
+                /* Pushing Isn't The Best Data Structure To Use For This Guys! -Jaymel*/
+                // Nevermind carry on
             }
             /*Finally it returns the currentAthlete*/
             return currentAthletes;

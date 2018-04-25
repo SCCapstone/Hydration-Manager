@@ -251,7 +251,7 @@ class AthleteReportTable extends Component {
                     </thead>
                     <tbody>
 
-                    {this.state.dates.map((date) => <OverlayTrigger trigger="hover" placement="right"
+                    {this.state.dates.map((date) => <OverlayTrigger trigger={["hover", "focus"]} placement="right"
                                                                     overlay={popoverRight}>
                         <tr key={date} keyprop={date} onClick={() => this.handleEditButtonClick(date)}>
                             <td>{this.getDateFormat(date)}</td>
