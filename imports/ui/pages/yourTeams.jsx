@@ -8,15 +8,14 @@ import {Button, FormControl, FormGroup, Modal} from 'react-bootstrap';
 // Custom File Imports
 import TeamsCollection from '../../api/Teams/Teams.js';
 import ListOfTeams from '../components/listOfTeams.jsx';
-
-{/*TODO Conditional Rendering of Create a Team button iff user is an admin: See line #82 in this file*/
-}
+import Teams from "../../api/Teams/Teams";
 
 class YourTeams extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             showModal: false,
+            showModal2: false,
             teamName: '',
             teamSeason: '',
         };
@@ -45,6 +44,14 @@ class YourTeams extends React.Component {
         this.setState({showModal: false});
     };
 
+    open2() {
+        this.setState({showModal2: true});
+    };
+
+    close2() {
+        this.setState({showModal2: false});
+    };
+
     addTeam() {
         event.preventDefault();
         const teamName = this.state.teamName;
@@ -66,6 +73,28 @@ class YourTeams extends React.Component {
         }
     };
 
+    addTeamCSV() {
+        event.preventDefault();
+        if (this.state.data !== undefined) {
+            let TeamName = this.state.data[0][0];
+            let TeamSeason = this.state.data[0][1];
+            if (TeamName !== null && TeamSeason !== null) {
+                let id = this.props.userId;
+                let user = this.props.emailAddress;
+                Meteor.call('teams.insert', TeamName, TeamSeason, id, user);
+            }
+            let myTeam = Teams.findOne({name: TeamName});
+            for (let i = 1; i < this.state.data.length; i++) {
+                let AthleteName = this.state.data[i][0];
+                let AthleteWeight = this.state.data[i][1];
+                if (AthleteName !== null && AthleteWeight !== null) {
+                    Meteor.call('athletes.insert', AthleteName, AthleteWeight, myTeam._id);
+                }
+            }
+        }
+        this.close2();
+    }
+
     handleTeam = (e) => {
         e.persist();
         this.setState({teamName: e.target.value});
@@ -75,6 +104,23 @@ class YourTeams extends React.Component {
         this.setState({teamSeason: e.target.value});
     };
 
+    uploadFile(event) {
+        let file = event.target.files[0];
+        let Papa = require("papaparse/papaparse.min.js");
+        Papa.parse(file, {
+            header: false,
+            dynamicTyping: true,
+            skipEmptyLines: true,
+            complete: this.uploadData
+        });
+    }
+
+    uploadData(result) {
+        let data = result.data;
+        this.setState({data: data});
+        console.log(this.state.data);
+    }
+
     render() {
         const props = this.props;
         return (
@@ -83,6 +129,8 @@ class YourTeams extends React.Component {
                     <h3>Your Teams</h3>
                     {props.userRoles[0] === "ADMIN" ?
                         <Button onClick={this.open} bsStyle="primary">&#43; Create a Team</Button> : ''}
+                    {props.userRoles[0] === "ADMIN" ?
+                        <Button onClick={this.open2} bsStyle="primary">&#43; Import a Team</Button> : ''}
                 </div>
                 <hr/>
                 <div>
@@ -103,6 +151,33 @@ class YourTeams extends React.Component {
                         <Modal.Footer>
                             <Button onClick={this.close}> Close </Button>
                             <Button onClick={this.addTeam} bsStyle="primary"> Create Team </Button>
+                        </Modal.Footer>
+                    </Modal>
+                </div>
+                <div>
+                    <Modal show={this.state.showModal2} onHide={this.close2}>
+                        <Modal.Header>
+                            <Modal.Title>Import a CSV to Create a Team</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <p>To import a CSV file it needs to be in the format shown below</p><br/>
+                            <img src="/images/example.png" alt={"Format for CSV"}/><br/>
+                            <p>The first row should be the team name followed by the team's season as shown in the
+                                example, Football - 1995</p>
+                            <p>For the next rows if should be the athletes name followed by the athletes base weight as
+                                shown in the example as Justin - 190. You can import as many athletes as you need
+                                too.</p>
+                            <p><strong>If the file is not in the above format your team will not be created
+                                successfully.</strong></p><br/>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={this.close2}> Close </Button>
+                            <span className="btn btn-primary btn-file">
+                                    Upload CSV<input type="file"
+                                                     name="myFile"
+                                                     onChange={this.uploadFile}/>
+                            </span>
+                            <Button onClick={this.addTeamCSV} bsStyle="primary"> Import Team </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>

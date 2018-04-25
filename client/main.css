@@ -15,12 +15,12 @@ a {
     text-decoration: none;
     color: #000;
 }
-
-/*Need to put something here, so they know its a link */
-a:hover {
-
+img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
-
 /* Nav CSS */
 .navbar {
     margin-bottom: 0;
@@ -183,6 +183,9 @@ a:hover {
     margin-left: 10px;
     margin-right: 10px;
 }
+#SessionSelect{
+    margin-left: 10px;
+}
 
 /*Master Report Page CSS */
 .MasterHeader {
@@ -234,6 +237,7 @@ a:hover {
 .YourTeamHeader button {
     float: right;
     vertical-align: middle;
+    margin-left: 10px;
 }
 
 .ListOfTeams {
@@ -294,6 +298,27 @@ a:hover {
 .card #close:hover {
     background-color: white;
 }
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
 
 /*Alerts Page CSS */
 .yellowBack {
@@ -381,6 +406,9 @@ a:hover {
     }
 
     #TeamSelect {
+        margin-top: 10px;
+    }
+    #SessionSelect{
         margin-top: 10px;
     }
 }
