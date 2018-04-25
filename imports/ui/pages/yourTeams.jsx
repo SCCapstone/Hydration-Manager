@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
 import {withTracker} from 'meteor/react-meteor-data';
-import {Button, FormControl, FormGroup, Modal} from 'react-bootstrap';
+import {Button, FormControl, FormGroup, Modal, Alert} from 'react-bootstrap';
 
 // Custom File Imports
 import TeamsCollection from '../../api/Teams/Teams.js';
@@ -18,6 +18,9 @@ class YourTeams extends React.Component {
             showModal2: false,
             teamName: '',
             teamSeason: '',
+            alert1: false,
+            alert2: false,
+            fileName: "",
         };
         // this.open = this.open.bind(this);
         // this.close = this.close.bind(this);
@@ -106,13 +109,27 @@ class YourTeams extends React.Component {
 
     uploadFile(event) {
         let file = event.target.files[0];
-        let Papa = require("papaparse/papaparse.min.js");
-        Papa.parse(file, {
-            header: false,
-            dynamicTyping: true,
-            skipEmptyLines: true,
-            complete: this.uploadData
-        });
+        let index = file.name.lastIndexOf(".");
+        if(file.name.substring(index+1).toLowerCase() === "csv" ) {
+            let Papa = require("papaparse/papaparse.min.js");
+            Papa.parse(file, {
+                header: false,
+                dynamicTyping: true,
+                skipEmptyLines: true,
+                complete: this.uploadData
+            });
+            this.setState({
+                fileName: file.name,
+                alert1: false,
+                alert2: true
+            });
+        }
+        else{
+            this.setState({
+                alert2: false,
+                alert1: true
+            });
+        }
     }
 
     uploadData(result) {
@@ -168,7 +185,13 @@ class YourTeams extends React.Component {
                                 shown in the example as Justin - 190. You can import as many athletes as you need
                                 too.</p>
                             <p><strong>If the file is not in the above format your team will not be created
-                                successfully.</strong></p><br/>
+                                successfully.</strong></p>
+                            {this.state.alert1 ? <Alert bsStyle="danger">
+                                <strong>Error</strong> the file you uploaded wasn't a .csv file.
+                            </Alert> : ""}
+                            {this.state.alert2 ? <Alert bsStyle="success">
+                                <strong>Success</strong> the file you uploaded was {this.state.fileName}
+                            </Alert> : ""}
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={this.close2}> Close </Button>
@@ -177,7 +200,7 @@ class YourTeams extends React.Component {
                                                      name="myFile"
                                                      onChange={this.uploadFile}/>
                             </span>
-                            <Button onClick={this.addTeamCSV} bsStyle="primary"> Import Team </Button>
+                            <Button disabled={!this.state.alert2} onClick={this.addTeamCSV} bsStyle="primary" > Import Team </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
