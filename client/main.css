@@ -183,6 +183,9 @@ a:hover {
     margin-left: 10px;
     margin-right: 10px;
 }
+#SessionSelect{
+    margin-left: 10px;
+}
 
 /*Master Report Page CSS */
 .MasterHeader {
@@ -381,6 +384,9 @@ a:hover {
     }
 
     #TeamSelect {
+        margin-top: 10px;
+    }
+    #SessionSelect{
         margin-top: 10px;
     }
 }

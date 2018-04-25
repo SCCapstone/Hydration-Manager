@@ -8,8 +8,8 @@ import {Button, FormControl, FormGroup, Modal} from 'react-bootstrap';
 // Custom File Imports
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 import TeamsCollection from '../../api/Teams/Teams.js';
-import ReportDropdownOfTeams from '../components/reportDropdownOfTeams.jsx';
 import AthleteReportTable from '../components/athleteReportTable';
+import AthleteChart from '../components/AthleteChart';
 
 class AthleteReport extends Component {
     constructor(props) {
@@ -283,9 +283,9 @@ class AthleteReport extends Component {
                                 <form>
                                     <FormGroup>
                                         <FormControl defaultValue={this.athlete().name} label='Name' type='string'
-                                                     onChange={this.handleName}/>
+                                                     onChange={this.handleName}/><br/>
                                         <FormControl defaultValue={this.athlete().baseWeight} label='Weight'
-                                                     type='number' onChange={this.handleWeight}/>
+                                                     type='number' onChange={this.handleWeight}/><br/>
                                         <FormControl defaultValue={this.athlete().teamId} value={this.state.team}
                                                      componentClass="select" label='Team' onChange={this.handleTeam}>
                                             {this.teams().map((team) => <option value={team._id}
@@ -295,22 +295,22 @@ class AthleteReport extends Component {
                                 </form>
                             </Modal.Body>
                             <Modal.Footer>
-                                {props.userRoles[0] === "ADMIN" ?
-                                    <Button onClick={this.openDelete} bsStyle="danger">Delete Athlete</Button> : ''}
-                                <Button onClick={this.close} bsStyle="danger">Close</Button>
+                                <Button onClick={this.close}>Close</Button>
+                                {props.userRoles[0] === "ADMIN" ? <Button onClick={this.openDelete} bsStyle="danger">Delete Athlete</Button> : ''}
                                 <Button onClick={this.editEntry} bsStyle="primary">Edit Athlete</Button>
+
                             </Modal.Footer>
                         </Modal>
                         <h3>Athlete Report</h3>
-                        {/*TODO: Create component for the basic info*/}
-                        <h4>{this.athlete().name} <Button bsSize="xsmall"
-                                                          onClick={() => this.handleEditButtonClick()}><span
-                            className="glyphicon glyphicon-pencil">{}</span></Button></h4>
-                        <h5>Team: {this.getTeam()}</h5>
-                        <h5>Base Weight: {this.athlete().baseWeight}</h5>
-                        <h5>Current Weight: {this.showCurrentWeight()}</h5>
-                        <h5>Total Weight Change: {this.calcLoss()}</h5>
-                        <AthleteReportTable athlete={this.athlete()}/>
+                        <h4>{this.athlete().name} - {this.getTeam()} - {this.athlete().baseWeight} <Button bsSize="xsmall" onClick={() => this.handleEditButtonClick()}><span className="glyphicon glyphicon-pencil">{}</span></Button></h4><br/>
+                        <div>
+                            <div className="col-md-8 col-sm-10">
+                                <AthleteChart athlete={this.athlete()}/><br/><br/>
+                            </div>
+                            <div className="col-md-10 col-sm-11">
+                                <AthleteReportTable athlete={this.athlete()}/>
+                            </div>
+                        </div>
                     </div>
                 )
             }

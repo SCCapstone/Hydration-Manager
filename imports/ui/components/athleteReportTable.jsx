@@ -1,10 +1,16 @@
 // Package Imports
 import React, {Component} from 'react';
-import {Table, FormControl, FormGroup, Modal, Button, Radio} from 'react-bootstrap';
+import {Table, FormControl, FormGroup, Modal, Button, Radio, Popover, OverlayTrigger} from 'react-bootstrap';
 import autoBind from 'react-autobind';
 import {withTracker} from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 
+
+const popoverRight = (
+    <Popover id="popover-positioned-right" title="Click to Edit">
+        Click on a row to edit an athlete.
+    </Popover>
+);
 
 /*AthleteReportTable component can be found and is linked with the athleteReport page at location
  * imports/ui/pages/athleteReport.jsx */
@@ -153,7 +159,7 @@ class AthleteReportTable extends Component {
         }
         if (pre > 0 && post > 0) {
             hydration = (((pre - post)) / pre) * 100;
-            if (hydration >= -2 && hydration <= 3) {
+            if (hydration >= -3 && hydration <= 3) {
                 this.setColor(aDate, 'greenStatus');
             }
             else if (hydration > -4 && hydration < -3) { //yellow
@@ -229,7 +235,7 @@ class AthleteReportTable extends Component {
                             </form>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button onClick={this.close} bsStyle="danger"> Close </Button>
+                            <Button onClick={this.close}> Close </Button>
                             <Button onClick={this.editEntry} bsStyle="primary"> Edit Weight </Button>
                         </Modal.Footer>
                     </Modal>
@@ -244,14 +250,17 @@ class AthleteReportTable extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.state.dates.map((date) => <tr key={date} keyprop={date}>
-                        <td>{this.getDateFormat(date)}</td>
-                        <td>{this.getHydration(date)}</td>
-                        <td>{this.getDatePreWeight(date)}</td>
-                        <td>{this.getDatePostWeight(date)}</td>
-                        <td><Button onClick={() => this.handleEditButtonClick(date)}><span
-                            className="glyphicon glyphicon-pencil"></span>Edit</Button></td>
-                    </tr>)}
+
+                    {this.state.dates.map((date) => <OverlayTrigger trigger="hover" placement="right"
+                                                                    overlay={popoverRight}>
+                        <tr key={date} keyprop={date} onClick={() => this.handleEditButtonClick(date)}>
+                            <td>{this.getDateFormat(date)}</td>
+                            <td>{this.getHydration(date)}</td>
+                            <td>{this.getDatePreWeight(date)}</td>
+                            <td>{this.getDatePostWeight(date)}</td>
+                        </tr>
+                    </OverlayTrigger>)}
+
                     </tbody>
                 </Table>
             </div>

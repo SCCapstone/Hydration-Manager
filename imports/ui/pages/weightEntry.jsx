@@ -62,7 +62,7 @@ class WeightEntry extends React.Component {
     };
 
     handleSessionChange = (e) => {
-        this.setState({selectedSession: e.target.value});
+        this.setState({selectedSession: e});
         let weightElements = document.getElementsByClassName("weightEnterInput");
         for (let i = 0; i < weightElements.length; i++) {
             weightElements[i].value = "";
@@ -144,11 +144,12 @@ class WeightEntry extends React.Component {
                     <div className="WeightButtons">
                         <input type="date" value={this.state.selectedDate} onChange={this.handleDateChange}
                                id="DatePicker"/>
-                        <select onChange={this.handleSessionChange.bind(this)}>
-                            <option value="1">Session 1</option>
-                            <option value="2">Session 2</option>
-                            <option value="3">Session 3</option>
-                        </select>
+                        <DropdownButton id={'SessionSelect'} title={'Session ' + this.state.selectedSession}
+                                        bsStyle={'default'} onSelect={this.handleSessionChange}>
+                            <MenuItem eventKey="1">Session 1</MenuItem>
+                            <MenuItem eventKey="2">Session 2</MenuItem>
+                            <MenuItem eventKey="3">Session 3</MenuItem>
+                        </DropdownButton>
                         <ToggleButtonGroup type="radio" name="options" id="RadioButtons"
                                            value={this.state.selectedOption}>
                             <ToggleButton value={"PreWeight"}
@@ -156,7 +157,7 @@ class WeightEntry extends React.Component {
                             <ToggleButton value={"PostWeight"}
                                           onClick={() => this.handleOptionChange("PostWeight")}>PostWeight</ToggleButton>
                         </ToggleButtonGroup>
-                        <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'default'}>
+                        <DropdownButton id={'TeamSelect'} title={'Team Select'} key={null} bsStyle={'default'}>
                             {this.teams().map((team) => {
                                 return <WeightDropdownOfTeams key={team._id} team={team}/>
                             })}
