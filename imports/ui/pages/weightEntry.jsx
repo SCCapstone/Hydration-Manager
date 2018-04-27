@@ -21,9 +21,6 @@ class WeightEntry extends React.Component {
             selectedDate: '',
             selectedSession: '',
         };
-        // this.handleOptionChange = this.handleOptionChange.bind(this);
-        // this.handleDateChange =  this.handleDateChange.bind(this);
-        // this.handleDebounce = debounce(1000, this.handleDebounce);
         autoBind(this);
     };
 

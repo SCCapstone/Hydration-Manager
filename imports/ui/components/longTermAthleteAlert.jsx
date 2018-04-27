@@ -27,13 +27,11 @@ export default class LongTermAthleteAlert extends Component {
             hydrate = null;
         }
         else {
-            if(athlete.postWeightData[0].weight !== undefined)
-            {
+            if (athlete.postWeightData[0].weight !== undefined) {
                 currentWeight = athlete.postWeightData[0].weight;
                 currentWeight = Number.parseFloat(currentWeight).toPrecision(4);
             }
-            else if (athlete.preWeightData[0].weight !== undefined)
-            {
+            else if (athlete.preWeightData[0].weight !== undefined) {
                 currentWeight = athlete.preWeightData[0].weight;
                 currentWeight = Number.parseFloat(currentWeight).toPrecision(4);
             }

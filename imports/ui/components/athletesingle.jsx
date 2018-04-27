@@ -14,13 +14,6 @@ export default class AthleteSingle extends Component {
         autoBind(this);
     }
 
-    /*A link to the window: /app/weightEntry */
-
-    /*   routeToWE () {
-            window.location ='/app/weightEntry';
-        };
-    */
-
     //Formatting for date
     getDateFormat(Date1) {
         let now = new Date(Date1);

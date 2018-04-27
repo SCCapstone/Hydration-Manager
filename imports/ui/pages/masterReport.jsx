@@ -24,13 +24,6 @@ class MasterReport extends React.Component {
             playerTeamId: '',
             teamSelected: '',
         };
-        /*   this.routeToReport = this.routeToReport.bind(this);
-             this.open = this.open.bind(this);
-             this.close = this.close.bind(this);
-             this.addPlayer = this.addPlayer.bind(this);
-             this.teams = this.teams.bind(this);
-             this.athletes = this.athletes.bind(this);
-             this.getCurrentTeam = this.getCurrentTeam.bind(this); */
         autoBind(this);
     }
 
@@ -66,10 +59,7 @@ class MasterReport extends React.Component {
         const pName = this.state.name;
         const pWeight = this.state.weight;
         const pTeamId = this.state.playerTeamId;
-        /*  console.log(pName);
-            console.log(pWeight);
-            console.log(pHeight);
-            console.log(pTeamId);*/
+
         if (pWeight < 0) {
             Bert.defaults = {hideDelay: 3500};
             Bert.alert('Weights should be non-negative!', 'warning', 'growl-top-left', 'fa-warning');
@@ -104,15 +94,6 @@ class MasterReport extends React.Component {
         if (this.props.teamId !== '') {
             let teamId = this.props.teamId;
             let currentAthletes = [];
-            // currentTeam = '';
-            // // currentTeam = TeamsCollection.findOne({"_id": teamId});
-            // for(i=0;i<this.props.teamsList.length; i++)
-            // {
-            //     if(this.props.teamsList[i]._id == teamId)
-            //     {
-            //         currentTeam = this.props.teamsList[i];
-            //     }
-            // }
             /* The athletes list is iterated through, */
             for (let i = 0; i < this.props.athletesList.length; i++) {
                 /*If the athletes list teamId is EQUAL TO the teamId,
@@ -136,11 +117,6 @@ class MasterReport extends React.Component {
 
     /* The Teams component simply returns the teamsList */
     teams() {
-        // const curUser = this.props.name;  //CurrentUser.findOne();
-        // console.log(curUser);
-        // const id = this.props.userId;  //curUser.userID;
-        // console.log(id);
-        // return TeamsCollection.find({user:id}).fetch();
         return this.props.teamsList;
     };
 
@@ -316,11 +292,6 @@ export default withTracker(({match}) => {
     // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
     // match: PropTypes.object.isRequired,
     // history: PropTypes.object.isRequired,
-    //console.log(teamsList);
-    //console.log(athletesList);
-    //console.log(athleteLoading);
-    //console.log('teamId');
-    //console.log(teamId);
     return {
         subscriptions: [teamSubscription, athleteSubscription],
         teamLoading,

@@ -50,7 +50,6 @@ class AdminDash extends React.Component {
     showUsersList() {
         const users = this.props.usersList;
         const selectRoles = ROLES;
-        //console.log(selectRoles);
         return (
             <tbody> {
                 users.map((user) => {

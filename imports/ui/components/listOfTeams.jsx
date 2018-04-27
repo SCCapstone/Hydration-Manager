@@ -22,12 +22,6 @@ export default class ListOfTeams extends Component {
         autoBind(this);
     }
 
-    /*  //routeToReport Method -- sends the user to the masterReport page for the selected team
-        routeToReport() {
-            window.location = '/app/masterReport/' + this.props.team._id;
-        }
-    */
-
     //Edit teams method that calls to the Meteor server established method passing through the team._id
     editTeam() {
         Meteor.call('teams.edit', this.props.team._id)
@@ -59,14 +53,12 @@ export default class ListOfTeams extends Component {
         if (s === '') {
             s = this.props.team.season;
         }
-        //else {
         Meteor.call('teams.edit', pID, nm, s, () => {
             Bert.defaults = {hideDelay: 3500};
             Bert.alert('Team edited', 'success', 'growl-top-left', 'fa-check');
             this.setState({teamEditName: '', editSeason: ''});
             this.closeEdit();
         });
-        //}
         this.close();
     };
 

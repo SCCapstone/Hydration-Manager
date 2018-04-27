@@ -23,9 +23,6 @@ class AthleteReportTable extends Component {
             prePost: '',
             weight: '',
         };
-        // this.getListofDates = this.getListofDates.bind(this);
-        // this.getDatePreWeight = this.getDatePreWeight.bind(this);
-        // this.getDatePostWeight = this.getDatePostWeight.bind(this);
         autoBind(this);
     };
 
@@ -183,9 +180,7 @@ class AthleteReportTable extends Component {
     * @params aDate, aColor*/
     setColor(aDate, aColor) {
         let elements = document.getElementsByTagName('tr');
-        //console.log(aDate);
         for (let i = 0; i < elements.length; i++) {
-            //console.log(elements[i].keyprop);
             if (elements[i].getAttribute('keyprop') === aDate) {
                 elements[i].classList.add(aColor);
             }

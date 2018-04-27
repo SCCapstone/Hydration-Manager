@@ -22,9 +22,6 @@ class AthleteReport extends Component {
             team: '',
         };
         autoBind(this);
-
-        // this.deleteAthlete = this.deleteAthlete.bind(this);
-        // this.athlete = this.athlete.bind(this);
     };
 
     componentDidMount() {
@@ -61,7 +58,8 @@ class AthleteReport extends Component {
             /* Finally the athletesLists is iterated through. While iterating through,
                the athleteList id attributes are checked to see if they are equal to
                the athleteId attribute.*/
-            for (let i = 0; i < this.props.athletesList.length; i++) {   /* Finally, if this check passes as true, the currentAthlete
+            for (let i = 0; i < this.props.athletesList.length; i++) {
+                /* Finally, if this check passes as true, the currentAthlete
                 is now set as the list of athletes that have passed the check.*/
                 if (this.props.athletesList[i]._id === athleteId) {
                     currentAthlete = (this.props.athletesList[i]);
@@ -111,18 +109,10 @@ class AthleteReport extends Component {
     /*getTeam function returns teams name and season*/
     getTeam() {
         for (let i = 0; i < this.props.teamsList.length; i++) {
-            // console.log("The length of the teams list is " + this.props.teamsList.length);
-            // console.log("The id of the team at position " + i + " is " + this.props.teamsList[i]._id);
-            // console.log("The teamid of the athlete is " + this.athlete().teamId);
-            // console.log("The props object is " + this.props.teamsList);
-            // console.log("The props object at position " + i + " is " + this.props.teamsList[i]);
             // This will error. Do not uncomment. if(this.props.teamsList[i]._id.equals(this.athlete().teamId))
             // This will error. Do not uncomment. if(this.props.teamsList[i]._id == (this.athlete().teamId))
             if (this.props.teamsList[i]._id === (this.athlete().teamId)) {
                 // Can't set state from here. massive loop errors.
-                //console.log("The state team is " + this.state.team);
-                //this.handleTeam(this.athlete().teamId);
-                //console.log("The state team is now " + this.state.team);
                 return this.props.teamsList[i].name + " " + this.props.teamsList[i].season;
             }
         }
@@ -296,13 +286,16 @@ class AthleteReport extends Component {
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button onClick={this.close}>Close</Button>
-                                {props.userRoles[0] === "ADMIN" ? <Button onClick={this.openDelete} bsStyle="danger">Delete Athlete</Button> : ''}
+                                {props.userRoles[0] === "ADMIN" ?
+                                    <Button onClick={this.openDelete} bsStyle="danger">Delete Athlete</Button> : ''}
                                 <Button onClick={this.editEntry} bsStyle="primary">Edit Athlete</Button>
 
                             </Modal.Footer>
                         </Modal>
                         <h3>Athlete Report</h3>
-                        <h4>{this.athlete().name} - {this.getTeam()} - {this.athlete().baseWeight} <Button bsSize="xsmall" onClick={() => this.handleEditButtonClick()}><span className="glyphicon glyphicon-pencil">{}</span></Button></h4><br/>
+                        <h4>{this.athlete().name} - {this.getTeam()} - {this.athlete().baseWeight} <Button
+                            bsSize="xsmall" onClick={() => this.handleEditButtonClick()}><span
+                            className="glyphicon glyphicon-pencil">{}</span></Button></h4><br/>
                         <div>
                             <div className="col-md-8 col-sm-10">
                                 <AthleteChart athlete={this.athlete()}/><br/><br/>
@@ -343,9 +336,6 @@ export default withTracker(({match}) => {
     // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
     // match: PropTypes.object.isRequired,
     // history: PropTypes.object.isRequired,
-    //console.log(teamsList);
-    //console.log(athletesList);
-    //console.log(athleteLoading);
     return {
         subscriptions: [teamSubscription, athleteSubscription],
         teamLoading,

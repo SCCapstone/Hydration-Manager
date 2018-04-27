@@ -22,9 +22,6 @@ class Alerts extends React.Component {
             weight: '',
             playerTeamId: '',
         };
-        // this.teams = this.teams.bind(this);
-        // this.athletes = this.athletes.bind(this);
-        // this.getCurrentTeam = this.getCurrentTeam.bind(this);
         autoBind(this);
     };
 
@@ -49,8 +46,6 @@ class Alerts extends React.Component {
                     preWeight = allAthletes[i].preWeightData[0].weight;
                     postWeight = allAthletes[i].postWeightData[0].weight;
                     hydration = (preWeight - postWeight) / preWeight * 100;
-                    //hydration2 = (allAthletes[i].baseWeight[i]-postWeight)/allAthletes[i].baseWeight[i]*100;
-                    //if(hydration < -4 || hydration > 3 || hydration2 < -4 || hydration2 > 3)
                     if (hydration <= -4 || hydration >= 4) {
                         redAthletes.push(allAthletes[i]);
                     }
@@ -70,17 +65,13 @@ class Alerts extends React.Component {
                     postWeight = allAthletes[i].postWeightData[0];
                     baseWeight = allAthletes[i].baseWeight;
                     let mostRecentWeight = '';
-                    if(preWeight.date <= postWeight.date)
-                    {
+                    if (preWeight.date <= postWeight.date) {
                         mostRecentWeight = postWeight.weight;
                     }
-                    else
-                    {
+                    else {
                         mostRecentWeight = preWeight.weight;
                     }
                     hydration = (baseWeight - mostRecentWeight) / baseWeight * 100;
-                    //hydration2 = (allAthletes[i].baseWeight[i]-postWeight)/allAthletes[i].baseWeight[i]*100;
-                    //if(hydration < -4 || hydration > 3 || hydration2 < -4 || hydration2 > 3)
                     if (hydration <= -4 || hydration >= 4) {
                         longTermRedAthletes.push(allAthletes[i]);
                     }
@@ -102,8 +93,6 @@ class Alerts extends React.Component {
                     preWeight = allAthletes[i].preWeightData[0].weight;
                     postWeight = allAthletes[i].postWeightData[0].weight;
                     hydration = (preWeight - postWeight) / preWeight * 100;
-                    //hydration2 = (allAthletes[i].baseWeight[i]-postWeight)/allAthletes[i].baseWeight[i]*100;
-                    //if(hydration >= -4 && hydration < -2 || hydration2 >= -4 || hydration2 < -2)
                     if (hydration > -4 && hydration < -3) {
                         yellowAthletes.push(allAthletes[i]);
                     }
@@ -126,17 +115,13 @@ class Alerts extends React.Component {
                     postWeight = allAthletes[i].postWeightData[0];
                     baseWeight = allAthletes[i].baseWeight;
                     let mostRecentWeight = '';
-                    if(preWeight.date <= postWeight.date)
-                    {
+                    if (preWeight.date <= postWeight.date) {
                         mostRecentWeight = postWeight.weight;
                     }
-                    else
-                    {
+                    else {
                         mostRecentWeight = preWeight.weight;
                     }
                     hydration = (baseWeight - mostRecentWeight) / baseWeight * 100;
-                    //hydration2 = (allAthletes[i].baseWeight[i]-postWeight)/allAthletes[i].baseWeight[i]*100;
-                    //if(hydration < -4 || hydration > 3 || hydration2 < -4 || hydration2 > 3)
                     if (hydration > -4 && hydration < -3) {
                         longTermYellowAthletes.push(allAthletes[i]);
                     }
@@ -190,7 +175,7 @@ class Alerts extends React.Component {
                             <tbody className="redBack">
                             {this.longTermRedAthletes().map((athlete) => {
                                 return <LongTermAthleteAlert key={athlete._id} athlete={athlete}
-                                                     teamsList={this.props.teamsList}/>
+                                                             teamsList={this.props.teamsList}/>
                             })}
                             </tbody>
                         </Table>
@@ -258,8 +243,6 @@ export default withTracker(() => {
     // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
     // match: PropTypes.object.isRequired,
     // history: PropTypes.object.isRequired,
-    //console.log(teamsList);
-    //console.log(athletesList);
     return {
         subscriptions: [teamSubscription, athleteSubscription],
         teamLoading,

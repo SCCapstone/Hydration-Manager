@@ -57,27 +57,6 @@ class App extends React.Component {
                                 <Authorized exact path='/app/profile' component={Profile} {...props} />
                             </Grid>
                             <Route component={NotFound}/>
-                            {/*
-<Route exact path="/" component={LoginAlt} />
-<Route exact path="/login" component={LoginAlt} />
-<Route exact path="/registration" component={Registration} />
-<Authorized exact path="/app" component={Home} {...props} {...state}/>
-<Authorized exact path='/app/weightEntry' component={WeightEntry} {...props} />
-<Authorized path='/app/weightEntry/:teamId' component={WeightEntry} {...props} />
-<Authorized exact path='/app/masterReport/' component={MasterReport} {...props} />
-<Authorized path='/app/masterReport/:teamId' component={MasterReport} {...props} />
-<Authorized exact path='/app/yourTeams' component={YourTeams} {...props} />
-<Authorized exact path='/app/alerts' component={Alerts} {...props} />
-<Authorized path='/app/admin' component={AdminDash} {...props} {...state}/>
-<Authorized path='/app/admin/:userId' component={Alerts} {...props} {...state}/>
-<Route path="/logout" render={routeProps => <Logout {...routeProps} />} {...props} {...state} />
-<Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
-<Route name="recover-password" path="/recover-password" component={RecoverPassword} />
-<Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
-<Route name="terms" path="/terms" component={Terms} />
-<Route name="privacy" path="/privacy" component={Privacy} />
-<Route component={NotFound} />
-*/}
                         </Switch>
                     </div>
                 ) : ''}

@@ -113,13 +113,13 @@ class YourTeams extends React.Component {
             skipEmptyLines: true,
             complete: this.uploadData
         });
-    }
+    };
 
     uploadData(result) {
         let data = result.data;
         this.setState({data: data});
         console.log(this.state.data);
-    }
+    };
 
     render() {
         const props = this.props;

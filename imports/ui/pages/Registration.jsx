@@ -53,10 +53,10 @@ class Registration extends React.Component {
             //Roles.setUserRoles(newUserId,['View']);
             Meteor.call('users.addNewRole', newUserId, ['View'], (error) => {
                 if (error) {
-                    //console.log("FAILED: Role not added!!");
+                    console.log("FAILED: Role not added!!");
                 } else {
-                    // console.log(newUserId);
-                    // console.log("SUCCESS: Role added!!");
+                    console.log(newUserId);
+                    console.log("SUCCESS: Role added!!");
                 }
             });
         }
