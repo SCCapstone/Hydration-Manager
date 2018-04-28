@@ -256,7 +256,7 @@ export default class AthleteEntryList extends Component {
             <tr>
                 <td>{this.props.athlete.name}</td>
                 <td>
-                    <form>
+                    <form className = {"dataEntry" + this.props.athlete._id}>
                         <input className='weightEnterInput' type="number" onChange={this.handleWeightChange}
                                onKeyPress={this.onKeyPress} /*weightValidated={this.validateWeight}*//>
                     </form>

@@ -149,9 +149,9 @@ class WeightEntry extends React.Component {
                         </DropdownButton>
                         <ToggleButtonGroup type="radio" name="options" id="RadioButtons"
                                            value={this.state.selectedOption}>
-                            <ToggleButton value={"PreWeight"}
+                            <ToggleButton id = "PreButton" value={"PreWeight"}
                                           onClick={() => this.handleOptionChange("PreWeight")}>PreWeight</ToggleButton>
-                            <ToggleButton value={"PostWeight"}
+                            <ToggleButton id = "PostButton" value={"PostWeight"}
                                           onClick={() => this.handleOptionChange("PostWeight")}>PostWeight</ToggleButton>
                         </ToggleButtonGroup>
                         <DropdownButton id={'TeamSelect'} title={'Team Select'} key={null} bsStyle={'default'}>

@@ -94,7 +94,7 @@ export default class AthleteSingle extends Component {
                 <td><Link to={"/app/athlete/" + this.props.athlete._id}>{this.props.athlete.name}</Link></td>
                 <td>{hydrate}</td>
                 <td>{PostWeight}</td>
-                <td>{PreWeight}</td>
+                <td id={this.props.athlete._id + "PreWeight"}>{PreWeight}</td>
                 <td>{this.getDateFormat(Date1)}</td>
                 <td>{Number.parseFloat(this.props.athlete.baseWeight).toPrecision(4)}</td>
             </tr>
