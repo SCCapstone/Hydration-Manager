@@ -17,6 +17,7 @@ import Alerts from '../../pages/alerts.jsx';
 import YourTeams from '../../pages/yourTeams.jsx';
 import LoginAlt from '../../pages/LoginAlt.jsx';
 import Registration from '../../pages/Registration.jsx';
+import ForgotPassword from '../../pages/forgotPassword.jsx';
 import NotFound from '../../pages/NotFound.jsx';
 import Navigation from '../../components/Navigation.jsx';
 import Public from '../../components/Public.jsx';
@@ -43,6 +44,7 @@ class App extends React.Component {
                             <Public exact path="/" component={LoginAlt} {...props} />
                             <Public exact path="/login" component={LoginAlt} {...props} />
                             <Public exact path="/registration" component={Registration} {...props} />
+                            <Public exact path="/forgotPassword" component={ForgotPassword} {...props} />
                             <Grid className="AppContent">
                                 <Authorized exact path="/app" component={WeightEntry} {...props} />
                                 <Authorized exact path='/app/weightEntry' component={WeightEntry} {...props} />

@@ -60,7 +60,7 @@ export default class LoginAlt extends React.Component {
                         </FormGroup>
                         <FormGroup className="password">
                             <input type="password" name="password" className="form-control" placeholder="Password"/>
-                            <p id="password"><Link to="">Forgot Password?</Link>.</p>
+                            <p id="password"><Link to="/forgotPassword" onClick={this.sendReset}>Forgot Password?</Link>.</p>
                         </FormGroup>
                         <FormGroup id="LoginButtonContainer">
                             <Button id="LoginButton" type="submit" bsStyle="primary"
