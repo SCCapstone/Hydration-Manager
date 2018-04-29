@@ -14,6 +14,7 @@ import 'jquery-validation';
 // Collection(s) & Custom File(s) Imports
 //import TextComp from '../components/TextComp/TextComp';
 
+
 class ForgotPassword extends React.Component {
     constructor(props) {
         super(props);
@@ -26,6 +27,7 @@ class ForgotPassword extends React.Component {
     };
 
     componentDidMount() {
+
         const component = this;
         $(component.form).validate({
             rules: {
@@ -43,17 +45,20 @@ class ForgotPassword extends React.Component {
     /* Submits form and sends email*/
     handleSubmit(form) {
         const {history} = this.props;
-        Accounts.forgotPassword({email: form.emailAddress.value}, function (e,r){
+        //console.log(Meteor.env.MAIL_URL);
+        Accounts.forgotPassword({email: form.emailAddress.value}, function (e, r) {
             if (e) {
-                console.log(e.reason);
+                Bert.defaults = {hideDelay: 3500};
+                Bert.alert(e.reason, 'success', 'growl-top-left', 'fa-info');
             }
             else {
                 // success
+                Bert.defaults = {hideDelay: 3500};
+                Bert.alert('Forgot Password Email Sent', 'success', 'growl-top-left', 'fa-info');
+                history.push('/login');  //push(path, [state]) - (function) Pushes a new entry onto the history stack
             }
         });
-        Bert.defaults = {hideDelay: 3500};
-        Bert.alert('Forgot Password Email Sent', 'success', 'growl-top-left', 'fa-info');
-        history.push('/login');  //push(path, [state]) - (function) Pushes a new entry onto the history stack
+
     };
 
     /* Renders Registration form */
@@ -84,3 +89,4 @@ ForgotPassword.propTypes = {
     history: PropTypes.object.isRequired,
 };
 export default withRouter(ForgotPassword);
+//export MAIL_URL='smtps://postmaster%40sandbox2128a703612c4650830c88f0cb89b932.mailgun.org:127c6297173d29c775e482dc6a500b5c-833f99c3-fe2c07f1@smtp.mailgun.org:587';
