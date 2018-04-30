@@ -24,9 +24,9 @@ class AthleteReport extends Component {
         autoBind(this);
     };
 
-    componentDidMount() {
-        this.getCurrentTeam();
-    };
+    // componentDidMount() {
+    //     this.getCurrentTeam();
+    // };
 
     componentWillUnmount() {
         this.props.subscriptions.forEach((s) => {
@@ -103,7 +103,8 @@ class AthleteReport extends Component {
     };
 
     getCurrentTeam() {
-        this.setState({team: this.props.teamId});
+        currentTeam = this.athlete().teamId;
+        this.setState({team: currentTeam});
     }
 
     /*getTeam function returns teams name and season*/
@@ -189,6 +190,7 @@ class AthleteReport extends Component {
         let nm = this.state.name;
         let bw = this.state.base;
         let t = this.state.team;
+
         /* If any values are left blank, then accept the previous value in that athlete's information */
         if (nm === '') {
             nm = this.athlete().name;
@@ -204,11 +206,11 @@ class AthleteReport extends Component {
         Meteor.call('athletes.edit', pId, nm, bw, t, () => {
             Bert.defaults = {hideDelay: 3500};
             Bert.alert('athlete edited', 'success', 'growl-top-left', 'fa-check');
-            this.setState({
-                name: '',
-                base: '',
-                team: '',
-            });
+            // this.setState({
+            //     name: '',
+            //     base: '',
+            //     team: '',
+            // });
             this.close();
         });
     };
@@ -232,6 +234,7 @@ class AthleteReport extends Component {
 
     /* Upon firing, method will call the open function, which in turn will open the modal window. */
     handleEditButtonClick() {
+        this.getCurrentTeam();
         this.open();
     };
 
@@ -260,7 +263,7 @@ class AthleteReport extends Component {
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Button onClick={this.closeDelete}> Close </Button>
-                                    <Button onClick={this.deleteAthlete} bsStyle="danger">Delete Athlete</Button>
+                                    <Button id = "confirmDelete" onClick={this.deleteAthlete} bsStyle="danger">Delete Athlete</Button>
                                 </Modal.Footer>
                             </Modal>
                         </div>
@@ -273,12 +276,12 @@ class AthleteReport extends Component {
                                 <form>
                                     <FormGroup>
                                         <FormControl defaultValue={this.athlete().name} label='Name' type='string'
-                                                     onChange={this.handleName}/><br/>
+                                                     className = 'athleteNameInput' onChange={this.handleName}/><br/>
                                         <FormControl defaultValue={this.athlete().baseWeight} label='Weight'
-                                                     type='number' onChange={this.handleWeight}/><br/>
-                                        <FormControl defaultValue={this.athlete().teamId} value={this.state.team}
-                                                     componentClass="select" label='Team' onChange={this.handleTeam}>
-                                            {this.teams().map((team) => <option value={team._id}
+                                                     className = 'athleteBaseInput' type='number' onChange={this.handleWeight}/><br/>
+                                        <FormControl value={this.state.team}
+                                                     className = 'athleteTeamSelect' componentClass="select" label='Team' onChange={this.handleTeam}>
+                                            {this.teams().map((team) => <option id = {team._id} value={team._id}
                                                                                 key={team._id}>{team.name} {team.season}</option>)}
                                         </FormControl>
                                     </FormGroup>
@@ -287,15 +290,15 @@ class AthleteReport extends Component {
                             <Modal.Footer>
                                 <Button onClick={this.close}>Close</Button>
                                 {props.userRoles[0] === "ADMIN" ?
-                                    <Button onClick={this.openDelete} bsStyle="danger">Delete Athlete</Button> : ''}
-                                <Button onClick={this.editEntry} bsStyle="primary">Edit Athlete</Button>
+                                    <Button id = "openDelete" onClick={this.openDelete} bsStyle="danger">Delete Athlete</Button> : ''}
+                                <Button onClick={this.editEntry} bsStyle="primary" className = "modalEditButton">Edit Athlete</Button>
 
                             </Modal.Footer>
                         </Modal>
                         <h3>Athlete Report</h3>
-                        <h4>{this.athlete().name} - {this.getTeam()} - {this.athlete().baseWeight} <Button
+                        <h4><span className='athleteInfo'>{this.athlete().name} - {this.getTeam()} - {this.athlete().baseWeight} </span><Button
                             bsSize="xsmall" onClick={() => this.handleEditButtonClick()}><span
-                            className="glyphicon glyphicon-pencil">{}</span></Button></h4><br/>
+                            className="glyphicon glyphicon-pencil editAthleteButton">{}</span></Button></h4><br/>
                         <div>
                             <div className="col-md-8 col-sm-10">
                                 <AthleteChart athlete={this.athlete()}/><br/><br/>

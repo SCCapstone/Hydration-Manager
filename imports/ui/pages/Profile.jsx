@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
-import {Button, Col, ControlLabel, FormGroup, Row} from 'react-bootstrap';
+import {Button, ControlLabel, FormGroup, Modal} from 'react-bootstrap';
 import {Meteor} from 'meteor/meteor';
 import {Accounts} from 'meteor/accounts-base';
 import {Bert} from 'meteor/themeteorchef:bert';
@@ -16,8 +16,19 @@ import GenericFooter from '../components/GenericFooter';
 class Profile extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            show: false
+        };
         autoBind(this);
     };
+
+    handleClose() {
+        this.setState({ show: false });
+    }
+
+    handleShow() {
+        this.setState({ show: true });
+    }
 
     componentDidMount() {
         const component = this;
@@ -59,18 +70,16 @@ class Profile extends React.Component {
         return service === 'password' ? 'password' : 'oauth';
     };
 
-    handleDeleteAccount() {
+    handleDeleteAccount(){
         const id = this.props.userId;
-        if (confirm('Are you sure? This will permanently delete your account and all of its data.')) {
-            Meteor.call('users.deleteAccount', id, (error) => {
-                if (error) {
-                    Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
-                } else {
-                    Bert.alert('Account deleted!', 'success', 'growl-top-left', 'fa-check');
-                }
-            });
-        }
-    };
+        Meteor.call('users.deleteAccount', id, (error) => {
+            if (error) {
+                Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
+            } else {
+                Bert.alert('Account deleted!', 'success', 'growl-top-left', 'fa-check');
+            }
+        });
+    }
 
     handleSubmit(form) {
         const id = this.props.userId;
@@ -98,8 +107,9 @@ class Profile extends React.Component {
     };
 
     renderPasswordUser(loading, user) {
+        console.log(user.profile);
         return !loading ? (
-            <div>
+            <div className="ProfileForm">
                 <FormGroup>
                     <ControlLabel>Email Address</ControlLabel>
                     <input type="email" name="emailAddress" defaultValue={user.emails[0].address}
@@ -118,7 +128,7 @@ class Profile extends React.Component {
                     <ControlLabel>New Password</ControlLabel>
                     <input type="password" name="newPassword" className="form-control"/>
                 </FormGroup>
-                <Button type="submit" bsStyle="success">Save Profile</Button>
+                <Button type="submit" bsStyle="primary">Save Profile</Button>
             </div>
         ) : <div/>;
     };
@@ -132,18 +142,30 @@ class Profile extends React.Component {
 
     render() {
         const {loading, user} = this.props;
+
         return (
-            <div className="Profile">
-                <Row>
-                    <Col xs={12} sm={6} md={4}>
-                        <h4 className="page-header">Edit Profile</h4>
-                        <form ref={form => (this.form = form)}
-                              onSubmit={event => event.preventDefault()}>{this.renderProfileForm(loading, user)}</form>
-                        <GenericFooter>
-                            <Button bsStyle="danger" onClick={this.handleDeleteAccount}>Delete My Account</Button>
-                        </GenericFooter>
-                    </Col>
-                </Row>
+            <div>
+                <Modal show={this.state.show} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Delete your Account</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>This will <strong>permanently</strong> delete your account. Are you sure you want to do this?</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.handleClose}>Close</Button>
+                        <Button onClick={this.handleDeleteAccount} bsStyle="danger">Delete Account</Button>
+                    </Modal.Footer>
+                </Modal>
+                <div className="ProfileHeader">
+                    <h3>Edit Profile</h3>
+                    <GenericFooter>
+                        <Button bsStyle="danger" onClick={this.handleShow} id="ProfileButton">Delete My Account</Button>
+                    </GenericFooter>
+                </div>
+                <hr/>
+                <form ref={form => (this.form = form)}
+                      onSubmit={event => event.preventDefault()}>{this.renderProfileForm(loading, user)}</form>
             </div>
         );
     }

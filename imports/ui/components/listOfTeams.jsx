@@ -101,7 +101,7 @@ export default class ListOfTeams extends Component {
                         <MenuItem onClick={this.open}>Delete Team</MenuItem>
                     </DropdownButton>
                     <div className="InnerCard">
-                        <Link to={{pathname: "/app/masterReport/" + this.props.team._id}}>
+                        <Link to={{pathname: "/app/masterReport/" + this.props.team._id}} className = {this.props.team._id + "card"}>
                             <h4>{this.props.team.name}</h4>
                             <p>{this.props.team.season}</p>
                         </Link>

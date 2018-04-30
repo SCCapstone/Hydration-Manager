@@ -20,8 +20,8 @@ Accounts.config({
 });
 
 Meteor.startup(function () {
-    process.env.MAIL_URL = "smtps://postmaster%40.sandbox2128a703612c4650830c88f0cb89b932.mailgun.org:127c6297173d29c775e482dc6a500b5c-833f99c3-fe2c07f1@smtp.mailgun.org:587";
-    Accounts.emailTemplates.from = "hydrationmanager@gmail.com";
+    // process.env.MAIL_URL = "smtps://postmaster%40.sandbox2128a703612c4650830c88f0cb89b932.mailgun.org:127c6297173d29c775e482dc6a500b5c-833f99c3-fe2c07f1@smtp.mailgun.org:587";
+    // Accounts.emailTemplates.from = "hydrationmanager@gmail.com";
 });
 
 Meteor.methods({
@@ -64,7 +64,7 @@ Meteor.methods({
     },
 
     // Password required
-    'users.createNew_WithPswd': function usersCreateNewWithPswd(eM, pass, fone) {
+    'users.createNew_WithPswd': function usersCreateNewWithPswd(eM, pass, phone) {
         const user_info = {
             //email: user_obj.email,
             //password: user_obj.password,
@@ -77,7 +77,7 @@ Meteor.methods({
         Meteor.users.update({_id: id}, {
             $set: {
                 profile: {
-                    phone: {phone: fone},
+                    phone: phone,
                     head: false,
                 }
             }

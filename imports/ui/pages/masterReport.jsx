@@ -202,7 +202,7 @@ class MasterReport extends React.Component {
                 <div className="MasterHeader">
                     <h3>Master Report {this.displayCurrentTeam()}</h3>
                     <div className="MasterButtons">
-                        <Button onClick={this.open} bsStyle="primary">&#43; Create an Athlete</Button>
+                        <Button id = "createAthleteButton" onClick={this.open} bsStyle="primary">&#43; Create an Athlete</Button>
                         <DropdownButton id={'Team Select'} title={'Team Select'} key={null} bsStyle={'default'}
                                         className="DropDown">
                             {this.teams().map((team) => {
@@ -223,20 +223,20 @@ class MasterReport extends React.Component {
                         <Modal.Body>
                             <form>
                                 <FormGroup>
-                                    <FormControl placeholder='Player Name' label='Player Name' type='text'
+                                    <FormControl id = "createAthleteName" placeholder='Player Name' label='Player Name' type='text'
                                                  onChange={this.handleName}/><br/>
-                                    <FormControl placeholder='Baseline Weight' label='Base Weight' type='number'
+                                    <FormControl id = "createAthleteWeight" placeholder='Baseline Weight' label='Base Weight' type='number'
                                                  onChange={this.handleWeight}/><br/>
-                                    <FormControl placeholder='Team' value={this.state.playerTeamId}
+                                    <FormControl id = "createAthleteTeam" placeholder='Team' value={this.state.playerTeamId}
                                                  componentClass="select" label='Team' onChange={this.handleTeam}>
-                                        {this.teams().map((team) => <option value={team._id}
+                                        {this.teams().map((team) => <option value={team._id} id = {team._id}
                                                                             key={team._id}>{team.name} {team.season}</option>)}</FormControl>
                                 </FormGroup>
                             </form>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={this.close}> Close </Button>
-                            <Button onClick={this.addPlayer} bsStyle="primary"> Create Athlete </Button>
+                            <Button id = 'createAthleteModalButton' onClick={this.addPlayer} bsStyle="primary"> Create Athlete </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>

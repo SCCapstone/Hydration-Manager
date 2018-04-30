@@ -143,6 +143,10 @@ export default class AthleteEntryList extends Component {
         if (this.props.dat === '') {
             alert('Please ensure you have selected a Date');
         }
+        else if (this.state.weight === '' || this.state.weight === null || this.state.weight.includes("e"))
+        {
+            Bert.alert('Please ensure you have entered the Weight correctly', 'warning', 'growl-top-left', 'fa-warning');
+        }
         else if (this.props.selOp === 'Default') {
             Bert.defaults = {hideDelay: 3500};
             Bert.alert('Please ensure you have selected Pre/Post Weight.', 'warning', 'growl-top-left', 'fa-warning');
@@ -224,6 +228,8 @@ export default class AthleteEntryList extends Component {
     /*handleWeightChange Function will set weight to e.target.value*/
     handleWeightChange = (e) => {
         e.persist();
+        console.log("Entered value " + e.target.value)
+        // pattern = new RegExp("\d{1,3}\.{0,1}\d*");
         //let bool = this.validateWeight(e);
         //let bool2 = true;
         /* If input is negative, the check does NOT pass and a resulting error is thrown. */
@@ -232,6 +238,10 @@ export default class AthleteEntryList extends Component {
             Bert.alert('Weight should be non-negative', 'warning', 'growl-top-left', 'fa-warning');
             //bool2 = false;
         }
+        // else if (pattern.test(e.target.value) == false)
+        // {
+        //     Bert.alert('Weight input incorrectly formatted.', 'warning', 'growl-top-left', 'fa-warning');
+        // }
        /* if (bool === false || bool2 === false) {
             console.log("There was an error in weight input.");
         }*/
@@ -242,7 +252,7 @@ export default class AthleteEntryList extends Component {
         }
     };
 
-    /*When Enter/Return button is press, it will run event.preventDefault function*/
+    /*When Enter/Return or e button are pressed, it will run event.preventDefault function*/
     onKeyPress(event) {
         if (event.which === 13 /* Enter */) {
             event.preventDefault();
@@ -258,7 +268,7 @@ export default class AthleteEntryList extends Component {
                 <td>
                     <form className = {"dataEntry" + this.props.athlete._id}>
                         <input className='weightEnterInput' type="number" onChange={this.handleWeightChange}
-                               onKeyPress={this.onKeyPress} /*weightValidated={this.validateWeight}*//>
+                               onKeyPress={this.onKeyPress} pattern="^(\d{1,3}\.{0,1}\d*)$" /*weightValidated={this.validateWeight}*//>
                     </form>
                 </td>
             </tr>
