@@ -71,7 +71,7 @@ Meteor.methods({
             //email: user_obj.email,
             //password: user_obj.password,
             email: eM,
-            password: pass
+            password: pass,
         };
         // on server: returns id if
         // on client(see Registration.jsx): logs in newly created user, has callback
@@ -81,32 +81,11 @@ Meteor.methods({
                 profile: {
                     phone: phone,
                     head: false,
+                    teamAccess: [],
                 }
             }
         });
         Roles.setUserRoles(id, ['PUB']);
-    },
-    // For Creating New User w/No Password (pswd selected later by user, possibly thru email)
-    // -- User cannot log in until password set (eg, with Accounts.setPassword)
-    'users.createNew_NoPswd': function usersCreateNewNoPswd(user_obj) {
-        check(user_obj, {email: String, role: String, name: String, lastName: String});
-        const user_info = {
-            email: user_obj.email,
-        };
-        const id = Accounts.createUser(user_info);
-        Meteor.users.update({_id: id}, {
-            $set: {
-                profile: {
-                    //name: {first: user_obj.name, last: user_obj.lastName},
-                    phone: {phone: user_obj.phone},
-                }
-            }
-        });
-        Roles.setUserRoles(id, [user_obj.role]);
-        // Send email with link for user to set their initial password.
-        if (Meteor.isServer) {
-            Accounts.sendEnrollmentEmail(id);
-        }
     },
     /* Definition for users.deleteAccount (Server Side Method), will be called by client who will pass through attributes:
     * @Params userID

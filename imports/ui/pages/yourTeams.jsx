@@ -9,6 +9,7 @@ import {Button, FormControl, FormGroup, Modal, Alert} from 'react-bootstrap';
 import TeamsCollection from '../../api/Teams/Teams.js';
 import ListOfTeams from '../components/listOfTeams.jsx';
 import Teams from "../../api/Teams/Teams";
+import {Meteor} from "meteor/meteor";
 
 class YourTeams extends React.Component {
     constructor(props) {
@@ -65,14 +66,27 @@ class YourTeams extends React.Component {
             const id = this.props.userId;  //curUser.userID;
             const user = this.props.emailAddress;
             //console.log(curUser);
-            //console.log(id);
-            Meteor.call('teams.insert', teamName, teamSeason, id, () => {
-                Bert.defaults = {hideDelay: 3500};
-                Bert.alert('Team Created', 'success', 'growl-top-left', 'fa-check');
+            console.log(id);
+            if (!TeamsCollection.findOne({name: teamName, season: teamSeason})) {
+                Meteor.call('teams.insert', teamName, teamSeason, id, id, () => {
+                    Bert.defaults = {hideDelay: 3500};
+                    Bert.alert('Team Created', 'success', 'growl-top-left', 'fa-check');
+                    this.team = "";
+                    this.season = "";
+                    this.close();
+                });
+                let currentTeam = TeamsCollection.findOne({name: teamName, season: teamSeason, whoCreated: id});
+                Meteor.users.update({_id: id}, {
+                    $push: {
+                        "profile.teamAccess": currentTeam._id,
+                    }
+                });
+            }
+            else {
+                Bert.alert('The team' + teamName + " " + teamSeason + "already exists.", 'warning', 'growl-top-left', 'fa-warning');
                 this.team = "";
                 this.season = "";
-                this.close();
-            });
+            }
         }
     };
 
@@ -84,7 +98,19 @@ class YourTeams extends React.Component {
             if (TeamName !== null && TeamSeason !== null) {
                 let id = this.props.userId;
                 let user = this.props.emailAddress;
-                Meteor.call('teams.insert', TeamName, TeamSeason, id, user);
+                if (!TeamsCollection.findOne({name: TeamName, season: TeamSeason})) {
+                    Meteor.call('teams.insert', TeamName, TeamSeason, id, user);
+                    let currentTeam = TeamsCollection.findOne({name: TeamName, season: TeamSeason, whoCreated: id});
+                    Meteor.users.update({_id: id}, {
+                        $push: {
+                            "profile.teamAccess": currentTeam._id,
+                        }
+                    });
+                }
+                else {
+                    Bert.alert('The team' + TeamName + " " + TeamSeason + "already exists.", 'warning', 'growl-top-left', 'fa-warning');
+                    return;
+                }
             }
             let myTeam = Teams.findOne({name: TeamName});
             for (let i = 1; i < this.state.data.length; i++) {
@@ -110,7 +136,7 @@ class YourTeams extends React.Component {
     uploadFile(event) {
         let file = event.target.files[0];
         let index = file.name.lastIndexOf(".");
-        if(file.name.substring(index+1).toLowerCase() === "csv" ) {
+        if (file.name.substring(index + 1).toLowerCase() === "csv") {
             let Papa = require("papaparse/papaparse.min.js");
             Papa.parse(file, {
                 header: false,
@@ -124,7 +150,7 @@ class YourTeams extends React.Component {
                 alert2: true
             });
         }
-        else{
+        else {
             this.setState({
                 alert2: false,
                 alert1: true
@@ -181,7 +207,8 @@ class YourTeams extends React.Component {
                             <img src="/images/example.png" alt={"Format for CSV"}/><br/>
                             <p>The first row should be the team name followed by the team's season as shown in the
                                 example, Football - 1995</p>
-                            <p>For the next rows if should be the athletes name followed by the athletes base weight as
+                            <p>For the next rows if should be the athletes name followed by the athletes base weight
+                                as
                                 shown in the example as Justin - 190. You can import as many athletes as you need
                                 too.</p>
                             <p><strong>If the file is not in the above format your team will not be created
@@ -200,7 +227,9 @@ class YourTeams extends React.Component {
                                                      name="myFile"
                                                      onChange={this.uploadFile}/>
                             </span>
-                            <Button disabled={!this.state.alert2} onClick={this.addTeamCSV} bsStyle="primary" > Import Team </Button>
+                            <Button disabled={!this.state.alert2} onClick={this.addTeamCSV}
+                                    bsStyle="primary"> Import
+                                Team </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
@@ -215,7 +244,8 @@ class YourTeams extends React.Component {
     }
 }
 
-YourTeams.propTypes = {
+YourTeams
+    .propTypes = {
     userRoles: PropTypes.array.isRequired,
     subscriptions: PropTypes.array,
     loading: PropTypes.bool,
@@ -223,18 +253,26 @@ YourTeams.propTypes = {
 };
 
 // Retrieves data from server and puts it into client's minimongo
-export default withTracker(() => {
-    const subscription = Meteor.subscribe('teams.all');
-    const loading = !subscription.ready();
-    const teamsList = !loading ? TeamsCollection.find().fetch() : [];
-    // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
-    // match: PropTypes.object.isRequired,
-    // history: PropTypes.object.isRequired,
-    //console.log(teamsList);
+export default withTracker(
+    () => {
+        const
+            subscription = Meteor.subscribe('teams.all');
+        const
+            loading = !subscription.ready();
+        const
+            teamsList = !loading ? TeamsCollection.find().fetch() : [];
+        // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+        // match: PropTypes.object.isRequired,
+        // history: PropTypes.object.isRequired,
+        //console.log(teamsList);
 
-    return {
-        subscriptions: [subscription],
-        loading,
-        teamsList,
-    };
-})(YourTeams);
+        return {
+            subscriptions: [subscription]
+            ,
+            loading
+            ,
+            teamsList
+            ,
+        };
+    })
+(YourTeams);

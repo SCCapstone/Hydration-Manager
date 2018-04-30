@@ -15,9 +15,10 @@ Meteor.methods({
             return Teams.insert({
                 name: tName,
                 season: tSeason,
+                whoCreated: Id,
                 usersAccess: [Id],
                 createdAt: new Date(),
-            });
+            })
         } catch (exception) {
             handleMethodException(exception);
         }

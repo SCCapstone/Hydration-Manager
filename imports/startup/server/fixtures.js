@@ -21,6 +21,7 @@ const users = [
         profile: {
             phone: '18031234567',
             head: true,
+            teamAccess: [],
         },
         roles: ['ADMIN'],
     },
@@ -30,6 +31,7 @@ const users = [
         profile: {
             phone: '18039606328',
             head: false,
+            teamAccess: []
         },
         roles: ['ADMIN'],
     },

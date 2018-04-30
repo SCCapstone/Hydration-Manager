@@ -9,6 +9,7 @@ import autoBind from 'react-autobind';
 
 // Custom File Imports
 import TeamsCollection from '../../api/Teams/Teams.js';
+import {Meteor} from "meteor/meteor";
 
 /* Administration Dashboard Component will be used solely by the administrator, but
  * definitely by a super administrator, but potentially by regular administrator*/
@@ -156,6 +157,19 @@ class AdminDash extends React.Component {
                     Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
                 } else {
                     Bert.alert('Added User Access!', 'success', 'growl-top-left', 'fa-check');
+                    let currentTeam = TeamsCollection.findOne({_id: update_obj.id});
+                    let check = Meteor.users.update({_id: update_obj.userID}, {
+                        $push: {
+                            "profile.teamAccess": currentTeam._id,
+                        }
+                    });
+                    if(!check){ // Need to error check to ensure these lists always stay aligned. If they didn't, then undo what we just did.
+                        Meteor.users.update({_id: update_obj.userID}, {
+                            $pull: {
+                                "profile.teamAccess": currentTeam._id,
+                            }
+                        });
+                    }
                 }
             });
         }
@@ -172,6 +186,19 @@ class AdminDash extends React.Component {
                     Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
                 } else {
                     Bert.alert('Removed User Access!', 'success', 'growl-top-left', 'fa-check');
+                    let currentTeam = TeamsCollection.findOne({_id: update_obj.id});
+                    let check = Meteor.users.update({_id: update_obj.userID}, {
+                        $pull: {
+                            "profile.teamAccess": currentTeam._id,
+                        }
+                    });
+                    if (!check){ // Need to error check to ensure these lists always stay aligned. If they didn't, then undo what we just did.
+                        Meteor.users.update({_id: update_obj.userID}, {
+                            $push: {
+                                "profile.teamAccess": currentTeam._id,
+                            }
+                        });
+                    }
                 }
             });
         }

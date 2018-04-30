@@ -133,7 +133,7 @@ class WeightEntry extends React.Component {
     /* Renders Weight Entry Lists of Athletes, dropdown buttons of teams,
      * and forms for inputting athlete weights. */
     render() {
-        //const {props} = this;
+        const props = this.props;
         return (
             <div>
                 <div className="WeightHeader">
@@ -149,18 +149,18 @@ class WeightEntry extends React.Component {
                         </DropdownButton>
                         <ToggleButtonGroup type="radio" name="options" id="RadioButtons"
                                            value={this.state.selectedOption}>
-                            <ToggleButton id = "PreButton" value={"PreWeight"}
+                            <ToggleButton id="PreButton" value={"PreWeight"}
                                           onClick={() => this.handleOptionChange("PreWeight")}>PreWeight</ToggleButton>
-                            <ToggleButton id = "PostButton" value={"PostWeight"}
+                            <ToggleButton id="PostButton" value={"PostWeight"}
                                           onClick={() => this.handleOptionChange("PostWeight")}>PostWeight</ToggleButton>
                         </ToggleButtonGroup>
                         <DropdownButton id={'TeamSelect'} title={'Team Select'} key={null} bsStyle={'default'}>
                             {this.teams().map((team) => {
                                 return <WeightDropdownOfTeams key={team._id} team={team}/>
                             })}
-                            <MenuItem>
-                                <Link to={{pathname: "/app/weightEntry/"}}> All Athletes </Link>
-                            </MenuItem>
+                            {props.userRoles[0] === "ADMIN" ?
+                                <MenuItem> <Link to={{pathname: "/app/weightEntry/"}}> All
+                                    Athletes </Link></MenuItem> : ''}
                         </DropdownButton>
                     </div>
                 </div>
