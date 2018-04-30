@@ -69,7 +69,7 @@ class AdminDash extends React.Component {
                 })
             } </tbody>
         )
-    }
+    };
 
     accessList(userAccess) {
         let message = '';
