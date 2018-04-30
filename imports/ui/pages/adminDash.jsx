@@ -75,9 +75,9 @@ class AdminDash extends React.Component {
     accessList(userAccess) {
         let message = '';
         for (let i = 0; i < userAccess.length; i++) {
-            console.log(userAccess[i]);
+            //console.log(userAccess[i]);
             let user = Meteor.users.findOne( { "_id" : userAccess[i]} );
-            console.log(user);
+            //console.log(user);
             //console.log(user.emails[0].address);
             message += user.emails[0].address + "\n";
             //console.log(message);
@@ -86,18 +86,6 @@ class AdminDash extends React.Component {
         return message;
     };
 
-    getUserId(usrEmail) {
-        let selectedUser = null;
-        const users = this.props.usersList;
-        for (let i = 0; i < users.length; i++){
-            if (users[i].emails[0].address === usrEmail) {
-                selectedUser = users[i];
-            }
-        }
-        console.log(selectedUser);
-        console.log(selectedUser._id);
-        return selectedUser._id;
-    };
 
     showTeamsList() {
         const teams = this.props.teamsList;
@@ -147,29 +135,26 @@ class AdminDash extends React.Component {
     }
 
     handleAddUserAccess(update_obj) {
-        let team = TeamsCollection.findOne({
-            _id: update_obj.id,
-            usersAccess: update_obj.userID
-        });
+        let team = TeamsCollection.findOne({_id: update_obj.id, usersAccess: update_obj.userID});
         if (team === undefined) {
             Meteor.call('teams.addUserAccess', update_obj.id, update_obj.usrEmail, update_obj.userID, (error) => {
                 if (error) {
                     Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
                 } else {
                     Bert.alert('Added User Access!', 'success', 'growl-top-left', 'fa-check');
-                    let currentTeam = TeamsCollection.findOne({_id: update_obj.id});
-                    let check = Meteor.users.update({_id: update_obj.userID}, {
+                    console.log(update_obj.userID);
+                    Meteor.users.update({_id: update_obj.userID}, {
                         $push: {
-                            "profile.teamAccess": currentTeam._id,
+                            "profile.teamAccess": update_obj.id,
                         }
                     });
-                    if(!check){ // Need to error check to ensure these lists always stay aligned. If they didn't, then undo what we just did.
+                    /*if(!check){ // Need to error check to ensure these lists always stay aligned. If they didn't, then undo what we just did.
                         Meteor.users.update({_id: update_obj.userID}, {
                             $pull: {
                                 "profile.teamAccess": currentTeam._id,
                             }
                         });
-                    }
+                    }*/
                 }
             });
         }
@@ -186,19 +171,18 @@ class AdminDash extends React.Component {
                     Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
                 } else {
                     Bert.alert('Removed User Access!', 'success', 'growl-top-left', 'fa-check');
-                    let currentTeam = TeamsCollection.findOne({_id: update_obj.id});
-                    let check = Meteor.users.update({_id: update_obj.userID}, {
+                    Meteor.users.update({_id: update_obj.userID}, {
                         $pull: {
-                            "profile.teamAccess": currentTeam._id,
+                            "profile.teamAccess": update_obj.id,
                         }
                     });
-                    if (!check){ // Need to error check to ensure these lists always stay aligned. If they didn't, then undo what we just did.
+                    /*if (!check){ // Need to error check to ensure these lists always stay aligned. If they didn't, then undo what we just did.
                         Meteor.users.update({_id: update_obj.userID}, {
                             $push: {
                                 "profile.teamAccess": currentTeam._id,
                             }
                         });
-                    }
+                    }*/
                 }
             });
         }

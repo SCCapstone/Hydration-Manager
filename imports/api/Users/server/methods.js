@@ -107,7 +107,7 @@ Meteor.methods({
 
         Meteor.users.update(userId, {
             $set: {
-                profile: {phone: phoneNumber, head: currentUser.profile.head.valueOf()},
+                profile: {phone: phoneNumber, head: currentUser.profile.head.valueOf(), teamAccess: currentUser.profile.teamAccess.valueOf()},
             },
         });
 
