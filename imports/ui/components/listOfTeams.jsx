@@ -4,6 +4,7 @@ import {Button, FormControl, FormGroup, Modal, DropdownButton, MenuItem} from 'r
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
+import {Meteor} from "meteor/meteor";
 
 
 // Custom File & Collections Imports
@@ -90,6 +91,20 @@ export default class ListOfTeams extends Component {
     handleSeason = (e) => {
         this.setState({editSeason: e.target.value});
     };
+    handleView() {
+        const usersList = Meteor.users.find().fetch();
+        let currentUser = null
+        for (let i = 0; i < usersList.length; i++) {
+            if (this.props.user._id === userList[i]._id) {
+                currentUser = usersList[i];
+                i = usersList.length;
+            }
+        }
+        if (currentUser !== null){
+
+        }
+    };
+
 
     render() {
         return (
