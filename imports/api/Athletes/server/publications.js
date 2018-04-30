@@ -7,5 +7,5 @@ import Athletes from '../Athletes.js';
 
 //Simply publishes all Athletes that are found.
 Meteor.publish('athletes.all', function athletes() {
-    return Athletes.find({});//, {sort: {name: 1}});
+    return Athletes.find({}, {sort: {name: 1}});
 });
