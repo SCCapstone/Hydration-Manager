@@ -1,8 +1,8 @@
 //Logs in the user and verifies the user made it to the home page
 
-describe( 'Login', function() {
-    it( 'should login @watch', function () {
-        browser.url( 'http://localhost:3000/login')
+describe('Login', function () {
+    it('should login @watch', function () {
+        browser.url('http://localhost:3000/login')
         browser.pause(5000);
         browser.setValue('.email>input', 'hydration@usc.com');
         browser.setValue('.password>input', 'password');
@@ -12,9 +12,9 @@ describe( 'Login', function() {
     })
 });
 
-describe( 'Create and Delete an Athlete', function() {
-    it( 'should create an athlete and confirm they show up in the master report @watch', function () {
-        browser.url( 'http://localhost:3000/app/masterReport');
+describe('Create and Delete an Athlete', function () {
+    it('should create an athlete and confirm they show up in the master report @watch', function () {
+        browser.url('http://localhost:3000/app/masterReport');
         browser.pause(5000);
         browser.click('#createAthleteButton');
         browser.setValue('#createAthleteName', 'TESTING');
@@ -23,7 +23,7 @@ describe( 'Create and Delete an Athlete', function() {
         browser.url('http://localhost:3000/app/masterReport');
         browser.pause(5000);
         expect(browser.getText('.athleteTESTING')).to.equal('TESTING');
-        browser.url( 'http://localhost:3000/app/masterReport');
+        browser.url('http://localhost:3000/app/masterReport');
         browser.pause(5000);
         browser.click('.athleteTESTING');
         browser.pause(5000);
@@ -35,9 +35,9 @@ describe( 'Create and Delete an Athlete', function() {
     })
 });
 
-describe( 'Enter Weights', function() {
-    it( 'should enter a weight and confirm that it shows up in the master report @watch', function () {
-        browser.url( 'http://localhost:3000/app/weightEntry');
+describe('Enter Weights', function () {
+    it('should enter a weight and confirm that it shows up in the master report @watch', function () {
+        browser.url('http://localhost:3000/app/weightEntry');
         browser.pause(5000);
         browser.click('#PreButton');
         browser.setValue('.dataEntryP7RkS97BFgLi3CHmR>input', 200);
@@ -47,9 +47,9 @@ describe( 'Enter Weights', function() {
     })
 });
 
-describe( 'Edit Athlete Information', function() {
-    it( 'should enter a weight and confirm that it shows up in the master report @watch', function () {
-        browser.url( 'http://localhost:3000/app/athlete/P7RkS97BFgLi3CHmR');
+describe('Edit Athlete Information', function () {
+    it('should enter a weight and confirm that it shows up in the master report @watch', function () {
+        browser.url('http://localhost:3000/app/athlete/P7RkS97BFgLi3CHmR');
         browser.pause(5000);
         browser.click('.editAthleteButton');
         browser.setValue('.athleteNameInput', 'Sample Guy');
@@ -64,8 +64,8 @@ describe( 'Edit Athlete Information', function() {
     })
 });
 
-describe( 'Navigate to Team Page', function() {
-    it ("should navigate to the team's master report page after clicking on team @watch", function () {
+describe('Navigate to Team Page', function () {
+    it("should navigate to the team's master report page after clicking on team @watch", function () {
         browser.url('http://localhost:3000/app/yourTeams');
         browser.pause(5000);
         browser.click('.ogE6RPnzSomNQjoEPcard');

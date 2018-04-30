@@ -102,7 +102,7 @@ export default class App extends Component {
 
     render() {
         return (
-            <div>
+            <div id="AthleteChart">
                 <Line data={this.state.data}/>
             </div>
         );

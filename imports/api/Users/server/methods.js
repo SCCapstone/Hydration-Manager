@@ -66,7 +66,7 @@ Meteor.methods({
     },
 
     // Password required
-    'users.createNew_WithPswd': function usersCreateNewWithPswd(eM, pass, fone) {
+    'users.createNew_WithPswd': function usersCreateNewWithPswd(eM, pass, phone) {
         const user_info = {
             //email: user_obj.email,
             //password: user_obj.password,
@@ -79,7 +79,7 @@ Meteor.methods({
         Meteor.users.update({_id: id}, {
             $set: {
                 profile: {
-                    phone: {phone: fone},
+                    phone: phone,
                     head: false,
                 }
             }
