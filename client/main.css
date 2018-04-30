@@ -342,6 +342,26 @@ img{
     background-color: #ff9999;
 }
 
+/*Profile Page CSS */
+.ProfileHeader{
+    margin-top: 2%;
+    display: inline-block;
+    width: 100%;
+}
+
+.ProfileHeader h3{
+    float: left;
+    margin: 0;
+    line-height: 1.42857;
+}
+
+#ProfileButton{
+    float: right;
+}
+
+.ProfileForm{
+    width: 50%;
+}
 /*Mobile View CSS */
 @media (max-width: 826px) {
 
