@@ -58,7 +58,6 @@ class AdminDash extends React.Component {
                         userRole = Roles.getRolesForUser(user._id);
                     return (
                         <tr key={user._id}>
-                            <td width="5%">{!!isCurrentUser ? <Glyphicon glyph="ok"/> : ''}</td>
                             <td>{user.emails[0].address}</td>
                             <td><select className="form-control" value={userRole[0]} onChange={(event) => {
                                 this.handleRoleChange({_id: user._id, role: event.target.value});
@@ -210,7 +209,6 @@ class AdminDash extends React.Component {
                 <Table className="AdminTable" striped bordered condensed hover responsive>
                     <thead>
                     <tr>
-                        <th>Current User:</th>
                         <th>Email:</th>
                         <th>Roles:</th>
                     </tr>
