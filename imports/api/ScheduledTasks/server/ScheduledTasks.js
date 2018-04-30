@@ -3,6 +3,8 @@ import {Meteor} from 'meteor/meteor';
 
 if (Meteor.isServer)
 {
+    SyncedCron.stop();
+
     SyncedCron.add({
         name: 'Send daily report text',
         schedule: function(parser) {

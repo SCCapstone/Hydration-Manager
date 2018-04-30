@@ -53,8 +53,8 @@ class ForgotPassword extends React.Component {
             }
             else {
                 // success
-                Bert.defaults = {hideDelay: 3500};
-                Bert.alert('Forgot Password Email Sent', 'success', 'growl-top-left', 'fa-info');
+                Bert.defaults = {hideDelay: 5000};
+                Bert.alert('Forgot Password Email Sending, please allow a moment for it to arrive.', 'success', 'growl-top-left', 'fa-info');
                 history.push('/login');  //push(path, [state]) - (function) Pushes a new entry onto the history stack
             }
         });

@@ -8,6 +8,12 @@ import {_} from 'meteor/underscore';
 
 // Custom File & Collection Imports
 
+Accounts.emailTemplates.resetPassword.from = () => {
+    // Overrides the value set in `Accounts.emailTemplates.from` when resetting
+    // passwords.
+    return 'Hydration Manager Password Reset <hydrationmanager@gmail.com>';
+};
+
 const users = [
     {   // Head Admin Account.
         email: 'hydration@usc.com',
