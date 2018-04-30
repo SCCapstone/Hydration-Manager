@@ -27,10 +27,10 @@ if(!Meteor.isProduction) {
 };
 
 function isAdmin() {
-    if (this.props.userRoles[0] === "ADMIN") {
+    //if (this.props.userRoles[0] === "ADMIN") {
         return true;
-    }
-    else return false;
+    //}
+    //else return false;
 };
 
 if(Meteor.isServer) {

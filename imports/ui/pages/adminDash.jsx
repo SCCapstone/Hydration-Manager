@@ -143,7 +143,7 @@ class AdminDash extends React.Component {
                 } else {
                     Bert.alert('Added User Access!', 'success', 'growl-top-left', 'fa-check');
                     //console.log(update_obj.userID);
-                    console.log(this.props.userRoles[0]);
+                    //console.log(this.props.userRoles[0]);
                     Meteor.users.update({_id: update_obj.userID}, {
                         $push: {
                             "profile.teamAccess": update_obj.id,
