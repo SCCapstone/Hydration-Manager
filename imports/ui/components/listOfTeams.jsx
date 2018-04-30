@@ -117,20 +117,21 @@ export default class ListOfTeams extends Component {
         return (
             <div className="CardContainer">
                 {/*Beginning of Card*/}
-                {this.handleView() || Meteor.user().roles[0] === "ADMIN"?
-                <div className="card">
-                    <DropdownButton id="close" title="">
-                        <MenuItem onClick={this.openEdit}>Edit Team</MenuItem>
-                        {Meteor.user().roles[0] === "ADMIN" ? <MenuItem onClick={this.open}>Delete Team</MenuItem> : ''}
-                    </DropdownButton>
-                    <div className="InnerCard">
+                {this.handleView() || Meteor.user().roles[0] === "ADMIN" ?
+                    <div className="card">
+                        <DropdownButton id="close" title="">
+                            <MenuItem onClick={this.openEdit}>Edit Team</MenuItem>
+                            {Meteor.user().roles[0] === "ADMIN" ?
+                                <MenuItem onClick={this.open}>Delete Team</MenuItem> : ''}
+                        </DropdownButton>
+                        <div className="InnerCard">
                             <Link to={{pathname: "/app/masterReport/" + this.props.team._id}}
                                   className={this.props.team._id + "card"}>
                                 <h4>{this.props.team.name}</h4>
                                 <p>{this.props.team.season}</p>
                             </Link>
-                    </div>
-                </div>: ''}
+                        </div>
+                    </div> : ''}
                 {/*Ending of Card*/}
                 {/*Beginning of Deleting Modal Confirmation*/}
                 <div>
