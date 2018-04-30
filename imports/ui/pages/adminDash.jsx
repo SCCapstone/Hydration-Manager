@@ -71,14 +71,31 @@ class AdminDash extends React.Component {
         )
     }
 
-    accessList(userAccess){
+    accessList(userAccess) {
         let message = '';
-        for (let i = 0; i < userAccess.length; i++){
-            message += userAccess[i] + "\n";
+        for (let i = 0; i < userAccess.length; i++) {
+            console.log(userAccess[i]);
+            let user = Meteor.users.findOne( { "_id" : userAccess[i]} );
+            console.log(user);
+            //console.log(user.emails[0].address);
+            message += user.emails[0].address + "\n";
             //console.log(message);
         }
         //console.log(message);
         return message;
+    };
+
+    getUserId(usrEmail) {
+        let selectedUser = null;
+        const users = this.props.usersList;
+        for (let i = 0; i < users.length; i++){
+            if (users[i].emails[0].address === usrEmail) {
+                selectedUser = users[i];
+            }
+        }
+        console.log(selectedUser);
+        console.log(selectedUser._id);
+        return selectedUser._id;
     };
 
     showTeamsList() {
@@ -96,16 +113,26 @@ class AdminDash extends React.Component {
                             </td>
                             <td>
                                 <select className="form-control" value={users[0]} onChange={(event) => {
-                                    this.handleAddUserAccess({id: team._id, usrEmail: event.target.value});
-                                }}><option>Select user</option>
+                                    this.handleAddUserAccess({
+                                        id: team._id,
+                                        usrEmail: event.target.value,
+                                        userID: Meteor.users.findOne( { "emails.address" : event.target.value} )._id
+                                    });
+                                }}>
+                                    <option>Select user</option>
                                     {users.map((user) => (<option key={user._id}
                                                                   value={user.emails[0].address}>{user.emails[0].address}</option>))}
                                 </select>
                             </td>
                             <td>
                                 <select className="form-control" value={users[0]} onChange={(event) => {
-                                    this.handleRemoveUserAccess({id: team._id, usrEmail: event.target.value});
-                                }}><option>Select user</option>
+                                    this.handleRemoveUserAccess({
+                                        id: team._id,
+                                        usrEmail: event.target.value,
+                                        userID: Meteor.users.findOne( { "emails.address" : event.target.value} )._id
+                                    });
+                                }}>
+                                    <option>Select user</option>
                                     {users.map((user) => (<option key={user._id}
                                                                   value={user.emails[0].address}>{user.emails[0].address}</option>))}
                                 </select>
@@ -119,24 +146,37 @@ class AdminDash extends React.Component {
     }
 
     handleAddUserAccess(update_obj) {
-        Meteor.call('teams.addUserAccess', update_obj.id, update_obj.usrEmail, (error) => {
-            if (error) {
-                Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
-            } else {
-                Bert.alert('Added User Access!', 'success', 'growl-top-left', 'fa-check');
-            }
+        let team = TeamsCollection.findOne({
+            _id: update_obj.id,
+            usersAccess: update_obj.userID
         });
+        if (team === undefined) {
+            Meteor.call('teams.addUserAccess', update_obj.id, update_obj.usrEmail, update_obj.userID, (error) => {
+                if (error) {
+                    Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
+                } else {
+                    Bert.alert('Added User Access!', 'success', 'growl-top-left', 'fa-check');
+                }
+            });
+        }
     };
 
     handleRemoveUserAccess(update_obj) {
-        Meteor.call('teams.removeUserAccess', update_obj.id, update_obj.usrEmail, (error) => {
-            if (error) {
-                Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
-            } else {
-                Bert.alert('Removed User Access!', 'success', 'growl-top-left', 'fa-check');
-            }
+        let team = TeamsCollection.findOne({
+            _id: update_obj.id,
+            usersAccess: update_obj.userID
         });
+        if (team !== undefined) {
+            Meteor.call('teams.removeUserAccess', update_obj.id, update_obj.usrEmail, update_obj.userID, (error) => {
+                if (error) {
+                    Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
+                } else {
+                    Bert.alert('Removed User Access!', 'success', 'growl-top-left', 'fa-check');
+                }
+            });
+        }
     };
+
 
     /* Method for changing the role of a user */
     handleRoleChange(update_obj) {
@@ -147,7 +187,8 @@ class AdminDash extends React.Component {
                 Bert.alert('Role updated!', 'success', 'growl-top-left', 'fa-check');
             }
         });
-    };
+    }
+    ;
 
     /* Displays Table of Users, including Name, Email, Verification Status, and Role Status */
     render() {
@@ -182,7 +223,8 @@ class AdminDash extends React.Component {
     }
 }
 
-AdminDash.propTypes = {
+AdminDash
+    .propTypes = {
     subscriptions: PropTypes.array,
     loading: PropTypes.bool,
     usersList: PropTypes.array,
@@ -190,23 +232,23 @@ AdminDash.propTypes = {
     teamsList: PropTypes.array,
 };
 // Fetch User & Role data from server
-export default withTracker(() => {
-    const subscription = Meteor.subscribe('users.all');
-    const loading = !subscription.ready();
-    const usersList = !loading ? Meteor.users.find().fetch() : [];
-    // const roleSubcription = Meteor.subscribe('users.roles');
-    // const allRoles = !roleSubcription.ready() ? [] : Roles.getAllRoles().fetch();
-    const allRoles = Roles.getAllRoles().fetch();
-
-    const teamSubscription = Meteor.subscribe('teams.all');
-    const teamsLoading = !teamSubscription.ready();
-    const teamsList = !teamsLoading ? TeamsCollection.find().fetch() : [];
-
-    return {
-        subscriptions: [subscription],
-        loading,
-        usersList,
-        allRoles,
-        teamsList,
-    };
-})(AdminDash);
+export default withTracker(
+    () => {
+        const subscription = Meteor.subscribe('users.all');
+        const loading = !subscription.ready();
+        const usersList = !loading ? Meteor.users.find().fetch() : [];
+        // const roleSubcription = Meteor.subscribe('users.roles');
+        // const allRoles = !roleSubcription.ready() ? [] : Roles.getAllRoles().fetch();
+        const allRoles = Roles.getAllRoles().fetch();
+        const teamSubscription = Meteor.subscribe('teams.all');
+        const teamsLoading = !teamSubscription.ready();
+        const teamsList = !teamsLoading ? TeamsCollection.find().fetch() : [];
+        return {
+            subscriptions: [subscription],
+            loading,
+            usersList,
+            allRoles,
+            teamsList,
+        };
+    })
+(AdminDash);

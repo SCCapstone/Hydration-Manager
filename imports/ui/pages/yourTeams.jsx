@@ -66,7 +66,7 @@ class YourTeams extends React.Component {
             const user = this.props.emailAddress;
             //console.log(curUser);
             //console.log(id);
-            Meteor.call('teams.insert', teamName, teamSeason, id, user, () => {
+            Meteor.call('teams.insert', teamName, teamSeason, id, () => {
                 Bert.defaults = {hideDelay: 3500};
                 Bert.alert('Team Created', 'success', 'growl-top-left', 'fa-check');
                 this.team = "";
