@@ -81,7 +81,7 @@ class WeightEntry extends React.Component {
         const curUser = this.props.name;  //CurrentUser.findOne();
         //console.log(curUser);
         const id = this.props.userId;  //curUser.userID;
-        return TeamsCollection.find({user: id}).fetch();
+        return TeamsCollection.find().fetch();
     };
 
     /* Athletes component */

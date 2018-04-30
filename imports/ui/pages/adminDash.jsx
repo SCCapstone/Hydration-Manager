@@ -59,7 +59,6 @@ class AdminDash extends React.Component {
                         <tr key={user._id}>
                             <td width="5%">{!!isCurrentUser ? <Glyphicon glyph="ok"/> : ''}</td>
                             <td>{user.emails[0].address}</td>
-                            <td width="5%"><Checkbox onChange={() => console.log("Hello")}/></td>
                             <td><select className="form-control" value={userRole[0]} onChange={(event) => {
                                 this.handleRoleChange({_id: user._id, role: event.target.value});
                             }}>
@@ -72,6 +71,16 @@ class AdminDash extends React.Component {
         )
     }
 
+    accessList(userAccess){
+        let message = '';
+        for (let i = 0; i < userAccess.length; i++){
+            message += userAccess[i] + "\n";
+            //console.log(message);
+        }
+        //console.log(message);
+        return message;
+    };
+
     showTeamsList() {
         const teams = this.props.teamsList;
         const users = this.props.usersList;
@@ -83,12 +92,12 @@ class AdminDash extends React.Component {
                         <tr key={team._id}>
                             <td width="20%">{team.name} {team.season}</td>
                             <td>
-                                {team.usersAccess}
+                                <pre>{this.accessList(team.usersAccess)}</pre>
                             </td>
                             <td>
                                 <select className="form-control" value={users[0]} onChange={(event) => {
                                     this.handleAddUserAccess({id: team._id, usrEmail: event.target.value});
-                                }}>
+                                }}><option>Select user</option>
                                     {users.map((user) => (<option key={user._id}
                                                                   value={user.emails[0].address}>{user.emails[0].address}</option>))}
                                 </select>
@@ -96,7 +105,7 @@ class AdminDash extends React.Component {
                             <td>
                                 <select className="form-control" value={users[0]} onChange={(event) => {
                                     this.handleRemoveUserAccess({id: team._id, usrEmail: event.target.value});
-                                }}>
+                                }}><option>Select user</option>
                                     {users.map((user) => (<option key={user._id}
                                                                   value={user.emails[0].address}>{user.emails[0].address}</option>))}
                                 </select>
@@ -150,7 +159,6 @@ class AdminDash extends React.Component {
                     <tr>
                         <th>Current User:</th>
                         <th>Email:</th>
-                        <th>Verified:</th>
                         <th>Roles:</th>
                     </tr>
                     </thead>
