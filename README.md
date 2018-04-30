@@ -44,7 +44,7 @@ On this page, weight entries for pre and post practice may be entered. As these 
 **Testing Information**
 
 Behavioral Tests run with chimp by using following command:
-`chimp --ddp=http://localhost:3000 --mocha --path=tests`
+`chimp --ddp=http://localhost:3000 --mocha --path=tests/behavioral_tests`
 
 Unit test run with mocha using the following command:
 `meteor test --driver-package practicalmeteor:mocha`
