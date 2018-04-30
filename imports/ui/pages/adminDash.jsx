@@ -76,7 +76,7 @@ class AdminDash extends React.Component {
         let message = '';
         for (let i = 0; i < userAccess.length; i++) {
             //console.log(userAccess[i]);
-            let user = Meteor.users.findOne( { "_id" : userAccess[i]} );
+            let user = Meteor.users.findOne({"_id": userAccess[i]});
             //console.log(user);
             //console.log(user.emails[0].address);
             message += user.emails[0].address + "\n";
@@ -105,7 +105,7 @@ class AdminDash extends React.Component {
                                     this.handleAddUserAccess({
                                         id: team._id,
                                         usrEmail: event.target.value,
-                                        userID: Meteor.users.findOne( { "emails.address" : event.target.value} )._id
+                                        userID: Meteor.users.findOne({"emails.address": event.target.value})._id
                                     });
                                 }}>
                                     <option>Select user</option>
@@ -118,7 +118,7 @@ class AdminDash extends React.Component {
                                     this.handleRemoveUserAccess({
                                         id: team._id,
                                         usrEmail: event.target.value,
-                                        userID: Meteor.users.findOne( { "emails.address" : event.target.value} )._id
+                                        userID: Meteor.users.findOne({"emails.address": event.target.value})._id
                                     });
                                 }}>
                                     <option>Select user</option>
@@ -142,7 +142,8 @@ class AdminDash extends React.Component {
                     Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
                 } else {
                     Bert.alert('Added User Access!', 'success', 'growl-top-left', 'fa-check');
-                    console.log(update_obj.userID);
+                    //console.log(update_obj.userID);
+                    console.log(this.props.userRoles[0]);
                     Meteor.users.update({_id: update_obj.userID}, {
                         $push: {
                             "profile.teamAccess": update_obj.id,

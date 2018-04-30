@@ -24,7 +24,20 @@ if(!Meteor.isProduction) {
         process.env.MAIL_URL = "smtps://hydrationmanager%40gmail.com:capstone@smtp.gmail.com:465/";
         //Accounts.emailTemplates.from = "hydrationmanager@gmail.com";
     });
-}
+};
+
+function isAdmin() {
+    if (this.props.userRoles[0] === "ADMIN") {
+        return true;
+    }
+    else return false;
+};
+
+if(Meteor.isServer) {
+    Meteor.users.allow({
+        update: isAdmin
+    });
+};
 
 Meteor.methods({
     /*Definition for users.addNewRole (Server Side Method), will be called by client who will pass through attributes:
