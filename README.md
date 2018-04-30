@@ -49,7 +49,7 @@ Behavioral Tests run with chimp by using following command:
 Unit test run with mocha using the following command:
 `meteor test --driver-package practicalmeteor:mocha`
 
-                    **--- or ---**
+                    --- **or** ---
 
                   `npm run test`
 
