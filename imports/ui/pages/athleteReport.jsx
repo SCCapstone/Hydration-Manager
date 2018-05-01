@@ -286,9 +286,9 @@ class AthleteReport extends Component {
                                                      className='athleteTeamSelect' componentClass="select" label='Team'
                                                      onChange={this.handleTeam}>
                                             {this.teams().map((team) => {
-                                                return <AthleteReportDropdownOfTeams id={team._id} value={team._id}
-                                                                                     key={team._id}/>
-                                            })}
+                                                return <AthleteReportDropdownOfTeams id={team._id} value={team._id} key={team._id} team={team}/>})}
+                                            /*{this.teams().map((team) => <option id = {team._id} value={team._id}
+                                                                                key={team._id}>{team.name} {team.season}</option>)}*/
                                         </FormControl>
                                     </FormGroup>
                                 </form>

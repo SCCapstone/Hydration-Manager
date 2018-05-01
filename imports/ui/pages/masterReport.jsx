@@ -11,6 +11,9 @@ import MasterDropdownOfTeams from '../components/masterDropdownOfTeams.jsx';
 import AthleteSingle from '../components/athletesingle.jsx';
 import TeamsCollection from '../../api/Teams/Teams.js';
 import AthletesCollection from '../../api/Athletes/Athletes.js';
+import {Meteor} from "meteor/meteor";
+import MasterCreateAthleteDropdown from "../components/masterCreateAthleteDropdown";
+import MasterDropdownOfTeams from "../components/masterDropdownOfTeams";
 
 
 class MasterReport extends React.Component {
@@ -189,6 +192,24 @@ class MasterReport extends React.Component {
         this.setState({playerTeamId: e.target.value});
     };
 
+    handleView() {
+        let currentUser = Meteor.user();
+        let currentUserRole = Meteor.user().roles[0];
+        if (currentUser !== null) {
+            let check = false;
+            for (let i = 0; i < currentUser.profile.teamAccess.length; i++) {
+                if (this.props.team._id === currentUser.profile.teamAccess[i]) {
+                    check = true;
+                }
+            }
+            if (currentUserRole === "ADMIN") {
+                check = true;
+            }
+            return check;
+        }
+        else return false;
+    };
+
     /* Render */
     render() {
         const props = this.props;
@@ -230,11 +251,15 @@ class MasterReport extends React.Component {
                                     <FormControl id="createAthleteWeight" placeholder='Baseline Weight'
                                                  label='Base Weight' type='number'
                                                  onChange={this.handleWeight}/><br/>
-                                    <FormControl id="createAthleteTeam" placeholder='Team'
+                                    <DropdownButton id="createAthleteTeam" placeholder='Team'
                                                  value={this.state.playerTeamId}
-                                                 componentClass="select" label='Team' onChange={this.handleTeam}>
-                                        {this.teams().map((team) => <option value={team._id} id={team._id}
-                                                                            key={team._id}>{team.name} {team.season}</option>)}</FormControl>
+                                                 componentClass="select" label='Team' onChange={this.handleTeam}/>
+                                        /*{this.teams().map((team) => <option value={team._id} id={team._id}
+                                                                            key={team._id}> {team.name} {team.season} </option>)}</FormControl>*/
+                                        {this.teams().map((team) => {
+                                            return <MasterCreateAthleteDropdown key={team._id} team={team}/>
+                                        })}
+                                </DropdownButton>
                                 </FormGroup>
                             </form>
                         </Modal.Body>

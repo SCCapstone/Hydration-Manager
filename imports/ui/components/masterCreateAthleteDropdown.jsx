@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {Meteor} from "meteor/meteor";
 import autoBind from "react-autobind";
 
-class AthleteReportDropdownOfTeams extends Component {
+class MasterCreateAthleteDropdown extends Component {
     constructor(props) {
         super(props);
         autoBind(this);
@@ -41,7 +41,7 @@ class AthleteReportDropdownOfTeams extends Component {
         if (currentUser !== null) {
             let check = false;
             for (let i = 0; i < currentUser.profile.teamAccess.length; i++) {
-                if (this.athlete().teamId === currentUser.profile.teamAccess[i]) {
+                if (this.props.team._id === currentUser.profile.teamAccess[i]) {
                     check = true;
                 }
             }
@@ -63,4 +63,4 @@ class AthleteReportDropdownOfTeams extends Component {
     }
 }
 
-export default AthleteReportDropdownOfTeams;
+export default MasterCreateAthleteDropdown;
