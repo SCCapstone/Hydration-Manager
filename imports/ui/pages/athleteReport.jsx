@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {withTracker} from 'meteor/react-meteor-data';
 import autoBind from 'react-autobind';
-import {DropdownButton, Button, FormControl, FormGroup, Modal} from 'react-bootstrap';
+import {DropdownButton, Button, FormControl, FormGroup, Modal, MenuItem} from 'react-bootstrap';
 
 // Custom File Imports
 import AthletesCollection from '../../api/Athletes/Athletes.js';
@@ -21,7 +21,6 @@ class AthleteReport extends Component {
             name: '',
             base: '',
             team: '',
-            selectedTeam: ''
         };
         autoBind(this);
     };
@@ -230,12 +229,7 @@ class AthleteReport extends Component {
     };
     /* handleTeam function -- sets the team equal to e.target.value */
     handleTeam = (e) => {
-        this.setState({team: e.target.value});
-    };
-    handleTeamSelected() {
-        if (this.state.selectedTeam !== this.eventKey) {
-            this.setState({selectedTeam: this.eventKey});
-        }
+        this.setState({team: e});
     };
 
     /* Upon firing, method will call the open function, which in turn will open the modal window. */
@@ -244,14 +238,32 @@ class AthleteReport extends Component {
         this.open();
     };
 
-    getTitle(){
-        if (this.state.selectedTeam === ''){
-            return 'Select a Team'
+    handleView(team) {
+        let currentUser = Meteor.user();
+        let currentUserRole = Meteor.user().roles[0];
+        if (currentUser !== null) {
+            let check = false;
+            for (let i = 0; i < currentUser.profile.teamAccess.length; i++) {
+                if (team._id === currentUser.profile.teamAccess[i]) {
+                    check = true;
+                }
+            }
+            if (currentUserRole === "ADMIN") {
+                check = true;
+            }
+            return check;
         }
-        else{
-            return this.state.selectedTeam;
-        }
+        else return false;
     };
+
+    setTitle() {
+        if (this.state.team === '') {
+            return "Select Team"
+        }
+        else {
+            return TeamsCollection.findOne({_id: this.state.team}).name + " " + TeamsCollection.findOne({_id: this.state.team}).season;
+        }
+    }
 
     /* Render method -- contains the modal form for editing an athlete's information,
      * such as the name, weight, and the team to which that player relates to. */
@@ -296,11 +308,15 @@ class AthleteReport extends Component {
                                         <FormControl defaultValue={this.athlete().baseWeight} label='Weight'
                                                      className='athleteBaseInput' type='number'
                                                      onChange={this.handleWeight}/><br/>
-                                        <FormControl value={this.state.team}
-                                                     className = 'athleteTeamSelect' componentClass="select" label='Team' onChange={this.handleTeam}>
-                                            {this.teams().map((team) => <option id = {team._id} value={team._id}
-                                                                                key={team._id}>{team.name} {team.season}</option>)}
-                                        </FormControl>
+                                        <DropdownButton title={this.setTitle()}
+                                                        className='athleteTeamSelect'
+                                                        bsStyle={'default'}
+                                                        onSelect={this.handleTeam}>
+                                            {this.teams().map((team) => {
+                                                return <MenuItem
+                                                    eventKey={team._id}>{this.handleView(team) ? team.name + " " + team.season : ''}</MenuItem>
+                                            })}
+                                        </DropdownButton>
                                     </FormGroup>
                                 </form>
                             </Modal.Body>
@@ -311,6 +327,7 @@ class AthleteReport extends Component {
                                         Athlete</Button> : ''}
                                 <Button onClick={this.editEntry} bsStyle="primary" className="modalEditButton">Edit
                                     Athlete</Button>
+
                             </Modal.Footer>
                         </Modal>
                         <h3>Athlete Report</h3>

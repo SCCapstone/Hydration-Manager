@@ -33,7 +33,8 @@ class MasterDropdownOfTeams extends Component {
         return (
             <MenuItem>
                 {this.handleView() ?
-                <Link to={{pathname: "/app/masterReport/" + this.props.team._id}}>{this.props.team.name} {this.props.team.season}</Link> : ''}
+                    <Link
+                        to={{pathname: "/app/masterReport/" + this.props.team._id}}>{this.props.team.name} {this.props.team.season}</Link> : ''}
             </MenuItem>
         )
     }

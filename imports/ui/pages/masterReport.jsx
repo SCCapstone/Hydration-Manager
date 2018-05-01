@@ -187,17 +187,16 @@ class MasterReport extends React.Component {
     };
     /* handleTeam function -- sets the team equal to e.target.value */
     handleTeam = (e) => {
-        e.persist();
-        this.setState({playerTeamId: e.target.value});
+        this.setState({playerTeamId: e});
     };
 
-    handleView() {
+    handleView(team) {
         let currentUser = Meteor.user();
         let currentUserRole = Meteor.user().roles[0];
         if (currentUser !== null) {
             let check = false;
             for (let i = 0; i < currentUser.profile.teamAccess.length; i++) {
-                if (this.props.team._id === currentUser.profile.teamAccess[i]) {
+                if (team._id === currentUser.profile.teamAccess[i]) {
                     check = true;
                 }
             }
@@ -208,6 +207,15 @@ class MasterReport extends React.Component {
         }
         else return false;
     };
+
+    setTitle() {
+        if (this.state.playerTeamId === '') {
+            return "Select Team"
+        }
+        else {
+            return TeamsCollection.findOne({_id: this.state.playerTeamId}).name + " " + TeamsCollection.findOne({_id: this.state.playerTeamId}).season;
+        }
+    }
 
     /* Render */
     render() {
@@ -250,11 +258,15 @@ class MasterReport extends React.Component {
                                     <FormControl id="createAthleteWeight" placeholder='Baseline Weight'
                                                  label='Base Weight' type='number'
                                                  onChange={this.handleWeight}/><br/>
-                                    <FormControl id="createAthleteTeam" placeholder='Team'
-                                                  value={this.state.playerTeamId}
-                                                  componentClass="select" label='Team' onChange={this.handleTeam}>
-                                        {this.teams().map((team) => <option value={team._id} id={team._id}
-                                                                            key={team._id}>{team.name} {team.season}</option>)}</FormControl>
+                                    <DropdownButton value={this.state.playerTeamId}
+                                                    title={this.setTitle()}
+                                                    bsStyle={'default'}
+                                                    onSelect={this.handleTeam}>
+                                        {this.teams().map((team) => {
+                                            return <MenuItem
+                                                eventKey={team._id}>{this.handleView(team) ? team.name + " " + team.season : ''}</MenuItem>
+                                        })}
+                                    </DropdownButton>
                                 </FormGroup>
                             </form>
                         </Modal.Body>
