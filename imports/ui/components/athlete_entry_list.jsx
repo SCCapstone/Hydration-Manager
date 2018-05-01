@@ -257,11 +257,31 @@ export default class AthleteEntryList extends Component {
         if (event.which === 13 /* Enter */) {
             event.preventDefault();
         }
+    };
+
+    handleView() {
+        let currentUser = Meteor.user();
+        if (currentUser !== null) {
+            let check = false;
+            for (let i=0; i < currentUser.profile.teamAccess.length; i++) {
+                if (this.props.athlete.teamId === currentUser.profile.teamAccess[i])
+                {
+                    check = true;
+                }
+            }
+            return check;
+        }
+        else return false;
     }
-    ;
 
     /*Render weights and allows changes*/
     render() {
+
+        if(this.handleView() == false && Meteor.user().roles[0] !== "ADMIN")
+        {
+            return null;
+        }
+
         return (
             <tr>
                 <td>{this.props.athlete.name}</td>
