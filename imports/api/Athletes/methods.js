@@ -118,28 +118,28 @@ Meteor.methods({
      * ....
      * */
     'athletes.generateSMS': function sendSMS(athName, hydrate, color, phone) {
-        // // These are TESTING CREDENTIALS only, not real credentials;
-        // // We would need to change these values to the real credentials once we set up billing.  -anthony
-        // let twilio = require('twilio');
-        // //const ACCOUNT_SID = 'ACcaad0f31e3a34aac5f13636556bcc746'; // Test Credentials
-        // //const AUTH_TOKEN = 'b56f47d16915b1947c64cdec964b914a';    // Test Credentials
-        //
-        // const ACCOUNT_SID = 'AC531f960278ec72ecacc6851e928857c3';
-        // const AUTH_TOKEN = '8264c6876d21e70d9d27b93316ac1313';
-        // let client = new twilio(ACCOUNT_SID, AUTH_TOKEN);
-        // console.log("This should generate an SMS alert");
-        // //twilio.sendSms({
-        // client.messages.create({
-        //     body: athName + ' has generated a `' + color + '` alert status with a hydration value of ' + Number.parseFloat(hydrate).toPrecision(4),
-        //     to: "+" + phone,  // Text this number;
-        //     from: '+18036368598' // this is OUR twilio number. $1.00 a month. This will need to stay this hardcoded value.
-        //     //from: '+15005550006' // This is a twilio TEST number
-        // }, function (err, responseData) { //this function is executed when a response is received from Twilio
-        //     if (!err) {
-        //         console.log("Texting a message from " + responseData.from); // outputs "from phone number"
-        //         console.log("To " + responseData.to);
-        //         console.log("The message " + responseData.body); // outputs "body of message"
-        //     }
-        // });
+        // These are TESTING CREDENTIALS only, not real credentials;
+        // We would need to change these values to the real credentials once we set up billing.  -anthony
+        let twilio = require('twilio');
+        //const ACCOUNT_SID = 'ACcaad0f31e3a34aac5f13636556bcc746'; // Test Credentials
+        //const AUTH_TOKEN = 'b56f47d16915b1947c64cdec964b914a';    // Test Credentials
+
+        const ACCOUNT_SID = 'AC531f960278ec72ecacc6851e928857c3';
+        const AUTH_TOKEN = '8264c6876d21e70d9d27b93316ac1313';
+        let client = new twilio(ACCOUNT_SID, AUTH_TOKEN);
+        console.log("This should generate an SMS alert");
+        //twilio.sendSms({
+        client.messages.create({
+            body: athName + ' has generated a `' + color + '` alert status with a hydration value of ' + Number.parseFloat(hydrate).toPrecision(4),
+            to: "+" + phone,  // Text this number;
+            from: '+18036368598' // this is OUR twilio number. $1.00 a month. This will need to stay this hardcoded value.
+            //from: '+15005550006' // This is a twilio TEST number
+        }, function (err, responseData) { //this function is executed when a response is received from Twilio
+            if (!err) {
+                console.log("Texting a message from " + responseData.from); // outputs "from phone number"
+                console.log("To " + responseData.to);
+                console.log("The message " + responseData.body); // outputs "body of message"
+            }
+        });
     },
 });
