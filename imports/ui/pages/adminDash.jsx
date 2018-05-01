@@ -78,7 +78,7 @@ class AdminDash extends React.Component {
             let user = Meteor.users.findOne({"_id": userAccess[i]});
             //console.log(user);
             //console.log(user.emails[0].address);
-            message += user.emails[0].address + "\n";
+            message += user.emails[0].address + "\r\n";
             //console.log(message);
         }
         //console.log(message);

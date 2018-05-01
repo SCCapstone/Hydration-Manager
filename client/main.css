@@ -21,6 +21,13 @@ img{
     margin-right: auto;
     width: 50%;
 }
+pre{
+    padding: 0;
+    background-color: inherit;
+    border: none;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: inherit;
+}
 /* Nav CSS */
 .navbar {
     margin-bottom: 0;
