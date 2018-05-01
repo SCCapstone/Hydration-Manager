@@ -19,7 +19,7 @@ export default class WeightDropdownOfTeams extends Component {
         autoBind(this);
     };
 
-    handleStates(){
+    handleStates() {
         if (this.state.teamId !== this.props.team._id) {
             this.setState({teamId: this.props.team._id});
         }
@@ -54,7 +54,8 @@ export default class WeightDropdownOfTeams extends Component {
         return (
             <MenuItem>
                 {this.handleView() ?
-                    <Link to={{pathname: "/app/weightEntry/" + this.props.team._id}}>{this.props.team.name} {this.props.team.season}</Link> : ''}
+                    <Link
+                        to={{pathname: "/app/weightEntry/" + this.props.team._id}}>{this.props.team.name} {this.props.team.season}</Link> : ''}
             </MenuItem>
         )
     }

@@ -256,12 +256,12 @@ class AthleteReport extends Component {
         else return false;
     };
 
-    setTitle(){
-        if(this.state.team === ''){
+    setTitle() {
+        if (this.state.team === '') {
             return "Select Team"
         }
-        else{
-            return TeamsCollection.findOne( { _id : this.state.team}).name + " " + TeamsCollection.findOne( { _id : this.state.team}).season;
+        else {
+            return TeamsCollection.findOne({_id: this.state.team}).name + " " + TeamsCollection.findOne({_id: this.state.team}).season;
         }
     }
 
@@ -313,7 +313,8 @@ class AthleteReport extends Component {
                                                         bsStyle={'default'}
                                                         onSelect={this.handleTeam}>
                                             {this.teams().map((team) => {
-                                                return <MenuItem eventKey={team._id}>{this.handleView(team) ? team.name + " " + team.season : ''}</MenuItem>
+                                                return <MenuItem
+                                                    eventKey={team._id}>{this.handleView(team) ? team.name + " " + team.season : ''}</MenuItem>
                                             })}
                                         </DropdownButton>
                                     </FormGroup>
@@ -322,8 +323,10 @@ class AthleteReport extends Component {
                             <Modal.Footer>
                                 <Button onClick={this.close}>Close</Button>
                                 {props.userRoles[0] === "ADMIN" ?
-                                    <Button id = "openDelete" onClick={this.openDelete} bsStyle="danger">Delete Athlete</Button> : ''}
-                                <Button onClick={this.editEntry} bsStyle="primary" className = "modalEditButton">Edit Athlete</Button>
+                                    <Button id="openDelete" onClick={this.openDelete} bsStyle="danger">Delete
+                                        Athlete</Button> : ''}
+                                <Button onClick={this.editEntry} bsStyle="primary" className="modalEditButton">Edit
+                                    Athlete</Button>
 
                             </Modal.Footer>
                         </Modal>

@@ -208,14 +208,15 @@ class MasterReport extends React.Component {
         else return false;
     };
 
-    setTitle(){
-        if(this.state.playerTeamId === ''){
+    setTitle() {
+        if (this.state.playerTeamId === '') {
             return "Select Team"
         }
-        else{
-            return TeamsCollection.findOne( { _id : this.state.playerTeamId}).name + " " + TeamsCollection.findOne( { _id : this.state.playerTeamId}).season;
+        else {
+            return TeamsCollection.findOne({_id: this.state.playerTeamId}).name + " " + TeamsCollection.findOne({_id: this.state.playerTeamId}).season;
         }
     }
+
     /* Render */
     render() {
         const props = this.props;
@@ -262,7 +263,8 @@ class MasterReport extends React.Component {
                                                     bsStyle={'default'}
                                                     onSelect={this.handleTeam}>
                                         {this.teams().map((team) => {
-                                            return <MenuItem eventKey={team._id}>{this.handleView(team) ? team.name + " " + team.season : ''}</MenuItem>
+                                            return <MenuItem
+                                                eventKey={team._id}>{this.handleView(team) ? team.name + " " + team.season : ''}</MenuItem>
                                         })}
                                     </DropdownButton>
                                 </FormGroup>

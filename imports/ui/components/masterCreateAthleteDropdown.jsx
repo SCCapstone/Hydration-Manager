@@ -55,6 +55,7 @@ class MasterCreateAthleteDropdown extends Component {
         }
         else return false;
     };
+
     /*Renders link to masterReport for each individual team*/
     render() {
         return (
