@@ -30,9 +30,9 @@ class AthleteReport extends Component {
     // };
 
     componentWillUnmount() {
-        this.props.subscriptions.forEach((s) => {
+        /*this.props.subscriptions.forEach((s) => {
             s.stop();
-        });
+        });*/
     };
 
     /*deleteAthlete method, calls to method found on in the Athletes api,
@@ -287,8 +287,6 @@ class AthleteReport extends Component {
                                                      onChange={this.handleTeam}>
                                             {this.teams().map((team) => {
                                                 return <AthleteReportDropdownOfTeams id={team._id} value={team._id} key={team._id} team={team}/>})}
-                                            /*{this.teams().map((team) => <option id = {team._id} value={team._id}
-                                                                                key={team._id}>{team.name} {team.season}</option>)}*/
                                         </FormControl>
                                     </FormGroup>
                                 </form>
@@ -300,7 +298,6 @@ class AthleteReport extends Component {
                                         Athlete</Button> : ''}
                                 <Button onClick={this.editEntry} bsStyle="primary" className="modalEditButton">Edit
                                     Athlete</Button>
-
                             </Modal.Footer>
                         </Modal>
                         <h3>Athlete Report</h3>

@@ -1,13 +1,13 @@
 // Package Imports
 import React, {Component} from 'react';
 import {MenuItem} from 'react-bootstrap';
-import {Link} from 'react-router-dom'
 import {Meteor} from "meteor/meteor";
 import autoBind from "react-autobind";
 
 class AthleteReportDropdownOfTeams extends Component {
     constructor(props) {
         super(props);
+        console.log("props" + props);
         autoBind(this);
     };
 
@@ -36,29 +36,40 @@ class AthleteReportDropdownOfTeams extends Component {
     };
 
     handleView() {
+        console.log("We're running handleView");
         let currentUser = Meteor.user();
         let currentUserRole = Meteor.user().roles[0];
+        let teamId = this.props.team._id;
+        console.log("currentUser " + currentUser);
+        console.log("currentUserRole " + currentUserRole);
+        console.log("teamID " + teamId);
+        let check = false;
         if (currentUser !== null) {
-            let check = false;
             for (let i = 0; i < currentUser.profile.teamAccess.length; i++) {
-                if (this.athlete().teamId === currentUser.profile.teamAccess[i]) {
+                if (teamId === currentUser.profile.teamAccess[i]) {
                     check = true;
+                    console.log(currentUser.profile.teamAccess[i]);
                 }
             }
             if (currentUserRole === "ADMIN") {
                 check = true;
             }
-            return check;
         }
-        else return false;
+        else {
+            check = false;
+        }
+        console.log(check);
+        return check;
     };
 
     /*Renders link to masterReport for each individual team*/
     render() {
         return (
-            <MenuItem>
-                {this.handleView() ? this.props.team.name + this.props.team.season : ''}
-            </MenuItem>
+            <div>
+                {this.handleView() ?
+                    <option><p>{this.props.team.name} {this.props.team.season}</p></option>
+                    : []}
+            </div>
         )
     }
 }

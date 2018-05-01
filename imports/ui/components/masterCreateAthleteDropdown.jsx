@@ -8,6 +8,7 @@ import autoBind from "react-autobind";
 class MasterCreateAthleteDropdown extends Component {
     constructor(props) {
         super(props);
+        console.log(props);
         autoBind(this);
     };
 
@@ -38,10 +39,12 @@ class MasterCreateAthleteDropdown extends Component {
     handleView() {
         let currentUser = Meteor.user();
         let currentUserRole = Meteor.user().roles[0];
+        //console.log(currentUser);
         if (currentUser !== null) {
             let check = false;
             for (let i = 0; i < currentUser.profile.teamAccess.length; i++) {
                 if (this.props.team._id === currentUser.profile.teamAccess[i]) {
+                    //console.log(this.props.team._id === currentUser.profile.teamAccess[i]);
                     check = true;
                 }
             }
@@ -52,12 +55,11 @@ class MasterCreateAthleteDropdown extends Component {
         }
         else return false;
     };
-
     /*Renders link to masterReport for each individual team*/
     render() {
         return (
             <MenuItem>
-                {this.handleView() ? this.props.team.name + this.props.team.season : ''}
+                {this.handleView() ? this.props.team.name + this.props.team.season : null}
             </MenuItem>
         )
     }

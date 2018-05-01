@@ -13,7 +13,6 @@ import TeamsCollection from '../../api/Teams/Teams.js';
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 import {Meteor} from "meteor/meteor";
 import MasterCreateAthleteDropdown from "../components/masterCreateAthleteDropdown";
-import MasterDropdownOfTeams from "../components/masterDropdownOfTeams";
 
 
 class MasterReport extends React.Component {
@@ -251,15 +250,13 @@ class MasterReport extends React.Component {
                                     <FormControl id="createAthleteWeight" placeholder='Baseline Weight'
                                                  label='Base Weight' type='number'
                                                  onChange={this.handleWeight}/><br/>
-                                    <DropdownButton id="createAthleteTeam" placeholder='Team'
+                                    <FormControl id="createAthleteTeam" placeholder='Team'
                                                  value={this.state.playerTeamId}
-                                                 componentClass="select" label='Team' onChange={this.handleTeam}/>
-                                        /*{this.teams().map((team) => <option value={team._id} id={team._id}
-                                                                            key={team._id}> {team.name} {team.season} </option>)}</FormControl>*/
+                                                 componentClass="select"
+                                                 label='Team' onChange={this.handleTeam}>
                                         {this.teams().map((team) => {
                                             return <MasterCreateAthleteDropdown key={team._id} team={team}/>
-                                        })}
-                                </DropdownButton>
+                                        })}</FormControl>
                                 </FormGroup>
                             </form>
                         </Modal.Body>
