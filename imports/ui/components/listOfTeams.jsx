@@ -93,13 +93,6 @@ export default class ListOfTeams extends Component {
     };
 
     handleView() {
-        //let userID = this.props.user._id;
-        //let id = this.user._id;
-        //console.log(usersList);
-        //console.log(userID);
-        //console.log("this.user._id "+this.user._id);
-        //console.log("this.user()._id "+this.user()._id);
-        //console.log("this.users()._id "+this.users()._id);
         let currentUser = Meteor.user();
         if (currentUser !== null) {
             let check = false;

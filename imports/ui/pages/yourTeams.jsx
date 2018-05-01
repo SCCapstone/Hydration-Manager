@@ -256,6 +256,7 @@ YourTeams
 export default withTracker(
     () => {
         const subscription = Meteor.subscribe('teams.all');
+        const userSubscription = Meteor.subscribe('users.all');
         const loading = !subscription.ready();
         const teamsList = !loading ? TeamsCollection.find().fetch() : [];
         // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,

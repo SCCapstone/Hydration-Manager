@@ -257,8 +257,7 @@ export default class AthleteEntryList extends Component {
         if (event.which === 13 /* Enter */) {
             event.preventDefault();
         }
-    }
-    ;
+    };
 
     /*Render weights and allows changes*/
     render() {

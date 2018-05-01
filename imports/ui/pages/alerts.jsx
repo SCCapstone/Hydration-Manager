@@ -236,6 +236,7 @@ Alerts.propTypes = {
 export default withTracker(() => {
     const teamSubscription = Meteor.subscribe('teams.all');
     const athleteSubscription = Meteor.subscribe('athletes.all');
+    const userSubscription = Meteor.subscribe('users.all');
     const teamLoading = !teamSubscription.ready();
     const athleteLoading = !athleteSubscription.ready();
     const teamsList = !teamLoading ? TeamsCollection.find().fetch() : [];
