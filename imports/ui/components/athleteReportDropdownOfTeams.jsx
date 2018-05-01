@@ -65,11 +65,7 @@ class AthleteReportDropdownOfTeams extends Component {
     /*Renders link to masterReport for each individual team*/
     render() {
         return (
-            <div>
-                {this.handleView() ?
-                    <option><p>{this.props.team.name} {this.props.team.season}</p></option>
-                    : []}
-            </div>
+            <MenuItem>{this.handleView() ? this.props.team.name + this.props.team.season : ''}</MenuItem>
         )
     }
 }

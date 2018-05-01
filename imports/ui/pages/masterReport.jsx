@@ -250,13 +250,15 @@ class MasterReport extends React.Component {
                                     <FormControl id="createAthleteWeight" placeholder='Baseline Weight'
                                                  label='Base Weight' type='number'
                                                  onChange={this.handleWeight}/><br/>
-                                    <FormControl id="createAthleteTeam" placeholder='Team'
-                                                 value={this.state.playerTeamId}
-                                                 componentClass="select"
-                                                 label='Team' onChange={this.handleTeam}>
+                                    <DropdownButton value={this.state.playerTeamId}
+                                                    title={'Team Select'}
+                                                    bsStyle={'default'}
+                                                    onChange={this.handleTeam}>
                                         {this.teams().map((team) => {
-                                            return <MasterCreateAthleteDropdown key={team._id} team={team}/>
-                                        })}</FormControl>
+                                            return <MasterCreateAthleteDropdown id={team._id} value={team._id}
+                                                                                key={team._id} team={team}/>
+                                        })}
+                                    </DropdownButton>
                                 </FormGroup>
                             </form>
                         </Modal.Body>

@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {withTracker} from 'meteor/react-meteor-data';
 import autoBind from 'react-autobind';
-import {Button, FormControl, FormGroup, Modal} from 'react-bootstrap';
+import {DropdownButton, Button, FormControl, FormGroup, Modal} from 'react-bootstrap';
 
 // Custom File Imports
 import AthletesCollection from '../../api/Athletes/Athletes.js';
@@ -104,7 +104,7 @@ class AthleteReport extends Component {
     };
 
     getCurrentTeam() {
-        currentTeam = this.athlete().teamId;
+        let currentTeam = this.athlete().teamId;
         this.setState({team: currentTeam});
     }
 
@@ -229,7 +229,6 @@ class AthleteReport extends Component {
     };
     /* handleTeam function -- sets the team equal to e.target.value */
     handleTeam = (e) => {
-        e.persist();
         this.setState({team: e.target.value});
     };
 
@@ -282,12 +281,15 @@ class AthleteReport extends Component {
                                         <FormControl defaultValue={this.athlete().baseWeight} label='Weight'
                                                      className='athleteBaseInput' type='number'
                                                      onChange={this.handleWeight}/><br/>
-                                        <FormControl value={this.state.team}
-                                                     className='athleteTeamSelect' componentClass="select" label='Team'
-                                                     onChange={this.handleTeam}>
+                                        <DropdownButton title={this.target.value}
+                                                        className='athleteTeamSelect'
+                                                        bsStyle={'default'}
+                                                        onSelect={this.handleTeam}>
                                             {this.teams().map((team) => {
-                                                return <AthleteReportDropdownOfTeams id={team._id} value={team._id} key={team._id} team={team}/>})}
-                                        </FormControl>
+                                                return <AthleteReportDropdownOfTeams id={team._id} value={team._id}
+                                                                                     key={team._id} team={team}/>
+                                            })}
+                                        </DropdownButton>
                                     </FormGroup>
                                 </form>
                             </Modal.Body>
