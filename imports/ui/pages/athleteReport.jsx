@@ -21,6 +21,7 @@ class AthleteReport extends Component {
             name: '',
             base: '',
             team: '',
+            selectedTeam: ''
         };
         autoBind(this);
     };
@@ -231,11 +232,25 @@ class AthleteReport extends Component {
     handleTeam = (e) => {
         this.setState({team: e.target.value});
     };
+    handleTeamSelected() {
+        if (this.state.selectedTeam !== this.eventKey) {
+            this.setState({selectedTeam: this.eventKey});
+        }
+    };
 
     /* Upon firing, method will call the open function, which in turn will open the modal window. */
     handleEditButtonClick() {
         this.getCurrentTeam();
         this.open();
+    };
+
+    getTitle(){
+        if (this.state.selectedTeam === ''){
+            return 'Select a Team'
+        }
+        else{
+            return this.state.selectedTeam;
+        }
     };
 
     /* Render method -- contains the modal form for editing an athlete's information,
@@ -281,13 +296,12 @@ class AthleteReport extends Component {
                                         <FormControl defaultValue={this.athlete().baseWeight} label='Weight'
                                                      className='athleteBaseInput' type='number'
                                                      onChange={this.handleWeight}/><br/>
-                                        <DropdownButton title={this.target.value}
+                                        <DropdownButton title={this.getTitle()}
                                                         className='athleteTeamSelect'
                                                         bsStyle={'default'}
-                                                        onSelect={this.handleTeam}>
+                                                        onSelect={this.handleTeamSelected()}>
                                             {this.teams().map((team) => {
-                                                return <AthleteReportDropdownOfTeams id={team._id} value={team._id}
-                                                                                     key={team._id} team={team}/>
+                                                return <AthleteReportDropdownOfTeams key={team._id} team={team}/>
                                             })}
                                         </DropdownButton>
                                     </FormGroup>

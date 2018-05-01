@@ -7,7 +7,7 @@ import autoBind from "react-autobind";
 class AthleteReportDropdownOfTeams extends Component {
     constructor(props) {
         super(props);
-        console.log("props" + props);
+        //console.log("props" + props);
         autoBind(this);
     };
 
@@ -40,15 +40,15 @@ class AthleteReportDropdownOfTeams extends Component {
         let currentUser = Meteor.user();
         let currentUserRole = Meteor.user().roles[0];
         let teamId = this.props.team._id;
-        console.log("currentUser " + currentUser);
-        console.log("currentUserRole " + currentUserRole);
-        console.log("teamID " + teamId);
+        //console.log("currentUser " + currentUser);
+        //console.log("currentUserRole " + currentUserRole);
+        //console.log("teamID " + teamId);
         let check = false;
         if (currentUser !== null) {
             for (let i = 0; i < currentUser.profile.teamAccess.length; i++) {
                 if (teamId === currentUser.profile.teamAccess[i]) {
                     check = true;
-                    console.log(currentUser.profile.teamAccess[i]);
+                    //console.log(currentUser.profile.teamAccess[i]);
                 }
             }
             if (currentUserRole === "ADMIN") {
@@ -58,14 +58,14 @@ class AthleteReportDropdownOfTeams extends Component {
         else {
             check = false;
         }
-        console.log(check);
+        //console.log(check);
         return check;
     };
 
     /*Renders link to masterReport for each individual team*/
     render() {
         return (
-            <MenuItem>{this.handleView() ? this.props.team.name + this.props.team.season : ''}</MenuItem>
+            <MenuItem eventKey={this.props.team.name + this.props.team.season}>{this.handleView() ? this.props.team.name + this.props.team.season : ''}</MenuItem>
         )
     }
 }
