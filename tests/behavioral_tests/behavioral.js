@@ -13,7 +13,7 @@ describe('Login', function () {
 });
 
 describe('Create and Delete an Athlete', function () {
-    it('should create an athlete and confirm they show up in the master report @watch', function () {
+    it('should create and delete an athlete @watch', function () {
         browser.url('http://localhost:3000/app/masterReport');
         browser.pause(5000);
         browser.click('#createAthleteButton');
@@ -41,6 +41,7 @@ describe('Enter Weights', function () {
         browser.pause(5000);
         browser.click('#PreButton');
         browser.setValue('.dataEntrydZFEDH2GY6aM3i3Lm>input', 200);
+        browser.pause(5000);
         browser.url('http://localhost:3000/app/masterReport');
         browser.pause(5000);
         expect(browser.getText('#dZFEDH2GY6aM3i3LmPreWeight')).to.equal('200.0');
@@ -48,15 +49,12 @@ describe('Enter Weights', function () {
 });
 
 describe('Edit Athlete Information', function () {
-    it('should enter a weight and confirm that it shows up in the master report @watch', function () {
-        browser.url('http://localhost:3000/app/athlete/P7RkS97BFgLi3CHmR');
+    it('should edit an athlete @watch', function () {
+        browser.url('http://localhost:3000/app/athlete/dZFEDH2GY6aM3i3Lm');
         browser.pause(5000);
         browser.click('.editAthleteButton');
         browser.setValue('.athleteNameInput', 'Sample Guy');
         browser.setValue('.athleteBaseInput', '205.0');
-        browser.click('.athleteTeamSelect');
-        browser.pause(5000);
-        browser.click('#rC2NhZDfchaCRoxME');
         browser.pause(5000);
         browser.click('.modalEditButton');
         browser.pause(2000);
