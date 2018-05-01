@@ -296,14 +296,11 @@ class AthleteReport extends Component {
                                         <FormControl defaultValue={this.athlete().baseWeight} label='Weight'
                                                      className='athleteBaseInput' type='number'
                                                      onChange={this.handleWeight}/><br/>
-                                        <DropdownButton title={this.getTitle()}
-                                                        className='athleteTeamSelect'
-                                                        bsStyle={'default'}
-                                                        onSelect={this.handleTeamSelected()}>
-                                            {this.teams().map((team) => {
-                                                return <AthleteReportDropdownOfTeams key={team._id} team={team}/>
-                                            })}
-                                        </DropdownButton>
+                                        <FormControl value={this.state.team}
+                                                     className = 'athleteTeamSelect' componentClass="select" label='Team' onChange={this.handleTeam}>
+                                            {this.teams().map((team) => <option id = {team._id} value={team._id}
+                                                                                key={team._id}>{team.name} {team.season}</option>)}
+                                        </FormControl>
                                     </FormGroup>
                                 </form>
                             </Modal.Body>
