@@ -269,6 +269,7 @@ class MasterReport extends React.Component {
         )
     }//End Render
 }//End Class
+
 MasterReport.propTypes = {
     subscriptions: PropTypes.array,
     teamLoading: PropTypes.bool,

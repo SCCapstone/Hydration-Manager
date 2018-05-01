@@ -143,8 +143,7 @@ export default class AthleteEntryList extends Component {
         if (this.props.dat === '') {
             alert('Please ensure you have selected a Date');
         }
-        else if (this.state.weight === '' || this.state.weight === null || this.state.weight.includes("e"))
-        {
+        else if (this.state.weight === '' || this.state.weight === null || this.state.weight.includes("e")) {
             Bert.alert('Please ensure you have entered the Weight correctly', 'warning', 'growl-top-left', 'fa-warning');
         }
         else if (this.props.selOp === 'Default') {
@@ -242,9 +241,9 @@ export default class AthleteEntryList extends Component {
         // {
         //     Bert.alert('Weight input incorrectly formatted.', 'warning', 'growl-top-left', 'fa-warning');
         // }
-       /* if (bool === false || bool2 === false) {
-            console.log("There was an error in weight input.");
-        }*/
+        /* if (bool === false || bool2 === false) {
+             console.log("There was an error in weight input.");
+         }*/
         /* If else, pass the value */
         else {
             this.setState({weight: e.target.value});
@@ -263,9 +262,8 @@ export default class AthleteEntryList extends Component {
         let currentUser = Meteor.user();
         if (currentUser !== null) {
             let check = false;
-            for (let i=0; i < currentUser.profile.teamAccess.length; i++) {
-                if (this.props.athlete.teamId === currentUser.profile.teamAccess[i])
-                {
+            for (let i = 0; i < currentUser.profile.teamAccess.length; i++) {
+                if (this.props.athlete.teamId === currentUser.profile.teamAccess[i]) {
                     check = true;
                 }
             }
@@ -276,24 +274,20 @@ export default class AthleteEntryList extends Component {
 
     /*Render weights and allows changes*/
     render() {
-
-        if(this.handleView() == false && Meteor.user().roles[0] !== "ADMIN")
-        {
+        if (this.handleView() === false && Meteor.user().roles[0] !== "ADMIN") {
             return null;
         }
-
         return (
             <tr>
                 <td>{this.props.athlete.name}</td>
                 <td>
-                    <form className = {"dataEntry" + this.props.athlete._id}>
+                    <form className={"dataEntry" + this.props.athlete._id}>
                         <input className='weightEnterInput' type="number" onChange={this.handleWeightChange}
-                               onKeyPress={this.onKeyPress} pattern="^(\d{1,3}\.{0,1}\d*)$" /*weightValidated={this.validateWeight}*//>
+                               onKeyPress={this.onKeyPress}
+                               pattern="^(\d{1,3}\.{0,1}\d*)$" /*weightValidated={this.validateWeight}*//>
                     </form>
                 </td>
             </tr>
         )
     }
-
-
 }

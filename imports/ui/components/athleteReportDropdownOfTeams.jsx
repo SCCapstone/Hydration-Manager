@@ -3,12 +3,13 @@ import React, {Component} from 'react';
 import {MenuItem} from 'react-bootstrap';
 import {Link} from 'react-router-dom'
 import {Meteor} from "meteor/meteor";
+import autoBind from "react-autobind";
 
 class AthleteReportDropdownOfTeams extends Component {
     constructor(props) {
         super(props);
+        autoBind(this);
     };
-
 
     handleView() {
         let currentUser = Meteor.user();
@@ -16,7 +17,7 @@ class AthleteReportDropdownOfTeams extends Component {
         if (currentUser !== null) {
             let check = false;
             for (let i = 0; i < currentUser.profile.teamAccess.length; i++) {
-                if (this.props.team._id === currentUser.profile.teamAccess[i]) {
+                if (this.props.athletes.teamId === currentUser.profile.teamAccess[i]) {
                     check = true;
                 }
             }
@@ -32,7 +33,7 @@ class AthleteReportDropdownOfTeams extends Component {
     render() {
         return (
             <MenuItem>
-                {this.handleView() ? {this.props.team.name + this.props.team.season} : ''}
+                {this.handleView() ? this.props.team.name + this.props.team.season : ''}
             </MenuItem>
         )
     }

@@ -10,6 +10,7 @@ import AthletesCollection from '../../api/Athletes/Athletes.js';
 import TeamsCollection from '../../api/Teams/Teams.js';
 import AthleteReportTable from '../components/athleteReportTable';
 import AthleteChart from '../components/AthleteChart';
+import AthleteReportDropdownOfTeams from '../components/athleteReportDropdownOfTeams.jsx';
 
 class AthleteReport extends Component {
     constructor(props) {
@@ -263,7 +264,8 @@ class AthleteReport extends Component {
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Button onClick={this.closeDelete}> Close </Button>
-                                    <Button id = "confirmDelete" onClick={this.deleteAthlete} bsStyle="danger">Delete Athlete</Button>
+                                    <Button id="confirmDelete" onClick={this.deleteAthlete} bsStyle="danger">Delete
+                                        Athlete</Button>
                                 </Modal.Footer>
                             </Modal>
                         </div>
@@ -276,13 +278,17 @@ class AthleteReport extends Component {
                                 <form>
                                     <FormGroup>
                                         <FormControl defaultValue={this.athlete().name} label='Name' type='string'
-                                                     className = 'athleteNameInput' onChange={this.handleName}/><br/>
+                                                     className='athleteNameInput' onChange={this.handleName}/><br/>
                                         <FormControl defaultValue={this.athlete().baseWeight} label='Weight'
-                                                     className = 'athleteBaseInput' type='number' onChange={this.handleWeight}/><br/>
+                                                     className='athleteBaseInput' type='number'
+                                                     onChange={this.handleWeight}/><br/>
                                         <FormControl value={this.state.team}
-                                                     className = 'athleteTeamSelect' componentClass="select" label='Team' onChange={this.handleTeam}>
-                                            {this.teams().map((team) => <option id = {team._id} value={team._id}
-                                                                                key={team._id}>{team.name} {team.season}</option>)}
+                                                     className='athleteTeamSelect' componentClass="select" label='Team'
+                                                     onChange={this.handleTeam}>
+                                            {this.teams().map((team) => {
+                                                return <AthleteReportDropdownOfTeams id={team._id} value={team._id}
+                                                                                     key={team._id}/>
+                                            })}
                                         </FormControl>
                                     </FormGroup>
                                 </form>
@@ -290,13 +296,16 @@ class AthleteReport extends Component {
                             <Modal.Footer>
                                 <Button onClick={this.close}>Close</Button>
                                 {props.userRoles[0] === "ADMIN" ?
-                                    <Button id = "openDelete" onClick={this.openDelete} bsStyle="danger">Delete Athlete</Button> : ''}
-                                <Button onClick={this.editEntry} bsStyle="primary" className = "modalEditButton">Edit Athlete</Button>
+                                    <Button id="openDelete" onClick={this.openDelete} bsStyle="danger">Delete
+                                        Athlete</Button> : ''}
+                                <Button onClick={this.editEntry} bsStyle="primary" className="modalEditButton">Edit
+                                    Athlete</Button>
 
                             </Modal.Footer>
                         </Modal>
                         <h3>Athlete Report</h3>
-                        <h4><span className='athleteInfo'>{this.athlete().name} - {this.getTeam()} - {this.athlete().baseWeight} </span><Button
+                        <h4><span
+                            className='athleteInfo'>{this.athlete().name} - {this.getTeam()} - {this.athlete().baseWeight} </span><Button
                             bsSize="xsmall" onClick={() => this.handleEditButtonClick()}><span
                             className="glyphicon glyphicon-pencil editAthleteButton">{}</span></Button></h4><br/>
                         <div>

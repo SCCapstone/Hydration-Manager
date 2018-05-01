@@ -2,30 +2,41 @@
 import React, {Component} from 'react';
 import {MenuItem} from 'react-bootstrap';
 import {Link} from 'react-router-dom'
+import {Meteor} from "meteor/meteor";
 
 class MasterDropdownOfTeams extends Component {
     constructor(props) {
         super(props);
     }
 
-    handleTeamChange(teamSelected) {
-        //console.log(teamSelected);
-        this.props.setCurTeamToDisplay(teamSelected);
-        // --> onSelect={ () => this.handleTeamChange(this.props.team.name) }
+
+    handleView() {
+        let currentUser = Meteor.user();
+        let currentUserRole = Meteor.user().roles[0];
+        if (currentUser !== null) {
+            let check = false;
+            for (let i = 0; i < currentUser.profile.teamAccess.length; i++) {
+                if (this.props.team._id === currentUser.profile.teamAccess[i]) {
+                    check = true;
+                }
+            }
+            if (currentUserRole === "ADMIN") {
+                check = true;
+            }
+            return check;
+        }
+        else return false;
     };
 
     /*Renders link to masterReport for each individual team*/
     render() {
         return (
             <MenuItem>
-                <Link
-                    to={{pathname: "/app/masterReport/" + this.props.team._id}}>{this.props.team.name} {this.props.team.season}</Link>
+                {this.handleView() ?
+                <Link to={{pathname: "/app/masterReport/" + this.props.team._id}}>{this.props.team.name} {this.props.team.season}</Link> : ''}
             </MenuItem>
         )
     }
 }
 
-// MasterDropdownOfTeams.propTypes = {
-//     setCurTeamToDisplay: PropTypes.func,
-// };
 export default MasterDropdownOfTeams;
