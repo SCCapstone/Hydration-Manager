@@ -40,10 +40,10 @@ describe('Enter Weights', function () {
         browser.url('http://localhost:3000/app/weightEntry');
         browser.pause(5000);
         browser.click('#PreButton');
-        browser.setValue('.dataEntryP7RkS97BFgLi3CHmR>input', 200);
+        browser.setValue('.dataEntrydZFEDH2GY6aM3i3Lm>input', 200);
         browser.url('http://localhost:3000/app/masterReport');
         browser.pause(5000);
-        expect(browser.getText('#P7RkS97BFgLi3CHmRPreWeight')).to.equal('200.0');
+        expect(browser.getText('#dZFEDH2GY6aM3i3LmPreWeight')).to.equal('200.0');
     })
 });
 
@@ -56,7 +56,7 @@ describe('Edit Athlete Information', function () {
         browser.setValue('.athleteBaseInput', '205.0');
         browser.click('.athleteTeamSelect');
         browser.pause(5000);
-        browser.click('#ogE6RPnzSomNQjoEP');
+        browser.click('#rC2NhZDfchaCRoxME');
         browser.pause(5000);
         browser.click('.modalEditButton');
         browser.pause(2000);
@@ -68,7 +68,7 @@ describe('Navigate to Team Page', function () {
     it("should navigate to the team's master report page after clicking on team @watch", function () {
         browser.url('http://localhost:3000/app/yourTeams');
         browser.pause(5000);
-        browser.click('.ogE6RPnzSomNQjoEPcard');
-        expect(browser.getUrl()).to.equal('http://localhost:3000/app/masterReport/ogE6RPnzSomNQjoEP');
+        browser.click('.rC2NhZDfchaCRoxMEcard');
+        expect(browser.getUrl()).to.equal('http://localhost:3000/app/masterReport/rC2NhZDfchaCRoxME');
     })
 });
