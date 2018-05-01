@@ -91,37 +91,47 @@ export default class ListOfTeams extends Component {
     handleSeason = (e) => {
         this.setState({editSeason: e.target.value});
     };
+
     handleView() {
-        const usersList = Meteor.users.find().fetch();
-        let currentUser = null
-        for (let i = 0; i < usersList.length; i++) {
-            if (this.props.user._id === userList[i]._id) {
-                currentUser = usersList[i];
-                i = usersList.length;
+        //let userID = this.props.user._id;
+        //let id = this.user._id;
+        //console.log(usersList);
+        //console.log(userID);
+        //console.log("this.user._id "+this.user._id);
+        //console.log("this.user()._id "+this.user()._id);
+        //console.log("this.users()._id "+this.users()._id);
+        let currentUser = Meteor.user();
+        if (currentUser !== null) {
+            let check = false;
+            for (let i = 0; i < currentUser.profile.teamAccess.length; i++) {
+                if (this.props.team._id === currentUser.profile.teamAccess[i]) {
+                    check = true;
+                }
             }
+            return check;
         }
-        if (currentUser !== null){
-
-        }
+        else return false;
     };
-
 
     render() {
         return (
             <div className="CardContainer">
                 {/*Beginning of Card*/}
-                <div className="card">
-                    <DropdownButton id="close" title="">
-                        <MenuItem onClick={this.openEdit}>Edit Team</MenuItem>
-                        <MenuItem onClick={this.open}>Delete Team</MenuItem>
-                    </DropdownButton>
-                    <div className="InnerCard">
-                        <Link to={{pathname: "/app/masterReport/" + this.props.team._id}} className = {this.props.team._id + "card"}>
-                            <h4>{this.props.team.name}</h4>
-                            <p>{this.props.team.season}</p>
-                        </Link>
-                    </div>
-                </div>
+                {this.handleView() || Meteor.user().roles[0] === "ADMIN" ?
+                    <div className="card">
+                        <DropdownButton id="close" title="">
+                            <MenuItem onClick={this.openEdit}>Edit Team</MenuItem>
+                            {Meteor.user().roles[0] === "ADMIN" ?
+                                <MenuItem onClick={this.open}>Delete Team</MenuItem> : ''}
+                        </DropdownButton>
+                        <div className="InnerCard">
+                            <Link to={{pathname: "/app/masterReport/" + this.props.team._id}}
+                                  className={this.props.team._id + "card"}>
+                                <h4>{this.props.team.name}</h4>
+                                <p>{this.props.team.season}</p>
+                            </Link>
+                        </div>
+                    </div> : ''}
                 {/*Ending of Card*/}
                 {/*Beginning of Deleting Modal Confirmation*/}
                 <div>

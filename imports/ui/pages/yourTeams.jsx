@@ -255,24 +255,18 @@ YourTeams
 // Retrieves data from server and puts it into client's minimongo
 export default withTracker(
     () => {
-        const
-            subscription = Meteor.subscribe('teams.all');
-        const
-            loading = !subscription.ready();
-        const
-            teamsList = !loading ? TeamsCollection.find().fetch() : [];
+        const subscription = Meteor.subscribe('teams.all');
+        const loading = !subscription.ready();
+        const teamsList = !loading ? TeamsCollection.find().fetch() : [];
         // teamsList: PropTypes.arrayOf(PropTypes.object).isRequired,
         // match: PropTypes.object.isRequired,
         // history: PropTypes.object.isRequired,
         //console.log(teamsList);
 
         return {
-            subscriptions: [subscription]
-            ,
-            loading
-            ,
-            teamsList
-            ,
+            subscriptions: [subscription],
+            loading,
+            teamsList,
         };
     })
 (YourTeams);

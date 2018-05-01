@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {withTracker} from 'meteor/react-meteor-data';
 import autoBind from 'react-autobind';
+import {Meteor} from 'meteor/meteor';
 
 // Custom File Imports
 
@@ -37,6 +38,21 @@ export default class AthleteSingle extends Component {
             return today + '-noSessionData';
         }
     };
+
+    handleView() {
+        let currentUser = Meteor.user();
+        if (currentUser !== null) {
+            let check = false;
+            for (let i=0; i < currentUser.profile.teamAccess.length; i++) {
+                if (this.props.athlete.teamId === currentUser.profile.teamAccess[i])
+                {
+                    check = true;
+                }
+            }
+            return check;
+        }
+        else return false;
+    }
 
 
     render() {
@@ -89,7 +105,14 @@ export default class AthleteSingle extends Component {
             Date1 = postWeightDate;
             PreWeight = "No Data"
         }
+
+        if(this.handleView() == false && Meteor.user().roles[0] !== "ADMIN")
+        {
+            return null;
+        }
+
         return (
+
             <tr>
                 <td><Link to={"/app/athlete/" + this.props.athlete._id} className = {'athlete' + this.props.athlete.name}>{this.props.athlete.name}</Link></td>
                 <td>{hydrate}</td>
