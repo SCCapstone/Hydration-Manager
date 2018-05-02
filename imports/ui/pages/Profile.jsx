@@ -80,6 +80,7 @@ class Profile extends React.Component {
                 Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
             } else {
                 Bert.alert('Account deleted!', 'success', 'growl-top-left', 'fa-check');
+                window.location ='/login';
             }
         });
     }
