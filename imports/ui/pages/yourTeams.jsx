@@ -112,7 +112,7 @@ class YourTeams extends React.Component {
                     return;
                 }
             }
-            let myTeam = Teams.findOne({name: TeamName});
+            let myTeam = Teams.findOne({name: TeamName, season: TeamSeason});
             for (let i = 1; i < this.state.data.length; i++) {
                 let AthleteName = this.state.data[i][0];
                 let AthleteWeight = this.state.data[i][1];

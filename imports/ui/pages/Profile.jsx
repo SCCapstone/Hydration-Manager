@@ -12,6 +12,7 @@ import 'jquery-validation';
 
 // Custom File Imports
 import GenericFooter from '../components/GenericFooter';
+import TeamsCollection from "../../api/Teams/Teams";
 
 class Profile extends React.Component {
     constructor(props) {
@@ -72,6 +73,8 @@ class Profile extends React.Component {
 
     handleDeleteAccount(){
         const id = this.props.userId;
+        let teams = this.teamsList;
+        {/*TODO: Remove this user from all teams access list for cleanup of arrays*/}
         Meteor.call('users.deleteAccount', id, (error) => {
             if (error) {
                 Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
@@ -140,6 +143,34 @@ class Profile extends React.Component {
         }[this.getUserType(user)])(loading, user) : <div/>;
     };
 
+    handleRemoveUserAccess(update_obj) {
+        let team = TeamsCollection.findOne({
+            _id: update_obj.id,
+            usersAccess: update_obj.userID
+        });
+        if (team !== undefined) {
+            Meteor.call('teams.removeUserAccess', update_obj.id, update_obj.usrEmail, update_obj.userID, (error) => {
+                if (error) {
+                    Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
+                } else {
+                    Bert.alert('Removed User Access!', 'success', 'growl-top-left', 'fa-check');
+                    Meteor.users.update({_id: update_obj.userID}, {
+                        $pull: {
+                            "profile.teamAccess": update_obj.id,
+                        }
+                    });
+                    /*if (!check){ // Need to error check to ensure these lists always stay aligned. If they didn't, then undo what we just did.
+                        Meteor.users.update({_id: update_obj.userID}, {
+                            $push: {
+                                "profile.teamAccess": currentTeam._id,
+                            }
+                        });
+                    }*/
+                }
+            });
+        }
+    };
+
     render() {
         const {loading, user} = this.props;
 
@@ -178,6 +209,7 @@ Profile.propTypes = {
 
 export default withTracker(() => {
     const subscription = Meteor.subscribe('users.all');
+    const teamsList = TeamsCollection.find().fetch();
 
     return {
         loading: !subscription.ready(),
