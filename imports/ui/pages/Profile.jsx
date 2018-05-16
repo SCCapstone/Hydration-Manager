@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
-import {Button, ControlLabel, FormGroup, Modal} from 'react-bootstrap';
+import {Button, Checkbox, ControlLabel, FormGroup, Glyphicon, Modal, Table} from 'react-bootstrap';
 import {Meteor} from 'meteor/meteor';
 import {Accounts} from 'meteor/accounts-base';
 import {Bert} from 'meteor/themeteorchef:bert';
@@ -24,11 +24,11 @@ class Profile extends React.Component {
     };
 
     handleClose() {
-        this.setState({ show: false });
+        this.setState({show: false});
     }
 
     handleShow() {
-        this.setState({ show: true });
+        this.setState({show: true});
     }
 
     componentDidMount() {
@@ -71,16 +71,17 @@ class Profile extends React.Component {
         return service === 'password' ? 'password' : 'oauth';
     };
 
-    handleDeleteAccount(){
+    handleDeleteAccount() {
         const id = this.props.userId;
         let teams = this.teamsList;
-        {/*TODO: Remove this user from all teams access list for cleanup of arrays*/}
+        {/*TODO: Remove this user from all teams access list for cleanup of arrays*/
+        }
         Meteor.call('users.deleteAccount', id, (error) => {
             if (error) {
                 Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
             } else {
                 Bert.alert('Account deleted!', 'success', 'growl-top-left', 'fa-check');
-                window.location ='/login';
+                window.location = '/login';
             }
         });
     }
@@ -144,37 +145,9 @@ class Profile extends React.Component {
         }[this.getUserType(user)])(loading, user) : <div/>;
     };
 
-    handleRemoveUserAccess(update_obj) {
-        let team = TeamsCollection.findOne({
-            _id: update_obj.id,
-            usersAccess: update_obj.userID
-        });
-        if (team !== undefined) {
-            Meteor.call('teams.removeUserAccess', update_obj.id, update_obj.usrEmail, update_obj.userID, (error) => {
-                if (error) {
-                    Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
-                } else {
-                    Bert.alert('Removed User Access!', 'success', 'growl-top-left', 'fa-check');
-                    Meteor.users.update({_id: update_obj.userID}, {
-                        $pull: {
-                            "profile.teamAccess": update_obj.id,
-                        }
-                    });
-                    /*if (!check){ // Need to error check to ensure these lists always stay aligned. If they didn't, then undo what we just did.
-                        Meteor.users.update({_id: update_obj.userID}, {
-                            $push: {
-                                "profile.teamAccess": currentTeam._id,
-                            }
-                        });
-                    }*/
-                }
-            });
-        }
-    };
 
     render() {
         const {loading, user} = this.props;
-
         return (
             <div>
                 <Modal show={this.state.show} onHide={this.handleClose}>
@@ -182,7 +155,8 @@ class Profile extends React.Component {
                         <Modal.Title>Delete your Account</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>This will <strong>permanently</strong> delete your account. Are you sure you want to do this?</p>
+                        <p>This will <strong>permanently</strong> delete your account. Are you sure you want to do this?
+                        </p>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.handleClose}>Close</Button>
@@ -197,7 +171,13 @@ class Profile extends React.Component {
                 </div>
                 <hr/>
                 <form ref={form => (this.form = form)}
-                      onSubmit={event => event.preventDefault()}>{this.renderProfileForm(loading, user)}</form>
+                      onSubmit={event => event.preventDefault()}>{this.renderProfileForm(loading, user)}
+                </form>
+                {this.props.userRoles[0] === "ADMIN" ?
+                <div>
+                <hr/>
+
+                </div> : ''}
             </div>
         );
     }

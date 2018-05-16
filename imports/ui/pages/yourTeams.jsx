@@ -23,17 +23,9 @@ class YourTeams extends React.Component {
             alert2: false,
             fileName: "",
         };
-        // this.open = this.open.bind(this);
-        // this.close = this.close.bind(this);
-        // this.routeToReport = this.routeToReport.bind(this);
-        // this.addTeam = this.addTeam.bind(this);
-        // this.showTeamsList = this.showTeamsList.bind(this);
         autoBind(this);  //binds class methods to the component instance
     };
 
-    // componentWillMount() {
-    //   Roles.userIsInRole(user, ["ADMIN"]);
-    // };
     componentWillUnmount() {
         this.props.subscriptions.forEach((s) => {
             s.stop();
@@ -62,9 +54,7 @@ class YourTeams extends React.Component {
         const teamSeason = this.state.teamSeason;
 
         if (teamName !== "") {
-            const curUser = this.props.name;  //CurrentUser.findOne();
             const id = this.props.userId;  //curUser.userID;
-            const user = this.props.emailAddress;
             //console.log(curUser);
             console.log(id);
             if (!TeamsCollection.findOne({name: teamName, season: teamSeason})) {

@@ -17,6 +17,8 @@ Meteor.methods({
                 season: tSeason,
                 whoCreated: Id,
                 usersAccess: [Id],
+                smsAlertList: [Id],
+                dailyReportList: [Id],
                 createdAt: new Date(),
             })
         } catch (exception) {
@@ -50,11 +52,51 @@ Meteor.methods({
         );
     },
 
-    'teams.removeUserAccess': function addUserAccess(id, usrEmail, userID) {
+    'teams.removeUserAccess': function removeUserAccess(id, usrEmail, userID) {
         Teams.update(
             {_id: id}, {
                 $pull: {
                     usersAccess: userID
+                }
+            }
+        );
+    },
+
+    'teams.addSMS': function addSMS(id, usrEmail, userID) {
+        Teams.update(
+            {_id: id}, {
+                $push: {
+                    smsAlertList: userID
+                }
+            }
+        );
+    },
+
+    'teams.removeSMS': function removeSMS(id, usrEmail, userID) {
+        Teams.update(
+            {_id: id}, {
+                $pull: {
+                    smsAlertList: userID
+                }
+            }
+        );
+    },
+
+    'teams.addDaily': function addDaily(id, usrEmail, userID) {
+        Teams.update(
+            {_id: id}, {
+                $push: {
+                    dailyReportList: userID
+                }
+            }
+        );
+    },
+
+    'teams.removeDaily': function removeDaily(id, usrEmail, userID) {
+        Teams.update(
+            {_id: id}, {
+                $pull: {
+                    dailyReportList: userID
                 }
             }
         );

@@ -104,17 +104,36 @@ export default class AthleteEntryList extends Component {
             console.log(headAdmin);
             const currentPhone = "+" + headAdmin.profile.phone;
             console.log(currentPhone);
-            Meteor.call('athletes.generateSMS', name, hydration, "red", currentPhone, () => { // currently a hardcoded value. Need to talk to client about list of users for alerts.
+            Meteor.call('athletes.generateSMS', name, hydration, "red", currentPhone, () => {
+                console.log("We're calling the SMS alert");
+            });
+        }
+        if ((hydration > -4 && hydration < -3) || (hydration > 3 && hydration < 4)) {
+            //let list = this.listofAlerts;
+            /*for (let i = 0; i < list.length; i++)
+            {
+                Meteor.call('athletes.generateSMS', name, hydration, "red", *phoneNumberVarFromUserObject*, () => {
+                console.log("We're calling the SMS alert");
+            });
+            }*/
+            const users = Meteor.users.find({}).fetch();
+            let headAdmin = null;
+            for (let i = 0; i < users.length; i++) {
+                console.log(users[i].profile);
+                if (users[i].profile.head === true) {
+                    headAdmin = users[i];
+                }
+            }
+            console.log(headAdmin);
+            const currentPhone = "+" + headAdmin.profile.phone;
+            console.log(currentPhone);
+            Meteor.call('athletes.generateSMS', name, hydration, "yellow", currentPhone, () => {
                 console.log("We're calling the SMS alert");
             });
         }
         //}, delayInMilliseconds);
     };
 
-    listOfAlerts(e) {
-        // Generate a list of admin accounts that head admin wants to text and pass this list back to handleAlerts
-        //return [];
-    }
 
 // Handler Functions
     /*handleDebounce function provides checks and alerts*/
