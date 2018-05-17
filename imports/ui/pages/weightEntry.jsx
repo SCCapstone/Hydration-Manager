@@ -11,6 +11,7 @@ import WeightDropdownOfTeams from '../components/weightDropdownOfTeams.jsx';
 import AthletesCollection from '../../api/Athletes/Athletes.js';
 import TeamsCollection from '../../api/Teams/Teams.js';
 import AthleteEntryList from '../components/athlete_entry_list.jsx';
+import {Meteor} from "meteor/meteor";
 
 
 class WeightEntry extends React.Component {
@@ -31,6 +32,9 @@ class WeightEntry extends React.Component {
     }
 
     componentDidMount() {
+        //let userList = Meteor.users.find({"profile.daily": true}).fetch();
+        //console.log(userList);
+        //console.log(userList.length);
         let now = new Date();
         let month = (now.getMonth() + 1);
         let day = now.getDate();
@@ -50,6 +54,7 @@ class WeightEntry extends React.Component {
     /* handleOptionChange function -- sets selectedOption to e.target.value */
     handleOptionChange(value) {
         this.setState({selectedOption: value});
+        console.log(this.state.selectedOption);
         let weightElements = document.getElementsByClassName("weightEnterInput");
         for (let i = 0; i < weightElements.length; i++) {
             weightElements[i].value = "";

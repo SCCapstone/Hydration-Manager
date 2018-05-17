@@ -370,14 +370,12 @@ pre{
     width: 50%;
 }
 
-.ProfileListTeams{
+#ProfileListTeams{
     list-style-type: none;
-    display: inline-block;
+    padding: 0;
 }
 
 .ProfileFooter h3{
-    float: left;
-    margin: 0;
     line-height: 1.42857;
 }
 

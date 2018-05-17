@@ -2,7 +2,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
-import {Button, ButtonToolbar, Checkbox, ControlLabel, FormGroup, Glyphicon, Modal, Table, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
+import {
+    Button,
+    ButtonToolbar,
+    Checkbox,
+    ControlLabel,
+    FormGroup,
+    Glyphicon,
+    Modal,
+    Table,
+    ToggleButton,
+    ToggleButtonGroup
+} from 'react-bootstrap';
 import {Meteor} from 'meteor/meteor';
 import {Accounts} from 'meteor/accounts-base';
 import {Bert} from 'meteor/themeteorchef:bert';
@@ -39,8 +50,8 @@ class Profile extends React.Component {
         const currentUser = Meteor.users.findOne({_id: this.props.userId});
         let sms = currentUser.profile.sms.valueOf();
         let daily = currentUser.profile.daily.valueOf();
-        console.log("The sms value is "+sms);
-        console.log("The daily value is "+daily);
+        //console.log("The sms value is " + sms);
+        //console.log("The daily value is " + daily);
         if (sms) {
             this.setState({smsBool: 1});
         }
@@ -132,7 +143,7 @@ class Profile extends React.Component {
     };
 
     renderPasswordUser(loading, user) {
-        console.log(user.profile);
+        //console.log(user.profile);
         return !loading ? (
             <div className="ProfileForm">
                 <FormGroup>
@@ -179,31 +190,39 @@ class Profile extends React.Component {
         else return false;
     };
 
-    handleSMSChange(e){
+    handleSMSChange(value) {
         const id = this.props.userId;
+        console.log("The user id is "+id);
         console.log(this.state.smsBool);
-        this.setState({smsBool: e.target.value});
+        this.setState({smsBool: value});
         console.log(this.state.smsBool);
         let bool = null;
-        if (this.state.smsBool == 1) {
+        if (this.state.smsBool === 1) {
             bool = true;
         }
         else bool = false;
         Meteor.call('users.handleSMS', id, bool, () => {
             console.log("We're changing the SMS boolean");
         });
+        Meteor.call('users.handleSMS', id, bool, () => {
+            console.log("We're changing the SMS boolean");
+        });
     };
 
-    handleDailyChange(e){
+    handleDailyChange(value) {
         const id = this.props.userId;
+        console.log("The user id is "+id);
         console.log(this.state.dailyBool);
-        this.setState({dailyBool: e.target.value});
+        this.setState({dailyBool: value});
         console.log(this.state.dailyBool);
         let bool = null;
-        if (this.state.dailyBool == 1) {
+        if (this.state.dailyBool === 1) {
             bool = true;
         }
         else bool = false;
+        Meteor.call('users.handleDaily', id, bool, () => {
+            console.log("We're changing the Daily boolean");
+        });
         Meteor.call('users.handleDaily', id, bool, () => {
             console.log("We're changing the Daily boolean");
         });
@@ -239,32 +258,38 @@ class Profile extends React.Component {
                 </div>
                 <hr/>
                 <form ref={form => (this.form = form)}
-                    onSubmit={event => event.preventDefault()}>{this.renderProfileForm(loading, user)}
+                      onSubmit={event => event.preventDefault()}>{this.renderProfileForm(loading, user)}
                 </form>
                 <hr/>
                 <div className="ProfileFooter">
                     <h3>Teams you Access</h3>
-                    <ul className="ProfileListTeams">
+                    <ul id="ProfileListTeams">
                         {teamsList.map((team) => {
-                        return <li key={team._id}>{this.handleView(team) ? team.name + " " + team.season : ''}</li>})}
+                            return <li key={team._id}>{this.handleView(team) ? team.name + " " + team.season : ''}</li>
+                        })}
                     </ul>
                 </div>
                 {this.props.userRoles[0] === "ADMIN" ?
-                <div>
-                <hr/>
-                    <ButtonToolbar>
-                        <ToggleButtonGroup type="radio" name="smsBool" defaultValue={this.state.smsBool} onClick={this.handleSMSChange}>
-                            <ToggleButton value={1}>Receive SMS Alerts</ToggleButton>
-                            <ToggleButton value={2}>No SMS Alerts</ToggleButton>
-                        </ToggleButtonGroup>
-                    </ButtonToolbar>
-                    <ButtonToolbar>
-                        <ToggleButtonGroup type="radio" name="dailyBool" defaultValue={this.state.dailyBool} onClick={this.handleDailyChange}>
-                            <ToggleButton value={1}>Receive Daily Report</ToggleButton>
-                            <ToggleButton value={2}>No Daily Report</ToggleButton>
-                        </ToggleButtonGroup>
-                    </ButtonToolbar>
-                </div> : ''}
+                    <div>
+                        <hr/>
+                        <h3>Admin SMS Dashboard</h3>
+                        <ButtonToolbar>
+                            <ToggleButtonGroup type="radio" name="smsBool"
+                                               value={this.state.smsBool}
+                                               defaultValue={this.state.smsBool}>
+                                <ToggleButton value={1} onClick={() => this.handleSMSChange(1)}>Receive SMS Alerts</ToggleButton>
+                                <ToggleButton value={2} onClick={() => this.handleSMSChange(2)}>No SMS Alerts</ToggleButton>
+                            </ToggleButtonGroup>
+                        </ButtonToolbar>
+                        <ButtonToolbar>
+                            <ToggleButtonGroup type="radio" name="dailyBool"
+                                               value={this.state.dailyBool}
+                                               defaultValue={this.state.dailyBool}>
+                                <ToggleButton value={1} onClick={() => this.handleDailyChange(1)}>Receive Daily Report</ToggleButton>
+                                <ToggleButton value={2} onClick={() => this.handleDailyChange(2)}>No Daily Report</ToggleButton>
+                            </ToggleButtonGroup>
+                        </ButtonToolbar>
+                    </div> : ''}
             </div>
         );
     }

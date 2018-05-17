@@ -5,18 +5,20 @@ if (Meteor.isServer) {
     SyncedCron.add({
         name: 'Send daily report text',
         schedule: function (parser) {
-            return parser.text('at 8:00 pm');
+            return parser.text('at 9:00 pm');
         },
         job: function () {
 
-            let users = Meteor.users.find({"profile.daily": true});
+            let userList = Meteor.users.find({"profile.daily": true}).fetch();
+            //console.log(userList);
+            console.log(userList.length);
             let athletes = [];
 
-            for (let n = 0; n < users.length; n++) {
+            for (let n = 0; n < userList.length; n++) {
                 let k = 0;
-                for (let i = 0; i < users[n].profile.teamAccess.length; i++) {
-                    if (users[n].profile.teamAccess[i] !== undefined) {
-                        let athletes2 = Athletes.find({"teamId": users[n].profile.teamAccess[i]}).fetch();
+                for (let i = 0; i < userList[n].profile.teamAccess.length; i++) {
+                    if (userList[n].profile.teamAccess[i] !== undefined) {
+                        let athletes2 = Athletes.find({"teamId": userList[n].profile.teamAccess[i]}).fetch();
                         for (let j = 0; j < athletes2.length; j++) {
                             athletes[k] = athletes2[j];
                             k++;
@@ -49,7 +51,7 @@ if (Meteor.isServer) {
                 let twilio = require('twilio');
                 let client = new twilio(ACCOUNT_SID, AUTH_TOKEN);
                 client.messages.create({
-                    to: '+' + users[n].profile.phone,
+                    to: '+' + userList[n].profile.phone,
                     from: '+18036368598', // this is OUR twilio number. $1.00 a month. This will need to stay this hardcoded value.
                     // from: '+15005550006', // This is a twilio TEST number
                     body: message,
