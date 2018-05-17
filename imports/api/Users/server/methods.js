@@ -128,8 +128,8 @@ Meteor.methods({
     },
 
     'users.handleSMS': function usershandleSMS(userID, smsChange) {
-        const currentUser = Meteor.users.findOne({_id: userId});
-        Meteor.users.update(userId, {
+        const currentUser = Meteor.users.findOne({_id: userID});
+        Meteor.users.update(userID, {
             $set: {
                 profile: {phone: currentUser.profile.phone.valueOf(), sms: smsChange, daily: currentUser.profile.daily.valueOf(),teamAccess: currentUser.profile.teamAccess.valueOf()},
             },
@@ -137,8 +137,8 @@ Meteor.methods({
     },
 
     'users.handleDaily': function usershandleSMS(userID, dailyChange) {
-        const currentUser = Meteor.users.findOne({_id: userId});
-        Meteor.users.update(userId, {
+        const currentUser = Meteor.users.findOne({_id: userID});
+        Meteor.users.update(userID, {
             $set: {
                 profile: {phone: currentUser.profile.phone.valueOf(), sms: currentUser.profile.sms.valueOf(), daily: dailyChange, teamAccess: currentUser.profile.teamAccess.valueOf()},
             },
