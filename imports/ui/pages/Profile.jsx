@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
-import {Button, Checkbox, ControlLabel, FormGroup, Glyphicon, Modal, Table} from 'react-bootstrap';
+import {Button, ButtonToolbar, Checkbox, ControlLabel, FormGroup, Glyphicon, Modal, Table, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
 import {Meteor} from 'meteor/meteor';
 import {Accounts} from 'meteor/accounts-base';
 import {Bert} from 'meteor/themeteorchef:bert';
@@ -13,12 +13,15 @@ import 'jquery-validation';
 // Custom File Imports
 import GenericFooter from '../components/GenericFooter';
 import TeamsCollection from "../../api/Teams/Teams";
+import ListOfTeams from '../components/listOfTeams.jsx';
 
 class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            show: false
+            show: false,
+            smsBool: 0,
+            dailyBool: 0
         };
         autoBind(this);
     };
@@ -33,6 +36,23 @@ class Profile extends React.Component {
 
     componentDidMount() {
         const component = this;
+        const currentUser = Meteor.users.findOne({_id: this.props.userId});
+        let sms = currentUser.profile.sms.valueOf();
+        let daily = currentUser.profile.daily.valueOf();
+        console.log("The sms value is "+sms);
+        console.log("The daily value is "+daily);
+        if (sms) {
+            this.setState({smsBool: 1});
+        }
+        else {
+            this.setState({smsBool: 2});
+        }
+        if (daily) {
+            this.setState({dailyBool: 1});
+        }
+        else {
+            this.setState({dailyBool: 2});
+        }
         $(component.form).validate({
             rules: {
                 firstName: {required: false},
@@ -145,9 +165,57 @@ class Profile extends React.Component {
         }[this.getUserType(user)])(loading, user) : <div/>;
     };
 
+    handleView(team) {
+        let currentUser = Meteor.user();
+        if (currentUser !== null) {
+            let check = false;
+            for (let i = 0; i < currentUser.profile.teamAccess.length; i++) {
+                if (team._id === currentUser.profile.teamAccess[i]) {
+                    check = true;
+                }
+            }
+            return check;
+        }
+        else return false;
+    };
+
+    handleSMSChange(e){
+        const id = this.props.userId;
+        console.log(this.state.smsBool);
+        this.setState({smsBool: e.target.value});
+        console.log(this.state.smsBool);
+        let bool = null;
+        if (this.state.smsBool == 1) {
+            bool = true;
+        }
+        else bool = false;
+        Meteor.call('users.handleSMS', id, bool, () => {
+            console.log("We're changing the SMS boolean");
+        });
+    };
+
+    handleDailyChange(e){
+        const id = this.props.userId;
+        console.log(this.state.dailyBool);
+        this.setState({dailyBool: e.target.value});
+        console.log(this.state.dailyBool);
+        let bool = null;
+        if (this.state.dailyBool == 1) {
+            bool = true;
+        }
+        else bool = false;
+        Meteor.call('users.handleDaily', id, bool, () => {
+            console.log("We're changing the Daily boolean");
+        });
+    };
+
 
     render() {
         const {loading, user} = this.props;
+        const teamsList = TeamsCollection.find().fetch();
+        //console.log(teamsList);
+        console.log(this.state.smsBool);
+        console.log(this.state.dailyBool);
         return (
             <div>
                 <Modal show={this.state.show} onHide={this.handleClose}>
@@ -171,12 +239,31 @@ class Profile extends React.Component {
                 </div>
                 <hr/>
                 <form ref={form => (this.form = form)}
-                      onSubmit={event => event.preventDefault()}>{this.renderProfileForm(loading, user)}
+                    onSubmit={event => event.preventDefault()}>{this.renderProfileForm(loading, user)}
                 </form>
+                <hr/>
+                <div className="ProfileFooter">
+                    <h3>Teams you Access</h3>
+                    <ul className="ProfileListTeams">
+                        {teamsList.map((team) => {
+                        return <li key={team._id}>{this.handleView(team) ? team.name + " " + team.season : ''}</li>})}
+                    </ul>
+                </div>
                 {this.props.userRoles[0] === "ADMIN" ?
                 <div>
                 <hr/>
-
+                    <ButtonToolbar>
+                        <ToggleButtonGroup type="radio" name="smsBool" defaultValue={this.state.smsBool} onClick={this.handleSMSChange}>
+                            <ToggleButton value={1}>Receive SMS Alerts</ToggleButton>
+                            <ToggleButton value={2}>No SMS Alerts</ToggleButton>
+                        </ToggleButtonGroup>
+                    </ButtonToolbar>
+                    <ButtonToolbar>
+                        <ToggleButtonGroup type="radio" name="dailyBool" defaultValue={this.state.dailyBool} onClick={this.handleDailyChange}>
+                            <ToggleButton value={1}>Receive Daily Report</ToggleButton>
+                            <ToggleButton value={2}>No Daily Report</ToggleButton>
+                        </ToggleButtonGroup>
+                    </ButtonToolbar>
                 </div> : ''}
             </div>
         );
@@ -190,7 +277,8 @@ Profile.propTypes = {
 
 export default withTracker(() => {
     const subscription = Meteor.subscribe('users.all');
-    const teamsList = TeamsCollection.find().fetch();
+    const teamsListMaster = Meteor.subscribe('teams.all');
+    //const teamsList = TeamsCollection.find().fetch();
 
     return {
         loading: !subscription.ready(),

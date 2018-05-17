@@ -17,8 +17,8 @@ Meteor.methods({
                 season: tSeason,
                 whoCreated: Id,
                 usersAccess: [Id],
-                smsAlertList: [Id],
-                dailyReportList: [Id],
+                //smsAlertList: [Id],
+                //dailyReportList: [Id],
                 createdAt: new Date(),
             })
         } catch (exception) {
@@ -103,23 +103,3 @@ Meteor.methods({
     },
 
 });
-
-// rateLimit({
-//   methods: [
-//     'documents.insert',
-//     'documents.update',
-//     'documents.remove', ],
-//   limit: 5,
-//   timeRange: 1000,
-// });
-// addNewTeam(teamName, teamSeason, id) {
-//   Teams.insert({
-//     name: teamName,
-//     season: teamSeason,
-//     user: id,
-//     createdAt: new Date()
-//   });
-// },
-// deleteTm(id) {
-//   Teams.remove(id);
-// },

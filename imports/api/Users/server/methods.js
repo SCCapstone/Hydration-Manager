@@ -93,7 +93,8 @@ Meteor.methods({
             $set: {
                 profile: {
                     phone: phone,
-                    head: false,
+                    sms: false,
+                    daily: false,
                     teamAccess: [],
                 }
             }
@@ -120,9 +121,27 @@ Meteor.methods({
 
         Meteor.users.update(userId, {
             $set: {
-                profile: {phone: phoneNumber, head: currentUser.profile.head.valueOf(), teamAccess: currentUser.profile.teamAccess.valueOf()},
+                profile: {phone: phoneNumber, sms: currentUser.profile.sms.valueOf(), daily: currentUser.profile.daily.valueOf(),teamAccess: currentUser.profile.teamAccess.valueOf()},
             },
         });
 
+    },
+
+    'users.handleSMS': function usershandleSMS(userID, smsChange) {
+        const currentUser = Meteor.users.findOne({_id: userId});
+        Meteor.users.update(userId, {
+            $set: {
+                profile: {phone: currentUser.profile.phone.valueOf(), sms: smsChange, daily: currentUser.profile.daily.valueOf(),teamAccess: currentUser.profile.teamAccess.valueOf()},
+            },
+        });
+    },
+
+    'users.handleDaily': function usershandleSMS(userID, dailyChange) {
+        const currentUser = Meteor.users.findOne({_id: userId});
+        Meteor.users.update(userId, {
+            $set: {
+                profile: {phone: currentUser.profile.phone.valueOf(), sms: currentUser.profile.sms.valueOf(), daily: dailyChange, teamAccess: currentUser.profile.teamAccess.valueOf()},
+            },
+        });
     },
 });

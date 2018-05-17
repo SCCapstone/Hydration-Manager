@@ -94,44 +94,44 @@ export default class AthleteEntryList extends Component {
             });
             }*/
             const users = Meteor.users.find({}).fetch();
-            let headAdmin = null;
+            let smsList =[];
+            let j = 0;
             for (let i = 0; i < users.length; i++) {
                 console.log(users[i].profile);
-                if (users[i].profile.head === true) {
-                    headAdmin = users[i];
+                if (users[i].profile.sms === true) {
+                    smsList[j] = users[i];
+                    j++;
                 }
             }
-            console.log(headAdmin);
-            const currentPhone = "+" + headAdmin.profile.phone;
+            console.log(smsList);
+            for (let i = 0; i < smsList.length; i++){
+            const currentPhone = "+" + smsList[i].profile.phone;
             console.log(currentPhone);
             Meteor.call('athletes.generateSMS', name, hydration, "red", currentPhone, () => {
                 console.log("We're calling the SMS alert");
             });
+            }
         }
         if ((hydration > -4 && hydration < -3) || (hydration > 3 && hydration < 4)) {
-            //let list = this.listofAlerts;
-            /*for (let i = 0; i < list.length; i++)
-            {
-                Meteor.call('athletes.generateSMS', name, hydration, "red", *phoneNumberVarFromUserObject*, () => {
-                console.log("We're calling the SMS alert");
-            });
-            }*/
             const users = Meteor.users.find({}).fetch();
-            let headAdmin = null;
+            let smsList =[];
+            let j = 0;
             for (let i = 0; i < users.length; i++) {
                 console.log(users[i].profile);
-                if (users[i].profile.head === true) {
-                    headAdmin = users[i];
+                if (users[i].profile.sms === true) {
+                    smsList[j] = users[i];
+                    j++;
                 }
             }
-            console.log(headAdmin);
-            const currentPhone = "+" + headAdmin.profile.phone;
-            console.log(currentPhone);
-            Meteor.call('athletes.generateSMS', name, hydration, "yellow", currentPhone, () => {
-                console.log("We're calling the SMS alert");
-            });
+            console.log(smsList);
+            for (let i = 0; i < smsList.length; i++){
+                const currentPhone = "+" + smsList[i].profile.phone;
+                console.log(currentPhone);
+                Meteor.call('athletes.generateSMS', name, hydration, "yellow", currentPhone, () => {
+                    console.log("We're calling the SMS alert");
+                });
+            }
         }
-        //}, delayInMilliseconds);
     };
 
 
@@ -213,10 +213,10 @@ export default class AthleteEntryList extends Component {
     /*handleWeightChange Function will set weight to e.target.value*/
     handlePreChange() {
         this.setState({preDataState: this.props.athlete.preWeightData});
-    };
+    }
 
     /*handleWeightChange Function will set weight to e.target.value*/
-    handlePostChange() {
+    handlePostChange(){
         this.setState({postDataState: this.props.athlete.postWeightData});
     };
 

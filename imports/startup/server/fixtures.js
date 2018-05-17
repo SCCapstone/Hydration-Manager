@@ -20,7 +20,8 @@ const users = [
         password: 'password',
         profile: {
             phone: '18031234567',
-            head: true,
+            sms: true,
+            daily: true,
             teamAccess: [],
         },
         roles: ['ADMIN'],
@@ -30,7 +31,8 @@ const users = [
         password: 'capstone',
         profile: {
             phone: '18039606328',
-            head: false,
+            sms: false,
+            daily: false,
             teamAccess: []
         },
         roles: ['ADMIN'],

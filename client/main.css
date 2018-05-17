@@ -369,6 +369,18 @@ pre{
 .ProfileForm{
     width: 50%;
 }
+
+.ProfileListTeams{
+    list-style-type: none;
+    display: inline-block;
+}
+
+.ProfileFooter h3{
+    float: left;
+    margin: 0;
+    line-height: 1.42857;
+}
+
 /*Mobile View CSS */
 @media (max-width: 826px) {
 
