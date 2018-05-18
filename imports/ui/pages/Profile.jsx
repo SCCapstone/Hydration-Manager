@@ -2,18 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
-import {
-    Button,
-    ButtonToolbar,
-    Checkbox,
-    ControlLabel,
-    FormGroup,
-    Glyphicon,
-    Modal,
-    Table,
-    ToggleButton,
-    ToggleButtonGroup
-} from 'react-bootstrap';
+import {Button, ButtonToolbar, ControlLabel, FormGroup, Modal, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
 import {Meteor} from 'meteor/meteor';
 import {Accounts} from 'meteor/accounts-base';
 import {Bert} from 'meteor/themeteorchef:bert';
@@ -24,7 +13,6 @@ import 'jquery-validation';
 // Custom File Imports
 import GenericFooter from '../components/GenericFooter';
 import TeamsCollection from "../../api/Teams/Teams";
-import ListOfTeams from '../components/listOfTeams.jsx';
 
 class Profile extends React.Component {
     constructor(props) {
@@ -105,8 +93,7 @@ class Profile extends React.Component {
     handleDeleteAccount() {
         const id = this.props.userId;
         let teams = this.teamsList;
-        {/*TODO: Remove this user from all teams access list for cleanup of arrays*/
-        }
+        {/*TODO: Remove this user from all teams access list for cleanup of arrays*/}
         Meteor.call('users.deleteAccount', id, (error) => {
             if (error) {
                 Bert.alert(error.reason, 'danger', 'growl-top-left', 'fa-remove');
