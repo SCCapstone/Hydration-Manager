@@ -7,6 +7,7 @@ import {Meteor} from 'meteor/meteor';
 import {Accounts} from 'meteor/accounts-base';
 import {Bert} from 'meteor/themeteorchef:bert';
 import {withTracker} from 'meteor/react-meteor-data';
+import {debounce} from 'throttle-debounce';
 import $ from 'jquery';
 import 'jquery-validation';
 
@@ -33,54 +34,68 @@ class Profile extends React.Component {
         this.setState({show: true});
     }
 
+    handleDebounce() {
+
+    }
+
     componentDidMount() {
-        const component = this;
-        const currentUser = Meteor.users.findOne({_id: this.props.userId});
-        let sms = currentUser.profile.sms.valueOf();
-        let daily = currentUser.profile.daily.valueOf();
-        //console.log("The sms value is " + sms);
-        //console.log("The daily value is " + daily);
-        if (sms) {
-            this.setState({smsBool: 1});
-        }
-        else {
-            this.setState({smsBool: 2});
-        }
-        if (daily) {
-            this.setState({dailyBool: 1});
-        }
-        else {
-            this.setState({dailyBool: 2});
-        }
-        $(component.form).validate({
-            rules: {
-                firstName: {required: false},
-                lastName: {required: false},
-                emailAddress: {required: true, email: true},
-                currentPassword: {
-                    required() {
-                        // Only required if newPassword field has a value.
-                        return component.form.newPassword.value.length > 0;
+        debounce(5000, true, function() {
+            const component = this;
+            const currentUser = Meteor.users.findOne({_id: this.props.userId});
+            let sms = false;
+            let daily = false;
+            if (currentUser.profile.sms.valueOf() !== undefined && currentUser.profile.daily.valueOf() !== undefined) {
+                sms = currentUser.profile.sms.valueOf();
+                daily = currentUser.profile.daily.valueOf();
+            }
+            else {
+                sms = true;
+                daily = true;
+            }
+            //console.log("The sms value is " + sms);
+            //console.log("The daily value is " + daily);
+            if (sms) {
+                this.setState({smsBool: 1});
+            }
+            else {
+                this.setState({smsBool: 2});
+            }
+            if (daily) {
+                this.setState({dailyBool: 1});
+            }
+            else {
+                this.setState({dailyBool: 2});
+            }
+            $(component.form).validate({
+                rules: {
+                    firstName: {required: false},
+                    lastName: {required: false},
+                    emailAddress: {required: true, email: true},
+                    currentPassword: {
+                        required() {
+                            // Only required if newPassword field has a value.
+                            return component.form.newPassword.value.length > 0;
+                        },
+                    },
+                    newPassword: {
+                        required() {
+                            // Only required if currentPassword field has a value.
+                            return component.form.currentPassword.value.length > 0;
+                        },
                     },
                 },
-                newPassword: {
-                    required() {
-                        // Only required if currentPassword field has a value.
-                        return component.form.currentPassword.value.length > 0;
-                    },
+                messages: {
+                    firstName: {required: 'What\'s your first name?'},
+                    lastName: {required: 'What\'s your last name?'},
+                    emailAddress: {required: 'Need an email address here.', email: 'Is this email address correct?'},
+                    currentPassword: {required: 'Need your current password if changing.'},
+                    newPassword: {required: 'Need your new password if changing.'},
                 },
-            },
-            messages: {
-                firstName: {required: 'What\'s your first name?'},
-                lastName: {required: 'What\'s your last name?'},
-                emailAddress: {required: 'Need an email address here.', email: 'Is this email address correct?'},
-                currentPassword: {required: 'Need your current password if changing.'},
-                newPassword: {required: 'Need your new password if changing.'},
-            },
-            submitHandler() {
-                component.handleSubmit(component.form);
-            },
-        });
+                submitHandler() {
+                    component.handleSubmit(component.form);
+                },
+            });
+        })
     };
 
     getUserType(user) {
